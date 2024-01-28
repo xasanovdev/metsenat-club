@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <p class="text-indigo-700 font-mono">salom</p>
+  <router-view></router-view>
 </template>
 
 <style scoped></style>
