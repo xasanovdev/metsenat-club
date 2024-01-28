@@ -355,11 +355,8 @@
                 <td class="py-3 px-4 text-center">{{ item.given }}</td>
 
                 <td class="py-3 px-4 text-center">{{ item.contract }}</td>
-                <td class="py-3 px-4 text-center">
-                  {{ item.get_status_display }}
-                </td>
                 <td class="py-3 px-4 text-center flex items-center justify-center">
-                  <router-link :to="`/sponsors/${item.id}`">
+                  <router-link :to="`/students/${item.id}`">
                     <img src="../../../public/eye.svg" alt="asfsa" />
                   </router-link>
                 </td>

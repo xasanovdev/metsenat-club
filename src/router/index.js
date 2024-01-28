@@ -37,38 +37,36 @@ const router = createRouter({
         {
           path: '/students',
           name: 'Students',
-
           component: () => import('@/views/Dashboard/views/Students/StudentsView.vue'),
-          meta: { requiresAuth: true, title: 'Students', layout: 'Dashboard' },
+          meta: { requiresAuth: true, title: 'Students', layout: 'Dashboard' }
+        },
+        {
+          path: '/students/:id',
+          name: 'Student',
+          component: () => import('@/views/Dashboard/views/Students/StudentDetails.vue'),
+          meta: { layout: 'Details', requiresAuth: true },
           children: [
             {
-              path: '/students/:id',
-              name: 'Student',
-              component: () => import('@/views/Dashboard/views/Students/StudentDetails.vue'),
-              meta: { layout: 'Details', requiresAuth: true },
-              children: [
-                {
-                  path: '/students/:id/edit',
-                  name: 'EditStudent',
-                  component: () => import('@/views/Dashboard/views/Students/EditStudentView.vue'),
-                  meta: { layout: 'Details', requiresAuth: true }
-                },
-                {
-                  path: '/students/:id/add-sponsor',
-                  name: 'AddSponsor',
-                  component: () => import('@/views/Dashboard/views/Students/AddSponsorView.vue'),
-                  meta: { layout: 'Details', requiresAuth: true }
-                },
-                {
-                  path: '/students/:id/edit-sponsor',
-                  name: 'EditSponsor',
-                  component: () => import('@/views/Dashboard/views/Students/EditSponsorView.vue'),
-                  meta: { layout: 'Details', requiresAuth: true }
-                }
-              ]
+              path: '/students/:id/edit',
+              name: 'EditStudent',
+              component: () => import('@/views/Dashboard/views/Students/EditStudentView.vue'),
+              meta: { layout: 'Details', requiresAuth: true }
+            },
+            {
+              path: '/students/:id/add-sponsor',
+              name: 'AddSponsor',
+              component: () => import('@/views/Dashboard/views/Students/AddSponsorView.vue'),
+              meta: { layout: 'Details', requiresAuth: true }
+            },
+            {
+              path: '/students/:id/edit-sponsor',
+              name: 'EditSponsor',
+              component: () => import('@/views/Dashboard/views/Students/EditSponsorView.vue'),
+              meta: { layout: 'Details', requiresAuth: true }
             }
           ]
         },
+
         {
           path: '/sponsors',
           name: 'Sponsors',
