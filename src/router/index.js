@@ -23,11 +23,16 @@ const router = createRouter({
     },
     {
       path: '/dashboard',
-      name: 'Dashboard',
-      component: Dashboard,
+      name: 'Home',
+      component: () => import('@/views/Home/HomeView.vue'),
       meta: { requiresAuth: true },
-
       children: [
+        {
+          path: '',
+          name: 'Dashboard',
+          component: Dashboard,
+          meta: { requiresAuth: true }
+        },
         {
           path: '/students',
           name: 'Students',
@@ -61,6 +66,12 @@ const router = createRouter({
               ]
             }
           ]
+        },
+        {
+          path: '/sponsors',
+          name: 'Sponsors',
+          component: () => import('@/views/Dashboard/views/Sponsors/SponsorsView.vue'),
+          meta: { requiresAuth: true }
         }
       ]
     }
