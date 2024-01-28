@@ -19,7 +19,8 @@ const router = createRouter({
     {
       path: '/auth',
       name: 'Auth',
-      component: Login
+      component: Login,
+      meta: { layout: 'Auth' }
     },
     {
       path: '/dashboard',
@@ -31,37 +32,38 @@ const router = createRouter({
           path: '',
           name: 'Dashboard',
           component: Dashboard,
-          meta: { requiresAuth: true }
+          meta: { layout: 'Dashboard', requiresAuth: true }
         },
         {
           path: '/students',
           name: 'Students',
+
           component: () => import('@/views/Dashboard/views/Students/StudentsView.vue'),
-          meta: { requiresAuth: true },
+          meta: { requiresAuth: true, title: 'Students', layout: 'Dashboard' },
           children: [
             {
               path: '/students/:id',
               name: 'Student',
               component: () => import('@/views/Dashboard/views/Students/StudentDetails.vue'),
-              meta: { requiresAuth: true },
+              meta: { layout: 'Details', requiresAuth: true },
               children: [
                 {
                   path: '/students/:id/edit',
                   name: 'EditStudent',
                   component: () => import('@/views/Dashboard/views/Students/EditStudentView.vue'),
-                  meta: { requiresAuth: true }
+                  meta: { layout: 'Details', requiresAuth: true }
                 },
                 {
                   path: '/students/:id/add-sponsor',
                   name: 'AddSponsor',
                   component: () => import('@/views/Dashboard/views/Students/AddSponsorView.vue'),
-                  meta: { requiresAuth: true }
+                  meta: { layout: 'Details', requiresAuth: true }
                 },
                 {
                   path: '/students/:id/edit-sponsor',
                   name: 'EditSponsor',
                   component: () => import('@/views/Dashboard/views/Students/EditSponsorView.vue'),
-                  meta: { requiresAuth: true }
+                  meta: { layout: 'Details', requiresAuth: true }
                 }
               ]
             }
@@ -71,7 +73,26 @@ const router = createRouter({
           path: '/sponsors',
           name: 'Sponsors',
           component: () => import('@/views/Dashboard/views/Sponsors/SponsorsView.vue'),
-          meta: { requiresAuth: true }
+          meta: { requiresAuth: true, layout: 'Dashboard', title: 'Sponsors' },
+          children: [
+            {
+              path: '/sponsors/filter',
+              name: 'SponsorsFilter',
+              component: () => import('@/views/Dashboard/views/Sponsors/FilterView.vue'),
+              meta: {
+                requiresAuth: true,
+                layout: 'Details',
+                title: 'Sponsors',
+                modalType: 'SponsorsFilter'
+              }
+            }
+          ]
+        },
+        {
+          path: '/sponsors/:id',
+          name: 'SponsorDetails',
+          component: () => import('@/views/Dashboard/views/Sponsors/SponsorDetails.vue'),
+          meta: { layout: 'Details', requiresAuth: true }
         }
       ]
     }

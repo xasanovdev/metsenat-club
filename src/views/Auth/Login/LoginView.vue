@@ -37,10 +37,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-import { useAuth } from '@/composables/useAuth/useAuth'
-import router from '@/router'
+import { useAuth } from '@/composables/useAuth/useAuth';
+import router from '@/router';
 
 const { login } = useAuth()
 

@@ -5,6 +5,8 @@ import {
   ref,
 } from 'vue';
 
+const BASE_URL = 'https://metsenatclub.xn--h28h.uz/api/v1/'
+
 export function useFetch(url) {
   const data = ref(null)
   const error = ref(null)
@@ -16,7 +18,9 @@ export function useFetch(url) {
     try {
       loading.value = true
 
-      const response = await fetch(`${url}?page=${currentPage.value}&pageSize=${pageSize.value}`)
+      const response = await fetch(
+        `${BASE_URL}${url}?page=${currentPage.value}&pageSize=${pageSize.value}`
+      )
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`)
       }
