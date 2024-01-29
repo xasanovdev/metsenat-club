@@ -42,8 +42,6 @@ import { ref } from 'vue';
 
 const props = defineProps(['modalValue', 'closeModal','closeModalOverlay'])
 
-console.log(props);
-
 const isLoading = ref(false)
 </script>
 
