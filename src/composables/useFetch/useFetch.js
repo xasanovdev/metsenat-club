@@ -1,64 +1,53 @@
-// useFetch.js
-import {
-  onMounted,
-  onUnmounted,
-  ref,
-} from 'vue';
+import router from "@/router";
+import { ref } from "vue";
 
-const BASE_URL = 'https://metsenatclub.xn--h28h.uz/api/v1/'
+export const useFetch = () => {
+  const baseUrl = 'https://metsenatclub.xn--h28h.uz/api/v1';
+  const loading = ref(false);
 
-export function useFetch(url) {
-  const data = ref(null)
-  const error = ref(null)
-  const loading = ref(false)
-  const currentPage = ref(1)
-  const pageSize = ref(10)
+  const axios = (url, options) => {
+    loading.value = true;
+    return new Promise((resolve, reject) => {
+      fetch(`${baseUrl}/${url}`, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+        ...options,
+      })
+        .then((res) => res.json())
+        .then((data) => resolve(data))
+        .catch((err) => {
+          reject(err);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            loading.value = false;
+          },1000)
+        });
+    });
+  };
 
-  const fetchData = async () => {
-    try {
-      loading.value = true
+  const get = (url, params = {}) => {
+    const queryParams = new URLSearchParams(params).toString();
+    const fullUrl = queryParams ? `${url}?${queryParams}` : url;
 
-      const response = await fetch(
-        `${BASE_URL}${url}?page=${currentPage.value}&pageSize=${pageSize.value}`
-      )
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`)
-      }
+    console.log(fullUrl);
+    return axios(fullUrl);
+  };
 
-      const result = await response.json()
-      data.value = result
-    } catch (err) {
-      error.value = err.message
-    } finally {
-      setTimeout(() => {
-        loading.value = false
-      }, 1000)
-    }
-  }
 
-  onMounted(() => {
-    fetchData()
-  })
-
-  onUnmounted(() => {
-    // Clean up, if needed
-  })
-
-  const setPage = (page) => {
-    currentPage.value = page
-    fetchData()
-  }
-
-  const setPageSize = (size) => {
-    pageSize.value = size
-    fetchData()
-  }
+  const post = (url, body) => {
+    return axios(url, {
+      method: 'POST',
+      body,
+    });
+  };
 
   return {
-    data,
-    error,
+    get,
+    post,
     loading,
-    setPage,
-    setPageSize
-  }
-}
+  };
+};

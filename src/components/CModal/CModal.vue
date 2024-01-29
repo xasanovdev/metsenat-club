@@ -40,9 +40,10 @@
 <script setup>
 import { ref } from 'vue';
 
-import { useModal } from '@/composables/useModal/useModal';
+const props = defineProps(['modalValue', 'closeModal','closeModalOverlay'])
 
-const { closeModal, closeModalOverlay } = useModal()
+console.log(props);
+
 const isLoading = ref(false)
 </script>
 

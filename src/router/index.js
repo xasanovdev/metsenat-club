@@ -34,6 +34,7 @@ const router = createRouter({
           component: Dashboard,
           meta: { layout: 'Dashboard', requiresAuth: true }
         },
+
         {
           path: '/students',
           name: 'Students',
@@ -44,53 +45,23 @@ const router = createRouter({
           path: '/students/:id',
           name: 'Student',
           component: () => import('@/views/Dashboard/views/Students/StudentDetails.vue'),
-          meta: { layout: 'Details', requiresAuth: true },
-          children: [
-            {
-              path: '/students/:id/edit',
-              name: 'EditStudent',
-              component: () => import('@/views/Dashboard/views/Students/EditStudentView.vue'),
-              meta: { layout: 'Details', requiresAuth: true }
-            },
-            {
-              path: '/students/:id/add-sponsor',
-              name: 'AddSponsor',
-              component: () => import('@/views/Dashboard/views/Students/AddSponsorView.vue'),
-              meta: { layout: 'Details', requiresAuth: true }
-            },
-            {
-              path: '/students/:id/edit-sponsor',
-              name: 'EditSponsor',
-              component: () => import('@/views/Dashboard/views/Students/EditSponsorView.vue'),
-              meta: { layout: 'Details', requiresAuth: true }
-            }
-          ]
+          meta: { layout: 'Dashboard', requiresAuth: true },
         },
+
+        
 
         {
           path: '/sponsors',
           name: 'Sponsors',
           component: () => import('@/views/Dashboard/views/Sponsors/SponsorsView.vue'),
           meta: { requiresAuth: true, layout: 'Dashboard', title: 'Sponsors' },
-          children: [
-            {
-              path: '/sponsors/filter',
-              name: 'SponsorsFilter',
-              component: () => import('@/views/Dashboard/views/Sponsors/FilterView.vue'),
-              meta: {
-                requiresAuth: true,
-                layout: 'Details',
-                title: 'Sponsors',
-                modalType: 'SponsorsFilter'
-              }
-            }
-          ]
+
         },
         {
           path: '/sponsors/:id',
           name: 'SponsorDetails',
           component: () => import('@/views/Dashboard/views/Sponsors/SponsorDetails.vue'),
-          meta: { layout: 'Details', requiresAuth: true }
+          meta: { layout: 'Dashboard', requiresAuth: true }
         }
       ]
     }

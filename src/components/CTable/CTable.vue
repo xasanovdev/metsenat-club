@@ -378,7 +378,7 @@
             'border-[#E0E7FF]': currentPage === 1,
             'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300': currentPage !== 1
           }"
-          @click="setPage(currentPage--)"
+          @click="fetchData(currentPage--)"
           :disabled="currentPage === 1"
         >
           <img class="rotate-180" src="../../../public/arrow.svg" alt="asfsa" />
@@ -392,7 +392,7 @@
               currentPage !== Math.ceil(data?.count / 10)
           }"
           class="p-2 rounded-md border-2 duration-200"
-          @click="setPage(currentPage++)"
+          @click="fetchData(currentPage++)"
           :disabled="currentPage === Math.ceil(data?.count / 10)"
         >
           <img src="../../../public/arrow.svg" alt="asfsa" />
@@ -403,39 +403,35 @@
 </template>
 
 <script setup>
-import {
-  ref,
-  watch,
-} from 'vue';
-
-import { useRoute } from 'vue-router';
-
+import { ref, onMounted } from 'vue';
 import { useFetch } from '@/composables/useFetch/useFetch';
 import { formatDate } from '@/utils/formatDate';
+import { useRoute } from 'vue-router';
 
 const route = useRoute()
 const metaValue = ref('')
 metaValue.value = route.meta.title
 
-const { data, loading, setPage } = useFetch(
-  metaValue.value === 'Students' ? 'student-list/' : 'sponsor-list/'
-)
 
-const currentPage = ref(1)
 
-const getData = () => {
-  setPage(currentPage.value)
-}
+const { get, loading } = useFetch();
+const data = ref(null);
+const currentPage = ref(1);
+const totalPages = ref(1);
 
-watch(
-  () => route.meta.title,
-  (newValue) => {
-    metaValue.value = newValue
-    // Update the fetch URL when metaValue changes
-    const fetchPath = newValue === 'students' ? 'student-list/' : 'sponsor-list/'
-    setPage(currentPage.value, fetchPath)
+const fetchData = async (page) => {
+  try {
+    const response = await get(`${metaValue.value === 'Students' ? 'student-list/' : 'sponsor-list/'}`, { page: page });
+    data.value = response;
+    currentPage.value = page;
+    totalPages.value = response.count;
+  } catch (error) {
+    console.error('Error fetching data:', error);
   }
-)
+};
 
-getData()
+onMounted(() => {
+  fetchData(currentPage.value);
+});
 </script>
+
