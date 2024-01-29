@@ -28,3 +28,7 @@ body,html {
   background-size: 820px 614px;
   background-repeat: no-repeat;
 }
+#app {
+  width: 100%;
+  height: 100%;
+}

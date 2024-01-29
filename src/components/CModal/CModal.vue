@@ -10,7 +10,7 @@
     >
       <div
         @click.stop
-        class="modal-content bg-white w-[600px] p-7 max-h-[85vh] overflow-y-auto rounded-xl"
+        class="modal-content bg-white w-[640px] p-7 max-h-[85vh] overflow-y-auto rounded-xl"
       >
         <div class="flex items-center justify-between">
           <div class="font-bold text-2xl">
@@ -23,13 +23,13 @@
         </div>
         <hr class="my-7" />
 
-        <div class="px-6 py-4">
+        <div class="">
           <slot name="body"></slot>
         </div>
 
         <hr class="my-7" />
 
-        <div class="flex items-center justify-end px-6 py-4">
+        <div class="flex items-center justify-end gap-4">
           <slot name="footer"></slot>
         </div>
       </div>

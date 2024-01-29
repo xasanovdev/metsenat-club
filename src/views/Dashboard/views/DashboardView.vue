@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="py-6 w-full flex items-center justify-center">
       <div

@@ -10,6 +10,9 @@
   </template> 
 
   <template v-else>
+    <EditSponsorModal v-show="editSponsorModal.modalValue" :modalValue="editSponsorModal.modalValue" :closeModalOverlay="editSponsorModal.closeModalOverlay" :closeModal="editSponsorModal.closeModal">Edit Modal</EditSponsorModal>
+
+
     <header class="w-full py-[30px] bg-[#FDFDFD]">
       <div class="max-w-[1200px] mx-auto px-6">
         <div class="w-full flex items-center gap-4">
@@ -26,7 +29,7 @@
       <article class="max-w-[793px] bg-white p-8 mx-auto rounded-xl">
         <div class="flex items-start sm:items-center flex-col gap-8 sm:flex-row sm:gap-0 justify-between">
           <p class="text-[#28293D] text-2xl font-bold ">Homiy haqida</p>
-          <CButton text="Tahrirlash" class="px-8" variant="primary">
+          <CButton @click="editSponsorModal.openModal" text="Tahrirlash" class="px-8" variant="primary">
             <img src="../../../../../public/pen.svg" alt="">
           </CButton>
         </div>
@@ -60,6 +63,15 @@ import CButton from '@/components/CButton/CButton.vue'
 
 
 import CBadge from '@/components/CBadge/CBadge.vue'
+import EditSponsorModal from './EditSponsorModal.vue'
+import { useModal } from '@/composables/useModal/useModal';
+
+const {modal} = useModal()
+
+const editSponsorModal = modal()
+
+console.log(editSponsorModal);
+
 
 
 const route = useRoute()

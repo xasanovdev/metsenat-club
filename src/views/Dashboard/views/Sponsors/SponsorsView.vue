@@ -28,7 +28,7 @@
             placeholder="Qidirish"
             class="md:max-w-[284px] py-[15px] w-full"
           />
-          <CButton @click="filterModal.openModal" class variant="primary" text="Filter">
+          <CButton @click="filterModal.openModal" variant="primary" class="px-8" text="Filter">
             <img src="../../../../../public/filter.svg" alt="asfsa" />
           </CButton>
         </div>
