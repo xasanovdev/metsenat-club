@@ -24,8 +24,9 @@
         </div>
       </div>
     </header>
-    <div class="w-full h-full p-[32px] bg-[#F5F5F7]">
-      <article class="max-w-[793px] bg-white p-8 mx-auto rounded-xl">
+    <div class="w-full h-full p-[32px] bg-[#F5F5F7] flex flex-col justify-between">
+      <div>
+        <article class="max-w-[793px] w-full bg-white p-8 mx-auto rounded-xl">
         <div class="flex items-start sm:items-center flex-col gap-8 sm:flex-row sm:gap-0 justify-between">
           <p class="text-[#28293D] text-2xl font-bold ">Talaba haqida</p>
           <CButton @click="editStudentModal.openModal" text="Tahrirlash" class="px-8" variant="primary">
@@ -96,9 +97,10 @@
             </thead>
           </table>
         </div>
-      </article>    
+      </article>  
+      </div>
 
-      <img class="mx-auto mb-0" src="../../../../../public/bgImage.svg" alt="">
+      <img class="mx-auto -mb-10" src="../../../../../public/bgImage.svg" alt="">
     </div>
   </template>
 

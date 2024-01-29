@@ -25,8 +25,8 @@
       </div>
     </header>
 
-    <div class="w-full details-content h-full p-[32px] bg-[#F5F5F7]">
-      <article class="max-w-[793px] bg-white p-8 mx-auto rounded-xl">
+    <div class="w-full h-full p-[32px] bg-[#F5F5F7] flex flex-col justify-between">
+      <article class="max-w-[793px] w-full bg-white p-8 mx-auto rounded-xl">
         <div class="flex items-start sm:items-center flex-col gap-8 sm:flex-row sm:gap-0 justify-between">
           <p class="text-[#28293D] text-2xl font-bold ">Homiy haqida</p>
           <CButton @click="editSponsorModal.openModal" text="Tahrirlash" class="px-8" variant="primary">
@@ -50,6 +50,7 @@
           </div>
         </div>
       </article>    
+      <img class="mx-auto -mb-10" src="../../../../../public/bgImage.svg" alt="">
     </div>
   </template>
 
