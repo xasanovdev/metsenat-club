@@ -1,43 +1,35 @@
 <template>
   <button
-    :class="{
-      'duration-200  bg-[#3366FF] font-bold text-white': isActive
-    }"
-    class="w-full flex items-center justify-center gap-[10px] py-[14px] border-2 border-[#E0E7FF] hover:border-indigo-300 duration-200 hover:bg-indigo-50 font-bold hover:text-indigo-300 text-[#3366FF99] border-[3E0E7FF]"
-    @click="navigateToPath"
+    :class="[
+      'font-semibold tracking-wide py-[14px] rounded-md duration-200 flex items-center justify-center gap-[10px]',
+      styles[variant],
+      sizes[size],
+      { 'cursor-not-allowed opacity-50': loading },
+    ]"
+    :disabled="loading"
   >
-    <slot />
-
-    {{ buttonText }}
+    <template v-if="!loading">
+      <slot></slot>
+      {{ text }}
+    </template>
+    <template v-else> Loading... </template>
   </button>
 </template>
 
-<script>
-export default {
-  props: {
-    path: {
-      type: String,
-      default:''
-    },
-    buttonText: {
-      type: String,
-      default: 'Dashboard'
-    }
-  },
-  computed: {
-    isActive() {
-      return this.$route.path === this.path
-    }
-  },
-  methods: {
-    navigateToPath() {
-      // Use the Vue Router to navigate to the specified path
-      this.$router.push(this.path)
-    }
-  }
-}
+<script setup>
+const props = defineProps(['variant', 'size', 'loading','text']);
+
+const styles = {
+  primary: 'hover:bg-light1 bg-[#EDF1FD] text-[#3365FC] hover:bg-opacity-60',
+  violet: 'bg-primary text-white hover:bg-[#9277FF]',
+  danger: 'bg-danger text-white hover:bg-[#FF9797]',
+};
+
+const sizes = {
+  sm: 'text-md p-2',
+  md: 'text-md p-4',
+  lg: 'text-lg p-6',
+};
 </script>
 
-<style scoped>
-/* Add any additional styling specific to this component */
-</style>
+<style></style>

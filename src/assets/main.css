@@ -22,4 +22,9 @@ body,html {
   width: 100%;
 }
 
-
+.details-content {
+  background-image: url('../../public/bgImage.svg');
+  background-position: center bottom;
+  background-size: 820px 614px;
+  background-repeat: no-repeat;
+}

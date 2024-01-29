@@ -9,13 +9,13 @@
           class="flex items-center text-center rounded-md overflow-hidden justify-center w-full md:max-w-[579px]"
         >
           <router-link class="flex-1 inline-block" to="/dashboard">
-            <CButton path="/dashboard" buttonText="Dashboard" />
+            <CTabButton path="/dashboard" buttonText="Dashboard" />
           </router-link>
           <router-link class="flex-1 inline-block" to="/sponsors">
-            <CButton path="/sponsors" buttonText="Homiylar" />
+            <CTabButton path="/sponsors" buttonText="Homiylar" />
           </router-link>
           <router-link class="flex-1 inline-block" to="/students">
-            <CButton path="/students" buttonText="Talabalar" />
+            <CTabButton path="/students" buttonText="Talabalar" />
           </router-link>
         </div>
         <div class="flex w-full items-center justify-end gap-4 md:gap-5">
@@ -26,9 +26,9 @@
           />
 
           <router-link class="inline-block" to="/sponsors/filter">
-            <CButton path="/sponsors/filter" class="flex-1 px-8 w-full" buttonText="Filter">
+            <CTabButton path="/sponsors/filter" class="flex-1 px-8 w-full" buttonText="Filter">
               <img class="/sponsors/filter" src="../../../../../public/filter.svg" alt="asfsa" />
-            </CButton>
+            </CTabButton>
           </router-link>
         </div>
       </div>
@@ -42,7 +42,7 @@
 </template>
 <script setup>
 
-import CButton from '@/components/CButton/CButton.vue';
+import CTabButton from '@/components/CTabButton/CTabButton.vue';
 import CInput from '@/components/CInput/CInput.vue';
 
 import { ref } from 'vue';

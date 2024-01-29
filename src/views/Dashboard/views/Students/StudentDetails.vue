@@ -1,7 +1,157 @@
-<script setup></script>
-
 <template>
-  <div>Salom</div>
 
-  
+  <template v-if="loading">
+    <article class="w-full py-[30px] bg-[#FDFDFD]">
+      <div class="max-w-[1200px] mx-auto px-6">
+        loading...
+      </div>
+
+    </article>
+  </template> 
+
+  <template v-else>
+    <EditModal v-show="editModal.modalValue" :modalValue="editModal.modalValue" :closeModalOverlay="editModal.closeModalOverlay" :closeModal="editModal.closeModal">Edit Modal</EditModal>
+    
+    header class="w-full py-[30px] bg-[#FDFDFD]">
+      <div class="max-w-[1200px] mx-auto px-6">
+        <div class="w-full flex items-center gap-4">
+          <div class="cursor-pointer" @click="$router.go(-1)">
+            <img src="../../../../../public/back.svg" alt="">
+          </div>
+          <p class="text-[#28293D] text-2xl font-bold ">{{ data?.full_name }}</p>
+          <CBadge :status="data?.get_status_display"></CBadge>
+        </div>
+      </div>
+    </header>
+    <div class="w-full h-full p-[32px] bg-[#F5F5F7]">
+      <article class="max-w-[793px] bg-white p-8 mx-auto rounded-xl">
+        <div class="flex items-start sm:items-center flex-col gap-8 sm:flex-row sm:gap-0 justify-between">
+          <p class="text-[#28293D] text-2xl font-bold ">Talaba haqida</p>
+          <CButton @click="editModal.openModal" text="Tahrirlash" class="px-8" variant="primary">
+            <img src="../../../../../public/pen.svg" alt="">
+          </CButton>
+        </div>
+        <!-- Divider -->
+        <div class="w-full flex items-center justify-start mt-6">
+          <div class="absoulte w-full h-[1px] bg-[#E4E8F0]"></div>
+          <p class="absolute bg-[#E5EBFF] py-[2px] px-[11px] rounded-md text-[#3366FF] font-medium text-[12px]">Asosiy ma’lumotlar</p>
+        </div>
+
+        <div class="flex items-center gap-5 mt-8">
+          <div class="bg-[#EAECF0] w-16 h-16 flex items-center justify-center rounded-md">
+            <img class="p-4" src="../../../../../public/person.svg" alt="">
+          </div>
+          <p class="text-[#212121] max-w-[163px] font-bold">{{ data?.full_name }}</p>
+        </div>
+        <div class="flex w-full flex-col gap-8 sm:flex-row sm:gap-0 mt-6 justify-between">
+          <div class="flex flex-col items-start gap-3">
+            <p class=" uppercase text-[#B5B5C3] text-sm ">telefon raqam</p>
+            <p class="text-[#212121] font-medium">{{ data?.phone }}</p>
+          </div>
+        </div>
+        <!-- Divider -->
+        <div class="w-full flex items-center justify-start mt-6">
+          <div class="absoulte w-full h-[1px] bg-[#E4E8F0]"></div>
+          <p class="absolute bg-[#E5EBFF] py-[2px] px-[11px] rounded-md text-[#3366FF] font-medium text-[12px]">O‘qish joyi haqida ma’lumot</p>
+        </div>
+
+        <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-6 mt-8">
+          <div class="flex flex-col items-start gap-2">
+            <p class=" uppercase text-[#B5B5C3] text-sm ">OTM</p>
+            <p class="text-[#212121] font-medium">{{ data?.institute.name }}</p>
+          </div>
+          <div class="flex flex-col items-start gap-2">
+            <p class=" uppercase text-[#B5B5C3] text-sm ">Talabalik turi</p>
+            <p class="text-[#212121] font-medium">{{ data?.type === 1 ? 'Bakalavr' : 'Magistr' }}</p>
+          </div>
+          <div class="flex flex-col items-start gap-2">
+            <p class=" uppercase text-[#B5B5C3] text-sm ">Ajratilingan summa</p>
+            <p class="text-[#212121] font-medium">{{ data?.given }}</p>
+          </div>
+          <div class="flex flex-col items-start gap-2">
+            <p class=" uppercase text-[#B5B5C3] text-sm ">Kontrakt miqdori</p>
+            <p class="text-[#212121] font-medium">{{ data?.contract }}</p>
+          </div>
+        </div>
+      </article>    
+
+      <article class="max-w-[793px] bg-white p-8 mx-auto rounded-xl mt-10">
+        <div class="flex items-start sm:items-center flex-col gap-8 sm:flex-row sm:gap-0 justify-between">
+          <p class="text-[#28293D] text-2xl font-bold ">Talabaga homiylar</p>
+          <CButton text="Homiy qo‘shish" class="px-8" variant="primary">
+            <img src="../../../../../public/plus.svg" alt="">
+          </CButton>
+        </div>
+        <!-- Divider -->
+        <div class="w-full flex items-center justify-start mt-6">
+          <div class="absoulte w-full h-[1px] bg-[#E4E8F0]"></div>
+          <p class="absolute bg-[#E5EBFF] py-[2px] px-[11px] rounded-md text-[#3366FF] font-medium text-[12px]">Asosiy ma’lumotlar</p>
+        </div>
+
+        <div>
+          <table>
+            <thead>
+
+            </thead>
+          </table>
+        </div>
+      </article>    
+
+      <img class="mx-auto mb-0" src="../../../../../public/bgImage.svg" alt="">
+    </div>
+  </template>
+
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useFetch } from '@/composables/useFetch/useFetch';
+import { useRoute } from 'vue-router';
+import CButton from '@/components/CButton/CButton.vue'
+
+
+import CBadge from '@/components/CBadge/CBadge.vue'
+
+import EditModal from './EditStudentModal.vue'
+
+
+const route = useRoute()
+const metaValue = ref(route.meta.title)
+console.log(metaValue.value);
+const pageId = ref(route.params.id)
+
+import { useModal } from '@/composables/useModal/useModal';
+
+const {modal} = useModal()
+
+const editModal = modal()
+
+console.log(editModal);
+
+
+
+
+const { get, loading } = useFetch();
+const data = ref(null);
+const sponsors = ref(null);
+
+
+const fetchData = async () => {
+  try {
+    const response = await get(`${`student-detail/${pageId.value}`}`);
+    const studentSponsors = await get(`${`student-sponsor/${pageId.value}`}`);
+    sponsors.value = studentSponsors
+    data.value = response;
+
+    console.log(sponsors.value);
+    console.log(data.value);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+onMounted(() => {
+  fetchData();
+});
+
+</script>

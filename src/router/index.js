@@ -34,7 +34,6 @@ const router = createRouter({
           component: Dashboard,
           meta: { layout: 'Dashboard', requiresAuth: true }
         },
-
         {
           path: '/students',
           name: 'Students',
@@ -45,23 +44,19 @@ const router = createRouter({
           path: '/students/:id',
           name: 'Student',
           component: () => import('@/views/Dashboard/views/Students/StudentDetails.vue'),
-          meta: { layout: 'Dashboard', requiresAuth: true },
+          meta: { layout: 'Dashboard', title: 'StudentDetails', requiresAuth: true },
         },
-
-        
-
         {
           path: '/sponsors',
           name: 'Sponsors',
           component: () => import('@/views/Dashboard/views/Sponsors/SponsorsView.vue'),
           meta: { requiresAuth: true, layout: 'Dashboard', title: 'Sponsors' },
-
         },
         {
           path: '/sponsors/:id',
           name: 'SponsorDetails',
           component: () => import('@/views/Dashboard/views/Sponsors/SponsorDetails.vue'),
-          meta: { layout: 'Dashboard', requiresAuth: true }
+          meta: { layout: 'Dashboard', title: 'SponsorDetails', requiresAuth: true }
         }
       ]
     }

@@ -13,13 +13,13 @@
           class="flex items-center text-center rounded-md overflow-hidden justify-center w-full md:max-w-[579px]"
         >
           <router-link class="flex-1 inline-block" to="/dashboard">
-            <CButton path="/dashboard" buttonText="Dashboard" />
+            <CTabButton path="/dashboard" buttonText="Dashboard" />
           </router-link>
           <router-link class="flex-1 inline-block" to="/sponsors">
-            <CButton path="/sponsors" buttonText="Homiylar" />
+            <CTabButton path="/sponsors" buttonText="Homiylar" />
           </router-link>
           <router-link class="flex-1 inline-block" to="/students">
-            <CButton path="/students" buttonText="Talabalar" />
+            <CTabButton path="/students" buttonText="Talabalar" />
           </router-link>
         </div>
         <div class="flex w-full items-center justify-end gap-4 md:gap-5">
@@ -28,9 +28,7 @@
             placeholder="Qidirish"
             class="md:max-w-[284px] py-[15px] w-full"
           />
-
-
-          <CButton @click="filterModal.openModal" class="flex-1 px-8 w-full" buttonText="Filter">
+          <CButton @click="filterModal.openModal" class variant="primary" text="Filter">
             <img src="../../../../../public/filter.svg" alt="asfsa" />
           </CButton>
         </div>
@@ -46,7 +44,7 @@
 </template>
 <script setup>
 
-import CButton from '@/components/CButton/CButton.vue';
+import CTabButton from '@/components/CTabButton/CTabButton.vue';
 import CInput from '@/components/CInput/CInput.vue';
 
 import { ref } from 'vue';
@@ -55,6 +53,7 @@ const search = ref('')
 import CTable from '@/components/CTable/CTable.vue';
 import FilterModal from './FilterModal.vue';
 import { useModal } from '@/composables/useModal/useModal';
+import CButton from '@/components/CButton/CButton.vue';
 
 const {modal} = useModal()
 

@@ -3,10 +3,7 @@
   <template v-if="loading">
     <article class="w-full py-[30px] bg-[#FDFDFD]">
       <div class="max-w-[1200px] mx-auto px-6">
-        <div class="w-full">
-          <img src="../../../../../public/back.svg" alt="">
-          <div>Salom</div>
-        </div>
+        loading...
       </div>
 
     </article>
@@ -25,11 +22,13 @@
       </div>
     </header>
 
-    <div class="w-full h-full p-[32px] bg-[#F5F5F7]">
-      <article class=" max-w-[793px] bg-white p-8 mx-auto rounded-xl">
+    <div class="w-full details-content h-full p-[32px] bg-[#F5F5F7]">
+      <article class="max-w-[793px] bg-white p-8 mx-auto rounded-xl">
         <div class="flex items-start sm:items-center flex-col gap-8 sm:flex-row sm:gap-0 justify-between">
           <p class="text-[#28293D] text-2xl font-bold ">Homiy haqida</p>
-          <button>Tahrirlash</button>
+          <CButton text="Tahrirlash" class="px-8" variant="primary">
+            <img src="../../../../../public/pen.svg" alt="">
+          </CButton>
         </div>
         <div class="flex items-center gap-5 mt-8">
           <div class="bg-[#EAECF0] w-16 h-16 flex items-center justify-center rounded-md">
@@ -56,8 +55,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useFetch } from '@/composables/useFetch/useFetch';
-import { formatDate } from '@/utils/formatDate';
 import { useRoute } from 'vue-router';
+import CButton from '@/components/CButton/CButton.vue'
 
 
 import CBadge from '@/components/CBadge/CBadge.vue'
@@ -65,6 +64,7 @@ import CBadge from '@/components/CBadge/CBadge.vue'
 
 const route = useRoute()
 const metaValue = ref(route.meta.title)
+console.log(metaValue.value);
 const pageId = ref(route.params.id)
 
 
@@ -76,7 +76,7 @@ const data = ref(null);
 
 const fetchData = async () => {
   try {
-    const response = await get(`${metaValue.value === 'Students' ? `student-detail/${pageId.value}` : `sponsor-detail/${pageId.value}`}`);
+    const response = await get(`${`sponsor-detail/${pageId.value}`}`);
     data.value = response;
     console.log(data.value);
   } catch (error) {

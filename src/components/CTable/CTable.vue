@@ -154,14 +154,12 @@
             </tr>
 
             <template v-else>
-              {{ console.log(data) }}
-              <tr v-for="(item, index) in data?.results" :key="index">
+              <tr class="bg-white p-4 rounded-lg border-separate" v-for="(item, index) in data?.results" :key="index">
                 <td class="py-3 px-4 text-center">{{ index + 1 }}</td>
                 <td class="py-3 px-4 text-left">{{ item.full_name }}</td>
                 <td class="py-3 px-4 text-center">{{ item.phone }}</td>
                 <td class="py-3 px-4 text-center">{{ item.spent }}</td>
                 <td class="py-3 px-4 text-center">{{ item.sum }}</td>
-
                 <td class="py-3 px-4 text-center">{{ formatDate(item.created_at) }}</td>
                 <td class="py-3 px-4 text-center">
                   {{ item.get_status_display }}
@@ -340,8 +338,7 @@
             </tr>
 
             <template v-else>
-              {{ console.log(data) }}
-              <tr v-for="(item, index) in data?.results" :key="index">
+              <tr class="bg-white" v-for="(item, index) in data?.results" :key="index">
                 <td class="py-3 px-4 text-center">{{ index + 1 }}</td>
                 <td class="py-3 px-4 text-left">{{ item.full_name }}</td>
 
