@@ -4,61 +4,59 @@
     <template v-slot:body>
       <div class="flex flex-col items-start gap-4">
         <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">Ariza holati</p>
-        {{ filterData.status }} 
-        <CDropdown v-model="filterData.status" :options="options"></CDropdown>   
+        {{ filterData.status }}
+        <CDropdown v-model="filterData.status" :options="options"></CDropdown>
       </div>
       <div class="flex flex-col items-start gap-4 mt-7">
         <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">Ariza holati</p>
         {{ filterData.money }}
-        <CSelect v-model="filterData.money"></CSelect>  
+        <CSelect v-model="filterData.money"></CSelect>
       </div>
     </template>
 
     <template v-slot:footer>
       <CButton variant="primary" text="Tozalash">
-          <img src="../../../../../public/clear.svg" alt="">
+        <img src="/clear.svg" alt="" />
       </CButton>
     </template>
   </CModal>
 </template>
 
 <script setup>
-import CButton from '@/components/CButton/CButton.vue';
-import CModal from '@/components/CModal/CModal.vue';
-import CDropdown from '@/components/CDropdown/CDropdown.vue';
-import CSelect from '@/components/CSelect/CSelect.vue';
-import { useFetch } from '@/composables/useFetch/useFetch';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue'
 
-const data = ref(null);
+import CButton from '@/components/CButton/CButton.vue'
+import CDropdown from '@/components/CDropdown/CDropdown.vue'
+import CModal from '@/components/CModal/CModal.vue'
+import CSelect from '@/components/CSelect/CSelect.vue'
+import { useFetch } from '@/composables/useFetch/useFetch'
 
-const {get} = useFetch()
+const data = ref(null)
+
+const { get } = useFetch()
 
 const fetchData = async () => {
   try {
-    const response = await get(`institute-list/`);
-    data.value = response;
+    const response = await get(`institute-list/`)
+    data.value = response
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('Error fetching data:', error)
   }
-};
+}
 
 onMounted(() => {
-  fetchData();
-});
+  fetchData()
+})
 const options = [
   { id: 'Barchasi', name: 'Barchasi' },
   { id: 'Yangi', name: 'Yangi' },
   { id: 'Moderatsiyada', name: 'Moderatsiyada' },
   { id: 'Tasdiqlangan', name: 'Tasdiqlangan' },
-  { id: 'Bekor qilingan', name: 'Bekor qilingan' },
-];
+  { id: 'Bekor qilingan', name: 'Bekor qilingan' }
+]
 
 const filterData = ref({
   status: 'Barchasi',
-  money: 'Barchasi',
-});
-
-
-
+  money: 'Barchasi'
+})
 </script>

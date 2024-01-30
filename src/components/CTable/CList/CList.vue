@@ -10,12 +10,12 @@
     <td class="py-3 px-4 text-left">12.12.2021</td>
     <td class="py-3 px-4 text-left">
       <div class="bg-[#00AE69] w-8 h-8 flex items-center justify-center rounded-md">
-        <img class="mt-2" src="../../../public/user.svg" alt="asfsa" />
+        <img class="mt-2" src="/user.svg" alt="asfsa" />
       </div>
     </td>
     <td class="py-3 px-4 text-left">
       <div class="bg-[#00AE69] w-8 h-8 flex items-center justify-center rounded-md">
-        <img class="mt-2" src="../../../public/user.svg" alt="asfsa" />
+        <img class="mt-2" src="/user.svg" alt="asfsa" />
       </div>
     </td>
   </tr>

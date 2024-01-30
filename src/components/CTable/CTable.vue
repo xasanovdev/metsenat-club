@@ -154,7 +154,11 @@
             </tr>
 
             <template v-else>
-              <tr class="bg-white p-4 rounded-lg border-separate" v-for="(item, index) in store.data?.results" :key="index">
+              <tr
+                class="bg-white p-4 rounded-lg border-separate"
+                v-for="(item, index) in store.data?.results"
+                :key="index"
+              >
                 <td class="py-3 px-4 text-center">{{ index + 1 }}</td>
                 <td class="py-3 px-4 text-left">{{ item.full_name }}</td>
                 <td class="py-3 px-4 text-center">{{ item.phone }}</td>
@@ -166,7 +170,7 @@
                 </td>
                 <td class="py-3 px-4 text-center flex items-center justify-center">
                   <router-link :to="`/sponsors/${item.id}`">
-                    <img src="../../../public/eye.svg" alt="asfsa" />
+                    <img src="/eye.svg" alt="asfsa" />
                   </router-link>
                 </td>
               </tr>
@@ -354,7 +358,7 @@
                 <td class="py-3 px-4 text-center">{{ item.contract }}</td>
                 <td class="py-3 px-4 text-center flex items-center justify-center">
                   <router-link :to="`/students/${item.id}`">
-                    <img src="../../../public/eye.svg" alt="asfsa" />
+                    <img src="/eye.svg" alt="asfsa" />
                   </router-link>
                 </td>
               </tr>
@@ -366,19 +370,23 @@
 
     <div class="flex items-center justify-between">
       <div>
-        {{ store.data?.count }} tadan {{ (store.currentPage - 1) * 10 }}-{{ store.currentPage * 10 }} ko'rsatilmoqda
+        {{ store.data?.count }} tadan {{ (store.currentPage - 1) * 10 }}-{{
+          store.currentPage * 10
+        }}
+        ko'rsatilmoqda
       </div>
       <div class="flex items-center gap-4">
         <button
           class="p-2 rounded-md border-2 duration-200"
           :class="{
             'border-[#E0E7FF]': store.currentPage === 1,
-            'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300': store.currentPage !== 1
+            'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
+              store.currentPage !== 1
           }"
           @click="prevPage"
           :disabled="store.currentPage === 1"
         >
-          <img class="rotate-180" src="../../../public/arrow.svg" alt="asfsa" />
+          <img class="rotate-180" src="/arrow.svg" alt="asfsa" />
         </button>
         <span>{{ store.currentPage }}</span>
         <button
@@ -386,13 +394,13 @@
             'border-[#E0E7FF]': store.currentPage === Math.ceil(store.data?.count / 10),
 
             'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
-            store.currentPage !== Math.ceil(store.data?.count / 10)
+              store.currentPage !== Math.ceil(store.data?.count / 10)
           }"
           class="p-2 rounded-md border-2 duration-200"
           @click="nextPage"
           :disabled="store.currentPage === Math.ceil(store.data?.count / 10)"
         >
-          <img src="../../../public/arrow.svg" alt="asfsa" />
+          <img src="/arrow.svg" alt="asfsa" />
         </button>
       </div>
     </div>
@@ -400,26 +408,27 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
-import { formatDate } from '@/utils/formatDate';
-import { useRoute } from 'vue-router';
-import { useDataStore } from '@/stores/data';
-import CBadge from '@/components/CBadge/CBadge.vue';
+import { onMounted } from 'vue'
+
+import { useRoute } from 'vue-router'
+
+import CBadge from '@/components/CBadge/CBadge.vue'
+import { useDataStore } from '@/stores/data'
+import { formatDate } from '@/utils/formatDate'
 
 const route = useRoute()
 
 const store = useDataStore()
 
 const nextPage = () => {
-  store.fetchData(++store.currentPage, route.meta.title);
-};
+  store.fetchData(++store.currentPage, route.meta.title)
+}
 
 const prevPage = () => {
-  store.fetchData(--store.currentPage, route.meta.title);
-};
+  store.fetchData(--store.currentPage, route.meta.title)
+}
 
 onMounted(() => {
-  store.fetchData(store.currentPage, route.meta.title);
-});
+  store.fetchData(store.currentPage, route.meta.title)
+})
 </script>
-

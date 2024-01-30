@@ -3,7 +3,7 @@
     <div class="w-full bg-white py-3">
       <nav class="max-w-[1200px] mx-auto flex px-6 justify-between items-center">
         <div class="logo">
-          <img src="../../../public/logo.svg" alt="asfsa" />
+          <img src="/logo.svg" alt="asfsa" />
         </div>
         <div class="flex items-center gap-4 md:gap-8 lg:gap-10">
           <div
@@ -11,11 +11,11 @@
           >
             <div class="text-slate-900 hidden sm:inline-block">Shohrux</div>
             <div class="bg-[#00AE69] w-8 h-8 flex items-center justify-center rounded-md">
-              <img class="mt-2" src="../../../public/user.svg" alt="asfsa" />
+              <img class="mt-2" src="/user.svg" alt="asfsa" />
             </div>
           </div>
-          <div>
-            <img class="" src="../../../public/logOut.svg" alt="asfsa" />
+          <div class="cursor-pointer" @click="logout">
+            <img class="" src="/logOut.svg" alt="asfsa" />
           </div>
         </div>
       </nav>
@@ -26,4 +26,12 @@
 </template>
 
 <script setup>
+import { useAuthStore } from '@/stores/auth';
+
+const {clearToken} = useAuthStore()
+
+const logout = () => {
+  clearToken()
+  window.location.href = '/'
+}
 </script>

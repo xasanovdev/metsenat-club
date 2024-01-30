@@ -1,5 +1,5 @@
 // useAuth.js
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/auth';
 
 const API_BASE_URL = 'https://metsenatclub.xn--h28h.uz/api/v1'
 
@@ -32,7 +32,6 @@ export function useAuth() {
       // Save tokens to store
       authStore.setToken(data)
 
-      console.log(data)
       return data
     } catch (error) {
       console.error('Login failed:', error.message)

@@ -10,21 +10,25 @@
 </template>
 
 <script setup>
-import router from '@/router';
-import { ref, computed } from 'vue';
+import {
+  computed,
+  ref,
+} from 'vue';
+
 import { useRoute } from 'vue-router';
 
-const props = defineProps(['path', 'buttonText', 'variant']);
+import router from '@/router';
 
-const route = useRoute();
+const props = defineProps(['path', 'buttonText', 'variant'])
 
-const isActive = computed(() => route.path === props.path);
+const route = useRoute()
+
+const isActive = computed(() => route.path === props.path)
 
 const navigateToPath = () => {
   // Use the Vue Router to navigate to the specified path
-  console.log(router);
-  router.push(props.path);
-};
+  router.push(props.path)
+}
 </script>
 
 <style scoped>

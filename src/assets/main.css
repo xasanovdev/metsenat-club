@@ -24,7 +24,7 @@ body,html {
 }
 
 .details-content {
-  background-image: url('../../public/bgImage.svg');
+  background-image: url('/bgImage.svg');
   background-position: center bottom;
   background-size: 820px 614px;
   background-repeat: no-repeat;

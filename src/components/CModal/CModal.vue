@@ -18,7 +18,7 @@
           </div>
 
           <div class="cursor-pointer" @click="closeModal">
-            <img src="../../../public/close.svg" alt="close" />
+            <img src="/close.svg" alt="close" />
           </div>
         </div>
         <hr class="my-7" />
@@ -32,8 +32,8 @@
         <div class="flex items-center justify-end gap-4">
           <slot name="footer"></slot>
           <CButton @click="filterData" variant="secondary" text="Natijalarni ko‘rish">
-            <img src="../../../../../public/eyeWhite.svg" alt="">
-        </CButton>
+            <img src="/eyeWhite.svg" alt="" />
+          </CButton>
         </div>
       </div>
     </div>
@@ -41,15 +41,25 @@
 </template>
 
 <script setup>
-import { useDataStore } from '@/stores/data';
-import { computed, ref } from 'vue';
+import {
+  computed,
+  ref,
+} from 'vue';
+
+import { useRoute } from 'vue-router';
 
 import CButton from '@/components/CButton/CButton.vue';
-import { useRoute } from 'vue-router';
+import { useDataStore } from '@/stores/data';
 
 const route = useRoute()
 
-const props = defineProps(['modalValue', 'closeModal','closeModalOverlay','filterData','filterStudent'])
+const props = defineProps([
+  'modalValue',
+  'closeModal',
+  'closeModalOverlay',
+  'filterData',
+  'filterStudent'
+])
 
 const isLoading = ref(false)
 
@@ -57,31 +67,30 @@ const dataList = ref([])
 
 const store = useDataStore()
 
-
-
 const filterData = () => {
-
-  console.log(route.meta);
-  console.log(dataList.value);
-  if(route.meta.title === 'Sponsors'){
-    if(props.filterData.status == 'Barchasi' && props.filterData.money == 'all'){
-    return
-  }
-  store.data.results = store.data.results.filter((item) => {
-    if(item.sum < props.filterData.money || item.get_status_display == props.filterData.status.name){
-       return item
+  if (route.meta.title === 'Sponsors') {
+    if (props.filterData.status == 'Barchasi' && props.filterData.money == 'all') {
+      return
     }
-  })
-  } else if (route.meta.title === 'Students'){
-
+    store.data.results = store.data.results.filter((item) => {
+      if (
+        item.sum < props.filterData.money ||
+        item.get_status_display == props.filterData.status.name
+      ) {
+        return item
+      }
+    })
+  } else if (route.meta.title === 'Students') {
     const filterStudentType = computed(() => {
       return props?.filterStudent?.type.name === 'Bakalavr' ? '1' : '2'
     })
 
     store.data.results = store.data.results.filter((item) => {
-    console.log(props.filterStudent);
-      if(item.type == filterStudentType.value || item.institute.id == props.filterStudent.institute.id){
-         return item
+      if (
+        item.type == filterStudentType.value ||
+        item.institute.id == props.filterStudent.institute.id
+      ) {
+        return item
       }
     })
   }

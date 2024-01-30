@@ -8,14 +8,15 @@
     :id="id"
     :placeholder="placeholder"
     :class="{
-      'border-red-500': isValid === false,
+      'border-red-500': isValid === false
     }"
   />
 </template>
 
 <script setup>
-import { formatNumber } from '@/utils/formatNumber';
 import { ref } from 'vue';
+
+import { formatNumber } from '@/utils/formatNumber';
 
 let { modelValue, type, placeholder, id } = defineProps([
   'modelValue',
@@ -25,12 +26,10 @@ let { modelValue, type, placeholder, id } = defineProps([
   'isValid'
 ])
 
-console.log(modelValue);
 const emit = defineEmits(['update:modelValue'])
 
 const updateModelValue = (event) => {
   if (typeof modelValue === 'string') {
-    console.log(modelValue)
     const refModelValue = ref(modelValue)
 
     emit('update:modelValue', refModelValue.value)

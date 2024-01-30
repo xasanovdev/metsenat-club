@@ -38,25 +38,25 @@ const router = createRouter({
           path: '/students',
           name: 'Students',
           component: () => import('@/views/Dashboard/views/Students/StudentsView.vue'),
-          meta: { requiresAuth: true, title: 'Students', layout: 'Dashboard' },
+          meta: { requiresAuth: true, title: 'Students', layout: 'Dashboard' }
         },
         {
           path: '/students/:id',
           name: 'Student',
           component: () => import('@/views/Dashboard/views/Students/StudentDetails.vue'),
-          meta: { layout: 'Dashboard', title: 'StudentDetails', requiresAuth: true },
+          meta: { layout: 'Dashboard', title: 'StudentDetails', requiresAuth: true }
         },
         {
-          path:'/new-student',
+          path: '/new-student',
           name: 'NewStudent',
           component: () => import('@/views/Dashboard/views/Students/CreateNewStudentView.vue'),
-          meta: { layout: 'Dashboard', title: 'NewStudent', requiresAuth: true },
+          meta: { layout: 'Dashboard', title: 'NewStudent', requiresAuth: true }
         },
         {
           path: '/sponsors',
           name: 'Sponsors',
           component: () => import('@/views/Dashboard/views/Sponsors/SponsorsView.vue'),
-          meta: { requiresAuth: true, layout: 'Dashboard', title: 'Sponsors' },
+          meta: { requiresAuth: true, layout: 'Dashboard', title: 'Sponsors' }
         },
         {
           path: '/sponsors/:id',
@@ -78,20 +78,15 @@ router.beforeEach(async (to, from, next) => {
   // Check if the user is authenticated using Pinia store
   const isAuthenticated = auth.isAuthenticated()
 
-  console.log('Is Authenticated:', isAuthenticated)
 
   const token = localStorage.getItem('access_token') || ''
 
-  console.log('Token:', token)
 
   if (!isAuthenticated && to.name !== 'Auth') {
-    console.log('No token, redirecting to Auth')
     next({ name: 'Auth' })
   } else if (isAuthenticated && to.name === 'Auth') {
-    console.log('Authenticated, redirecting to Dashboard')
     next({ name: 'Dashboard' })
   } else {
-    console.log('Continue with the route navigation')
     next()
   }
 })

@@ -8,5 +8,5 @@
 </template>
 
 <script setup>
-import CModal from '@/components/CModal/CModal.vue';
+import CModal from '@/components/CModal/CModal.vue'
 </script>
