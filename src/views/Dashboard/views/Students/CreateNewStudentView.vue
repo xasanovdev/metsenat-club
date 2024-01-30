@@ -119,11 +119,13 @@ const addStudent = async () => {
       contract: '',
     };
     console.log(data.value);
+    router.push({ name: 'Student', params: { id: response.id } });
+
+
   } catch (error) {
     console.error('Error fetching data:', error);
   }
   finally {
-    router.push(`/dashboard/students/${data.value.id}`);
   }
 };
 

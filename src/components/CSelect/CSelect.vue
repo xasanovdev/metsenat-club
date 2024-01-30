@@ -51,18 +51,19 @@ const selectedFilter = ref('all');
 
 // Sample data for demonstration
 const data = [
-  { id: 1, name: 'Item 1', given_sum: 1000 },
-  { id: 2, name: 'Item 2', given_sum: 1500 },
-  { id: 3, name: 'Item 3', given_sum: 1200 },
+  { id: 1, name: 'Item 1', given_sum: 1002350 },
+  { id: 2, name: 'Item 2', given_sum: 15053250 },
+  { id: 3, name: 'Item 3', given_sum: 120325350 },
   // ... more data
 ];
 
 const filteredData = computed(() => {
+  console.log(selectedFilter.value);
   if (selectedFilter.value === null || selectedFilter.value === 'all') {
     return data;
   }
 
-  return data.filter(item => item.given_sum === selectedFilter.value);
+  return data.filter(item => item.given_sum < selectedFilter.value);
 });
 
 const filterData = () => {

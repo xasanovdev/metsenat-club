@@ -40,7 +40,6 @@ const fetchData = async () => {
   try {
     const response = await get(`institute-list/`);
     data.value = response;
-    console.log(data.value);
   } catch (error) {
     console.error('Error fetching data:', error);
   }
