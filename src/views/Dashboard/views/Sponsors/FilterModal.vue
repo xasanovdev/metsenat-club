@@ -4,7 +4,7 @@
     <template v-slot:body>
       <div class="flex flex-col items-start gap-4">
         <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">Ariza holati</p>
-        <CDropdown></CDropdown>   
+        <CDropdown :options="options"></CDropdown>   
       </div>
       <div class="flex flex-col items-start gap-4 mt-7">
         <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">Ariza holati</p>
@@ -49,6 +49,13 @@ const fetchData = async () => {
 onMounted(() => {
   fetchData();
 });
+const options = [
+  { id: 'Barchasi', name: 'Barchasi' },
+  { id: 'Yangi', name: 'Yangi' },
+  { id: 'Moderatsiyada', name: 'Moderatsiyada' },
+  { id: 'Tasdiqlangan', name: 'Tasdiqlangan' },
+  { id: 'Bekor qilingan', name: 'Bekor qilingan' },
+];
 
 
 </script>

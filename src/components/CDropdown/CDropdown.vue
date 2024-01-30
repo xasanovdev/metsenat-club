@@ -11,7 +11,8 @@
       <img class="absolute right-2 top-4" :class="['mr-2 duration-200', [isDropdownOpen ? '' : 'rotate-180']]" src="../../../public/dropdown.svg" alt="" />
     </div>
     <transition name="dropdown">
-      <div v-show="isDropdownOpen" class="absolute w-full mt-2 z-20 bg-white border rounded-lg shadow-lg" @mousedown="onDropdownClick">
+      <div v-show="isDropdownOpen" class="absolute w-full max-h-[400px] overflow-y-auto mt-2 z-20 bg-white border rounded-lg shadow-lg" @mousedown="onDropdownClick">
+        <div v-if="filteredOptions.length === 0" class="px-4 py-3">Qidirayotgan ma'lumotingiz topilmadi :(</div>
         <div v-for="(option, index) in filteredOptions" :key="option.id" class="cursor-pointer hover:bg-slate-100 duration-200" :class="{ 'border-t': index > 0, 'bg-slate-100': selectedOption.value === option.name }">
           <label class="flex w-full px-4 py-3 items-center cursor-pointer">
             <input

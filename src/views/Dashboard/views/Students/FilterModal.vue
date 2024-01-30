@@ -63,6 +63,7 @@ const options = [
   { id: 'Tasdiqlangan', name: 'Tasdiqlangan' },
   { id: 'Bekor qilingan', name: 'Bekor qilingan' },
 ];
+
 console.log(options);
 
 
