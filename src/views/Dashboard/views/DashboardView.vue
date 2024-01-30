@@ -24,12 +24,6 @@
       </div>
       <div class="flex w-full items-center justify-end gap-4 md:gap-5">
         <CInput v-model="search" placeholder="Qidirish" class="md:max-w-[284px] py-[15px] w-full" />
-
-        <router-link class="inline-block" to="/sponsors/filter">
-          <CTabButton path="/sponsors/filter" class="flex-1 px-8 w-full" buttonText="Filter">
-            <img class="/sponsors/filter" src="/filter.svg" alt="filter icon" />
-          </CTabButton>
-        </router-link>
       </div>
     </div>
   </div>

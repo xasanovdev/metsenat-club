@@ -26,8 +26,8 @@
               <td class="py-3 px-4 text-center">{{ index + 1 }}</td>
               <td class="py-3 px-4 text-left">{{ item.full_name }}</td>
               <td class="py-3 px-4 text-center">{{ item.phone }}</td>
-              <td class="py-3 px-4 text-center">{{ item.spent }}</td>
-              <td class="py-3 px-4 text-center">{{ item.sum }}</td>
+              <td class="py-3 px-4 text-center">{{ formatNumber(item.spent) }}</td>
+              <td class="py-3 px-4 text-center">{{ formatNumber(item.sum) }}</td>
               <td class="py-3 px-4 text-center">{{ formatDate(item.created_at) }}</td>
               <td class="py-3 px-4 text-center">
                 <CBadge :status="item.get_status_display"></CBadge>
@@ -94,6 +94,7 @@ import { useFetch } from '@/composables/useFetch';
 import router from '@/router';
 import { useDataStore } from '@/stores/data';
 import { formatDate } from '@/utils/formatDate';
+import { formatNumber } from '@/utils/formatNumber';
 
 import CMaska from './CMaska.vue';
 

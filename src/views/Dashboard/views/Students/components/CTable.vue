@@ -29,9 +29,8 @@
               <td class="py-3 px-4 text-center whitespace-normal flex w-[200px]">
                 {{ item.institute?.name }}
               </td>
-              <td class="py-3 px-4 text-center">{{ item.given }}</td>
-
-              <td class="py-3 px-4 text-center">{{ item.contract }}</td>
+              <td class="py-3 px-4 text-center">{{ formatNumber(item.given) }}</td>
+              <td class="py-3 px-4 text-center">{{ formatNumber(item.contract) }}</td>
               <td class="py-3 px-4 text-center flex items-center justify-center">
                 {{ item.id }}
                 <routerLink :to="{ name: 'Student', params: { id: item.id } }">
@@ -93,6 +92,7 @@ import {
 import { useFetch } from '@/composables/useFetch';
 import router from '@/router';
 import { useDataStore } from '@/stores/data';
+import { formatNumber } from '@/utils/formatNumber';
 
 import CMaska from './CMaska.vue';
 
