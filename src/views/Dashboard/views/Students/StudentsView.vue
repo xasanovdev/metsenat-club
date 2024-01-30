@@ -18,10 +18,16 @@
         <routerLink class="flex-1 inline-block" :to="{ name: 'Dashboard' }">
           <CTabButton path="/dashboard" buttonText="Dashboard" />
         </routerLink>
-        <routerLink class="flex-1 inline-block" :to="{ name: 'Sponsors' }">
+        <routerLink
+          class="flex-1 inline-block"
+          :to="{ name: 'Sponsors', query: { page: store.sponsorsCurrentPage } }"
+        >
           <CTabButton path="/sponsors" buttonText="Homiylar" />
         </routerLink>
-        <routerLink class="flex-1 inline-block" :to="{ name: 'Students' }">
+        <routerLink
+          class="flex-1 inline-block"
+          :to="{ name: 'Students', query: { page: store.studentsCurrentPage } }"
+        >
           <CTabButton path="/students" buttonText="Talabalar" />
         </routerLink>
       </div>
@@ -55,11 +61,14 @@ import CButton from '@/components/CButton/CButton.vue';
 import CInput from '@/components/CInput/CInput.vue';
 import CTabButton from '@/components/CTabButton/CTabButton.vue';
 import { useModal } from '@/composables/useModal';
+import { useDataStore } from '@/stores/data';
 
 import CTable from './components/CTable.vue';
 import FilterModal from './components/FilterModal.vue';
 
 const search = ref('')
+
+const store = useDataStore()
 
 const { modal } = useModal()
 

@@ -45,32 +45,36 @@
 
     <div class="flex items-center justify-between">
       <div>
-        {{ store.sponsorsList?.count }} tadan {{ (currentPage - 1) * 10 }}-{{ currentPage * 10 }}
+        {{ store.sponsorsList?.count }} tadan {{ (store.sponsorsCurrentPage - 1) * 10 }}-{{
+          store.sponsorsCurrentPage * 10
+        }}
         ko'rsatilmoqda
       </div>
       <div class="flex items-center gap-4">
         <button
           class="p-2 rounded-md border-2 duration-200"
           :class="{
-            'border-[#E0E7FF]': currentPage === 1,
-            'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300': currentPage !== 1
+            'border-[#E0E7FF]': store.sponsorsCurrentPage === 1,
+            'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
+              store.sponsorsCurrentPage !== 1
           }"
           @click="prevPage"
-          :disabled="currentPage === 1"
+          :disabled="store.sponsorsCurrentPage === 1"
         >
           <img class="rotate-180" src="/arrow.svg" alt="arrow icon" />
         </button>
-        <span>{{ currentPage }}</span>
+        <span>{{ store.sponsorsCurrentPage }}</span>
         <button
           :class="{
-            'border-[#E0E7FF]': store.currentPage === Math.ceil(store.sponsorsList?.count / 10),
+            'border-[#E0E7FF]':
+              store.sponsorsCurrentPage === Math.ceil(store.sponsorsList?.count / 10),
 
             'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
-              currentPage !== Math.ceil(store.sponsorsList?.count / 10)
+              store.sponsorsCurrentPage !== Math.ceil(store.sponsorsList?.count / 10)
           }"
           class="p-2 rounded-md border-2 duration-200"
           @click="nextPage"
-          :disabled="currentPage === Math.ceil(store.sponsorsList?.count / 10)"
+          :disabled="store.sponsorsCurrentPage === Math.ceil(store.sponsorsList?.count / 10)"
         >
           <img src="/arrow.svg" alt="arrow icon" />
         </button>
@@ -80,7 +84,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import {
+  onMounted,
+  ref,
+} from 'vue';
 
 import CBadge from '@/components/CBadge/CBadge.vue';
 import { useFetch } from '@/composables/useFetch';
@@ -93,11 +100,11 @@ import CMaska from './CMaska.vue';
 const store = useDataStore()
 
 const nextPage = () => {
-  fetchData(currentPage.value + 1)
+  fetchData(store.sponsorsCurrentPage + 1)
 }
 
 const prevPage = () => {
-  fetchData(currentPage.value - 1)
+  fetchData(store.sponsorsCurrentPage - 1)
 }
 
 const { get, loading } = useFetch()
@@ -113,16 +120,15 @@ const columns = [
   'Amallar'
 ]
 
-const currentPage = ref(1)
 const totalPage = ref(0)
 const pageSize = ref(10)
 
 console.log(store.sponsorsList)
 
 const fetchData = async (page) => {
-  if (store.sponsorsList.length === 0 || currentPage.value !== page) {
+  if (store.sponsorsList.length === 0 || store.sponsorsCurrentPage !== page) {
     try {
-      currentPage.value = page
+      store.sponsorsCurrentPage = page
       const response = await get('sponsor-list/', { page: page, pageSize: pageSize.value })
       store.sponsorsList = response
 
@@ -135,5 +141,7 @@ const fetchData = async (page) => {
   }
 }
 
-fetchData(currentPage.value)
+onMounted(() => {
+  fetchData(store.sponsorsCurrentPage)
+})
 </script>

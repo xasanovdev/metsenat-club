@@ -6,15 +6,21 @@
       <div
         class="flex items-center text-center rounded-md overflow-hidden justify-center w-full md:max-w-[579px]"
       >
-        <router-link class="flex-1 inline-block" to="/dashboard">
+        <routerLink class="flex-1 inline-block" :to="{ name: 'Dashboard' }">
           <CTabButton path="/dashboard" buttonText="Dashboard" />
-        </router-link>
-        <router-link class="flex-1 inline-block" to="/sponsors">
+        </routerLink>
+        <routerLink
+          class="flex-1 inline-block"
+          :to="{ name: 'Sponsors', query: { page: store.sponsorsCurrentPage } }"
+        >
           <CTabButton path="/sponsors" buttonText="Homiylar" />
-        </router-link>
-        <router-link class="flex-1 inline-block" to="/students">
+        </routerLink>
+        <routerLink
+          class="flex-1 inline-block"
+          :to="{ name: 'Students', query: { page: store.studentsCurrentPage } }"
+        >
           <CTabButton path="/students" buttonText="Talabalar" />
-        </router-link>
+        </routerLink>
       </div>
       <div class="flex w-full items-center justify-end gap-4 md:gap-5">
         <CInput v-model="search" placeholder="Qidirish" class="md:max-w-[284px] py-[15px] w-full" />
@@ -80,10 +86,13 @@ import {
 import CInput from '@/components/CInput/CInput.vue';
 import CTabButton from '@/components/CTabButton/CTabButton.vue';
 import { useFetch } from '@/composables/useFetch';
+import { useDataStore } from '@/stores/data';
 import { formatNumber } from '@/utils/formatNumber';
 
 const search = ref('')
 const data = ref(null)
+
+const store = useDataStore()
 
 const { get } = useFetch()
 

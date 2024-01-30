@@ -46,8 +46,8 @@
 
     <div class="flex items-center justify-between">
       <div>
-        {{ store.studentsList?.count }} tadan {{ (currentPage - 1) * pageSize }}-{{
-          currentPage * pageSize
+        {{ store.studentsList?.count }} tadan {{ (store.studentsCurrentPage - 1) * pageSize }}-{{
+          store.studentsCurrentPage * pageSize
         }}
         ko'rsatilmoqda
       </div>
@@ -55,25 +55,27 @@
         <button
           class="p-2 rounded-md border-2 duration-200"
           :class="{
-            'border-[#E0E7FF]': currentPage === 1,
-            'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300': currentPage !== 1
+            'border-[#E0E7FF]': store.studentsCurrentPage === 1,
+            'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
+              store.studentsCurrentPage !== 1
           }"
           @click="prevPage"
-          :disabled="currentPage === 1"
+          :disabled="store.studentsCurrentPage === 1"
         >
           <img class="rotate-180" src="/arrow.svg" alt="arrow icon" />
         </button>
-        <span>{{ currentPage }}</span>
+        <span>{{ store.studentsCurrentPage }}</span>
         <button
           :class="{
-            'border-[#E0E7FF]': currentPage === Math.ceil(store.studentsList?.count / pageSize),
+            'border-[#E0E7FF]':
+              store.studentsCurrentPage === Math.ceil(store.studentsList?.count / pageSize),
 
             'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
-              currentPage !== Math.ceil(store.studentsList?.count / pageSize)
+              store.studentsCurrentPage !== Math.ceil(store.studentsList?.count / pageSize)
           }"
           class="p-2 rounded-md border-2 duration-200"
           @click="nextPage"
-          :disabled="currentPage === Math.ceil(store.studentsList?.count / pageSize)"
+          :disabled="store.studentsCurrentPage === Math.ceil(store.studentsList?.count / pageSize)"
         >
           <img src="/arrow.svg" alt="arrow icon" />
         </button>
@@ -97,11 +99,11 @@ import CMaska from './CMaska.vue';
 const store = useDataStore()
 
 const nextPage = () => {
-  fetchData(currentPage.value + 1)
+  fetchData(store.studentsCurrentPage + 1)
 }
 
 const prevPage = () => {
-  fetchData(currentPage.value - 1)
+  fetchData(store.studentsCurrentPage - 1)
 }
 
 const columns = [
@@ -116,18 +118,17 @@ const columns = [
 
 const { get, loading } = useFetch()
 
-const currentPage = ref(1)
 const totalPage = ref(0)
 const pageSize = ref(10)
 
 const fetchData = async (page) => {
-  if (store.sponsorsList.length === 0 || currentPage.value !== page) {
+  if (store.sponsorsList.length === 0 || store.studentsCurrentPage !== page) {
     try {
       const response = await get('student-list/', { page: page, pageSize: pageSize.value })
 
       store.studentsList = response
 
-      currentPage.value = page
+      store.studentsCurrentPage = page
 
       router.push({ path: `?page=`, query: { page: page } })
 
@@ -138,5 +139,7 @@ const fetchData = async (page) => {
   }
 }
 
-fetchData(currentPage.value)
+onMounted(() => {
+  fetchData(store.studentsCurrentPage)
+})
 </script>
