@@ -79,7 +79,7 @@ import {
 
 import CInput from '@/components/CInput/CInput.vue';
 import CTabButton from '@/components/CTabButton/CTabButton.vue';
-import { useFetch } from '@/composables/useFetch/useFetch';
+import { useFetch } from '@/composables/useFetch';
 import { formatNumber } from '@/utils/formatNumber';
 
 const search = ref('')

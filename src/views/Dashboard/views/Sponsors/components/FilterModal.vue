@@ -35,7 +35,7 @@ import CButton from '@/components/CButton/CButton.vue';
 import CDropdown from '@/components/CDropdown/CDropdown.vue';
 import CModal from '@/components/CModal/CModal.vue';
 import CSelect from '@/components/CSelect/CSelect.vue';
-import { useFetch } from '@/composables/useFetch/useFetch';
+import { useFetch } from '@/composables/useFetch';
 import { useDataStore } from '@/stores/data';
 
 const data = ref(null)

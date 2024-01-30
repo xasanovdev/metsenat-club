@@ -8,18 +8,22 @@
         <h2 class="text-2xl font-semibold mb-4">Kirish</h2>
         <form @submit.prevent="handleLogin">
           <div class="mb-4">
-            <label for="username" class="block mb-2 text-sm uppercase font-medium text-gray-600">lOGIN:</label>
+            <label for="username" class="block mb-2 text-sm uppercase font-medium text-gray-600"
+              >lOGIN:</label
+            >
             <CInput v-model="username" type="text" id="username" name="username" required />
           </div>
           <div class="mb-4">
-            <label for="password" class="block mb-2 text-sm uppercase font-medium text-gray-600">pAROL:</label>
+            <label for="password" class="block mb-2 text-sm uppercase font-medium text-gray-600"
+              >pAROL:</label
+            >
             <CInput v-model="password" type="password" id="password" name="password" required />
           </div>
           <CButton
             type="submit"
             class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
           >
-          Kirish
+            Kirish
           </CButton>
         </form>
       </div>
@@ -32,31 +36,31 @@ import { ref } from 'vue';
 
 import CButton from '@/components/CButton/CButton.vue';
 import CInput from '@/components/CInput/CInput.vue';
-import { useAuth } from '@/composables/useAuth/useAuth';
+import { useFetch } from '@/composables/useFetch';
 import router from '@/router';
-
-const { login } = useAuth()
+import { useAuthStore } from '@/stores/auth';
 
 const username = ref('')
 const password = ref('')
 
+const authStore = useAuthStore()
+
+console.log(authStore)
+
+const { post } = useFetch()
+
 const handleLogin = async () => {
   try {
-    // Perform login and wait for it to complete
-    const data = await login(username.value, password.value)
+    const data = await post('auth/login/', { username: username.value, password: password.value })
 
-    // Redirect to the dashboard upon successful login
-    // You can also update the UI or perform other actions here
-    if (data) {
-      // Redirect to the dashboard route
-      // Use the appropriate route name or path
-      router.push({ name: 'Dashboard' })
+    localStorage.setItem('access_token', data.access)
+    localStorage.setItem('refresh_token', data.refresh)
 
-      // Alternatively, you can update the UI or perform other actions here
-    }
+    authStore.setToken(data)
+
+    router.push({ name: 'Dashboard' })
   } catch (error) {
     console.error('Login error', error.message)
-    // Handle login error, e.g., display an error message to the user
   }
 }
 </script>

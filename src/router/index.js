@@ -70,7 +70,6 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const auth = useAuthStore()
 
-  // Wait for the authentication status to be determined
   await auth.$statePromise
 
   // Check if the user is authenticated using Pinia store

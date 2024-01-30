@@ -90,7 +90,7 @@ import {
   ref,
 } from 'vue';
 
-import { useFetch } from '@/composables/useFetch/useFetch';
+import { useFetch } from '@/composables/useFetch';
 import router from '@/router';
 import { useDataStore } from '@/stores/data';
 
@@ -120,7 +120,7 @@ const { get, loading } = useFetch()
 
 const currentPage = ref(1)
 const totalPage = ref(0)
-const pageSize = ref(1)
+const pageSize = ref(10)
 
 const fetchData = async (page) => {
   if (store.sponsorsList.length === 0 || currentPage.value !== page) {

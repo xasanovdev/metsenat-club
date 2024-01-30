@@ -84,7 +84,7 @@ import { ref } from 'vue';
 import CButton from '@/components/CButton/CButton.vue';
 import CDropdown from '@/components/CDropdown/CDropdown.vue';
 import CInput from '@/components/CInput/CInput.vue';
-import { useFetch } from '@/composables/useFetch/useFetch';
+import { useFetch } from '@/composables/useFetch';
 import router from '@/router';
 
 const data = ref(null)

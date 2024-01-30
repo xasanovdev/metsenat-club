@@ -1,29 +1,27 @@
+import { ref } from 'vue';
+
 // auth.js
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
 
 export const useAuthStore = defineStore('auth', () => {
-  const state = {
-    access: localStorage.getItem('access_token') || null,
-    refresh: localStorage.getItem('refresh_token') || null
+  const access = ref(localStorage.getItem('access_token') || null)
+  const refresh = ref(localStorage.getItem('refresh_token') || null)
+
+  const setToken = (token) => {
+    access.value = token.access
+    refresh.value = token.refresh
   }
 
-  const actions = {
-    setToken(token) {
-      state.access = token.access
-      state.refresh = token.refresh
-    },
-
-    clearToken() {
-      state.access = null
-      state.refresh = null
-      localStorage.removeItem('access_token')
-      localStorage.removeItem('refresh_token')
-    },
-
-    isAuthenticated() {
-      return Boolean(state.access && state.refresh)
-    }
+  const clearToken = () => {
+    access.value = null
+    refresh.value = null
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('refresh_token')
   }
 
-  return { ...state, ...actions }
+  const isAuthenticated = () => {
+    return Boolean(access.value && refresh.value)
+  }
+
+  return { access, refresh, setToken, clearToken, isAuthenticated }
 })

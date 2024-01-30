@@ -54,7 +54,7 @@ import { ref } from 'vue';
 import CButton from '@/components/CButton/CButton.vue';
 import CInput from '@/components/CInput/CInput.vue';
 import CTabButton from '@/components/CTabButton/CTabButton.vue';
-import { useModal } from '@/composables/useModal/useModal';
+import { useModal } from '@/composables/useModal';
 
 import CTable from './components/CTable.vue';
 import FilterModal from './components/FilterModal.vue';

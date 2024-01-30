@@ -73,15 +73,14 @@ import { useRoute } from 'vue-router';
 
 import CBadge from '@/components/CBadge/CBadge.vue';
 import CButton from '@/components/CButton/CButton.vue';
-import { useFetch } from '@/composables/useFetch/useFetch';
-import { useModal } from '@/composables/useModal/useModal';
+import { useFetch } from '@/composables/useFetch';
+import { useModal } from '@/composables/useModal';
 
 import EditSponsorModal from './components/EditSponsorModal.vue';
 
 const { modal } = useModal()
 
 const editSponsorModal = modal()
-
 
 const route = useRoute()
 const pageId = ref(route.params.id)

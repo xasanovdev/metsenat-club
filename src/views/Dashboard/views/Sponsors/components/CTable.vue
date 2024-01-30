@@ -83,7 +83,7 @@
 import { ref } from 'vue';
 
 import CBadge from '@/components/CBadge/CBadge.vue';
-import { useFetch } from '@/composables/useFetch/useFetch';
+import { useFetch } from '@/composables/useFetch';
 import router from '@/router';
 import { useDataStore } from '@/stores/data';
 import { formatDate } from '@/utils/formatDate';

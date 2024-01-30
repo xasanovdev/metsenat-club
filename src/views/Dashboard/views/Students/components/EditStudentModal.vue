@@ -63,7 +63,7 @@ import CButton from '@/components/CButton/CButton.vue';
 import CDropdown from '@/components/CDropdown/CDropdown.vue';
 import CInput from '@/components/CInput/CInput.vue';
 import CModal from '@/components/CModal/CModal.vue';
-import { useFetch } from '@/composables/useFetch/useFetch';
+import { useFetch } from '@/composables/useFetch';
 import router from '@/router';
 
 const route = useRoute()
@@ -76,7 +76,6 @@ const generataId = () => {
 
 const props = defineProps(['data'])
 
-
 const user = ref({
   id: generataId(),
   full_name: props.data?.full_name,
@@ -85,7 +84,6 @@ const user = ref({
   type: props.data?.type,
   contract: props.data?.contract
 })
-
 
 const dataInstitute = ref([])
 
