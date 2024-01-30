@@ -21,9 +21,7 @@ export const useFetch = () => {
           reject(err)
         })
         .finally(() => {
-          setTimeout(() => {
-            loading.value = false
-          }, 1000)
+          loading.value = false
         })
     })
   }
