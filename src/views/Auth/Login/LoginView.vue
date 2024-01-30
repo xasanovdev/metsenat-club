@@ -1,37 +1,28 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center">
-    <div class="max-w-md w-full p-6 bg-white rounded-md shadow-md">
-      <h2 class="text-2xl font-semibold mb-4">Login</h2>
-      <form @submit.prevent="handleLogin">
-        <div class="mb-4">
-          <label for="username" class="block text-sm font-medium text-gray-600">Username:</label>
-          <input
-            v-model="username"
-            type="text"
-            id="username"
-            name="username"
-            class="mt-1 p-2 border border-gray-300 rounded-md w-full"
-            required
-          />
-        </div>
-        <div class="mb-4">
-          <label for="password" class="block text-sm font-medium text-gray-600">Password:</label>
-          <input
-            v-model="password"
-            type="password"
-            id="password"
-            name="password"
-            class="mt-1 p-2 border border-gray-300 rounded-md w-full"
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-        >
-          Login
-        </button>
-      </form>
+  <div class="min-h-screen max-w-[379px] w-full mx-auto flex items-center justify-center">
+    <div class="flex w-full items-center flex-col gap-12">
+      <div>
+        <img src="/loginlogo.svg" alt="" />
+      </div>
+      <div class="max-w-[379px] w-full p-8 bg-white rounded-xl">
+        <h2 class="text-2xl font-semibold mb-4">Kirish</h2>
+        <form @submit.prevent="handleLogin">
+          <div class="mb-4">
+            <label for="username" class="block mb-2 text-sm uppercase font-medium text-gray-600">lOGIN:</label>
+            <CInput v-model="username" type="text" id="username" name="username" required />
+          </div>
+          <div class="mb-4">
+            <label for="password" class="block mb-2 text-sm uppercase font-medium text-gray-600">pAROL:</label>
+            <CInput v-model="password" type="password" id="password" name="password" required />
+          </div>
+          <CButton
+            type="submit"
+            class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+          >
+          Kirish
+          </CButton>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -39,6 +30,8 @@
 <script setup>
 import { ref } from 'vue';
 
+import CButton from '@/components/CButton/CButton.vue';
+import CInput from '@/components/CInput/CInput.vue';
 import { useAuth } from '@/composables/useAuth/useAuth';
 import router from '@/router';
 
