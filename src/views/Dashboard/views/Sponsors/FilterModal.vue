@@ -29,4 +29,26 @@ import CButton from '@/components/CButton/CButton.vue';
 import CModal from '@/components/CModal/CModal.vue';
 import CDropdown from '@/components/CDropdown/CDropdown.vue';
 import CSelect from '@/components/CSelect/CSelect.vue';
+import { useFetch } from '@/composables/useFetch/useFetch';
+import { onMounted, ref } from 'vue';
+
+const data = ref(null);
+
+const {get,loading} = useFetch()
+
+const fetchData = async () => {
+  try {
+    const response = await get(`institute-list/`);
+    data.value = response;
+    console.log(data.value);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+onMounted(() => {
+  fetchData();
+});
+
+
 </script>

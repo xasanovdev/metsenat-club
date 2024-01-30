@@ -5,7 +5,7 @@
     asfsafsasfsa
   </FilterModal>
   
-<div class="py-6 w-full flex items-center justify-center">
+<div class="py-6 w-full flex items-center justify-center bg-[#FCFCFC]">
       <div
         class="max-w-[1200px] w-full mx-auto flex flex-col gap-4 md:flex-row px-6 justify-between items-center"
       >
@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-  <div class="w-full h-full bg-[#F5F5F7] pb-20">
+  <div class="bg-[#F5F5F7] pb-20">
     <div class="max-w-[1200px] mx-auto px-6 overflow-hidden overflow-x-auto">
       <CTable />
     </div>

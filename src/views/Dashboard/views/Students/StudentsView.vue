@@ -1,7 +1,10 @@
 
 <template>
+  <FilterModal v-show="filterModal.modalValue" :modalValue="filterModal.modalValue" :closeModalOverlay="filterModal.closeModalOverlay" :closeModal="filterModal.closeModal">
+    asfsafsasfsa
+  </FilterModal>
 
-<div class="py-6 w-full flex items-center justify-center">
+<div class="py-6 w-full flex items-center justify-center bg-[#FCFCFC]">
       <div
         class="max-w-[1200px] w-full mx-auto flex flex-col gap-4 md:flex-row px-6 justify-between items-center"
       >
@@ -25,16 +28,14 @@
             class="md:max-w-[284px] py-[15px] w-full"
           />
 
-          <router-link class="inline-block" to="/sponsors/filter">
-            <CTabButton path="/sponsors/filter" class="flex-1 px-8 w-full" buttonText="Filter">
-              <img class="/sponsors/filter" src="../../../../../public/filter.svg" alt="asfsa" />
-            </CTabButton>
-          </router-link>
+          <CButton @click="filterModal.openModal" variant="primary" class="px-8" text="Filter">
+            <img src="../../../../../public/filter.svg" alt="asfsa" />
+          </CButton>
         </div>
       </div>
     </div>
 
-  <div class="w-full h-full bg-[#F5F5F7] pb-20">
+  <div class="bg-[#F5F5F7] pb-20">
     <div class="max-w-[1200px] mx-auto px-6 overflow-hidden overflow-x-auto">
       <CTable />
     </div>
@@ -51,6 +52,16 @@ import { ref } from 'vue';
 const search = ref('')
 
 import CTable from '@/components/CTable/CTable.vue';
+
+import FilterModal from './FilterModal.vue';
+import { useModal } from '@/composables/useModal/useModal';
+import CButton from '@/components/CButton/CButton.vue';
+
+const {modal} = useModal()
+
+const filterModal = modal()
+
+console.log(filterModal);
 
 
 </script>

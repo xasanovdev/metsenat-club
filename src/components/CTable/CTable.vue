@@ -162,7 +162,7 @@
                 <td class="py-3 px-4 text-center">{{ item.sum }}</td>
                 <td class="py-3 px-4 text-center">{{ formatDate(item.created_at) }}</td>
                 <td class="py-3 px-4 text-center">
-                  {{ item.get_status_display }}
+                  <CBadge :status="item?.get_status_display"></CBadge>
                 </td>
                 <td class="py-3 px-4 text-center flex items-center justify-center">
                   <router-link :to="`/sponsors/${item.id}`">
@@ -404,6 +404,8 @@ import { ref, onMounted } from 'vue';
 import { useFetch } from '@/composables/useFetch/useFetch';
 import { formatDate } from '@/utils/formatDate';
 import { useRoute } from 'vue-router';
+
+import CBadge from '@/components/CBadge/CBadge.vue';
 
 const route = useRoute()
 const metaValue = ref('')
