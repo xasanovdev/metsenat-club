@@ -1,7 +1,7 @@
 <template>
   <div class="py-6 w-full flex items-center bg-[#FCFCFC] justify-center">
     <div
-      class="max-w-[1200px] w-full mx-auto flex flex-col gap-4 md:flex-row px-6 justify-between items-center"
+      class="container w-full mx-auto flex flex-col gap-4 md:flex-row px-6 justify-between items-center"
     >
       <div
         class="flex items-center text-center rounded-md overflow-hidden justify-center w-full md:max-w-[579px]"
@@ -29,7 +29,7 @@
   </div>
 
   <div class="w-full pb-20">
-    <div class="max-w-[1200px] mx-auto mt-12 px-6">
+    <div class="container mx-auto mt-12 px-6">
       <div class="grid gap-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         <!-- total summ of contracts -->
         <div class="flex-1 p-6 flex items-center gap-4 bg-white rounded-lg">

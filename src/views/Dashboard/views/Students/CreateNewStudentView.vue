@@ -1,17 +1,17 @@
 <template>
   <template v-if="loading">
     <article class="w-full py-[30px] bg-[#FDFDFD]">
-      <div class="max-w-[1200px] mx-auto px-6">loading...</div>
+      <div class="container mx-auto px-6">loading...</div>
     </article>
   </template>
 
   <template v-else>
     <header class="w-full py-[30px] bg-[#FDFDFD]">
-      <div class="max-w-[1200px] mx-auto px-6">
+      <div class="container mx-auto px-6">
         <div class="w-full flex items-center gap-4">
-          <div class="cursor-pointer" @click="$router.go(-1)">
+          <routerLink :to="{ name: 'Students' }" class="cursor-pointer">
             <img src="/back.svg" alt="arrow left" />
-          </div>
+          </routerLink>
           <p class="text-[#28293D] text-2xl font-bold">Talaba qo‘shish</p>
         </div>
       </div>

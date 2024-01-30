@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <div class="max-w-[1200px] mx-auto overflow-hidden overflow-x-auto">
+    <div class="container mx-auto overflow-hidden overflow-x-auto">
       <table class="w-full whitespace-nowrap">
         <!-- students list row head cells -->
         <thead>
@@ -34,8 +34,6 @@
               <td class="py-3 px-4 text-center">{{ item.contract }}</td>
               <td class="py-3 px-4 text-center flex items-center justify-center">
                 {{ item.id }}
-                <!--  :to="`/students/${item.id}`" -->
-
                 <routerLink :to="{ name: 'Student', params: { id: item.id } }">
                   <img src="/eye.svg" alt="eye icon" />
                 </routerLink>

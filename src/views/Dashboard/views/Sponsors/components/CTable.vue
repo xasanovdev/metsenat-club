@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <div class="max-w-[1200px] mx-auto overflow-hidden overflow-x-auto">
+    <div class="container mx-auto overflow-hidden overflow-x-auto">
       <table class="w-full whitespace-nowrap">
         <!-- sponsors list row head cells -->
         <thead>

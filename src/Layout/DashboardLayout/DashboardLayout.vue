@@ -1,7 +1,7 @@
 <template>
   <header class="w-full bg-[#FCFCFC]">
     <div class="w-full bg-white py-3">
-      <nav class="max-w-[1200px] mx-auto flex px-6 justify-between items-center">
+      <nav class="container mx-auto flex px-6 justify-between items-center">
         <div class="logo">
           <img src="/logo.svg" alt="page logo image" />
         </div>
@@ -28,7 +28,7 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth';
 
-const {clearToken} = useAuthStore()
+const { clearToken } = useAuthStore()
 
 const logout = () => {
   clearToken()
