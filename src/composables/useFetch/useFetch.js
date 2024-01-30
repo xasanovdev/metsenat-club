@@ -41,7 +41,7 @@ export const useFetch = () => {
   const post = (url, body) => {
     return axios(url, {
       method: 'POST',
-      body,
+      body: JSON.stringify(body),
     });
   };
 

@@ -1,11 +1,11 @@
 <template>
   <div class="relative dropdown inline-block w-full">
     <div class="relative">
-      <CInput
+      <input
         @click="toggleDropdown"
         @focus="closeDropdown()"
         v-model="searchText"
-        class="p-4 w-full border border-[#2E5BFF] justify-between bg-[#F9FAFF] text-left text-[#2E384D] rounded-md focus:outline-none flex items-center"
+        class="px-4 py-3 w-full border focus:border-[#2E5BFF] justify-between bg-[#F9FAFF] text-left text-[#2E384D] rounded-md focus:outline-none flex items-center"
         placeholder="Search..."
       />
       <img class="absolute right-2 top-4" :class="['mr-2 duration-200', [isDropdownOpen ? '' : 'rotate-180']]" src="../../../public/dropdown.svg" alt="" />
@@ -15,12 +15,11 @@
         <div v-if="filteredOptions.length === 0" class="px-4 py-3">Qidirayotgan ma'lumotingiz topilmadi :(</div>
         <div v-for="(option, index) in filteredOptions" :key="option.id" class="cursor-pointer hover:bg-slate-100 duration-200" :class="{ 'border-t': index > 0, 'bg-slate-100': selectedOption.value === option.name }">
           <label class="flex w-full px-4 py-3 items-center cursor-pointer">
-            <CInput
+            <input
               type="radio"
-              v-model="selectedOption"
-              :value="option"
-              class="mr-2 hidden"
+              :checked="selectedOption.value === option.name"
               @change="onOptionSelected(option)"
+              class="mr-2 hidden"
             />
             {{ option.name }}
           </label>
@@ -31,24 +30,17 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, defineProps, defineEmits } from 'vue';
 
-import CInput from '@/components/CInput/CInput.vue';
+const { options } = defineProps(['options']);
+const emit = defineEmits(['update:modelValue']);
 
-const props = defineProps({
-  options: {
-    type: Array,
-  },
-});
-console.log(props);
 const isDropdownOpen = ref(false);
-const selectedOption = ref(props?.options[0]);
-
+const selectedOption = ref(options[0]);
 const searchText = ref('');
 
-
 const filteredOptions = computed(() => {
-  return props?.options?.filter(option => option.name.toLowerCase().includes(searchText.value.toLowerCase()));
+  return options.filter(option => option.name.toLowerCase().includes(searchText.value.toLowerCase()));
 });
 
 const toggleDropdown = () => {
@@ -71,6 +63,7 @@ const closeDropdownOnOutsideClick = (event) => {
 
 const onOptionSelected = (option) => {
   searchText.value = option.name;
+  emit('update:modelValue', option);
   closeDropdown();
 };
 
