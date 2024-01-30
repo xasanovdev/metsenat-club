@@ -153,8 +153,8 @@ import CButton from '@/components/CButton/CButton.vue';
 import { useFetch } from '@/composables/useFetch/useFetch';
 import { useModal } from '@/composables/useModal/useModal';
 
-import EditSponsorModal from './EditSponsorModal.vue';
-import EditStudentModal from './EditStudentModal.vue';
+import EditSponsorModal from './components/EditSponsorModal.vue';
+import EditStudentModal from './components/EditStudentModal.vue';
 
 const route = useRoute()
 const pageId = ref(route.params.id)
@@ -164,7 +164,6 @@ const { modal } = useModal()
 const editSponsorModal = modal()
 
 const editStudentModal = modal()
-
 
 const { get, loading } = useFetch()
 const data = ref(null)
@@ -176,7 +175,6 @@ const fetchData = async () => {
     const studentSponsors = await get(`${`student-sponsor/${pageId.value}`}`)
     sponsors.value = studentSponsors
     data.value = response
-
   } catch (error) {
     console.error('Error fetching data:', error)
   }

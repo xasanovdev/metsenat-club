@@ -60,7 +60,7 @@ const router = createRouter({
     },
     {
       path: '/sponsors/:id',
-      name: 'SponsorDetails',
+      name: 'Sponsor',
       component: () => import('@/views/Dashboard/views/Sponsors/SponsorDetails.vue'),
       meta: { requiresAuth: true }
     }

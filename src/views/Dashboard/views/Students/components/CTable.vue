@@ -34,9 +34,11 @@
               <td class="py-3 px-4 text-center">{{ item.contract }}</td>
               <td class="py-3 px-4 text-center flex items-center justify-center">
                 {{ item.id }}
-                <router-link :to="`/students/${item.id}`">
+                <!--  :to="`/students/${item.id}`" -->
+
+                <routerLink :to="{ name: 'Student', params: { id: item.id } }">
                   <img src="/eye.svg" alt="eye icon" />
-                </router-link>
+                </routerLink>
               </td>
             </tr>
           </template>

@@ -33,9 +33,9 @@
                 <CBadge :status="item.get_status_display"></CBadge>
               </td>
               <td class="py-3 px-4 text-center flex items-center justify-center">
-                <router-link :to="`/sponsors/${item.id}`">
+                <routerLink :to="{ name: 'Sponsor', params: { id: item.id } }">
                   <img src="/eye.svg" alt="eye icon" />
-                </router-link>
+                </routerLink>
               </td>
             </tr>
           </template>

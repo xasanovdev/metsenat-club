@@ -76,7 +76,7 @@ import CButton from '@/components/CButton/CButton.vue';
 import { useFetch } from '@/composables/useFetch/useFetch';
 import { useModal } from '@/composables/useModal/useModal';
 
-import EditSponsorModal from './EditSponsorModal.vue';
+import EditSponsorModal from './components/EditSponsorModal.vue';
 
 const { modal } = useModal()
 
