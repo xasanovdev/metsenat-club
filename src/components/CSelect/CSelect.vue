@@ -47,6 +47,9 @@ import { formatNumber } from '@/utils/formatNumber';
 
 const filterOptions = [1000000, 5000000, 7000000, 10000000, 30000000, 50000000]; // Adjust based on your monetary values
 
+const props = defineProps(['modelValue']);
+const emit = defineEmits('update:modelValue');
+
 const selectedFilter = ref('all');
 
 // Sample data for demonstration
@@ -58,7 +61,6 @@ const data = [
 ];
 
 const filteredData = computed(() => {
-  console.log(selectedFilter.value);
   if (selectedFilter.value === null || selectedFilter.value === 'all') {
     return data;
   }
@@ -67,14 +69,13 @@ const filteredData = computed(() => {
 });
 
 const filterData = () => {
-  // Perform any additional filtering logic if needed
+  emit('update:modelValue', selectedFilter.value);
 };
 
 const isSelected = (itemId) => {
   const item = data.find(item => item.id === itemId);
   return item && item.given_sum === selectedFilter.value;
 };
-
 </script>
 
 <style scoped>

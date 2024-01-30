@@ -31,6 +31,9 @@
 
         <div class="flex items-center justify-end gap-4">
           <slot name="footer"></slot>
+          <CButton @click="filterData" variant="secondary" text="Natijalarni ko‘rish">
+            <img src="../../../../../public/eyeWhite.svg" alt="">
+        </CButton>
         </div>
       </div>
     </div>
@@ -38,11 +41,50 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { useDataStore } from '@/stores/data';
+import { computed, ref } from 'vue';
 
-const props = defineProps(['modalValue', 'closeModal','closeModalOverlay'])
+import CButton from '@/components/CButton/CButton.vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute()
+
+const props = defineProps(['modalValue', 'closeModal','closeModalOverlay','filterData','filterStudent'])
 
 const isLoading = ref(false)
+
+const dataList = ref([])
+
+const store = useDataStore()
+
+const filterStudentType = computed(() => {
+  return props.filterStudent.type.name === 'Bakalavr' ? '1' : '2'
+})
+
+const filterData = () => {
+
+  console.log(route.meta);
+  console.log(dataList.value);
+  if(route.meta.name === 'Sponsors'){
+    if(props.filterData.status == 'Barchasi' && props.filterData.money == 'all'){
+    return
+  }
+  store.data.results = store.data.results.filter((item) => {
+    if(item.sum < props.filterData.money || item.get_status_display == props.filterData.status.name){
+       return item
+    }
+  })
+  } else {
+    store.data.results = store.data.results.filter((item) => {
+    console.log(props.filterStudent);
+      if(item.type == filterStudentType.value || item.institute.id == props.filterStudent.institute.id){
+         return item
+      }
+    })
+  }
+
+  props.closeModal()
+}
 </script>
 
 <style>

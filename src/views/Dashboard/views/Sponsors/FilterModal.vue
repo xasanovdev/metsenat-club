@@ -1,14 +1,16 @@
 <template>
-  <CModal>
+  <CModal :filterData="filterData">
     <template v-slot:title>Tahrirlash</template>
     <template v-slot:body>
       <div class="flex flex-col items-start gap-4">
         <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">Ariza holati</p>
-        <CDropdown :options="options"></CDropdown>   
+        {{ filterData.status }} 
+        <CDropdown v-model="filterData.status" :options="options"></CDropdown>   
       </div>
       <div class="flex flex-col items-start gap-4 mt-7">
         <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">Ariza holati</p>
-        <CSelect></CSelect>  
+        {{ filterData.money }}
+        <CSelect v-model="filterData.money"></CSelect>  
       </div>
     </template>
 
@@ -16,10 +18,6 @@
       <CButton variant="primary" text="Tozalash">
           <img src="../../../../../public/clear.svg" alt="">
       </CButton>
-      <CButton variant="secondary" text="Natijalarni ko‘rish">
-          <img src="../../../../../public/eyeWhite.svg" alt="">
-      </CButton>
-
     </template>
   </CModal>
 </template>
@@ -55,6 +53,12 @@ const options = [
   { id: 'Tasdiqlangan', name: 'Tasdiqlangan' },
   { id: 'Bekor qilingan', name: 'Bekor qilingan' },
 ];
+
+const filterData = ref({
+  status: 'Barchasi',
+  money: 'Barchasi',
+});
+
 
 
 </script>
