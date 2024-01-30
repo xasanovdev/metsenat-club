@@ -170,7 +170,7 @@
                 </td>
                 <td class="py-3 px-4 text-center flex items-center justify-center">
                   <router-link :to="`/sponsors/${item.id}`">
-                    <img src="/eye.svg" alt="asfsa" />
+                    <img src="/eye.svg" alt="eye icon" />
                   </router-link>
                 </td>
               </tr>
@@ -358,7 +358,7 @@
                 <td class="py-3 px-4 text-center">{{ item.contract }}</td>
                 <td class="py-3 px-4 text-center flex items-center justify-center">
                   <router-link :to="`/students/${item.id}`">
-                    <img src="/eye.svg" alt="asfsa" />
+                    <img src="/eye.svg" alt="eye icon" />
                   </router-link>
                 </td>
               </tr>
@@ -386,7 +386,7 @@
           @click="prevPage"
           :disabled="store.currentPage === 1"
         >
-          <img class="rotate-180" src="/arrow.svg" alt="asfsa" />
+          <img class="rotate-180" src="/arrow.svg" alt="arrow icon" />
         </button>
         <span>{{ store.currentPage }}</span>
         <button
@@ -400,7 +400,7 @@
           @click="nextPage"
           :disabled="store.currentPage === Math.ceil(store.data?.count / 10)"
         >
-          <img src="/arrow.svg" alt="asfsa" />
+          <img src="/arrow.svg" alt="arrow icon" />
         </button>
       </div>
     </div>
@@ -408,13 +408,13 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted } from 'vue';
 
-import { useRoute } from 'vue-router'
+import { useRoute } from 'vue-router';
 
-import CBadge from '@/components/CBadge/CBadge.vue'
-import { useDataStore } from '@/stores/data'
-import { formatDate } from '@/utils/formatDate'
+import CBadge from '@/components/CBadge/CBadge.vue';
+import { useDataStore } from '@/stores/data';
+import { formatDate } from '@/utils/formatDate';
 
 const route = useRoute()
 

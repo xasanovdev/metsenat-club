@@ -44,7 +44,7 @@
       </template>
       <template v-slot:footer>
         <CButton @click="updateStudent" variant="secondary" text="Natijalarni ko‘rish">
-          <img src="/save.svg" alt="" />
+          <img src="/save.svg" alt="save icon" />
         </CButton>
       </template>
     </CModal>

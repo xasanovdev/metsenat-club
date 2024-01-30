@@ -1,7 +1,7 @@
 <template>
   <div class="relative grid grid-cols-4 gap-3 w-full">
     <div class="relative w-full" :class="{ 'bg-[#E0E7FF] border-[#2E5BFF]': selectedFilter === 'all' }">
-      <img v-if="selectedFilter === 'all'" class="absolute -right-1 -top-1" src="/select.svg" alt="">
+      <img v-if="selectedFilter === 'all'" class="absolute -right-1 -top-1" src="/select.svg" alt="select icon">
       <input 
         type="radio"
         class="hidden"
@@ -15,7 +15,7 @@
       </label>
     </div>
     <div class="relative" v-for="option in filterOptions" :key="option">
-      <img v-if="selectedFilter === option" class="absolute -right-1 -top-1" src="/select.svg" alt="">
+      <img v-if="selectedFilter === option" class="absolute -right-1 -top-1" src="/select.svg" alt="seect icon">
       <input 
         type="radio"
         class="hidden"

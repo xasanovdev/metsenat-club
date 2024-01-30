@@ -2,7 +2,7 @@
   <div class="min-h-screen max-w-[379px] w-full mx-auto flex items-center justify-center">
     <div class="flex w-full items-center flex-col gap-12">
       <div>
-        <img src="/loginlogo.svg" alt="" />
+        <img src="/loginlogo.svg" alt="Login Logo Image" />
       </div>
       <div class="max-w-[379px] w-full p-8 bg-white rounded-xl">
         <h2 class="text-2xl font-semibold mb-4">Kirish</h2>

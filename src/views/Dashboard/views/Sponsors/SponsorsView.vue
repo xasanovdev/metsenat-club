@@ -28,7 +28,7 @@
       <div class="flex w-full items-center justify-end gap-4 md:gap-5">
         <CInput v-model="search" placeholder="Qidirish" class="md:max-w-[284px] py-[15px] w-full" />
         <CButton @click="filterModal.openModal" variant="primary" class="px-8" text="Filter">
-          <img src="/filter.svg" alt="asfsa" />
+          <img src="/filter.svg" alt="filter icon" />
         </CButton>
       </div>
     </div>

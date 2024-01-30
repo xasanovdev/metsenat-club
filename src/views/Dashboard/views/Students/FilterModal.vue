@@ -23,7 +23,7 @@
 
       <template v-slot:footer>
         <CButton variant="primary" text="Tozalash">
-          <img src="/clear.svg" alt="" />
+          <img src="/clear.svg" alt="clear icon" />
         </CButton>
       </template>
     </CModal>

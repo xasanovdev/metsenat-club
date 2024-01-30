@@ -18,7 +18,7 @@
           </div>
 
           <div class="cursor-pointer" @click="closeModal">
-            <img src="/close.svg" alt="close" />
+            <img src="/close.svg" alt="close icon" />
           </div>
         </div>
         <hr class="my-7" />
@@ -32,7 +32,7 @@
         <div class="flex items-center justify-end gap-4">
           <slot name="footer"></slot>
           <CButton @click="filterData" variant="secondary" text="Natijalarni ko‘rish">
-            <img src="/eyeWhite.svg" alt="" />
+            <img src="/eyeWhite.svg" alt="eye icon" />
           </CButton>
         </div>
       </div>

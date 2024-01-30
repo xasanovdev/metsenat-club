@@ -16,20 +16,23 @@
 
     <template v-slot:footer>
       <CButton variant="primary" text="Tozalash">
-        <img src="/clear.svg" alt="" />
+        <img src="/clear.svg" alt="default clear icon" />
       </CButton>
     </template>
   </CModal>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import {
+  onMounted,
+  ref,
+} from 'vue';
 
-import CButton from '@/components/CButton/CButton.vue'
-import CDropdown from '@/components/CDropdown/CDropdown.vue'
-import CModal from '@/components/CModal/CModal.vue'
-import CSelect from '@/components/CSelect/CSelect.vue'
-import { useFetch } from '@/composables/useFetch/useFetch'
+import CButton from '@/components/CButton/CButton.vue';
+import CDropdown from '@/components/CDropdown/CDropdown.vue';
+import CModal from '@/components/CModal/CModal.vue';
+import CSelect from '@/components/CSelect/CSelect.vue';
+import { useFetch } from '@/composables/useFetch/useFetch';
 
 const data = ref(null)
 

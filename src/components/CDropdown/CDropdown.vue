@@ -12,7 +12,7 @@
         class="absolute right-2 top-4"
         :class="['mr-2 duration-200', [isDropdownOpen ? '' : 'rotate-180']]"
         src="/dropdown.svg"
-        alt=""
+        alt="Arrow icon"
       />
     </div>
     <transition name="dropdown">

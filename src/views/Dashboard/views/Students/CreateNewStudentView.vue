@@ -10,7 +10,7 @@
       <div class="max-w-[1200px] mx-auto px-6">
         <div class="w-full flex items-center gap-4">
           <div class="cursor-pointer" @click="$router.go(-1)">
-            <img src="/back.svg" alt="" />
+            <img src="/back.svg" alt="arrow left" />
           </div>
           <p class="text-[#28293D] text-2xl font-bold">Talaba qo‘shish</p>
         </div>
@@ -71,7 +71,7 @@
         </div>
         <hr class="my-7" />
         <CButton class="w-full" type="submit" variant="secondary" text="Qo‘shish">
-          <img src="/plusWhite.svg" alt="" />
+          <img src="/plusWhite.svg" alt="plus icon" />
         </CButton>
       </form>
     </div>

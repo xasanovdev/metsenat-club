@@ -21,7 +21,7 @@
 
         <router-link class="inline-block" to="/sponsors/filter">
           <CTabButton path="/sponsors/filter" class="flex-1 px-8 w-full" buttonText="Filter">
-            <img class="/sponsors/filter" src="/filter.svg" alt="asfsa" />
+            <img class="/sponsors/filter" src="/filter.svg" alt="filter icon" />
           </CTabButton>
         </router-link>
       </div>
@@ -33,7 +33,7 @@
       <div class="grid gap-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         <!-- total summ of contracts -->
         <div class="flex-1 p-6 flex items-center gap-4 bg-white rounded-lg">
-          <img src="/moneyBlue.svg" alt="" />
+          <img src="/moneyBlue.svg" alt="total summ of contracts icon" />
           <div class="flex items-start flex-col gap-[6px]">
             <p class="text-[12px] text-[#7A7A9D]">Jami to‘langan summa</p>
             <p class="flex text-[20px] whitespace-nowrap font-bold items-center gap-[6px]">
@@ -44,7 +44,7 @@
         </div>
         <!-- Total summ of requested  -->
         <div class="flex-1 p-6 flex items-center gap-4 bg-white rounded-lg">
-          <img src="/moneyYellow.svg" alt="" />
+          <img src="/moneyYellow.svg" alt="total of requested summ icon" />
           <div class="flex items-start flex-col gap-[6px]">
             <p class="text-[12px] text-[#7A7A9D]">Jami so‘ralgan summa</p>
             <p class="flex text-[20px] whitespace-nowrap font-bold items-center gap-[6px]">
@@ -57,7 +57,7 @@
         <div
           class="flex-1 p-6 flex lg:col-span-1 md:col-span-2 col-span-1 items-center gap-4 bg-white rounded-lg"
         >
-          <img src="/moneyOrange.svg" alt="" />
+          <img src="/moneyOrange.svg" alt="total of payed summ icon" />
           <div class="flex items-start flex-col gap-[6px]">
             <p class="text-[12px] text-[#7A7A9D]">Jami to‘langan summa</p>
             <p class="flex text-[20px] whitespace-nowrap font-bold items-center gap-[6px]">

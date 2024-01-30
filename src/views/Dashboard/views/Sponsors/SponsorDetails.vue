@@ -18,7 +18,7 @@
       <div class="max-w-[1200px] mx-auto px-6">
         <div class="w-full flex items-center gap-4">
           <div class="cursor-pointer" @click="$router.go(-1)">
-            <img src="/back.svg" alt="" />
+            <img src="/back.svg" alt="arrow left" />
           </div>
           <p class="text-[#28293D] text-2xl font-bold">{{ data?.full_name }}</p>
           <CBadge :status="data?.get_status_display"></CBadge>
@@ -38,12 +38,12 @@
             class="px-8"
             variant="primary"
           >
-            <img src="/pen.svg" alt="" />
+            <img src="/pen.svg" alt="pen icon for editing" />
           </CButton>
         </div>
         <div class="flex items-center gap-5 mt-8">
           <div class="bg-[#EAECF0] w-16 h-16 flex items-center justify-center rounded-md">
-            <img class="p-4" src="/person.svg" alt="" />
+            <img class="p-4" src="/person.svg" alt="default person image" />
           </div>
           <p class="text-[#212121] max-w-[163px] font-bold">{{ data?.full_name }}</p>
         </div>
@@ -58,7 +58,7 @@
           </div>
         </div>
       </article>
-      <img class="mx-auto -mb-10" src="/bgImage.svg" alt="" />
+      <img class="mx-auto -mb-10" src="/bgImage.svg" alt="details background image on the bottom" />
     </div>
   </template>
 </template>

@@ -29,7 +29,7 @@
         <CInput v-model="search" placeholder="Qidirish" class="md:max-w-[284px] py-[15px] w-full" />
 
         <CButton @click="filterModal.openModal" variant="primary" class="px-8" text="Filter">
-          <img src="/filter.svg" alt="asfsa" />
+          <img src="/filter.svg" alt="filter icon" />
         </CButton>
       </div>
     </div>
@@ -40,7 +40,7 @@
       <div class="w-full flex justify-end">
         <RouterLink to="/new-student">
           <CButton class="my-7" variant="secondary" text="Talaba qo‘shish">
-            <img src="/plusWhite.svg" alt="" />
+            <img src="/plusWhite.svg" alt="white plus icon" />
           </CButton>
         </RouterLink>
       </div>
