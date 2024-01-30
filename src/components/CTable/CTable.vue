@@ -160,9 +160,9 @@
                 <td class="py-3 px-4 text-center">{{ item.phone }}</td>
                 <td class="py-3 px-4 text-center">{{ item.spent }}</td>
                 <td class="py-3 px-4 text-center">{{ item.sum }}</td>
-                <td class="py-3 px-4 text-center">{{ formatDate(item.created_at) }}</td>zz
+                <td class="py-3 px-4 text-center">{{ formatDate(item.created_at) }}</td>
                 <td class="py-3 px-4 text-center">
-                  {{ item.get_status_display }}
+                  <CBadge :status="item.get_status_display"></CBadge>
                 </td>
                 <td class="py-3 px-4 text-center flex items-center justify-center">
                   <router-link :to="`/sponsors/${item.id}`">
@@ -404,6 +404,7 @@ import { onMounted } from 'vue';
 import { formatDate } from '@/utils/formatDate';
 import { useRoute } from 'vue-router';
 import { useDataStore } from '@/stores/data';
+import CBadge from '@/components/CBadge/CBadge.vue';
 
 const route = useRoute()
 
