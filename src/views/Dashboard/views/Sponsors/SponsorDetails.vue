@@ -84,7 +84,6 @@ const editSponsorModal = modal()
 
 
 const route = useRoute()
-const metaValue = ref(route.meta.title)
 const pageId = ref(route.params.id)
 
 const { get, loading } = useFetch()

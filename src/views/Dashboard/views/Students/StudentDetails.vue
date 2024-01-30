@@ -157,7 +157,6 @@ import EditSponsorModal from './EditSponsorModal.vue';
 import EditStudentModal from './EditStudentModal.vue';
 
 const route = useRoute()
-const metaValue = ref(route.meta.title)
 const pageId = ref(route.params.id)
 
 const { modal } = useModal()

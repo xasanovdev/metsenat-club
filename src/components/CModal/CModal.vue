@@ -31,7 +31,6 @@
 
         <div class="flex items-center justify-end gap-4">
           <slot name="footer"></slot>
-
         </div>
       </div>
     </div>
@@ -39,60 +38,9 @@
 </template>
 
 <script setup>
-import {
-  computed,
-  ref,
-} from 'vue';
-
-import { useRoute } from 'vue-router';
-
-import CButton from '@/components/CButton/CButton.vue';
-import { useDataStore } from '@/stores/data';
-
-const route = useRoute()
-
-const props = defineProps([
-  'modalValue',
-  'closeModal',
-  'closeModalOverlay',
-  'filterData',
-  'filterStudent'
-])
+import { ref } from 'vue';
 
 const isLoading = ref(false)
-
-const store = useDataStore()
-
-const filterData = () => {
-  if (route.meta.title === 'Sponsors') {
-    if (props.filterData.status == 'Barchasi' && props.filterData.money == 'all') {
-      return
-    }
-    store.data.results = store.data.results.filter((item) => {
-      if (
-        item.sum < props.filterData.money ||
-        item.get_status_display == props.filterData.status.name
-      ) {
-        return item
-      }
-    })
-  } else if (route.meta.title === 'Students') {
-    const filterStudentType = computed(() => {
-      return props?.filterStudent?.type.name === 'Bakalavr' ? '1' : '2'
-    })
-
-    store.data.results = store.data.results.filter((item) => {
-      if (
-        item.type == filterStudentType.value ||
-        item.institute.id == props.filterStudent.institute.id
-      ) {
-        return item
-      }
-    })
-  }
-
-  props.closeModal()
-}
 </script>
 
 <style>
