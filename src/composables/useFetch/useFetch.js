@@ -46,9 +46,17 @@ export const useFetch = () => {
     });
   };
 
+  const put = (url, body) => {
+    return axios(url, {
+      method: 'PUT',
+      body: JSON.stringify(body),
+    });
+  };
+
   return {
     get,
     post,
+    put,
     loading,
   };
 };

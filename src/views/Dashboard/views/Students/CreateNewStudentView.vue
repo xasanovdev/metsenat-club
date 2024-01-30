@@ -125,8 +125,6 @@ const addStudent = async () => {
   } catch (error) {
     console.error('Error fetching data:', error);
   }
-  finally {
-  }
 };
 
 const fetchData = async () => {
@@ -137,13 +135,14 @@ const fetchData = async () => {
     console.error('Error fetching data:', error);
   }
 };
+fetchData();
+
 const options = [
   { id: 'Barchasi', name: 'Barchasi' },
   { id: 'Bakalavr', name: 'Bakalavr' },
   { id: 'Magistr', name: 'Magistr' },
 ];
 
-fetchData();
 
 
 

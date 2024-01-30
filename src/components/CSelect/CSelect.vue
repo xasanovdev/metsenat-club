@@ -31,13 +31,6 @@
     </div>
   </div>
 
-  <div class="mt-4 mx-auto text-center">
-    <!-- Display filtered data here -->
-    <div v-for="item in filteredData" :key="item.id" :class="{ 'bg-blue-100': isSelected(item.id) }">
-      <span>{{ item.name }}</span>
-      <span class="ml-2 text-gray-500">Given Sum: {{ formatNumber(item.given_sum) }} <span>UZS</span></span>
-    </div>
-  </div>
 </template>
 
 <script setup>

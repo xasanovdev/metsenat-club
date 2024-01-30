@@ -35,7 +35,9 @@ export const useDataStore = defineStore('data', {
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
-        this.loading = false; // Set loading to false after the request completes (success or error)
+        setTimeout(() => {
+          this.loading = false;
+        }, 1000);
       }
     },
   },

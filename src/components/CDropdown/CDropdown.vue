@@ -36,7 +36,7 @@ const { options } = defineProps(['options']);
 const emit = defineEmits(['update:modelValue']);
 
 const isDropdownOpen = ref(false);
-const selectedOption = ref(options[0]);
+const selectedOption = ref(options[0] || {});
 const searchText = ref('');
 
 const filteredOptions = computed(() => {

@@ -10,7 +10,7 @@
   </template> 
 
   <template v-else>
-    <EditStudentModal v-show="editStudentModal.modalValue" :modalValue="editStudentModal.modalValue" :closeModalOverlay="editStudentModal.closeModalOverlay" :closeModal="editStudentModal.closeModal">Edit Modal</EditStudentModal>
+    <EditStudentModal :data="data" v-show="editStudentModal.modalValue" :modalValue="editStudentModal.modalValue" :closeModalOverlay="editStudentModal.closeModalOverlay" :closeModal="editStudentModal.closeModal">Edit Modal</EditStudentModal>
     <EditSponsorModal v-show="editSponsorModal.modalValue" :modalValue="editSponsorModal.modalValue" :closeModalOverlay="editSponsorModal.closeModalOverlay" :closeModal="editSponsorModal.closeModal">Edit Modal</EditSponsorModal>
 
     <header class="w-full py-[30px] bg-[#FDFDFD]">

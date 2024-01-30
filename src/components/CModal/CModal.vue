@@ -57,15 +57,13 @@ const dataList = ref([])
 
 const store = useDataStore()
 
-const filterStudentType = computed(() => {
-  return props.filterStudent.type.name === 'Bakalavr' ? '1' : '2'
-})
+
 
 const filterData = () => {
 
   console.log(route.meta);
   console.log(dataList.value);
-  if(route.meta.name === 'Sponsors'){
+  if(route.meta.title === 'Sponsors'){
     if(props.filterData.status == 'Barchasi' && props.filterData.money == 'all'){
     return
   }
@@ -74,7 +72,12 @@ const filterData = () => {
        return item
     }
   })
-  } else {
+  } else if (route.meta.title === 'Students'){
+
+    const filterStudentType = computed(() => {
+      return props?.filterStudent?.type.name === 'Bakalavr' ? '1' : '2'
+    })
+
     store.data.results = store.data.results.filter((item) => {
     console.log(props.filterStudent);
       if(item.type == filterStudentType.value || item.institute.id == props.filterStudent.institute.id){
