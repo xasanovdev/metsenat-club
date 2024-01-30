@@ -58,6 +58,7 @@ import {
 
 const { options } = defineProps(['options'])
 const emit = defineEmits(['update:modelValue'])
+console.log(options);
 
 const isDropdownOpen = ref(false)
 const selectedOption = ref(options[0] || {})
@@ -65,7 +66,7 @@ const searchText = ref('')
 
 const filteredOptions = computed(() => {
   return options.filter((option) =>
-    option.name.toLowerCase().includes(searchText.value.toLowerCase())
+    option.name?.toLowerCase().includes(searchText.value?.toLowerCase())
   )
 })
 

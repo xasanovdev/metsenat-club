@@ -21,6 +21,13 @@
       :closeModal="editSponsorModal.closeModal"
       >Edit Modal</EditSponsorModal
     >
+    <AddSponsorModal
+      v-show="addSponsorModal.modalValue"
+      :modalValue="addSponsorModal.modalValue"
+      :closeModalOverlay="addSponsorModal.closeModalOverlay"
+      :closeModal="addSponsorModal.closeModal"
+      >Edit Modal</AddSponsorModal
+    >
 
     <header class="w-full py-[30px] bg-[#FDFDFD]">
       <div class="container mx-auto px-6">
@@ -109,7 +116,7 @@
           >
             <p class="text-[#28293D] text-2xl font-bold">Talabaga homiylar</p>
             <CButton
-              @click="editSponsorModal.openModal"
+              @click="addSponsorModal.openModal"
               text="Homiy qo‘shish"
               class="px-8"
               variant="primary"
@@ -153,6 +160,7 @@ import CButton from '@/components/CButton/CButton.vue';
 import { useFetch } from '@/composables/useFetch';
 import { useModal } from '@/composables/useModal';
 
+import AddSponsorModal from './components/addSponsorModal.vue';
 import EditSponsorModal from './components/EditSponsorModal.vue';
 import EditStudentModal from './components/EditStudentModal.vue';
 
@@ -164,6 +172,8 @@ const { modal } = useModal()
 const editSponsorModal = modal()
 
 const editStudentModal = modal()
+
+const addSponsorModal = modal()
 
 const { get, loading } = useFetch()
 const data = ref(null)
