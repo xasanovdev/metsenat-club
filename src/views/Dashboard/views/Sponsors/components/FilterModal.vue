@@ -26,34 +26,16 @@
 </template>
 
 <script setup>
-import {
-  onMounted,
-  ref,
-} from 'vue';
+import { ref } from 'vue';
 
 import CButton from '@/components/CButton/CButton.vue';
 import CDropdown from '@/components/CDropdown/CDropdown.vue';
 import CModal from '@/components/CModal/CModal.vue';
 import CSelect from '@/components/CSelect/CSelect.vue';
-import { useFetch } from '@/composables/useFetch';
 import { useDataStore } from '@/stores/data';
 
-const data = ref(null)
+const store = useDataStore()
 
-const { get } = useFetch()
-
-const fetchData = async () => {
-  try {
-    const response = await get(`institute-list/`)
-    data.value = response
-  } catch (error) {
-    console.error('Error fetching data:', error)
-  }
-}
-
-onMounted(() => {
-  fetchData()
-})
 const options = [
   { id: 'Barchasi', name: 'Barchasi' },
   { id: 'Yangi', name: 'Yangi' },
@@ -67,7 +49,6 @@ const filterSponsor = ref({
   money: 'Barchasi'
 })
 
-const store = useDataStore()
 
 const filterData = () => {
   if (filterSponsor.value.status == 'Barchasi' && filterSponsor.value.money == 'all') {

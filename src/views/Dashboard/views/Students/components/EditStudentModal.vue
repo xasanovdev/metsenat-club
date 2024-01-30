@@ -29,7 +29,7 @@
               <label>
                 {{ user?.institute }}
                 <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</p>
-                <CDropdown v-model="user.institute" :options="dataInstitute" />
+                <CDropdown v-model="user.institute" :options="store.instituteList" />
               </label>
             </div>
             <div>
@@ -57,45 +57,28 @@ import {
   ref,
 } from 'vue';
 
-import { useRoute } from 'vue-router';
-
 import CButton from '@/components/CButton/CButton.vue';
 import CDropdown from '@/components/CDropdown/CDropdown.vue';
 import CInput from '@/components/CInput/CInput.vue';
 import CModal from '@/components/CModal/CModal.vue';
 import { useFetch } from '@/composables/useFetch';
 import router from '@/router';
+import { useDataStore } from '@/stores/data';
 
-const route = useRoute()
+const store = useDataStore()
 
 const { get, loading, put } = useFetch()
-
-const generataId = () => {
-  return Math.random().toString(36).substr(2, 9)
-}
 
 const props = defineProps(['data'])
 
 const user = ref({
-  id: generataId(),
+  id: '',
   full_name: props.data?.full_name,
   phone: props.data?.phone,
   institute: props.data?.institute?.name,
   type: props.data?.type,
   contract: props.data?.contract
 })
-
-const dataInstitute = ref([])
-
-const fetchData = async () => {
-  try {
-    const response = await get(`institute-list/`)
-    dataInstitute.value = response
-  } catch (error) {
-    console.error('Error fetching user:', error)
-  }
-}
-
 const updateStudent = async () => {
   try {
     const response = await put(`student-update/${props.data.id}/`, {
@@ -113,7 +96,4 @@ const updateStudent = async () => {
   }
 }
 
-onMounted(() => {
-  fetchData()
-})
 </script>

@@ -17,7 +17,7 @@
         <div class="flex flex-col items-start gap-4 mt-7">
           <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">OTm</p>
           {{ filterStudent.institute.id }}
-          <CDropdown v-model="filterStudent.institute" :options="data"></CDropdown>
+          <CDropdown v-model="filterStudent.institute" :options="store.instituteList"></CDropdown>
         </div>
       </template>
 
@@ -45,22 +45,9 @@ import CModal from '@/components/CModal/CModal.vue';
 import { useFetch } from '@/composables/useFetch';
 import { useDataStore } from '@/stores/data';
 
-const data = ref(null)
-
-const { get, loading } = useFetch()
+const { loading } = useFetch()
 
 const store = useDataStore()
-
-const fetchData = async () => {
-  try {
-    const response = await get(`institute-list/`)
-    data.value = response
-  } catch (error) {
-    console.error('Error fetching data:', error)
-  }
-}
-
-fetchData()
 
 const options = [
   { id: 'Barchasi', name: 'Barchasi' },

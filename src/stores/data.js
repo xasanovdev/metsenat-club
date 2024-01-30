@@ -8,6 +8,7 @@ export const useDataStore = defineStore('data', {
     sponsorsCurrentPage: 1,
     studentsList: [],
     studentsCurrentPage: 1,
+    instituteList: [],
   }),
 
   actions: {

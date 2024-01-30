@@ -47,7 +47,7 @@
             <label>
               <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</p>
               {{ user.institute }}
-              <CDropdown v-model="user.institute" :options="data" />
+              <CDropdown v-model="user.institute" :options="store.instituteList" />
             </label>
           </div>
           <div>
@@ -86,8 +86,9 @@ import CDropdown from '@/components/CDropdown/CDropdown.vue';
 import CInput from '@/components/CInput/CInput.vue';
 import { useFetch } from '@/composables/useFetch';
 import router from '@/router';
+import { useDataStore } from '@/stores/data';
 
-const data = ref(null)
+const store = useDataStore()
 
 const { get, loading, post } = useFetch()
 const generataId = () => {
@@ -114,7 +115,6 @@ const addStudent = async () => {
       contract: user.value.contract
     })
 
-    data.value = response
     user.value = {
       id: generataId(),
       full_name: '',
@@ -128,16 +128,6 @@ const addStudent = async () => {
     console.error('Error fetching data:', error)
   }
 }
-
-const fetchData = async () => {
-  try {
-    const response = await get(`institute-list/`)
-    data.value = response
-  } catch (error) {
-    console.error('Error fetching data:', error)
-  }
-}
-fetchData()
 
 const options = [
   { id: 'Barchasi', name: 'Barchasi' },
