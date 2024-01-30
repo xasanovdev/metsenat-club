@@ -34,7 +34,7 @@ import { onMounted, ref } from 'vue';
 
 const data = ref(null);
 
-const {get,loading} = useFetch()
+const {get} = useFetch()
 
 const fetchData = async () => {
   try {

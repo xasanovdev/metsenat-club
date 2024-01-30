@@ -1,7 +1,7 @@
 <template>
   <div class="relative dropdown inline-block w-full">
     <div class="relative">
-      <input
+      <CInput
         @click="toggleDropdown"
         @focus="closeDropdown()"
         v-model="searchText"
@@ -15,7 +15,7 @@
         <div v-if="filteredOptions.length === 0" class="px-4 py-3">Qidirayotgan ma'lumotingiz topilmadi :(</div>
         <div v-for="(option, index) in filteredOptions" :key="option.id" class="cursor-pointer hover:bg-slate-100 duration-200" :class="{ 'border-t': index > 0, 'bg-slate-100': selectedOption.value === option.name }">
           <label class="flex w-full px-4 py-3 items-center cursor-pointer">
-            <input
+            <CInput
               type="radio"
               v-model="selectedOption"
               :value="option"
@@ -32,6 +32,8 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
+
+import CInput from '@/components/CInput/CInput.vue';
 
 const props = defineProps({
   options: {

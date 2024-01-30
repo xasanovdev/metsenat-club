@@ -33,7 +33,7 @@
       </div>
     </div>
 
-  <div class="w-full">
+  <div class="w-full pb-20">
     <div class="max-w-[1200px] mx-auto mt-12 px-6">
       <div class="grid gap-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         <!-- total summ of contracts -->

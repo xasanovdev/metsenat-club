@@ -1,7 +1,7 @@
 <!-- Input.vue -->
 <template>
   <input
-    class="py-3 px-4 w-full rounded-md duration-200 dark:bg-dark1 outline-none font-bold border border-light1 hover:border-indigo-400 dark:border-dark2 dark:hover:border-indigo-400 text-light4 dark:text-white"
+    class="py-3 px-4 w-full border border-[#E0E7FF] justify-between bg-[#F9FAFF] text-left text-[#2E384D] rounded-md focus:outline-none flex items-center"
     :value="modelValue"
     @input="updateModelValue"
     :type="type"
@@ -9,7 +9,6 @@
     :placeholder="placeholder"
     :class="{
       'border-red-500': isValid === false,
-      'border-green-500': isValid === true
     }"
   />
 </template>
@@ -26,7 +25,7 @@ let { modelValue, type, placeholder, id } = defineProps([
 ])
 
 console.log(modelValue);
-const emit = defineEmits()
+const emit = defineEmits(['update:modelValue'])
 
 const updateModelValue = (event) => {
   if (typeof modelValue === 'string') {

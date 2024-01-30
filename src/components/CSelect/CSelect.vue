@@ -10,7 +10,7 @@
         value="all"
         @change="filterData"
       />
-      <label for="option-all" class="w-full text-sm font-medium h-[52px] rounded-md flex items-center justify-center border-2 border-[#E0E7FF] cursor-pointer" :class="{ 'bg-[#E0E7FF] border-[#2E5BFF]': selectedFilter === 'all' }">
+      <label for="option-all" class="w-full text-sm font-medium h-[52px] rounded-md flex items-center justify-center border-2 cursor-pointer" :class="{ 'bg-[#E0E7FF] border-[#2E5BFF]': selectedFilter === 'all' }">
         All
       </label>
     </div>
@@ -24,8 +24,9 @@
         :value="option"
         @change="filterData"
       />
-      <label :for="'option-' + option" class="w-full text-sm font-medium h-[52px] rounded-md flex items-center justify-center border-2 border-[#E0E7FF] cursor-pointer" :class="{ 'bg-[#E0E7FF] border-[#2E5BFF]': selectedFilter === option }">
-        {{ formatMoney(option) }}
+      <label :for="'option-' + option" class="w-full text-sm font-medium h-[52px] rounded-md flex items-center justify-center border-2 cursor-pointer" :class="{ 'bg-[#E0E7FF] border-[#2E5BFF]': selectedFilter === option }">
+        {{ formatNumber(option) }}
+        <span class="text-[#2E5BFF] ml-[2px]">UZS</span>
       </label>
     </div>
   </div>
@@ -34,7 +35,7 @@
     <!-- Display filtered data here -->
     <div v-for="item in filteredData" :key="item.id" :class="{ 'bg-blue-100': isSelected(item.id) }">
       <span>{{ item.name }}</span>
-      <span class="ml-2 text-gray-500">Given Sum: {{ formatMoney(item.given_sum) }}</span>
+      <span class="ml-2 text-gray-500">Given Sum: {{ formatNumber(item.given_sum) }} <span>UZS</span></span>
     </div>
   </div>
 </template>
@@ -42,9 +43,11 @@
 <script setup>
 import { ref, computed } from 'vue';
 
+import { formatNumber } from '@/utils/formatNumber';
+
 const filterOptions = [1000000, 5000000, 7000000, 10000000, 30000000, 50000000]; // Adjust based on your monetary values
 
-const selectedFilter = ref(null);
+const selectedFilter = ref('all');
 
 // Sample data for demonstration
 const data = [
@@ -71,15 +74,6 @@ const isSelected = (itemId) => {
   return item && item.given_sum === selectedFilter.value;
 };
 
-const formatMoney = (amount) => {
-  const formattedAmount = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'UZS',
-    maximumFractionDigits: 0,
-  }).format(amount);
-
-  return formattedAmount;
-};
 </script>
 
 <style scoped>

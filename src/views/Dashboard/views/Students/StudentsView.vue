@@ -37,6 +37,13 @@
 
   <div class="bg-[#F5F5F7] pb-20">
     <div class="max-w-[1200px] mx-auto px-6 overflow-hidden overflow-x-auto">
+      <div class="w-full flex justify-end">
+        <RouterLink to="/new-student">
+          <CButton class="my-7" variant="secondary" text="Talaba qo‘shish">
+            <img src="/plusWhite.svg" alt="">
+          </CButton>
+        </RouterLink>
+      </div>
       <CTable />
     </div>
   </div>

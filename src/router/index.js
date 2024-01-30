@@ -38,13 +38,19 @@ const router = createRouter({
           path: '/students',
           name: 'Students',
           component: () => import('@/views/Dashboard/views/Students/StudentsView.vue'),
-          meta: { requiresAuth: true, title: 'Students', layout: 'Dashboard' }
+          meta: { requiresAuth: true, title: 'Students', layout: 'Dashboard' },
         },
         {
           path: '/students/:id',
           name: 'Student',
           component: () => import('@/views/Dashboard/views/Students/StudentDetails.vue'),
           meta: { layout: 'Dashboard', title: 'StudentDetails', requiresAuth: true },
+        },
+        {
+          path:'/new-student',
+          name: 'NewStudent',
+          component: () => import('@/views/Dashboard/views/Students/CreateNewStudentView.vue'),
+          meta: { layout: 'Dashboard', title: 'NewStudent', requiresAuth: true },
         },
         {
           path: '/sponsors',

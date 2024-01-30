@@ -36,9 +36,8 @@
 import CButton from '@/components/CButton/CButton.vue';
 import CModal from '@/components/CModal/CModal.vue';
 import CDropdown from '@/components/CDropdown/CDropdown.vue';
-import CSelect from '@/components/CSelect/CSelect.vue';
 import { useFetch } from '@/composables/useFetch/useFetch';
-import { onMounted, ref } from 'vue';
+import {  ref } from 'vue';
 
 const data = ref(null);
 
@@ -54,14 +53,12 @@ const fetchData = async () => {
   }
 };
 
-  fetchData();
+fetchData();
 
 const options = [
   { id: 'Barchasi', name: 'Barchasi' },
-  { id: 'Yangi', name: 'Yangi' },
-  { id: 'Moderatsiyada', name: 'Moderatsiyada' },
-  { id: 'Tasdiqlangan', name: 'Tasdiqlangan' },
-  { id: 'Bekor qilingan', name: 'Bekor qilingan' },
+  { id: 'Bakalavr', name: 'Bakalavr' },
+  { id: 'Magistr', name: 'Magistr' },
 ];
 
 console.log(options);
