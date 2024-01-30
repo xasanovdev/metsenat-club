@@ -54,15 +54,14 @@ import { ref } from 'vue';
 import CButton from '@/components/CButton/CButton.vue';
 import CInput from '@/components/CInput/CInput.vue';
 import CTabButton from '@/components/CTabButton/CTabButton.vue';
-import CTable from '@/components/CTable/CTable.vue';
 import { useModal } from '@/composables/useModal/useModal';
 
-import FilterModal from './FilterModal.vue';
+import CTable from './components/CTable.vue';
+import FilterModal from './components/FilterModal.vue';
 
 const search = ref('')
 
 const { modal } = useModal()
 
 const filterModal = modal()
-
 </script>

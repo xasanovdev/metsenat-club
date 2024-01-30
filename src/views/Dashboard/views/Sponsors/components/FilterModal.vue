@@ -1,5 +1,5 @@
 <template>
-  <CModal :filterData="filterData">
+  <CModal>
     <template v-slot:title>Tahrirlash</template>
     <template v-slot:body>
       <div class="flex flex-col items-start gap-4">
@@ -18,6 +18,9 @@
       <CButton variant="primary" text="Tozalash">
         <img src="/clear.svg" alt="default clear icon" />
       </CButton>
+      <CButton @click="filterData" variant="secondary" text="Natijalarni ko‘rish">
+        <img src="/eyeWhite.svg" alt="eye icon" />
+      </CButton>
     </template>
   </CModal>
 </template>
@@ -33,6 +36,7 @@ import CDropdown from '@/components/CDropdown/CDropdown.vue';
 import CModal from '@/components/CModal/CModal.vue';
 import CSelect from '@/components/CSelect/CSelect.vue';
 import { useFetch } from '@/composables/useFetch/useFetch';
+import { useDataStore } from '@/stores/data';
 
 const data = ref(null)
 
@@ -58,8 +62,26 @@ const options = [
   { id: 'Bekor qilingan', name: 'Bekor qilingan' }
 ]
 
-const filterData = ref({
+const filterSponsor = ref({
   status: 'Barchasi',
   money: 'Barchasi'
 })
+
+const store = useDataStore()
+
+const filterData = () => {
+  if (filterSponsor.value.status == 'Barchasi' && filterSponsor.value.money == 'all') {
+    return
+  }
+  store.data.results = store.data.results.filter((item) => {
+    if (
+      item.sum < filterSponsor.value.money ||
+      item.get_status_display == filterSponsor.value.status.name
+    ) {
+      return item
+    }
+  })
+
+  // closeModal()
+}
 </script>

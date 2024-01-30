@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 export function useModal() {
   const modals = ref([])
@@ -32,6 +32,7 @@ export function useModal() {
     return modals.value[modals.value.length - 1]
   }
 
+  console.log(modals.value);
   return {
     modals,
     modal

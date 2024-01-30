@@ -351,7 +351,7 @@
                 </td>
 
                 <td class="py-3 px-4 text-center whitespace-normal flex w-[200px]">
-                  {{ item.institute.name }}
+                  {{ item.institute?.name }}
                 </td>
                 <td class="py-3 px-4 text-center">{{ item.given }}</td>
 

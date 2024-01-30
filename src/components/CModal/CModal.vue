@@ -31,9 +31,7 @@
 
         <div class="flex items-center justify-end gap-4">
           <slot name="footer"></slot>
-          <CButton @click="filterData" variant="secondary" text="Natijalarni ko‘rish">
-            <img src="/eyeWhite.svg" alt="eye icon" />
-          </CButton>
+
         </div>
       </div>
     </div>
@@ -62,8 +60,6 @@ const props = defineProps([
 ])
 
 const isLoading = ref(false)
-
-const dataList = ref([])
 
 const store = useDataStore()
 

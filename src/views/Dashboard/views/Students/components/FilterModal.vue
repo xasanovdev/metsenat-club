@@ -4,7 +4,7 @@
   </template>
 
   <template v-else>
-    <CModal :filterStudent="filterStudent">
+    <CModal>
       <template v-slot:title>Tahrirlash</template>
       <template v-slot:body>
         <div class="flex flex-col items-start gap-4">
@@ -25,6 +25,9 @@
         <CButton variant="primary" text="Tozalash">
           <img src="/clear.svg" alt="clear icon" />
         </CButton>
+        <CButton @click="filterData" variant="secondary" text="Natijalarni ko‘rish">
+          <img src="/eyeWhite.svg" alt="eye icon" />
+        </CButton>
       </template>
     </CModal>
   </template>
@@ -32,18 +35,21 @@
 
 <script setup>
 import {
+  computed,
   ref,
-  watch,
 } from 'vue';
 
 import CButton from '@/components/CButton/CButton.vue';
 import CDropdown from '@/components/CDropdown/CDropdown.vue';
 import CModal from '@/components/CModal/CModal.vue';
 import { useFetch } from '@/composables/useFetch/useFetch';
+import { useDataStore } from '@/stores/data';
 
 const data = ref(null)
 
 const { get, loading } = useFetch()
+
+const store = useDataStore()
 
 const fetchData = async () => {
   try {
@@ -67,4 +73,18 @@ const filterStudent = ref({
   institute: ''
 })
 
+const filterStudentType = computed(() => {
+  return filterStudent.value?.type.name === 'Bakalavr' ? '1' : '2'
+})
+
+const filterData = () => {
+  store.data.results = store.data.results.filter((item) => {
+    if (
+      item.type == filterStudentType.value ||
+      item.institute.id == filterStudent.value.institute.id
+    ) {
+      return item
+    }
+  })
+}
 </script>
