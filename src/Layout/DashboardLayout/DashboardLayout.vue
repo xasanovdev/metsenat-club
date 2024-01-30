@@ -26,12 +26,14 @@
 </template>
 
 <script setup>
+import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
 
 const { clearToken } = useAuthStore()
 
 const logout = () => {
   clearToken()
-  window.location.href = '/'
+
+  router.push({ name: 'Auth' })
 }
 </script>
