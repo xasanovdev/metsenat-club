@@ -5,24 +5,22 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed } from 'vue';
 
-import { useRoute } from 'vue-router'
+import { useRoute } from 'vue-router';
 
-import AuthLayout from '@/Layout/AuthLayout/AuthLayout.vue'
-import DashboardLayout from '@/Layout/DashboardLayout/DashboardLayout.vue'
+import AuthLayout from '@/Layout/AuthLayout/AuthLayout.vue';
+import DashboardLayout from '@/Layout/DashboardLayout/DashboardLayout.vue';
 
 const route = useRoute()
 
+const layouts = {
+  Dashboard: DashboardLayout,
+  Auth: AuthLayout
+}
+
 const layout = computed(() => {
-  switch (route.meta.layout) {
-    case 'Dashboard':
-      return DashboardLayout
-    case 'Auth':
-      return AuthLayout
-    default:
-      return 'salom'
-  }
+  return layouts[route.meta.layout] ?? DashboardLayout
 })
 </script>
 
