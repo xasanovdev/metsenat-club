@@ -39,31 +39,4 @@ export const useDataStore = defineStore('data', {
       }
     },
   },
-
-  // Add watches for store state changes
-  watches: {
-    metaValue(newValue, oldValue) {
-      console.log(`metaValue changed from ${oldValue} to ${newValue}`);
-    },
-
-    data(newValue, oldValue) {
-      console.log('Data changed:', newValue);
-    },
-
-    currentPage(newValue, oldValue) {
-      console.log(`currentPage changed from ${oldValue} to ${newValue}`);
-    },
-
-    totalPages(newValue, oldValue) {
-      console.log(`totalPages changed from ${oldValue} to ${newValue}`);
-    },
-
-    pageSize(newValue, oldValue) {
-      console.log(`pageSize changed from ${oldValue} to ${newValue}`);
-    },
-
-    loading(newValue, oldValue) {
-      console.log(`loading changed from ${oldValue} to ${newValue}`);
-    },
-  },
 });
