@@ -12,7 +12,8 @@ export const useDataStore = defineStore('data', {
     studentsList: [],
     studentsCurrentPage: 1,
     instituteList: [], // Variable to store the fetched data
-    editSponsorData: {}
+    editSponsorData: {},
+    updateSponsorData: {}
   }),
 
   actions: {

@@ -64,21 +64,20 @@
 </template>
 
 <script setup>
-import {
-  onMounted,
-  ref,
-} from 'vue';
+import { onMounted, ref } from 'vue'
 
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'
 
-import CBadge from '@/components/CBadge/CBadge.vue';
-import CButton from '@/components/CButton/CButton.vue';
-import { useFetch } from '@/composables/useFetch';
-import { useModal } from '@/composables/useModal';
+import CBadge from '@/components/CBadge/CBadge.vue'
+import CButton from '@/components/CButton/CButton.vue'
+import { useFetch } from '@/composables/useFetch'
+import { useModal } from '@/composables/useModal'
 
-import EditSponsorModal from './components/EditSponsorModal.vue';
+import EditSponsorModal from './components/EditSponsorModal.vue'
+import { useDataStore } from '@/stores/data'
 
 const { modal } = useModal()
+const store = useDataStore()
 
 const editSponsorModal = modal()
 
@@ -91,7 +90,9 @@ const data = ref(null)
 const fetchData = async () => {
   try {
     const response = await get(`${`sponsor-detail/${pageId.value}`}`)
+    store.updateSponsorData = response
     data.value = response
+    console.log(data.value)
   } catch (error) {
     console.error('Error fetching data:', error)
   }

@@ -1,12 +1,115 @@
 <template>
   <CModal>
     <template v-slot:title>Tahrirlash</template>
-    <template v-slot:body>body</template>
+    <template v-slot:body>
+      <form class="max-w-[793px] w-full bg-white rounded-xl">
+        <div class="flex items-center rounded-lg border-2 border-[3E0E7FF]">
+          <CButton
+            @click.prevent="personType = 'physical'"
+            :class="[
+              personType === 'physical' ? 'bg-[#3366FF] text-white' : 'text-[#3366FF] bg-white'
+            ]"
+            class="flex-1"
+            text="Jismoniy shaxs"
+          ></CButton>
+          <CButton
+            :class="[
+              personType === 'legal' ? 'bg-[#3366FF] text-white' : 'text-[#3366FF] bg-white'
+            ]"
+            @click.prevent="personType = 'legal'"
+            class="flex-1"
+            text="Yuridik shaxs"
+          ></CButton>
+        </div>
 
-    <template v-slot:footer>footer</template>
+        <div class="grid grid-cols-1 gap-y-7 mt-8">
+          <div>
+            <label>
+              {{ sponsor?.full_name }}
+              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">
+                F.I.Sh. (Familiya Ism Sharif)
+              </p>
+              <CInput v-model="sponsor.full_name" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
+            </label>
+          </div>
+          <div>
+            <label>
+              {{ sponsor?.phone }}
+              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Telefon raqam</p>
+              <CInput v-model="sponsor.phone" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
+            </label>
+          </div>
+          <div class="col-span-1">
+            <label>
+              {{ sponsor?.get_status_display }}
+              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Holati</p>
+              <CDropdown v-model="sponsor.get_status_display" property="name" :options="options" />
+            </label>
+          </div>
+
+          <div v-if="personType === 'legal'">
+            <label>
+              {{ sponsor?.firm }}
+              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">
+                F.I.Sh. (Familiya Ism Sharif)
+              </p>
+              <CInput v-model="sponsor.firm" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
+            </label>
+          </div>
+        </div>
+      </form>
+    </template>
+
+    <template v-slot:footer>
+      <CButton @click="updateSponsor" text="Saqlash" class="px-8" variant="secondary">
+        <img src="/save.svg" alt="" />
+      </CButton>
+    </template>
   </CModal>
 </template>
 
 <script setup>
+import CButton from '@/components/CButton/CButton.vue'
+import CDropdown from '@/components/CDropdown/CDropdown.vue'
+import CInput from '@/components/CInput/CInput.vue'
 import CModal from '@/components/CModal/CModal.vue'
+import { useFetch } from '@/composables/useFetch'
+import router from '@/router'
+import { useDataStore } from '@/stores/data'
+import { ref } from 'vue'
+
+const personType = ref('physical')
+
+const store = useDataStore()
+
+console.log(store.updateSponsorData)
+
+const sponsor = ref({
+  full_name: store.updateSponsorData.full_name,
+  phone: store.updateSponsorData.phone,
+  get_status_display: store.updateSponsorData.get_status_display,
+  given: store.updateSponsorData.given,
+  firm: store.updateSponsorData.firm
+})
+
+const options = [
+  { id: 'Barchasi', name: 'Barchasi' },
+  { id: 'Yangi', name: 'Yangi' },
+  { id: 'Moderatsiyada', name: 'Moderatsiyada' },
+  { id: 'Tasdiqlangan', name: 'Tasdiqlangan' },
+  { id: 'Bekor qilingan', name: 'Bekor qilingan' }
+]
+
+const { put } = useFetch()
+const updateSponsor = async () => {
+  try {
+    const response = await put(`sponsor-update/${store.updateSponsorData.id}/`, sponsor.value)
+
+    router.push({ name: 'Sponsors', query: { page: store.sponsorsCurrentPage } })
+    document.body.classList.remove('overflow-hidden')
+    console.log(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
 </script>
