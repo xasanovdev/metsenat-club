@@ -4,12 +4,12 @@
       <ul class="w-full whitespace-nowrap list-none p-0">
         <!-- students list row head cells -->
         <li>
-          <ul class="text-[#B1B1B8] text-center flex gap-1">
+          <ul class="text-[#B1B1B8] text-center flex gap-1 px-[14px]">
             <li
               v-for="(column, index) in columns"
               :key="index"
               :class="`w-[${column.width}]`"
-              class=""
+              class="text-center"
             >
               {{ column.label }}
             </li>

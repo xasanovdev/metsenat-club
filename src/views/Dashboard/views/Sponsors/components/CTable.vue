@@ -4,8 +4,8 @@
       <ul class="w-full whitespace-nowrap flex gap-4 my-12 flex-col list-none p-0">
         <!-- sponsors list row head cells -->
         <li>
-          <ul class="text-[#B1B1B8] text-left flex">
-            <li v-for="(column, index) in columns" :key="index" :class="`w-[${column.width}]`">
+          <ul class="text-[#B1B1B8] text-left flex px-[14px]">
+            <li v-for="(column, index) in columns" :key="index" class="text-center" :class="`w-[${column.width}]`">
               {{ column.label }}
             </li>
           </ul>
