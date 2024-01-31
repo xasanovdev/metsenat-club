@@ -26,7 +26,7 @@
       </template>
 
       <template v-slot:footer>
-        <CButton variant="primary" text="Tozalash">
+        <CButton @click="clear" variant="primary" text="Tozalash">
           <img src="/clear.svg" alt="clear icon" />
         </CButton>
         <CButton @click="filterData" variant="secondary" text="Natijalarni ko‘rish">
@@ -60,6 +60,11 @@ const filterStudent = ref({
   type: '',
   institute: ''
 })
+
+const clear = () => {
+  filterStudent.value.type = ''
+  filterStudent.value.institute = ''
+}
 
 const filterStudentType = computed(() => {
   return filterStudent.value?.type === 'Bakalavr' ? '1' : '2'

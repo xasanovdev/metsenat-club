@@ -1,46 +1,53 @@
 <template>
   <div class="w-full">
     <div class="container mx-auto overflow-hidden overflow-x-auto">
-      <table class="w-full whitespace-nowrap">
+      <ul class="w-full whitespace-nowrap list-none p-0">
         <!-- students list row head cells -->
-        <thead>
-          <tr class="text-[#B1B1B8] text-center">
-            <th v-for="(column, index) in columns" :key="index" class="py-3 px-4">
-              {{ column }}
-            </th>
-          </tr>
-        </thead>
+        <li>
+          <ul class="text-[#B1B1B8] text-center flex gap-1">
+            <li
+              v-for="(column, index) in columns"
+              :key="index"
+              :class="`w-[${column.width}]`"
+              class=""
+            >
+              {{ column.label }}
+            </li>
+          </ul>
+        </li>
 
-        <tbody class="w-full">
-          <!-- students list loading mask-->
-          <tr v-if="loading">
-            <CMaska />
-          </tr>
+        <li v-if="loading" class="text-center">
+          <CMaska />
+        </li>
 
-          <template v-else>
-            <tr class="bg-white" v-for="(item, index) in store.studentsList?.results" :key="index">
-              <td class="py-3 px-4 text-center">{{ index + 1 }}</td>
-              <td class="py-3 px-4 text-left">{{ item.full_name }}</td>
-
-              <td class="py-3 px-4 text-center">
-                {{ item.type === 1 ? 'Bakalavr' : 'Magistr' }}
-              </td>
-
-              <td class="py-3 px-4 text-center whitespace-normal flex w-[200px]">
-                {{ item.institute?.name }}
-              </td>
-              <td class="py-3 px-4 text-center">{{ formatNumber(item.given) }}</td>
-              <td class="py-3 px-4 text-center">{{ formatNumber(item.contract) }}</td>
-              <td class="py-3 px-4 text-center flex items-center justify-center">
-                {{ item.id }}
-                <routerLink :to="{ name: 'Student', params: { id: item.id } }">
-                  <img src="/eye.svg" alt="eye icon" />
-                </routerLink>
-              </td>
-            </tr>
-          </template>
-        </tbody>
-      </table>
+        <template v-else>
+          <div class="flex w-full flex-col gap-4 mt-3 mb-12 overflow-y-auto">
+            <li
+              v-for="(item, index) in store.studentsList?.results"
+              :key="index"
+              class="bg-white py-[22px] px-[14px] rounded-lg border-b border-[#B2B7C1]"
+            >
+              <ul class="flex items-center justify-between">
+                <li class="w-[2%] text-center">{{ index + 1 }}</li>
+                <li class="w-[20%] text-left">{{ item.full_name }}</li>
+                <li class="w-[10%] text-center">
+                  {{ item.type === 1 ? 'Bakalavr' : 'Magistr' }}
+                </li>
+                <li class="w-[30%] text-center">
+                  {{ item.institute?.name }}
+                </li>
+                <li class="w-[15%] text-center">{{ formatNumber(item.given) }}</li>
+                <li class="w-[15%] text-center">{{ formatNumber(item.contract) }}</li>
+                <li class="w-[8%] text-center flex items-center justify-center">
+                  <router-link :to="{ name: 'Student', params: { id: item.id } }">
+                    <img src="/eye.svg" alt="eye icon" />
+                  </router-link>
+                </li>
+              </ul>
+            </li>
+          </div>
+        </template>
+      </ul>
     </div>
 
     <div class="flex items-center justify-between">
@@ -84,17 +91,14 @@
 </template>
 
 <script setup>
-import {
-  onMounted,
-  ref,
-} from 'vue';
+import { onMounted, ref } from 'vue'
 
-import { useFetch } from '@/composables/useFetch';
-import router from '@/router';
-import { useDataStore } from '@/stores/data';
-import { formatNumber } from '@/utils/formatNumber';
+import { useFetch } from '@/composables/useFetch'
+import router from '@/router'
+import { useDataStore } from '@/stores/data'
+import { formatNumber } from '@/utils/formatNumber'
 
-import CMaska from './CMaska.vue';
+import CMaska from './CMaska.vue'
 
 const store = useDataStore()
 
@@ -107,13 +111,13 @@ const prevPage = () => {
 }
 
 const columns = [
-  '#',
-  'f.i.sh.',
-  'Talabalik turi',
-  'OTM',
-  'Ajratilingan summa',
-  'Kontrakt miqdori',
-  'Amallar'
+  { label: '#', width: '2%' },
+  { label: 'f.i.sh.', width: '20%' },
+  { label: 'Talabalik turi', width: '10%' },
+  { label: 'OTM', width: '30%' },
+  { label: 'Ajratilingan summa', width: '15%' },
+  { label: 'Kontrakt miqdori', width: '15%' },
+  { label: 'Amallar', width: '8%' }
 ]
 
 const { get, loading } = useFetch()
