@@ -47,14 +47,14 @@
             <label>
               <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</p>
               {{ user.institute }}
-              <CDropdown v-model="user.institute" :options="store.instituteList" />
+              <CDropdown v-model="user.institute" property="name" :options="store.instituteList" />
             </label>
           </div>
           <div>
             <label>
               <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Talabalik turi</p>
               {{ user.type?.name }}
-              <CDropdown v-model="user.type" :options="options" />
+              <CDropdown v-model="user.type" property="name" :options="options" />
             </label>
           </div>
           <div>

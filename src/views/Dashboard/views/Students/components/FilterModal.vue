@@ -12,12 +12,12 @@
             Talabalik turi
           </p>
           {{ filterStudent.type.id }}
-          <CDropdown v-model="filterStudent.type" :options="options"></CDropdown>
+          <CDropdown v-model="filterStudent.type" property="name" :options="options"></CDropdown>
         </div>
         <div class="flex flex-col items-start gap-4 mt-7">
           <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">OTm</p>
           {{ filterStudent.institute.id }}
-          <CDropdown v-model="filterStudent.institute" :options="store.instituteList"></CDropdown>
+          <CDropdown v-model="filterStudent.institute" property="name" :options="store.instituteList"></CDropdown>
         </div>
       </template>
 

@@ -134,9 +134,28 @@
             </p>
           </div>
 
-          <div>
-            <table>
-              <thead></thead>
+          <div class="mt-8">
+            <table class="w-full whitespace-nowrap">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th class="text-left">f.i.sh</th>
+                  <th>Ajratilingan summa</th>
+                  <th>Amallar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class="bg-white p-4 rounded-lg border-separate"
+                  v-for="(sponsor, index) in sponsors?.sponsors"
+                  :key="sponsor.id"
+                >
+                  <td>{{ index + 1 }}</td>
+                  <td>{{ sponsor?.sponsor?.full_name }}</td>
+                  <td class="text-center">{{ sponsor?.summa }}</td>
+                  <td></td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </article>
@@ -183,6 +202,7 @@ const fetchData = async () => {
   try {
     const response = await get(`${`student-detail/${pageId.value}`}`)
     const studentSponsors = await get(`${`student-sponsor/${pageId.value}`}`)
+    console.log(studentSponsors)
     sponsors.value = studentSponsors
     data.value = response
   } catch (error) {

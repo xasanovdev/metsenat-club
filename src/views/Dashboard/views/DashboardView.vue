@@ -100,19 +100,6 @@ const fetchData = async () => {
   }
 }
 
-const fetchInstituteList = async () => {
-  try {
-    const response = await get(`institute-list/`)
-    store.instituteList = response
-  } catch (error) {
-    console.error('Error fetching data:', error)
-  }
-}
-
-onMounted(() => {
-  fetchInstituteList()
-})
-
 onMounted(() => {
   fetchData()
 })

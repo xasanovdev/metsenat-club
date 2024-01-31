@@ -28,17 +28,20 @@
           v-for="(option, index) in filteredOptions"
           :key="option.id"
           class="cursor-pointer hover:bg-slate-100 duration-200"
-          :class="{ 'border-t': index > 0, 'bg-slate-100': selectedOption.value === option.name }"
+          :class="{
+            'border-t': index > 0,
+            'bg-slate-100': selectedOption.value === option[property]
+          }"
         >
           <label class="flex w-full px-4 py-3 items-center cursor-pointer">
             <input
               type="radio"
-              :checked="selectedOption.value === option.name"
+              :checked="selectedOption.value === option[property]"
               @change="onOptionSelected(option)"
               class="mr-2 hidden"
             />
 
-            {{ option.name }}
+            {{ option[property] }}
           </label>
         </div>
       </div>
@@ -56,17 +59,17 @@ import {
   ref,
 } from 'vue';
 
-const { options } = defineProps(['options'])
+const props = defineProps(['options', 'property'])
 const emit = defineEmits(['update:modelValue'])
-console.log(options);
+console.log(props)
 
 const isDropdownOpen = ref(false)
-const selectedOption = ref(options[0] || {})
+const selectedOption = ref(props.options[0] || {})
 const searchText = ref('')
 
 const filteredOptions = computed(() => {
-  return options.filter((option) =>
-    option.name?.toLowerCase().includes(searchText.value?.toLowerCase())
+  return props.options.filter((option) =>
+    option[props.property]?.toLowerCase().includes(searchText.value?.toLowerCase())
   )
 })
 
@@ -89,7 +92,7 @@ const closeDropdownOnOutsideClick = (event) => {
 }
 
 const onOptionSelected = (option) => {
-  searchText.value = option.name
+  searchText.value = option[props.property]
   emit('update:modelValue', option)
   closeDropdown()
 }
