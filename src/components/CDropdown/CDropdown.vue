@@ -68,10 +68,7 @@ const filteredOptions = computed(() => {
   }
 
   return props.options.filter((option) =>
-    option[props.property]
-      .toString()
-      .toLowerCase()
-      .includes(searchText.value?.toString().toLowerCase())
+    option[props.property].toLowerCase().includes(searchText.value?.toLowerCase())
   )
 })
 
