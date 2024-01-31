@@ -29,7 +29,11 @@
               <label>
                 {{ user?.institute }}
                 <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</p>
-                <CDropdown v-model="user.institute" property="name" :options="store?.instituteList?.results" />
+                <CDropdown
+                  v-model="user.institute.name"
+                  property="name"
+                  :options="store?.instituteList"
+                />
               </label>
             </div>
             <div>
@@ -52,18 +56,16 @@
 </template>
 
 <script setup>
-import {
-  onMounted,
-  ref,
-} from 'vue';
+import { computed, onMounted, ref } from 'vue'
 
-import CButton from '@/components/CButton/CButton.vue';
-import CDropdown from '@/components/CDropdown/CDropdown.vue';
-import CInput from '@/components/CInput/CInput.vue';
-import CModal from '@/components/CModal/CModal.vue';
-import { useFetch } from '@/composables/useFetch';
-import router from '@/router';
-import { useDataStore } from '@/stores/data';
+import CButton from '@/components/CButton/CButton.vue'
+import CDropdown from '@/components/CDropdown/CDropdown.vue'
+import CInput from '@/components/CInput/CInput.vue'
+import CModal from '@/components/CModal/CModal.vue'
+import { useFetch } from '@/composables/useFetch'
+import router from '@/router'
+import { useDataStore } from '@/stores/data'
+import { useRoute } from 'vue-router'
 
 const store = useDataStore()
 
@@ -71,19 +73,36 @@ const { get, loading, put } = useFetch()
 
 const props = defineProps(['data'])
 
+console.log(props)
+
+const route = useRoute()
+
+console.log(store?.studentsList?.results, route.params.id)
+
+const studentData = store?.studentsList?.results.find((student) => student.id == route.params.id)
+
+console.log(studentData)
+
 const user = ref({
   id: '',
-  full_name: props.data?.full_name,
-  phone: props.data?.phone,
-  institute: props.data?.institute?.name,
-  type: props.data?.type,
-  contract: props.data?.contract
+  full_name: studentData?.full_name,
+  phone: studentData?.phone,
+  institute: studentData?.institute,
+  type: studentData?.type,
+  contract: studentData?.contract
 })
+
+const selectedInstitute = computed(() => {
+  return store?.instituteList.find((item) => item.name.trim() === user.value.institute.name.trim())
+})
+
+console.log(selectedInstitute.value)
+
 const updateStudent = async () => {
   try {
-    const response = await put(`student-update/${props.data.id}/`, {
-      id: props.data.id,
-      institute: user.value.institute?.id,
+    const response = await put(`student-update/${studentData.id}/`, {
+      id: studentData.id,
+      institute: selectedInstitute.value?.id,
       full_name: user.value.full_name,
       phone: user.value.phone,
       type: user.value.type?.name === 'Bakalavr' ? 1 : 2,
@@ -95,5 +114,4 @@ const updateStudent = async () => {
     console.error('Error fetching user:', error)
   }
 }
-
 </script>

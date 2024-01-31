@@ -7,28 +7,25 @@
 
   <template v-else>
     <EditStudentModal
-      :data="data"
       v-show="editStudentModal.modalValue"
       :modalValue="editStudentModal.modalValue"
       :closeModalOverlay="editStudentModal.closeModalOverlay"
       :closeModal="editStudentModal.closeModal"
-      >Edit Modal</EditStudentModal
-    >
-    {{ console.log(data) }}
+    ></EditStudentModal>
+
     <EditSponsorModal
       v-show="editSponsorModal.modalValue"
       :modalValue="editSponsorModal.modalValue"
       :closeModalOverlay="editSponsorModal.closeModalOverlay"
       :closeModal="editSponsorModal.closeModal"
-      >Edit Modal</EditSponsorModal
-    >
+    ></EditSponsorModal>
+
     <AddSponsorModal
       v-show="addSponsorModal.modalValue"
       :modalValue="addSponsorModal.modalValue"
       :closeModalOverlay="addSponsorModal.closeModalOverlay"
       :closeModal="addSponsorModal.closeModal"
-      >Edit Modal</AddSponsorModal
-    >
+    ></AddSponsorModal>
 
     <header class="w-full py-[30px] bg-[#FDFDFD]">
       <div class="container mx-auto px-6">

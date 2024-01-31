@@ -67,9 +67,7 @@ const filteredOptions = computed(() => {
     return []
   }
 
-  return props.options.filter((option) =>
-    option[props.property].toLowerCase().includes(searchText.value?.toLowerCase())
-  )
+  return props.options.filter((option) => option[props.property].includes(searchText.value))
 })
 
 const toggleDropdown = () => {
