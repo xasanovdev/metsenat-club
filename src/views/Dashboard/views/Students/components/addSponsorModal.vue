@@ -10,7 +10,7 @@
           <CDropdown
             v-model="filterSponsor.sponsor"
             property="full_name"
-            :options="store.instituteList"
+            :options="store?.sponsorsList?.results"
           />
           <span class="text-red-500">{{ data?.sponsor[0] }}</span>
         </label>
@@ -61,7 +61,7 @@ const store = useDataStore()
 const data = ref(null)
 
 
-console.log(store.instituteList)
+console.log(store.sponsorsList)
 
 const getSponsorId = () => {
   const sponsor = store?.sponsorsList?.results?.find((item) => {

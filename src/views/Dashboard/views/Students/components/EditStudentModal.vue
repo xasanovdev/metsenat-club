@@ -79,7 +79,7 @@ const route = useRoute()
 
 console.log(store?.studentsList?.results, route.params.id)
 
-const studentData = store?.studentsList?.results.find((student) => student.id == route.params.id)
+const studentData = store?.studentsList?.results?.find((student) => student?.id == route.params.id)
 
 console.log(studentData)
 
@@ -92,13 +92,13 @@ const user = ref({
   contract: studentData?.contract
 })
 
-const selectedInstitute = computed(() => {
-  return store?.instituteList.find((item) => item.name.trim() === user.value.institute.name.trim())
-})
-
-console.log(selectedInstitute.value)
-
 const updateStudent = async () => {
+  const selectedInstitute = computed(() => {
+    return store?.instituteList.find(
+      (item) => item.name.trim() === user.value.institute?.name.trim()
+    )
+  })
+
   try {
     const response = await put(`student-update/${studentData.id}/`, {
       id: studentData.id,
@@ -108,6 +108,7 @@ const updateStudent = async () => {
       type: user.value.type?.name === 'Bakalavr' ? 1 : 2,
       contract: user.value.contract
     })
+    console.log(response)
     router.push({ name: 'Students' })
     document.body.classList.remove('overflow-hidden')
   } catch (error) {

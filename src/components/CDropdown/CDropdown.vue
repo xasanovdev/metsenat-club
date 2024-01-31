@@ -70,6 +70,8 @@ const filteredOptions = computed(() => {
   return props.options.filter((option) => option[props.property].includes(searchText.value))
 })
 
+console.log(filteredOptions.value)
+
 const toggleDropdown = () => {
   isDropdownOpen.value = !isDropdownOpen.value
 }

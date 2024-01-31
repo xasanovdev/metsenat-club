@@ -46,14 +46,15 @@
           <div class="col-span-2">
             <label>
               <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</p>
-              {{ user.institute }}
-              <CDropdown v-model="user.institute" property="name" :options="store?.instituteList?.results" />
+              {{ console.log(user) }}
+              <CDropdown v-model="user.institute" property="name" :options="store?.instituteList" />
             </label>
           </div>
           <div>
             <label>
               <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Talabalik turi</p>
               {{ user.type?.name }}
+
               <CDropdown v-model="user.type" property="name" :options="options" />
             </label>
           </div>
@@ -79,14 +80,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue'
 
-import CButton from '@/components/CButton/CButton.vue';
-import CDropdown from '@/components/CDropdown/CDropdown.vue';
-import CInput from '@/components/CInput/CInput.vue';
-import { useFetch } from '@/composables/useFetch';
-import router from '@/router';
-import { useDataStore } from '@/stores/data';
+import CButton from '@/components/CButton/CButton.vue'
+import CDropdown from '@/components/CDropdown/CDropdown.vue'
+import CInput from '@/components/CInput/CInput.vue'
+import { useFetch } from '@/composables/useFetch'
+import router from '@/router'
+import { useDataStore } from '@/stores/data'
 
 const store = useDataStore()
 
@@ -104,11 +105,16 @@ const user = ref({
   contract: ''
 })
 
+const selectedInstitute = computed(() => {
+  return store?.instituteList.find((item) => item.name.trim() === user.value.institute.trim())
+})
+
 const addStudent = async () => {
   try {
+    console.log(selectedInstitute.value)
     const response = await post(`student-create/`, {
       id: user.value.id,
-      institute: user.value.institute?.id,
+      institute: selectedInstitute.value.id,
       full_name: user.value.full_name,
       phone: user.value.phone,
       type: user.value.type?.name === 'Bakalavr' ? 1 : 2,

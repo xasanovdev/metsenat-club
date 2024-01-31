@@ -36,10 +36,7 @@
 </template>
 
 <script setup>
-import {
-  defineProps,
-  ref,
-} from 'vue';
+import { defineProps, ref } from 'vue'
 
 const props = defineProps(['modalValue', 'closeModal', 'closeModalOverlay'])
 </script>
