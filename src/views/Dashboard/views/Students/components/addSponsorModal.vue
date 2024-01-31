@@ -49,6 +49,7 @@ import CInput from '@/components/CInput/CInput.vue';
 import CModal from '@/components/CModal/CModal.vue';
 import { useFetch } from '@/composables/useFetch';
 import { useDataStore } from '@/stores/data';
+import router from '@/router';
 
 const route = useRoute()
 

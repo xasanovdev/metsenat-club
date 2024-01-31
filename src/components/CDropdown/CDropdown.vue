@@ -4,7 +4,8 @@
       <input
         @click="toggleDropdown"
         @focus="closeDropdown()"
-        v-model="searchText"
+        :value="searchText"
+        @input="updateSearchText"
         class="px-4 py-3 w-full border focus:border-[#2E5BFF] justify-between bg-[#F9FAFF] text-left text-[#2E384D] rounded-md focus:outline-none flex items-center"
         placeholder="Search..."
       />
@@ -26,7 +27,7 @@
         </div>
         <div
           v-for="(option, index) in filteredOptions"
-          :key="option.id"
+          :key="option[property]"
           class="cursor-pointer hover:bg-slate-100 duration-200"
           :class="{
             'border-t': index > 0,
@@ -50,22 +51,16 @@
 </template>
 
 <script setup>
-import {
-  computed,
-  defineEmits,
-  defineProps,
-  onMounted,
-  onUnmounted,
-  ref,
-} from 'vue';
+import { computed, defineEmits, defineProps, onMounted, onUnmounted, ref } from 'vue'
 
-const props = defineProps(['options', 'property'])
+const props = defineProps(['options', 'property', 'modelValue'])
 const emit = defineEmits(['update:modelValue'])
-console.log(props)
 
 const isDropdownOpen = ref(false)
 const selectedOption = ref(props.options[0] || {})
-const searchText = ref('')
+const searchText = ref(props.modelValue || '')
+
+console.log(props)
 
 const filteredOptions = computed(() => {
   return props.options.filter((option) =>
@@ -93,8 +88,12 @@ const closeDropdownOnOutsideClick = (event) => {
 
 const onOptionSelected = (option) => {
   searchText.value = option[props.property]
-  emit('update:modelValue', option)
+  emit('update:modelValue', option[props.property])
   closeDropdown()
+}
+
+const updateSearchText = (event) => {
+  searchText.value = event.target.value
 }
 
 onMounted(() => {

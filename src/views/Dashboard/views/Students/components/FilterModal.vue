@@ -11,13 +11,13 @@
           <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">
             Talabalik turi
           </p>
-          {{ filterStudent.type.id }}
+          {{ filterStudent.type }}
           <CDropdown v-model="filterStudent.type" property="name" :options="options"></CDropdown>
         </div>
         <div class="flex flex-col items-start gap-4 mt-7">
           <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">OTm</p>
-          {{ filterStudent.institute.id }}
-          <CDropdown v-model="filterStudent.institute" property="name" :options="store.instituteList"></CDropdown>
+          {{ filterStudent.institute }}
+          <CDropdown v-model="filterStudent.institute" property="name" :options="store?.instituteList"></CDropdown>
         </div>
       </template>
 
@@ -61,14 +61,14 @@ const filterStudent = ref({
 })
 
 const filterStudentType = computed(() => {
-  return filterStudent.value?.type.name === 'Bakalavr' ? '1' : '2'
+  return filterStudent.value?.type === 'Bakalavr' ? '1' : '2'
 })
 
 const filterData = () => {
-  store.data.results = store.data.results.filter((item) => {
+  store.studentsList.results = store.studentsList.results.filter((item) => {
     if (
-      item.type == filterStudentType.value ||
-      item.institute.id == filterStudent.value.institute.id
+      item.type == filterStudentType.value &&
+      item.institute.name == filterStudent.value.institute
     ) {
       return item
     }

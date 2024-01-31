@@ -29,7 +29,7 @@
               <label>
                 {{ user?.institute }}
                 <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</p>
-                <CDropdown v-model="user.institute" property="name" :options="store.instituteList" />
+                <CDropdown v-model="user.institute" property="name" :options="store?.instituteList?.results" />
               </label>
             </div>
             <div>

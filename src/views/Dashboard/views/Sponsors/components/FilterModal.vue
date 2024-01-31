@@ -4,13 +4,13 @@
     <template v-slot:body>
       <div class="flex flex-col items-start gap-4">
         <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">Ariza holati</p>
-        {{ filterData.status }}
-        <CDropdown v-model="filterData.status" property="name" :options="options"></CDropdown>
+        {{ filterSponsor.status }}
+        <CDropdown v-model="filterSponsor.status" property="name" :options="options"></CDropdown>
       </div>
       <div class="flex flex-col items-start gap-4 mt-7">
         <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">Ariza holati</p>
-        {{ filterData.money }}
-        <CSelect v-model="filterData.money"></CSelect>
+        {{ filterSponsor.money }}
+        <CSelect v-model="filterSponsor.money"></CSelect>
       </div>
     </template>
 
@@ -26,13 +26,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-import CButton from '@/components/CButton/CButton.vue';
-import CDropdown from '@/components/CDropdown/CDropdown.vue';
-import CModal from '@/components/CModal/CModal.vue';
-import CSelect from '@/components/CSelect/CSelect.vue';
-import { useDataStore } from '@/stores/data';
+import CButton from '@/components/CButton/CButton.vue'
+import CDropdown from '@/components/CDropdown/CDropdown.vue'
+import CModal from '@/components/CModal/CModal.vue'
+import CSelect from '@/components/CSelect/CSelect.vue'
+import { useDataStore } from '@/stores/data'
 
 const store = useDataStore()
 
@@ -49,15 +49,15 @@ const filterSponsor = ref({
   money: 'Barchasi'
 })
 
-
 const filterData = () => {
   if (filterSponsor.value.status == 'Barchasi' && filterSponsor.value.money == 'all') {
     return
   }
-  store.data.results = store.data.results.filter((item) => {
+  store.sponsorsList.results = store?.sponsorsList?.results.filter((item) => {
+    console.log('Item', item,'filterSponsor' , filterSponsor.value)
     if (
-      item.sum < filterSponsor.value.money ||
-      item.get_status_display == filterSponsor.value.status.name
+      item.sum < filterSponsor.value.money &&
+      item.get_status_display == filterSponsor.value.status
     ) {
       return item
     }
