@@ -20,11 +20,11 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 export default {
   setup() {
-    const numbers = ref([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    const numbers = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
     return { numbers }
   }

@@ -46,10 +46,18 @@ export const useFetch = () => {
     })
   }
 
+  const remove = (url, body) => {
+    return axios(url, {
+      method: 'DELETE',
+      body: JSON.stringify(body)
+    });
+  };
+
   return {
     get,
     post,
     put,
+    remove,
     loading
   }
 }

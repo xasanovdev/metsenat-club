@@ -14,6 +14,7 @@
       :closeModal="editStudentModal.closeModal"
       >Edit Modal</EditStudentModal
     >
+    {{ console.log(data) }}
     <EditSponsorModal
       v-show="editSponsorModal.modalValue"
       :modalValue="editSponsorModal.modalValue"
@@ -135,28 +136,36 @@
           </div>
 
           <div class="mt-8">
-            <table class="w-full whitespace-nowrap">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th class="text-left">f.i.sh</th>
-                  <th>Ajratilingan summa</th>
-                  <th>Amallar</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  class="bg-white p-4 rounded-lg border-separate"
-                  v-for="(sponsor, index) in sponsors?.sponsors"
-                  :key="sponsor.id"
+            <ul class="w-full list-none p-0">
+              <!-- Table Header -->
+              <li>
+                <div class="flex bg-white p-4">
+                  <span class="w-1/12 font-bold">#</span>
+                  <span class="w-6/12 text-left pl-4">f.i.sh</span>
+                  <span class="w-4/12 text-center">Ajratilingan summa</span>
+                  <span class="w-1/12">Amallar</span>
+                </div>
+              </li>
+
+              <!-- Table Rows -->
+              <li class="mb-2" v-for="(sponsor, index) in sponsors?.sponsors" :key="sponsor.id">
+                <div
+                  class="flex bg-[#FBFBFC] border border-[#B2B7C1] rounded-lg px-[14px] py-[22px]"
                 >
-                  <td>{{ index + 1 }}</td>
-                  <td>{{ sponsor?.sponsor?.full_name }}</td>
-                  <td class="text-center">{{ sponsor?.summa }}</td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
+                  <span class="w-1/12 font-bold">{{ index + 1 }}</span>
+                  <span class="w-6/12 text-left pl-4">{{ sponsor?.sponsor?.full_name }}</span>
+                  <span class="w-4/12 text-center"
+                    >{{ formatNumber(sponsor?.summa) }}
+                    <span class="text-[#B2B7C1]">UZS</span></span
+                  >
+                  <span class="w-1/12 flex items-center justify-center">
+                    <button @click="getEditSponsorModalData(sponsor)">
+                      <img src="/pen.svg" alt="pen icon for editing" />
+                    </button>
+                  </span>
+                </div>
+              </li>
+            </ul>
           </div>
         </article>
       </div>
@@ -167,21 +176,21 @@
 </template>
 
 <script setup>
-import {
-  onMounted,
-  ref,
-} from 'vue';
+import { onMounted, ref } from 'vue'
 
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'
 
-import CBadge from '@/components/CBadge/CBadge.vue';
-import CButton from '@/components/CButton/CButton.vue';
-import { useFetch } from '@/composables/useFetch';
-import { useModal } from '@/composables/useModal';
+import CBadge from '@/components/CBadge/CBadge.vue'
+import CButton from '@/components/CButton/CButton.vue'
+import { useFetch } from '@/composables/useFetch'
+import { useModal } from '@/composables/useModal'
 
-import AddSponsorModal from './components/addSponsorModal.vue';
-import EditSponsorModal from './components/EditSponsorModal.vue';
-import EditStudentModal from './components/EditStudentModal.vue';
+import AddSponsorModal from './components/addSponsorModal.vue'
+import EditSponsorModal from './components/EditSponsorModal.vue'
+import EditStudentModal from './components/EditStudentModal.vue'
+import { formatNumber } from '@/utils/formatNumber'
+
+import { useDataStore } from '@/stores/data'
 
 const route = useRoute()
 const pageId = ref(route.params.id)
@@ -195,6 +204,15 @@ const editStudentModal = modal()
 const addSponsorModal = modal()
 
 const { get, loading } = useFetch()
+
+const store = useDataStore()
+
+const getEditSponsorModalData = (sponsor) => {
+  editSponsorModal.openModal()
+
+  store.editSponsorData = { ...sponsor }
+}
+
 const data = ref(null)
 const sponsors = ref(null)
 

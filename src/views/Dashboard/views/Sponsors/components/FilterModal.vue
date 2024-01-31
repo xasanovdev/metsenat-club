@@ -56,7 +56,7 @@ const filterData = () => {
   store.sponsorsList.results = store?.sponsorsList?.results.filter((item) => {
     console.log('Item', item,'filterSponsor' , filterSponsor.value)
     if (
-      item.sum < filterSponsor.value.money &&
+      item.sum < filterSponsor.value.money ||
       item.get_status_display == filterSponsor.value.status
     ) {
       return item

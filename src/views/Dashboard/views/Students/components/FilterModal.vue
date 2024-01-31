@@ -17,7 +17,11 @@
         <div class="flex flex-col items-start gap-4 mt-7">
           <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">OTm</p>
           {{ filterStudent.institute }}
-          <CDropdown v-model="filterStudent.institute" property="name" :options="store?.instituteList"></CDropdown>
+          <CDropdown
+            v-model="filterStudent.institute"
+            property="name"
+            :options="store?.instituteList"
+          ></CDropdown>
         </div>
       </template>
 
@@ -34,16 +38,13 @@
 </template>
 
 <script setup>
-import {
-  computed,
-  ref,
-} from 'vue';
+import { computed, ref } from 'vue'
 
-import CButton from '@/components/CButton/CButton.vue';
-import CDropdown from '@/components/CDropdown/CDropdown.vue';
-import CModal from '@/components/CModal/CModal.vue';
-import { useFetch } from '@/composables/useFetch';
-import { useDataStore } from '@/stores/data';
+import CButton from '@/components/CButton/CButton.vue'
+import CDropdown from '@/components/CDropdown/CDropdown.vue'
+import CModal from '@/components/CModal/CModal.vue'
+import { useFetch } from '@/composables/useFetch'
+import { useDataStore } from '@/stores/data'
 
 const { loading } = useFetch()
 
@@ -66,11 +67,10 @@ const filterStudentType = computed(() => {
 
 const filterData = () => {
   store.studentsList.results = store.studentsList.results.filter((item) => {
-    if (
-      item.type == filterStudentType.value &&
-      item.institute.name == filterStudent.value.institute
-    ) {
-      return item
+    if (item.type == filterStudentType.value) {
+      if (item.institute.name == filterStudent.value.institute) {
+        return item
+      }
     }
   })
 }

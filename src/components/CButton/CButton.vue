@@ -22,7 +22,7 @@ const props = defineProps(['variant', 'size', 'loading', 'text'])
 const styles = {
   primary: 'hover:bg-light1 bg-[#EDF1FD] text-[#3365FC] hover:bg-opacity-60 px-8',
   secondary: 'text-white bg-[#3365FC] hover:bg-opacity-60 px-8',
-  danger: 'bg-danger text-white hover:bg-[#FF9797]'
+  danger: 'bg-[#FFECEB] text-[#FF4945] hover:bg-[#FF9797] hover:bg-opacity-60 px-8'
 }
 
 const sizes = {

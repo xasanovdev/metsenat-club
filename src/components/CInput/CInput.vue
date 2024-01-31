@@ -14,9 +14,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-import { formatNumber } from '@/utils/formatNumber';
+import { formatNumber } from '@/utils/formatNumber'
 
 let { modelValue, type, placeholder, id } = defineProps([
   'modelValue',
@@ -29,16 +29,15 @@ let { modelValue, type, placeholder, id } = defineProps([
 const emit = defineEmits(['update:modelValue'])
 
 const updateModelValue = (event) => {
-  if (typeof modelValue === 'string') {
-    const refModelValue = ref(modelValue)
-
-    emit('update:modelValue', refModelValue.value)
-
-    modelValue = refModelValue
+  // Convert to string if modelValue is a number
+  if (typeof modelValue === 'number') {
+    modelValue = modelValue.toString()
   }
 
-  modelValue.value = event.target.value
+  // Update modelValue
+  modelValue = event.target.value
 
-  emit('update:modelValue', modelValue.value)
+  // Emit the updated value
+  emit('update:modelValue', modelValue)
 }
 </script>

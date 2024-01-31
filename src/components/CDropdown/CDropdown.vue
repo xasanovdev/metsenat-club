@@ -56,15 +56,22 @@ import { computed, defineEmits, defineProps, onMounted, onUnmounted, ref } from 
 const props = defineProps(['options', 'property', 'modelValue'])
 const emit = defineEmits(['update:modelValue'])
 
-const isDropdownOpen = ref(false)
-const selectedOption = ref(props.options[0] || {})
-const searchText = ref(props.modelValue || '')
-
 console.log(props)
 
+const isDropdownOpen = ref(false)
+const selectedOption = ref(props?.options[0] || {})
+const searchText = ref(props.modelValue || '')
+
 const filteredOptions = computed(() => {
+  if (!props.options) {
+    return []
+  }
+
   return props.options.filter((option) =>
-    option[props.property]?.toLowerCase().includes(searchText.value?.toLowerCase())
+    option[props.property]
+      .toString()
+      .toLowerCase()
+      .includes(searchText.value?.toString().toLowerCase())
   )
 })
 
