@@ -38,9 +38,9 @@
               <li class="w-[15%] text-center">{{ formatNumber(item.given) }}</li>
               <li class="w-[15%] text-center">{{ formatNumber(item.contract) }}</li>
               <li class="w-[8%] text-center flex items-center justify-center">
-                <router-link :to="{ name: 'Student', params: { id: item.id } }">
+                <routerLink :to="{ name: 'Student', params: { id: item.id } }">
                   <img src="/eye.svg" alt="eye icon" />
-                </router-link>
+                </routerLink>
               </li>
             </ul>
           </li>
