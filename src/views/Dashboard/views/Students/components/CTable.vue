@@ -147,10 +147,16 @@ const paginationData = [
 
 const { get, loading } = useFetch()
 
+const forcePagination = ref('forcePagination')
+
 const totalPage = ref(0)
 
 const fetchData = async (page, page_size) => {
-  if (store.studentsList.length === 0 || store.studentsCurrentPage !== page) {
+  if (
+    store.studentsList.length === 0 ||
+    store.studentsCurrentPage !== page ||
+    forcePagination.value === 'forcePagination'
+  ) {
     try {
       console.log(page_size)
       store.studentsCurrentPage = page
@@ -172,8 +178,14 @@ onMounted(() => {
   fetchData(store.studentsCurrentPage, store.paginationCountStudents)
 })
 
-watch(store.paginationCountStudents, () => {
-  console.log(store.studentsCurrentPage, store.paginationCountStudents)
-  fetchData(store.studentsCurrentPage, store.paginationCountStudents)
-})
+watch(
+  () => store.paginationCountStudents,
+  () => {
+    console.log(store.studentsCurrentPage, store.paginationCountStudents)
+    fetchData(store.studentsCurrentPage, store.paginationCountStudents)
+  },
+  {
+    immediate: true
+  }
+)
 </script>

@@ -8,8 +8,7 @@
             <li
               v-for="(column, index) in columns"
               :key="index"
-              class="text-center"
-              :class="`w-[${column.width}]`"
+              :class="[index === 1 ? 'text-left' : 'text-center', `w-[${column.width}]`]"
             >
               {{ column.label }}
             </li>
@@ -129,11 +128,13 @@ const prevPage = () => {
 
 const { get, loading } = useFetch()
 
+const forcePagination = ref('forcePagination')
+
 const columns = [
   { label: '#', width: '2%' },
   { label: 'f.i.sh.', width: '34%' },
-  { label: 'Tel.Raqami', width: '16%' },
-  { label: 'Homiylik summasi', width: '10%' },
+  { label: 'Tel.Raqami', width: '10%' },
+  { label: 'Homiylik summasi', width: '16%' },
   { label: 'Sarflangan summa', width: '15%' },
   { label: 'Holati', width: '15%' },
   { label: 'Sana', width: '8%' },
@@ -149,8 +150,12 @@ const paginationData = [
 const totalPage = ref(0)
 
 console.log(store.sponsorsList)
-const fetchData = async (page, page_size) => {
-  if (store.sponsorsList.length === 0 || store.sponsorsCurrentPage !== page) {
+const fetchData = async (page, page_size, forcePagination) => {
+  if (
+    store.sponsorsList.length === 0 ||
+    store.sponsorsCurrentPage !== page ||
+    forcePagination.value === 'forcePagination'
+  ) {
     try {
       console.log(page_size)
       store.sponsorsCurrentPage = page
@@ -172,8 +177,15 @@ onMounted(() => {
   fetchData(store.sponsorsCurrentPage, store.paginationCountSponsors)
 })
 
-watch(store.paginationCountSponsors, () => {
-  console.log(store.sponsorsCurrentPage, store.paginationCountSponsors)
-  fetchData(store.sponsorsCurrentPage, store.paginationCountSponsors)
-})
+watch(
+  () => store.paginationCountSponsors,
+
+  () => {
+    console.log(store.sponsorsCurrentPage, store.paginationCountSponsors)
+    fetchData(store.sponsorsCurrentPage, store.paginationCountSponsors, forcePagination)
+  },
+  {
+    immediate: true
+  }
+)
 </script>
