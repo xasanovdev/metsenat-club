@@ -1,56 +1,53 @@
 <template>
-  <div class="w-full">
-    <div class="container mx-auto overflow-hidden overflow-x-auto">
-      <ul class="w-full whitespace-nowrap list-none p-0">
-        <!-- students list row head cells -->
-        <li>
-          <ul class="text-[#B1B1B8] text-center flex gap-1 px-[14px]">
-            <li
-              v-for="(column, index) in columns"
-              :key="index"
-              :class="`w-[${column.width}]`"
-              class="text-center"
-            >
-              {{ column.label }}
-            </li>
-          </ul>
-        </li>
+  <CTable>
+    <!-- students list row head cells -->
+    <template #header>
+      <li>
+        <ul class="text-[#B1B1B8] text-center flex gap-1 px-[14px]">
+          <li
+            v-for="(column, index) in columns"
+            :key="index"
+            :class="`w-[${column.width}]`"
+            class="text-center"
+          >
+            {{ column.label }}
+          </li>
+        </ul>
+      </li>
 
-        <li v-if="loading" class="text-center">
-          <CMaska />
-        </li>
+      <li v-if="loading" class="text-center">
+        <CMaska />
+      </li>
 
-        <template v-else>
-          <div class="flex w-full flex-col gap-4 mt-3 mb-12 overflow-y-auto">
-            <li
-              v-for="(item, index) in store.studentsList?.results"
-              :key="index"
-              class="bg-white py-[22px] px-[14px] rounded-lg"
-            >
-              <ul class="flex items-center justify-between">
-                <li class="w-[2%] text-center">{{ index + 1 }}</li>
-                <li class="w-[20%] text-left">{{ item.full_name }}</li>
-                <li class="w-[10%] text-center">
-                  {{ item.type === 1 ? 'Bakalavr' : 'Magistr' }}
-                </li>
-                <li class="w-[30%] text-center">
-                  {{ item.institute?.name }}
-                </li>
-                <li class="w-[15%] text-center">{{ formatNumber(item.given) }}</li>
-                <li class="w-[15%] text-center">{{ formatNumber(item.contract) }}</li>
-                <li class="w-[8%] text-center flex items-center justify-center">
-                  <router-link :to="{ name: 'Student', params: { id: item.id } }">
-                    <img src="/eye.svg" alt="eye icon" />
-                  </router-link>
-                </li>
-              </ul>
-            </li>
-          </div>
-        </template>
-      </ul>
-    </div>
-
-    <div class="flex items-center justify-between">
+      <template v-else>
+        <div class="flex w-full flex-col gap-4 mt-3 mb-12 overflow-y-auto">
+          <li
+            v-for="(item, index) in store.studentsList?.results"
+            :key="index"
+            class="bg-white py-[22px] px-[14px] rounded-lg"
+          >
+            <ul class="flex items-center justify-between">
+              <li class="w-[2%] text-center">{{ index + 1 }}</li>
+              <li class="w-[20%] text-left">{{ item.full_name }}</li>
+              <li class="w-[10%] text-center">
+                {{ item.type === 1 ? 'Bakalavr' : 'Magistr' }}
+              </li>
+              <li class="w-[30%] text-center">
+                {{ item.institute?.name }}
+              </li>
+              <li class="w-[15%] text-center">{{ formatNumber(item.given) }}</li>
+              <li class="w-[15%] text-center">{{ formatNumber(item.contract) }}</li>
+              <li class="w-[8%] text-center flex items-center justify-center">
+                <router-link :to="{ name: 'Student', params: { id: item.id } }">
+                  <img src="/eye.svg" alt="eye icon" />
+                </router-link>
+              </li>
+            </ul>
+          </li>
+        </div>
+      </template>
+    </template>
+    <template #body>
       <div>
         {{ store.studentsList?.count }} tadan
         {{ (store.studentsCurrentPage - 1) * store.paginationCountStudents }}-{{
@@ -103,8 +100,8 @@
           </button>
         </div>
       </div>
-    </div>
-  </div>
+    </template>
+  </CTable>
 </template>
 
 <script setup>
@@ -117,6 +114,7 @@ import { formatNumber } from '@/utils/formatNumber'
 
 import CMaska from './CMaska.vue'
 import CDropdown from '@/components/CDropdown/CDropdown.vue'
+import CTable from '@/components/CTable/CTable.vue'
 
 const store = useDataStore()
 
@@ -147,16 +145,10 @@ const paginationData = [
 
 const { get, loading } = useFetch()
 
-const forcePagination = ref('forcePagination')
-
 const totalPage = ref(0)
 
 const fetchData = async (page, page_size) => {
-  if (
-    store.studentsList.length === 0 ||
-    store.studentsCurrentPage !== page ||
-    forcePagination.value === 'forcePagination'
-  ) {
+  if (store.studentsList.length === 0 || store.studentsCurrentPage !== page) {
     try {
       console.log(page_size)
       store.studentsCurrentPage = page

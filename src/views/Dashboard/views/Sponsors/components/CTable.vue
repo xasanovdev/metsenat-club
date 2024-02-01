@@ -1,25 +1,25 @@
 <template>
-  <div class="w-full">
-    <div class="container mx-auto overflow-hidden overflow-x-auto">
-      <ul class="w-full whitespace-nowrap flex gap-4 my-12 flex-col list-none p-0">
-        <!-- sponsors list row head cells -->
-        <li>
-          <ul class="text-[#B1B1B8] text-left flex px-[14px]">
-            <li
-              v-for="(column, index) in columns"
-              :key="index"
-              :class="[index === 1 ? 'text-left' : 'text-center', `w-[${column.width}]`]"
-            >
-              {{ column.label }}
-            </li>
-          </ul>
-        </li>
+  <CTable>
+    <!-- sponsors list row head cells -->
+    <template #header>
+      <li class="mt-7">
+        <ul class="text-[#B1B1B8] text-left flex px-[14px]">
+          <li
+            v-for="(column, index) in columns"
+            :key="index"
+            :class="[index === 1 ? 'text-left' : 'text-center', `w-[${column.width}]`]"
+          >
+            {{ column.label }}
+          </li>
+        </ul>
+      </li>
 
-        <li v-if="loading" class="text-center">
-          <CMaska />
-        </li>
+      <li v-if="loading" class="text-center">
+        <CMaska />
+      </li>
 
-        <template v-else>
+      <template v-else>
+        <div class="flex w-full flex-col gap-4 mt-3 mb-12 overflow-y-auto">
           <li
             v-for="(item, index) in store.sponsorsList?.results"
             :key="index"
@@ -42,11 +42,10 @@
               </li>
             </ul>
           </li>
-        </template>
-      </ul>
-    </div>
-
-    <div class="flex items-center justify-between">
+        </div>
+      </template>
+    </template>
+    <template #body>
       <div>
         {{ store.sponsorsList?.count }} tadan
         {{ (store.sponsorsCurrentPage - 1) * store.paginationCountSponsors }}-{{
@@ -99,8 +98,8 @@
           </button>
         </div>
       </div>
-    </div>
-  </div>
+    </template>
+  </CTable>
 </template>
 
 <script setup>
@@ -115,6 +114,7 @@ import { formatNumber } from '@/utils/formatNumber'
 
 import CMaska from './CMaska.vue'
 import CDropdown from '@/components/CDropdown/CDropdown.vue'
+import CTable from '@/components/CTable/CTable.vue'
 
 const store = useDataStore()
 
@@ -127,8 +127,6 @@ const prevPage = () => {
 }
 
 const { get, loading } = useFetch()
-
-const forcePagination = ref('forcePagination')
 
 const columns = [
   { label: '#', width: '2%' },
@@ -150,14 +148,10 @@ const paginationData = [
 const totalPage = ref(0)
 
 console.log(store.sponsorsList)
-const fetchData = async (page, page_size, forcePagination) => {
-  if (
-    store.sponsorsList.length === 0 ||
-    store.sponsorsCurrentPage !== page ||
-    forcePagination.value === 'forcePagination'
-  ) {
+
+const fetchData = async (page, page_size) => {
+  if (store.sponsorsList.length === 0 || store.sponsorsCurrentPage !== page) {
     try {
-      console.log(page_size)
       store.sponsorsCurrentPage = page
       store.sponsorsList = []
       const response = await get('sponsor-list/', { page: page, page_size: page_size })
@@ -182,8 +176,9 @@ watch(
 
   () => {
     console.log(store.sponsorsCurrentPage, store.paginationCountSponsors)
-    fetchData(store.sponsorsCurrentPage, store.paginationCountSponsors, forcePagination)
+    fetchData(store.sponsorsCurrentPage, store.paginationCountSponsors)
   },
+
   {
     immediate: true
   }
