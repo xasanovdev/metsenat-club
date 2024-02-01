@@ -17,7 +17,24 @@
 </template>
 
 <script setup>
-const props = defineProps(['variant', 'size', 'loading', 'text'])
+const props = defineProps({
+  variant: {
+    type: String,
+    default: ''
+  },
+  size: {
+    type: String,
+    default: ''
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  },
+  text: {
+    type: String,
+    default: ''
+  }
+})
 
 const styles = {
   primary: 'hover:bg-light1 bg-[#EDF1FD] text-[#3365FC] hover:bg-opacity-60 px-8',
