@@ -20,13 +20,19 @@
         </routerLink>
         <routerLink
           class="flex-1 inline-block"
-          :to="{ name: 'Sponsors', query: { page: store.sponsorsCurrentPage } }"
+          :to="{
+            name: 'Sponsors',
+            query: { page: store.sponsorsCurrentPage, page_size: store.paginationCountSponsors }
+          }"
         >
           <CTabButton path="/sponsors" buttonText="Homiylar" />
         </routerLink>
         <routerLink
           class="flex-1 inline-block"
-          :to="{ name: 'Students', query: { page: store.studentsCurrentPage } }"
+          :to="{
+            name: 'Students',
+            query: { page: store.studentsCurrentPage, page_size: store.paginationCountStudents }
+          }"
         >
           <CTabButton path="/students" buttonText="Talabalar" />
         </routerLink>

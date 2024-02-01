@@ -11,13 +11,19 @@
         </routerLink>
         <routerLink
           class="flex-1 inline-block"
-          :to="{ name: 'Sponsors', query: { page: store.sponsorsCurrentPage } }"
+          :to="{
+            name: 'Sponsors',
+            query: { page: store.sponsorsCurrentPage, page_size: store.paginationCountSponsors }
+          }"
         >
           <CTabButton path="/sponsors" buttonText="Homiylar" />
         </routerLink>
         <routerLink
           class="flex-1 inline-block"
-          :to="{ name: 'Students', query: { page: store.studentsCurrentPage } }"
+          :to="{
+            name: 'Students',
+            query: { page: store.studentsCurrentPage, page_size: store.paginationCountStudents }
+          }"
         >
           <CTabButton path="/students" buttonText="Talabalar" />
         </routerLink>
@@ -72,16 +78,13 @@
 </template>
 
 <script setup>
-import {
-  onMounted,
-  ref,
-} from 'vue';
+import { onMounted, ref } from 'vue'
 
-import CInput from '@/components/CInput/CInput.vue';
-import CTabButton from '@/components/CTabButton/CTabButton.vue';
-import { useFetch } from '@/composables/useFetch';
-import { useDataStore } from '@/stores/data';
-import { formatNumber } from '@/utils/formatNumber';
+import CInput from '@/components/CInput/CInput.vue'
+import CTabButton from '@/components/CTabButton/CTabButton.vue'
+import { useFetch } from '@/composables/useFetch'
+import { useDataStore } from '@/stores/data'
+import { formatNumber } from '@/utils/formatNumber'
 
 const search = ref('')
 const data = ref(null)

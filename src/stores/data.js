@@ -6,13 +6,18 @@ const { get } = useFetch()
 
 export const useDataStore = defineStore('data', {
   state: () => ({
-    metaValue: '',
     sponsorsList: [],
     sponsorsCurrentPage: 1,
+    paginationCountSponsors: 10,
+
     studentsList: [],
     studentsCurrentPage: 1,
-    instituteList: [], // Variable to store the fetched data
+    paginationCountStudents: 10,
+
+    instituteList: [],
+
     editSponsorData: {},
+
     updateSponsorData: {}
   }),
 

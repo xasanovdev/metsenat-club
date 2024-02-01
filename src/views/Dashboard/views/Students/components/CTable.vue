@@ -52,15 +52,16 @@
 
     <div class="flex items-center justify-between">
       <div>
-        {{ store.studentsList?.count }} tadan {{ (store.studentsCurrentPage - 1) * pageSize }}-{{
-          store.studentsCurrentPage * pageSize
+        {{ store.studentsList?.count }} tadan
+        {{ (store.studentsCurrentPage - 1) * store.paginationCountStudents }}-{{
+          store.studentsCurrentPage * store.paginationCountStudents
         }}
         ko'rsatilmoqda
       </div>
       <div class="flex items-center gap-4">
         <div class="relative">
           <CDropdown
-            v-model="pageSize"
+            v-model="store.paginationCountStudents"
             :readonly="true"
             position="reverse"
             property="name"
@@ -84,15 +85,18 @@
           <button
             :class="{
               'border-[#E0E7FF]':
-                store.studentsCurrentPage === Math.ceil(store.studentsList?.count / pageSize),
+                store.studentsCurrentPage ===
+                Math.ceil(store.studentsList?.count / store.paginationCountStudents),
 
               'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
-                store.studentsCurrentPage !== Math.ceil(store.studentsList?.count / pageSize)
+                store.studentsCurrentPage !==
+                Math.ceil(store.studentsList?.count / store.paginationCountStudents)
             }"
             class="p-2 rounded-md border-2 duration-200"
             @click="nextPage"
             :disabled="
-              store.studentsCurrentPage === Math.ceil(store.studentsList?.count / pageSize)
+              store.studentsCurrentPage ===
+              Math.ceil(store.studentsList?.count / store.paginationCountStudents)
             "
           >
             <img src="/arrow.svg" alt="arrow icon" />
@@ -117,11 +121,11 @@ import CDropdown from '@/components/CDropdown/CDropdown.vue'
 const store = useDataStore()
 
 const nextPage = () => {
-  fetchData(store.studentsCurrentPage + 1, pageSize.value)
+  fetchData(store.studentsCurrentPage + 1, store.paginationCountStudents)
 }
 
 const prevPage = () => {
-  fetchData(store.studentsCurrentPage - 1, pageSize.value)
+  fetchData(store.studentsCurrentPage - 1, store.paginationCountStudents)
 }
 
 const columns = [
@@ -145,8 +149,6 @@ const { get, loading } = useFetch()
 
 const totalPage = ref(0)
 
-const pageSize = ref(10)
-
 const fetchData = async (page, page_size) => {
   if (store.studentsList.length === 0 || store.studentsCurrentPage !== page) {
     try {
@@ -167,11 +169,11 @@ const fetchData = async (page, page_size) => {
 }
 
 onMounted(() => {
-  fetchData(store.studentsCurrentPage, pageSize.value)
+  fetchData(store.studentsCurrentPage, store.paginationCountStudents)
 })
 
-watch(pageSize, () => {
-  console.log(store.studentsCurrentPage, pageSize.value)
-  fetchData(store.studentsCurrentPage, pageSize.value)
+watch(store.paginationCountStudents, () => {
+  console.log(store.studentsCurrentPage, store.paginationCountStudents)
+  fetchData(store.studentsCurrentPage, store.paginationCountStudents)
 })
 </script>

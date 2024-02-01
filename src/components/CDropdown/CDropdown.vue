@@ -1,5 +1,8 @@
 <template>
-  <div class="relative dropdown flex flex-col w-full" :class="[position ? 'flex-col-reverse w-20' : '']">
+  <div
+    class="relative dropdown flex flex-col w-full"
+    :class="[position ? 'flex-col-reverse w-20' : '']"
+  >
     <div class="relative">
       <input
         @click="toggleDropdown"
@@ -21,6 +24,7 @@
     <transition name="dropdown">
       <div
         v-show="isDropdownOpen"
+        :class="[readonly ? '' : 'top-12']"
         class="absolute w-full max-h-[400px] overflow-y-auto mt-2 z-20 bg-white border rounded-lg shadow-lg"
         @mousedown="onDropdownClick"
       >

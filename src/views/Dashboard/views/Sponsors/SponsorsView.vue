@@ -20,13 +20,19 @@
         </routerLink>
         <routerLink
           class="flex-1 inline-block"
-          :to="{ name: 'Sponsors', query: { page: store.sponsorsCurrentPage } }"
+          :to="{
+            name: 'Sponsors',
+            query: { page: store.sponsorsCurrentPage, page_size: store.paginationCountSponsors }
+          }"
         >
           <CTabButton path="/sponsors" buttonText="Homiylar" />
         </routerLink>
         <routerLink
           class="flex-1 inline-block"
-          :to="{ name: 'Students', query: { page: store.studentsCurrentPage } }"
+          :to="{
+            name: 'Students',
+            query: { page: store.studentsCurrentPage, page_size: store.paginationCountStudents }
+          }"
         >
           <CTabButton path="/students" buttonText="Talabalar" />
         </routerLink>
@@ -48,16 +54,16 @@
   <router-view></router-view>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-import CButton from '@/components/CButton/CButton.vue';
-import CInput from '@/components/CInput/CInput.vue';
-import CTabButton from '@/components/CTabButton/CTabButton.vue';
-import { useModal } from '@/composables/useModal';
-import { useDataStore } from '@/stores/data';
+import CButton from '@/components/CButton/CButton.vue'
+import CInput from '@/components/CInput/CInput.vue'
+import CTabButton from '@/components/CTabButton/CTabButton.vue'
+import { useModal } from '@/composables/useModal'
+import { useDataStore } from '@/stores/data'
 
-import CTable from './components/CTable.vue';
-import FilterModal from './components/FilterModal.vue';
+import CTable from './components/CTable.vue'
+import FilterModal from './components/FilterModal.vue'
 
 const search = ref('')
 

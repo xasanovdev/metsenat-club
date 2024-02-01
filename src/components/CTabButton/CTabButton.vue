@@ -10,14 +10,11 @@
 </template>
 
 <script setup>
-import {
-  computed,
-  ref,
-} from 'vue';
+import { computed, ref } from 'vue'
 
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'
 
-import router from '@/router';
+import router from '@/router'
 
 const props = defineProps(['path', 'buttonText', 'variant'])
 

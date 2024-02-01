@@ -49,15 +49,16 @@
 
     <div class="flex items-center justify-between">
       <div>
-        {{ store.sponsorsList?.count }} tadan {{ (store.sponsorsCurrentPage - 1) * pageSize }}-{{
-          store.sponsorsCurrentPage * pageSize
+        {{ store.sponsorsList?.count }} tadan
+        {{ (store.sponsorsCurrentPage - 1) * store.paginationCountSponsors }}-{{
+          store.sponsorsCurrentPage * store.paginationCountSponsors
         }}
         ko'rsatilmoqda
       </div>
       <div class="flex items-center gap-4">
         <div class="relative">
           <CDropdown
-            v-model="pageSize"
+            v-model="store.paginationCountSponsors"
             :readonly="true"
             position="reverse"
             property="name"
@@ -81,15 +82,18 @@
           <button
             :class="{
               'border-[#E0E7FF]':
-                store.sponsorsCurrentPage === Math.ceil(store.sponsorsList?.count / pageSize),
+                store.sponsorsCurrentPage ===
+                Math.ceil(store.sponsorsList?.count / store.paginationCountSponsors),
 
               'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
-                store.sponsorsCurrentPage !== Math.ceil(store.sponsorsList?.count / pageSize)
+                store.sponsorsCurrentPage !==
+                Math.ceil(store.sponsorsList?.count / store.paginationCountSponsors)
             }"
             class="p-2 rounded-md border-2 duration-200"
             @click="nextPage"
             :disabled="
-              store.sponsorsCurrentPage === Math.ceil(store.sponsorsList?.count / pageSize)
+              store.sponsorsCurrentPage ===
+              Math.ceil(store.sponsorsList?.count / store.paginationCountSponsors)
             "
           >
             <img src="/arrow.svg" alt="arrow icon" />
@@ -116,11 +120,11 @@ import CDropdown from '@/components/CDropdown/CDropdown.vue'
 const store = useDataStore()
 
 const nextPage = () => {
-  fetchData(store.sponsorsCurrentPage + 1, pageSize.value)
+  fetchData(store.sponsorsCurrentPage + 1, store.paginationCountSponsors)
 }
 
 const prevPage = () => {
-  fetchData(store.sponsorsCurrentPage - 1, pageSize.value)
+  fetchData(store.sponsorsCurrentPage - 1, store.paginationCountSponsors)
 }
 
 const { get, loading } = useFetch()
@@ -143,7 +147,6 @@ const paginationData = [
 ]
 
 const totalPage = ref(0)
-const pageSize = ref(10)
 
 console.log(store.sponsorsList)
 const fetchData = async (page, page_size) => {
@@ -166,11 +169,11 @@ const fetchData = async (page, page_size) => {
 }
 
 onMounted(() => {
-  fetchData(store.sponsorsCurrentPage, pageSize.value)
+  fetchData(store.sponsorsCurrentPage, store.paginationCountSponsors)
 })
 
-watch(pageSize, () => {
-  console.log(store.sponsorsCurrentPage, pageSize.value)
-  fetchData(store.sponsorsCurrentPage, pageSize.value)
+watch(store.paginationCountSponsors, () => {
+  console.log(store.sponsorsCurrentPage, store.paginationCountSponsors)
+  fetchData(store.sponsorsCurrentPage, store.paginationCountSponsors)
 })
 </script>
