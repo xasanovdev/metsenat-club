@@ -25,7 +25,8 @@
           >
             Kirish
           </CButton>
-          {{ error }}
+
+          <p class="mt-2 bg-red-50 p-2 rounded-md">{{ error }}</p>
         </form>
       </div>
     </div>
@@ -61,7 +62,7 @@ const handleLogin = async () => {
     authStore.setToken(data)
     error.value = data.detail
 
-    console.log(error.value);
+    console.log(error.value)
     router.push({ name: 'Dashboard' })
   } catch (error) {
     console.error('Login error', error.message)
