@@ -75,6 +75,14 @@
       </div>
     </div>
   </div>
+
+  <p
+    v-if="access_token"
+    :class="[toast === true ? '' : 'hidden']"
+    class="absolute font-bold text-lg text-green-500 bg-amber-50 py-4 px-6 shadow-xl border-b-2 border-green-500 right-6 bottom-6"
+  >
+    You are succesfully logged in.
+  </p>
 </template>
 
 <script setup>
@@ -87,9 +95,21 @@ import { useDataStore } from '@/stores/data'
 import { formatNumber } from '@/utils/formatNumber'
 
 const search = ref('')
-const data = ref(null)
+const data = ref([])
+
+// Check if toast has been shown before
+const hasShownToast = localStorage?.getItem('hasShownToast')
+const toast = ref(!hasShownToast) // Initialize toast based on whether it has been shown before
 
 const store = useDataStore()
+
+const access_token = localStorage?.getItem('access_token')
+
+// Set the flag in localStorage after a delay
+setTimeout(() => {
+  toast.value = false
+  localStorage.setItem('hasShownToast', 'true')
+}, 1000)
 
 const { get } = useFetch()
 
@@ -104,6 +124,8 @@ const fetchData = async () => {
 }
 
 onMounted(() => {
-  fetchData()
+  if (data?.value?.length === 0) {
+    fetchData()
+  }
 })
 </script>

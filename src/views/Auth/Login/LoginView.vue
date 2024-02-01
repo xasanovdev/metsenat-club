@@ -9,13 +9,13 @@
         <form @submit.prevent="handleLogin">
           <div class="mb-4">
             <label for="username" class="block mb-2 text-sm uppercase font-medium text-gray-600"
-              >lOGIN:</label
+              >Login:</label
             >
             <CInput v-model="username" type="text" id="username" name="username" required />
           </div>
           <div class="mb-4">
             <label for="password" class="block mb-2 text-sm uppercase font-medium text-gray-600"
-              >pAROL:</label
+              >parol:</label
             >
             <CInput v-model="password" type="password" id="password" name="password" required />
           </div>
@@ -32,13 +32,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-import CButton from '@/components/CButton/CButton.vue';
-import CInput from '@/components/CInput/CInput.vue';
-import { useFetch } from '@/composables/useFetch';
-import router from '@/router';
-import { useAuthStore } from '@/stores/auth';
+import CButton from '@/components/CButton/CButton.vue'
+import CInput from '@/components/CInput/CInput.vue'
+import { useFetch } from '@/composables/useFetch'
+import router from '@/router'
+import { useAuthStore } from '@/stores/auth'
 
 const username = ref('')
 const password = ref('')
