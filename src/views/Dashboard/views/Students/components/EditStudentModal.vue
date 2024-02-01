@@ -1,58 +1,52 @@
 <template>
-  <template v-if="loading">
-    <article>loading...</article>
-  </template>
-
-  <template v-else>
-    <CModal>
-      <template #title>Tahrirlash</template>
-      <template #body>
-        <form class="max-w-[793px] w-full bg-white rounded-xl">
-          <div class="grid grid-cols-1 gap-x-7 gap-y-[50px]">
-            <div>
-              <label>
-                {{ user?.full_name }}
-                <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">
-                  F.I.Sh. (Familiya Ism Sharif)
-                </p>
-                <CInput v-model="user.full_name" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
-              </label>
-            </div>
-            <div>
-              <label>
-                {{ user?.phone }}
-                <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Telefon raqam</p>
-                <CInput v-model="user.phone" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
-              </label>
-            </div>
-            <div class="col-span-1">
-              <label>
-                {{ user?.institute }}
-                <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</p>
-                <CDropdown
-                  v-model="user.institute.name"
-                  property="name"
-                  :options="store?.instituteList"
-                />
-              </label>
-            </div>
-            <div>
-              <label>
-                {{ user?.contract }}
-                <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Kontrakt summa</p>
-                <CInput v-model="user.contract" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
-              </label>
-            </div>
+  <CModal>
+    <template #title>Tahrirlash</template>
+    <template #body>
+      <form class="max-w-[793px] w-full bg-white rounded-xl">
+        <div class="grid grid-cols-1 gap-x-7 gap-y-[50px]">
+          <div>
+            <label>
+              {{ user?.full_name }}
+              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">
+                F.I.Sh. (Familiya Ism Sharif)
+              </p>
+              <CInput v-model="user.full_name" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
+            </label>
           </div>
-        </form>
-      </template>
-      <template #footer>
-        <CButton @click="updateStudent" variant="secondary" text="Natijalarni ko‘rish">
-          <img src="/save.svg" alt="save icon" />
-        </CButton>
-      </template>
-    </CModal>
-  </template>
+          <div>
+            <label>
+              {{ user?.phone }}
+              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Telefon raqam</p>
+              <CInput v-model="user.phone" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
+            </label>
+          </div>
+          <div class="col-span-1">
+            <label>
+              {{ user?.institute }}
+              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</p>
+              <CDropdown
+                v-model="user.institute.name"
+                property="name"
+                :options="store?.instituteList"
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              {{ user?.contract }}
+              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Kontrakt summa</p>
+              <CInput v-model="user.contract" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
+            </label>
+          </div>
+        </div>
+      </form>
+    </template>
+    <template #footer>
+      <CButton @click="updateStudent" variant="secondary" text="Natijalarni ko‘rish">
+        <img src="/save.svg" alt="save icon" />
+      </CButton>
+    </template>
+  </CModal>
 </template>
 
 <script setup>
@@ -91,6 +85,8 @@ const user = ref({
   type: studentData?.type,
   contract: studentData?.contract
 })
+
+console.log(user)
 
 const updateStudent = async () => {
   const selectedInstitute = computed(() => {

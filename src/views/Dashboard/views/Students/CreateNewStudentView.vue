@@ -100,7 +100,7 @@ import { useDataStore } from '@/stores/data'
 
 const store = useDataStore()
 
-const { loading, post } = useFetch()
+const { loading, post, get } = useFetch()
 
 const user = ref({
   full_name: '',
@@ -145,6 +145,15 @@ const addStudent = async () => {
       type: '',
       contract: ''
     }
+    store.studentsList = []
+    const studentData = await get('student-list/', {
+      page: store.studentsCurrentPage,
+      page_size: store.paginationCountStudents
+    })
+    console.log(studentData)
+
+    store.studentsList = studentData
+
     router.push({ name: 'Student', params: { id: response.id } })
   } catch (error) {
     console.error('Error fetching data:', error)
