@@ -25,6 +25,7 @@
           >
             Kirish
           </CButton>
+          {{ error }}
         </form>
       </div>
     </div>
@@ -42,6 +43,7 @@ import { useAuthStore } from '@/stores/auth'
 
 const username = ref('')
 const password = ref('')
+const error = ref('')
 
 const authStore = useAuthStore()
 
@@ -57,7 +59,9 @@ const handleLogin = async () => {
     localStorage.setItem('refresh_token', data.refresh)
 
     authStore.setToken(data)
+    error.value = data.detail
 
+    console.log(error.value);
     router.push({ name: 'Dashboard' })
   } catch (error) {
     console.error('Login error', error.message)
