@@ -28,34 +28,39 @@
               <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">
                 F.I.Sh. (Familiya Ism Sharif)
               </p>
-              {{ user.fullName }}
+              {{ user.full_name }}
               <CInput v-model="user.full_name" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
+              <span v-if="!v$.user.full_name.required">Full Name is required</span>
             </label>
           </div>
           <div>
             <label>
               <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Telefon raqam</p>
-              {{ user.phoneNumber }}
+              {{ user.phone }}
               <CInput
                 v-model="user.phone"
                 type="string"
                 placeholder="Abdullayev Abdulla Abdulla o’g’li"
               />
+              <span v-if="!v$.user.phone.required">Phone is required</span>
+              <span v-if="!v$.user.phone.numeric">Invalid phone format</span>
             </label>
           </div>
           <div class="col-span-2">
             <label>
               <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</p>
-              {{ console.log(user) }}
+              {{ user.institute }}
               <CDropdown v-model="user.institute" property="name" :options="store?.instituteList" />
+              <span v-if="!v$.user.institute.required">Institute is required</span>
             </label>
           </div>
           <div>
             <label>
               <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Talabalik turi</p>
-              {{ user.type?.name }}
+              {{ user.type }}
 
               <CDropdown v-model="user.type" property="name" :options="options" />
+              <span v-if="!v$.user.type.required">Type is required</span>
             </label>
           </div>
           <div>
@@ -67,6 +72,7 @@
                 type="number"
                 placeholder="Abdullayev Abdulla Abdulla o’g’li"
               />
+              <span v-if="!v$.user.contract.required">Contract is required</span>
             </label>
           </div>
         </div>
@@ -80,7 +86,10 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
+
+import { useVuelidate } from '@vuelidate/core'
+import { required, numeric } from '@vuelidate/validators'
 
 import CButton from '@/components/CButton/CButton.vue'
 import CDropdown from '@/components/CDropdown/CDropdown.vue'
@@ -91,30 +100,38 @@ import { useDataStore } from '@/stores/data'
 
 const store = useDataStore()
 
-const { get, loading, post } = useFetch()
-const generataId = () => {
-  return Math.random().toString(36).substr(2, 9)
-}
+const { loading, post } = useFetch()
 
 const user = ref({
-  id: generataId(),
   full_name: '',
   phone: '',
   institute: '',
   type: '',
   contract: ''
 })
+const rules = {
+  user: {
+    full_name: { required },
+    phone: { required, numeric },
+    institute: { required },
+    type: { required },
+    contract: { required }
+  }
+}
 
-const selectedInstitute = computed(() => {
-  return store?.instituteList.find((item) => item.name.trim() === user.value.institute.trim())
-})
+const v$ = useVuelidate(rules, user)
+
+console.log(store.instituteList)
 
 const addStudent = async () => {
   try {
-    console.log(selectedInstitute.value)
+    if (v$.$pending) {
+      // Do not submit if there are pending validations
+      return
+    }
+
     const response = await post(`student-create/`, {
-      id: user.value.id,
-      institute: selectedInstitute.value.id,
+      institute: store?.instituteList.find((item) => item.name === user?.value?.institute).id,
       full_name: user.value.full_name,
       phone: user.value.phone,
       type: user.value.type?.name === 'Bakalavr' ? 1 : 2,
@@ -122,7 +139,6 @@ const addStudent = async () => {
     })
 
     user.value = {
-      id: generataId(),
       full_name: '',
       phone: '',
       institute: '',
