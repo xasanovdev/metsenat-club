@@ -45,24 +45,20 @@ const options = [
 ]
 
 const filterSponsor = ref({
-  status: 'Barchasi',
-  money: 'Barchasi'
+  status: '',
+  money: ''
 })
 
 const filterData = () => {
-  if (filterSponsor.value.status == 'Barchasi' || filterSponsor.value.money == 'All') {
+  if (filterSponsor.value.status == 'Barchasi' || filterSponsor.value.money == 'all') {
     return
   }
 
   store.sponsorsList.results = store?.sponsorsList?.results.filter((item) => {
-    // Check if item.sum is greater than or equal to filterSponsor.value.money
-    // and item.get_status_display is not equal to filterSponsor.value.status
     if (
       item.sum <= filterSponsor.value.money ||
       item.get_status_display === filterSponsor.value.status
     ) {
-      console.log('Item', item, 'filterSponsor', filterSponsor.value)
-
       return item
     }
   })

@@ -42,7 +42,7 @@
   </div>
 
   <div class="bg-[#F5F5F7] pb-20">
-    <div class="container mx-auto px-6 overflow-hidden overflow-x-auto">
+    <div class="container mx-auto px-6 overflow-x-auto">
       <div class="w-full flex justify-end">
         <RouterLink to="/new-student">
           <CButton class="my-7" variant="secondary" text="Talaba qo‘shish">
@@ -55,16 +55,16 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-import CButton from '@/components/CButton/CButton.vue';
-import CInput from '@/components/CInput/CInput.vue';
-import CTabButton from '@/components/CTabButton/CTabButton.vue';
-import { useModal } from '@/composables/useModal';
-import { useDataStore } from '@/stores/data';
+import CButton from '@/components/CButton/CButton.vue'
+import CInput from '@/components/CInput/CInput.vue'
+import CTabButton from '@/components/CTabButton/CTabButton.vue'
+import { useModal } from '@/composables/useModal'
+import { useDataStore } from '@/stores/data'
 
-import CTable from './components/CTable.vue';
-import FilterModal from './components/FilterModal.vue';
+import CTable from './components/CTable.vue'
+import FilterModal from './components/FilterModal.vue'
 
 const search = ref('')
 

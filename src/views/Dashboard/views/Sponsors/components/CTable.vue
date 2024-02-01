@@ -49,46 +49,59 @@
 
     <div class="flex items-center justify-between">
       <div>
-        {{ store.sponsorsList?.count }} tadan {{ (store.sponsorsCurrentPage - 1) * 10 }}-{{
-          store.sponsorsCurrentPage * 10
+        {{ store.sponsorsList?.count }} tadan {{ (store.sponsorsCurrentPage - 1) * pageSize }}-{{
+          store.sponsorsCurrentPage * pageSize
         }}
         ko'rsatilmoqda
       </div>
       <div class="flex items-center gap-4">
-        <button
-          class="p-2 rounded-md border-2 duration-200"
-          :class="{
-            'border-[#E0E7FF]': store.sponsorsCurrentPage === 1,
-            'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
-              store.sponsorsCurrentPage !== 1
-          }"
-          @click="prevPage"
-          :disabled="store.sponsorsCurrentPage === 1"
-        >
-          <img class="rotate-180" src="/arrow.svg" alt="arrow icon" />
-        </button>
-        <span>{{ store.sponsorsCurrentPage }}</span>
-        <button
-          :class="{
-            'border-[#E0E7FF]':
-              store.sponsorsCurrentPage === Math.ceil(store.sponsorsList?.count / 10),
+        <div class="relative">
+          <CDropdown
+            v-model="pageSize"
+            :readonly="true"
+            position="reverse"
+            property="name"
+            :options="paginationData"
+          ></CDropdown>
+        </div>
+        <div class="flex items-center gap-4">
+          <button
+            class="p-2 rounded-md border-2 duration-200"
+            :class="{
+              'border-[#E0E7FF]': store.sponsorsCurrentPage === 1,
+              'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
+                store.sponsorsCurrentPage !== 1
+            }"
+            @click="prevPage"
+            :disabled="store.sponsorsCurrentPage === 1"
+          >
+            <img class="rotate-180" src="/arrow.svg" alt="arrow icon" />
+          </button>
+          <span>{{ store.sponsorsCurrentPage }}</span>
+          <button
+            :class="{
+              'border-[#E0E7FF]':
+                store.sponsorsCurrentPage === Math.ceil(store.sponsorsList?.count / pageSize),
 
-            'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
-              store.sponsorsCurrentPage !== Math.ceil(store.sponsorsList?.count / 10)
-          }"
-          class="p-2 rounded-md border-2 duration-200"
-          @click="nextPage"
-          :disabled="store.sponsorsCurrentPage === Math.ceil(store.sponsorsList?.count / 10)"
-        >
-          <img src="/arrow.svg" alt="arrow icon" />
-        </button>
+              'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
+                store.sponsorsCurrentPage !== Math.ceil(store.sponsorsList?.count / pageSize)
+            }"
+            class="p-2 rounded-md border-2 duration-200"
+            @click="nextPage"
+            :disabled="
+              store.sponsorsCurrentPage === Math.ceil(store.sponsorsList?.count / pageSize)
+            "
+          >
+            <img src="/arrow.svg" alt="arrow icon" />
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 import CBadge from '@/components/CBadge/CBadge.vue'
 import { useFetch } from '@/composables/useFetch'
@@ -98,15 +111,16 @@ import { formatDate } from '@/utils/formatDate'
 import { formatNumber } from '@/utils/formatNumber'
 
 import CMaska from './CMaska.vue'
+import CDropdown from '@/components/CDropdown/CDropdown.vue'
 
 const store = useDataStore()
 
 const nextPage = () => {
-  fetchData(store.sponsorsCurrentPage + 1)
+  fetchData(store.sponsorsCurrentPage + 1, pageSize.value)
 }
 
 const prevPage = () => {
-  fetchData(store.sponsorsCurrentPage - 1)
+  fetchData(store.sponsorsCurrentPage - 1, pageSize.value)
 }
 
 const { get, loading } = useFetch()
@@ -121,20 +135,28 @@ const columns = [
   { label: 'Sana', width: '8%' },
   { label: 'Amallar', width: '8%' }
 ]
+const paginationData = [
+  { id: 1, name: '10' },
+  { id: 2, name: '20' },
+  { id: 3, name: '30' },
+  { id: 4, name: '40' }
+]
 
 const totalPage = ref(0)
 const pageSize = ref(10)
 
 console.log(store.sponsorsList)
-
-const fetchData = async (page) => {
+const fetchData = async (page, page_size) => {
   if (store.sponsorsList.length === 0 || store.sponsorsCurrentPage !== page) {
     try {
+      console.log(page_size)
       store.sponsorsCurrentPage = page
-      const response = await get('sponsor-list/', { page: page, pageSize: pageSize.value })
+      store.sponsorsList = []
+      const response = await get('sponsor-list/', { page: page, page_size: page_size })
+
       store.sponsorsList = response
 
-      router.push({ path: `?page=`, query: { page: page } })
+      router.push({ path: `?page=`, query: { page: page, page_size: page_size } })
 
       console.log(response)
     } catch (error) {
@@ -144,6 +166,11 @@ const fetchData = async (page) => {
 }
 
 onMounted(() => {
-  fetchData(store.sponsorsCurrentPage)
+  fetchData(store.sponsorsCurrentPage, pageSize.value)
+})
+
+watch(pageSize, () => {
+  console.log(store.sponsorsCurrentPage, pageSize.value)
+  fetchData(store.sponsorsCurrentPage, pageSize.value)
 })
 </script>

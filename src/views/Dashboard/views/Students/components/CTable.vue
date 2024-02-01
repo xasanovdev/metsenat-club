@@ -58,40 +58,53 @@
         ko'rsatilmoqda
       </div>
       <div class="flex items-center gap-4">
-        <button
-          class="p-2 rounded-md border-2 duration-200"
-          :class="{
-            'border-[#E0E7FF]': store.studentsCurrentPage === 1,
-            'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
-              store.studentsCurrentPage !== 1
-          }"
-          @click="prevPage"
-          :disabled="store.studentsCurrentPage === 1"
-        >
-          <img class="rotate-180" src="/arrow.svg" alt="arrow icon" />
-        </button>
-        <span>{{ store.studentsCurrentPage }}</span>
-        <button
-          :class="{
-            'border-[#E0E7FF]':
-              store.studentsCurrentPage === Math.ceil(store.studentsList?.count / pageSize),
+        <div class="relative">
+          <CDropdown
+            v-model="pageSize"
+            :readonly="true"
+            position="reverse"
+            property="name"
+            :options="paginationData"
+          ></CDropdown>
+        </div>
+        <div class="flex items-center gap-4">
+          <button
+            class="p-2 rounded-md border-2 duration-200"
+            :class="{
+              'border-[#E0E7FF]': store.studentsCurrentPage === 1,
+              'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
+                store.studentsCurrentPage !== 1
+            }"
+            @click="prevPage"
+            :disabled="store.studentsCurrentPage === 1"
+          >
+            <img class="rotate-180" src="/arrow.svg" alt="arrow icon" />
+          </button>
+          <span>{{ store.studentsCurrentPage }}</span>
+          <button
+            :class="{
+              'border-[#E0E7FF]':
+                store.studentsCurrentPage === Math.ceil(store.studentsList?.count / pageSize),
 
-            'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
-              store.studentsCurrentPage !== Math.ceil(store.studentsList?.count / pageSize)
-          }"
-          class="p-2 rounded-md border-2 duration-200"
-          @click="nextPage"
-          :disabled="store.studentsCurrentPage === Math.ceil(store.studentsList?.count / pageSize)"
-        >
-          <img src="/arrow.svg" alt="arrow icon" />
-        </button>
+              'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
+                store.studentsCurrentPage !== Math.ceil(store.studentsList?.count / pageSize)
+            }"
+            class="p-2 rounded-md border-2 duration-200"
+            @click="nextPage"
+            :disabled="
+              store.studentsCurrentPage === Math.ceil(store.studentsList?.count / pageSize)
+            "
+          >
+            <img src="/arrow.svg" alt="arrow icon" />
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
@@ -99,15 +112,16 @@ import { useDataStore } from '@/stores/data'
 import { formatNumber } from '@/utils/formatNumber'
 
 import CMaska from './CMaska.vue'
+import CDropdown from '@/components/CDropdown/CDropdown.vue'
 
 const store = useDataStore()
 
 const nextPage = () => {
-  fetchData(store.studentsCurrentPage + 1)
+  fetchData(store.studentsCurrentPage + 1, pageSize.value)
 }
 
 const prevPage = () => {
-  fetchData(store.studentsCurrentPage - 1)
+  fetchData(store.studentsCurrentPage - 1, pageSize.value)
 }
 
 const columns = [
@@ -120,21 +134,30 @@ const columns = [
   { label: 'Amallar', width: '8%' }
 ]
 
+const paginationData = [
+  { id: 1, name: '10' },
+  { id: 2, name: '20' },
+  { id: 3, name: '30' },
+  { id: 4, name: '40' }
+]
+
 const { get, loading } = useFetch()
 
 const totalPage = ref(0)
+
 const pageSize = ref(10)
 
-const fetchData = async (page) => {
-  if (store.sponsorsList.length === 0 || store.studentsCurrentPage !== page) {
+const fetchData = async (page, page_size) => {
+  if (store.studentsList.length === 0 || store.studentsCurrentPage !== page) {
     try {
-      const response = await get('student-list/', { page: page, pageSize: pageSize.value })
+      console.log(page_size)
+      store.studentsCurrentPage = page
+      store.studentsList = []
+      const response = await get('student-list/', { page: page, page_size: page_size })
 
       store.studentsList = response
 
-      store.studentsCurrentPage = page
-
-      router.push({ path: `?page=`, query: { page: page } })
+      router.push({ path: `?page=`, query: { page: page, page_size: page_size } })
 
       console.log(response)
     } catch (error) {
@@ -144,6 +167,11 @@ const fetchData = async (page) => {
 }
 
 onMounted(() => {
-  fetchData(store.studentsCurrentPage)
+  fetchData(store.studentsCurrentPage, pageSize.value)
+})
+
+watch(pageSize, () => {
+  console.log(store.studentsCurrentPage, pageSize.value)
+  fetchData(store.studentsCurrentPage, pageSize.value)
 })
 </script>
