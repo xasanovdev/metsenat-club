@@ -1,7 +1,7 @@
 <template>
   <div
-    class="relative dropdown flex flex-col w-full"
-    :class="[position ? 'flex-col-reverse w-20' : '']"
+    class="relative dropdown flex"
+    :class="[position ? 'flex-col-reverse w-20' : 'flex-col w-full']"
   >
     <div class="relative">
       <input
