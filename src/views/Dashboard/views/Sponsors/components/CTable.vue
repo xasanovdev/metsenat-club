@@ -128,8 +128,6 @@ const prevPage = () => {
 
 const { get, loading } = useFetch()
 
-const forcePagination = ref('forcePagination')
-
 const columns = [
   { label: '#', width: '2%' },
   { label: 'f.i.sh.', width: '34%' },
@@ -151,8 +149,8 @@ const totalPage = ref(0)
 
 console.log(store.sponsorsList)
 
-const fetchData = async (page, page_size, forcePagination) => {
-  if (store.sponsorsList.length === 0 || store.sponsorsCurrentPage !== page || forcePagination) {
+const fetchData = async (page, page_size) => {
+  if (store.sponsorsList.length === 0 || store.sponsorsCurrentPage !== page) {
     try {
       store.sponsorsCurrentPage = page
       store.sponsorsList = []
@@ -178,7 +176,7 @@ watch(
 
   () => {
     console.log(store.sponsorsCurrentPage, store.paginationCountSponsors)
-    fetchData(store.sponsorsCurrentPage, store.paginationCountSponsors, forcePagination)
+    fetchData(store.sponsorsCurrentPage, store.paginationCountSponsors)
   },
 
   {
