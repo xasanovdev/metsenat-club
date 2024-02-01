@@ -49,9 +49,9 @@
 
   <div class="bg-[#F5F5F7] pb-20">
     <div class="container mx-auto px-6 overflow-x-auto">
-      <div class="w-full flex justify-end">
+      <div class="w-full flex py-7 justify-end">
         <RouterLink to="/new-student">
-          <CButton class="my-7" variant="secondary" text="Talaba qo‘shish">
+          <CButton variant="secondary" text="Talaba qo‘shish">
             <img src="/plusWhite.svg" alt="white plus icon" />
           </CButton>
         </RouterLink>
