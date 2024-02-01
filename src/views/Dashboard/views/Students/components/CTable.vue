@@ -36,7 +36,9 @@
                 {{ item.institute?.name }}
               </li>
               <li class="w-[15%] text-center">{{ formatNumber(item.given) }}</li>
-              <li class="w-[15%] text-center">{{ formatNumber(item.contract) }}</li>
+              <li class="w-[15%] text-center">
+                <a :href="`tel:${item.contract}`">{{ formatNumber(item.contract) }}</a>
+              </li>
               <li class="w-[8%] text-center flex items-center justify-center">
                 <routerLink :to="{ name: 'Student', params: { id: item.id } }">
                   <img src="/eye.svg" alt="eye icon" />

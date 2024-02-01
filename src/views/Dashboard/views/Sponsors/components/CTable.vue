@@ -28,7 +28,9 @@
             <ul class="flex items-center justify-between">
               <li class="w-[2%] text-center">{{ index + 1 }}</li>
               <li class="w-[34%] text-left">{{ item.full_name }}</li>
-              <li class="w-[10%] text-center">{{ item.phone }}</li>
+              <li class="w-[10%] text-center">
+                <a :href="`tel:${item.phone}`">{{ formatNumber(item.phone) }}</a>
+              </li>
               <li class="w-[16%] text-center">{{ formatNumber(item.spent) }}</li>
               <li class="w-[15%] text-center">{{ formatNumber(item.sum) }}</li>
               <li class="w-[15%] text-center">{{ formatDate(item.created_at) }}</li>
