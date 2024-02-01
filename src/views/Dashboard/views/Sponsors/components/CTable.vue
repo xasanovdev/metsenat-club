@@ -5,10 +5,12 @@
         <!-- sponsors list row head cells -->
         <li>
           <ul class="text-[#B1B1B8] text-left flex px-[14px]">
-
-
-            
-            <li v-for="(column, index) in columns" :key="index" class="text-center" :class="`w-[${column.width}]`">
+            <li
+              v-for="(column, index) in columns"
+              :key="index"
+              class="text-center"
+              :class="`w-[${column.width}]`"
+            >
               {{ column.label }}
             </li>
           </ul>
@@ -22,7 +24,7 @@
           <li
             v-for="(item, index) in store.sponsorsList?.results"
             :key="index"
-            class="bg-white py-[22px] px-[14px] rounded-lg border-b border-[#B2B7C1]"
+            class="bg-white py-[22px] px-[14px] rounded-lg"
           >
             <ul class="flex items-center justify-between">
               <li class="w-[2%] text-center">{{ index + 1 }}</li>

@@ -25,7 +25,7 @@
             <li
               v-for="(item, index) in store.studentsList?.results"
               :key="index"
-              class="bg-white py-[22px] px-[14px] rounded-lg border-b border-[#B2B7C1]"
+              class="bg-white py-[22px] px-[14px] rounded-lg"
             >
               <ul class="flex items-center justify-between">
                 <li class="w-[2%] text-center">{{ index + 1 }}</li>

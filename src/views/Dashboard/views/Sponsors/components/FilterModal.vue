@@ -1,7 +1,7 @@
 <template>
   <CModal>
-    <template v-slot:title>Tahrirlash</template>
-    <template v-slot:body>
+    <template #title>Tahrirlash</template>
+    <template #body>
       <div class="flex flex-col items-start gap-4">
         <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">Ariza holati</p>
         {{ filterSponsor.status }}
@@ -14,7 +14,7 @@
       </div>
     </template>
 
-    <template v-slot:footer>
+    <template #footer>
       <CButton variant="primary" text="Tozalash">
         <img src="/clear.svg" alt="default clear icon" />
       </CButton>
@@ -50,15 +50,19 @@ const filterSponsor = ref({
 })
 
 const filterData = () => {
-  if (filterSponsor.value.status == 'Barchasi' && filterSponsor.value.money == 'all') {
+  if (filterSponsor.value.status == 'Barchasi' || filterSponsor.value.money == 'All') {
     return
   }
+
   store.sponsorsList.results = store?.sponsorsList?.results.filter((item) => {
-    console.log('Item', item,'filterSponsor' , filterSponsor.value)
+    // Check if item.sum is greater than or equal to filterSponsor.value.money
+    // and item.get_status_display is not equal to filterSponsor.value.status
     if (
-      item.sum < filterSponsor.value.money ||
-      item.get_status_display == filterSponsor.value.status
+      item.sum <= filterSponsor.value.money ||
+      item.get_status_display === filterSponsor.value.status
     ) {
+      console.log('Item', item, 'filterSponsor', filterSponsor.value)
+
       return item
     }
   })

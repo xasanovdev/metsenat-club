@@ -1,7 +1,7 @@
 <template>
   <CModal>
-    <template v-slot:title>Homiy qo‘shish</template>
-    <template v-slot:body>
+    <template #title>Homiy qo‘shish</template>
+    <template #body>
       <div>
         <label>
           <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</p>
@@ -29,7 +29,7 @@
       </div>
     </template>
 
-    <template v-slot:footer>
+    <template #footer>
       <CButton @click="addSponsor" text="Qo‘shish" class="px-8" variant="secondary">
         <img src="/plusWhite.svg" alt="" />
       </CButton>
@@ -59,7 +59,6 @@ const filterSponsor = ref({
 
 const store = useDataStore()
 const data = ref(null)
-
 
 console.log(store.sponsorsList)
 

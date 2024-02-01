@@ -5,8 +5,8 @@
 
   <template v-else>
     <CModal>
-      <template v-slot:title>Tahrirlash</template>
-      <template v-slot:body>
+      <template #title>Tahrirlash</template>
+      <template #body>
         <div class="flex flex-col items-start gap-4">
           <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">
             Talabalik turi
@@ -25,7 +25,7 @@
         </div>
       </template>
 
-      <template v-slot:footer>
+      <template #footer?>
         <CButton @click="clear" variant="primary" text="Tozalash">
           <img src="/clear.svg" alt="clear icon" />
         </CButton>

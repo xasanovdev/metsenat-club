@@ -5,8 +5,8 @@
 
   <template v-else>
     <CModal>
-      <template v-slot:title>Tahrirlash</template>
-      <template v-slot:body>
+      <template #title>Tahrirlash</template>
+      <template #body>
         <form class="max-w-[793px] w-full bg-white rounded-xl">
           <div class="grid grid-cols-1 gap-x-7 gap-y-[50px]">
             <div>
@@ -46,7 +46,7 @@
           </div>
         </form>
       </template>
-      <template v-slot:footer>
+      <template #footer>
         <CButton @click="updateStudent" variant="secondary" text="Natijalarni ko‘rish">
           <img src="/save.svg" alt="save icon" />
         </CButton>

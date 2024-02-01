@@ -1,7 +1,7 @@
 <template>
   <CModal>
-    <template v-slot:title>Tahrirlash</template>
-    <template v-slot:body>
+    <template #title>Tahrirlash</template>
+    <template #body>
       <form class="max-w-[793px] w-full bg-white rounded-xl">
         <div class="flex items-center rounded-lg border-2 border-[3E0E7FF]">
           <CButton
@@ -60,7 +60,7 @@
       </form>
     </template>
 
-    <template v-slot:footer>
+    <template #footer>
       <CButton @click="updateSponsor" text="Saqlash" class="px-8" variant="secondary">
         <img src="/save.svg" alt="" />
       </CButton>

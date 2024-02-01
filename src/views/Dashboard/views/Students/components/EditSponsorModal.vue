@@ -1,7 +1,7 @@
 <template>
   <CModal>
-    <template v-slot:title>Homiylarni tahrirlash</template>
-    <template v-slot:body>
+    <template #title>Homiylarni tahrirlash</template>
+    <template #body>
       <form class="max-w-[793px] w-full bg-white rounded-xl">
         <div class="flex justify-between items-center text-lg font-bold">
           <div>F.I.SH</div>
@@ -23,7 +23,7 @@
       </form>
     </template>
 
-    <template v-slot:footer>
+    <template #footer>
       <CButton @click="deleteSponsor" text="Homiyni o‘chirish" class="px-8" variant="danger">
         <img src="/redTrash.svg" alt="" />
       </CButton>
