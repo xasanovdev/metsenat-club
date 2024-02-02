@@ -10,7 +10,7 @@ const router = createRouter({
     {
       path: '/',
       redirect: () => {
-        if (localStorage.getItem('access_token')) {
+        if (localStorage.getItem('access_token') !== undefined) {
           return '/dashboard'
         } else {
           return '/auth'
@@ -67,8 +67,6 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const auth = useAuthStore()
 
-  await auth.$statePromise
-
   // Check if the user is authenticated using Pinia store
   const isAuthenticated = auth.isAuthenticated()
 
@@ -76,7 +74,8 @@ router.beforeEach(async (to, from, next) => {
 
   if (!isAuthenticated && to.name !== 'Auth') {
     next({ name: 'Auth' })
-  } else if (isAuthenticated && to.name === 'Auth') {
+    localStorage.clear()
+  } else if (isAuthenticated && to.name === 'Auth' && token) {
     next({ name: 'Dashboard' })
   } else {
     next()

@@ -26,7 +26,7 @@
             Kirish
           </CButton>
 
-          <p class="mt-2 bg-red-50 p-2 rounded-md">{{ error }}</p>
+          <p v-if="error" class="mt-2 bg-red-50 p-2 rounded-md">{{ error }}</p>
         </form>
       </div>
     </div>
@@ -41,6 +41,8 @@ import CInput from '@/components/CInput/CInput.vue'
 import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
 import { useAuthStore } from '@/stores/auth'
+
+// const creaditio
 
 const username = ref('')
 const password = ref('')
@@ -57,7 +59,7 @@ const handleLogin = async () => {
     const data = await post('auth/login/', { username: username.value, password: password.value })
 
     authStore.setToken(data)
-    error.value = data.detail
+    error.value = data?.detail
 
     console.log(error.value)
     router.push({ name: 'Dashboard' })
