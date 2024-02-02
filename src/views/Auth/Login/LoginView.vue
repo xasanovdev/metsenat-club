@@ -56,9 +56,6 @@ const handleLogin = async () => {
   try {
     const data = await post('auth/login/', { username: username.value, password: password.value })
 
-    localStorage.setItem('access_token', data.access)
-    localStorage.setItem('refresh_token', data.refresh)
-
     authStore.setToken(data)
     error.value = data.detail
 
