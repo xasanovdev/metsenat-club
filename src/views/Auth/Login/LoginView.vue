@@ -84,14 +84,15 @@ const authStore = useAuthStore()
 const { post } = useFetch()
 
 const handleLogin = async () => {
+  console.log($v.value.credentials)
+  $v.value.$touch()
+
+  if ($v.value.$validate === false) {
+    return
+  }
+
   try {
-    console.log($v.value.credentials)
-    $v.value.$touch()
-
-    if ($v.$pending || $v.$error) {
-      return
-    }
-
+    console.log('sa')
     const data = await post('auth/login/', {
       username: credentials.username,
       password: credentials.password
