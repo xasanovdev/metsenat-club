@@ -1,7 +1,7 @@
 <template>
   <div
     class="relative dropdown flex"
-    :class="[position ? 'flex-col-reverse w-20' : 'flex-col w-full']"
+    :class="[position ? 'flex-col-reverse' : 'flex-col w-full', size === 'sm' ? 'w-14' : '']"
   >
     <div class="relative">
       <input
@@ -9,14 +9,18 @@
         @focus="closeDropdown()"
         :value="searchText"
         @input="updateSearchText"
-        class="px-4 py-3 w-full border focus:border-[#2E5BFF] justify-between bg-[#F9FAFF] text-left text-[#2E384D] rounded-lg focus:outline-none flex items-center"
+        class="w-full border focus:border-[#2E5BFF] justify-between bg-[#F9FAFF] text-left text-[#2E384D] rounded-lg focus:outline-none flex items-center"
         placeholder="Search..."
-        :class="[readonly ? 'cursor-pointer' : '']"
+        :class="[readonly ? 'cursor-pointer' : '', size === 'sm' ? 'p-[5px]' : 'px-4 py-3']"
         :readonly="readonly"
       />
       <img
-        class="absolute right-2 top-4"
-        :class="['mr-2 duration-200', [isDropdownOpen ? '' : 'rotate-180']]"
+        class="absolute"
+        :class="[
+          'duration-200',
+          [isDropdownOpen ? '' : 'rotate-180'],
+          size === 'sm' ? 'right-1 top-[10px] w-3' : 'mr-2 right-2 top-4'
+        ]"
         src="/dropdown.svg"
         alt="Arrow icon"
       />
@@ -44,7 +48,7 @@
             <input
               type="radio"
               :checked="selectedOption.value === option[property]"
-              @change="onOptionSelected(option)"
+              @change="selectOption(option)"
               class="mr-2 hidden"
             />
 
@@ -59,7 +63,7 @@
 <script setup>
 import { computed, defineEmits, defineProps, onMounted, onUnmounted, ref } from 'vue'
 
-const props = defineProps(['options', 'property', 'modelValue', 'readonly', 'position'])
+const props = defineProps(['options', 'property', 'modelValue', 'readonly', 'position', 'size'])
 const emit = defineEmits(['update:modelValue'])
 
 console.log(props)
@@ -98,7 +102,7 @@ const closeDropdownOnOutsideClick = (event) => {
   }
 }
 
-const onOptionSelected = (option) => {
+const selectOption = (option) => {
   searchText.value = option[props.property]
   emit('update:modelValue', option[props.property])
   closeDropdown()
