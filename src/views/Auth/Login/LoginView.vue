@@ -11,13 +11,32 @@
             <label for="username" class="block mb-2 text-sm uppercase font-medium text-gray-600"
               >Login:</label
             >
-            <CInput v-model="username" type="text" id="username" name="username" required />
+            <CInput
+              v-model="credentials.username"
+              :class="[$v.credentials.username.$error && 'border-red-500']"
+              type="text"
+              id="username"
+              name="username"
+            />
+            <div v-if="$v.credentials.username.$error" class="text-red-500">
+              Username is required
+            </div>
           </div>
           <div class="mb-4">
             <label for="password" class="block mb-2 text-sm uppercase font-medium text-gray-600"
               >parol:</label
             >
-            <CInput v-model="password" type="password" id="password" name="password" required />
+
+            <CInput
+              v-model="credentials.password"
+              :class="[$v.credentials.password.$error && 'border-red-500']"
+              type="password"
+              id="password"
+              name="password"
+            />
+            <div v-if="$v.credentials.password.$error" class="text-red-500">
+              Password is required
+            </div>
           </div>
           <CButton
             type="submit"
@@ -26,7 +45,7 @@
             Kirish
           </CButton>
 
-          <p v-if="error" class="mt-2 bg-red-50 p-2 rounded-md">{{ error }}</p>
+          <p v-if="error" class="mt-2 bg-red-50 p-2 text-red-500 rounded-md">{{ error }}</p>
         </form>
       </div>
     </div>
@@ -34,29 +53,49 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 
 import CButton from '@/components/CButton/CButton.vue'
 import CInput from '@/components/CInput/CInput.vue'
 import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
 import { useAuthStore } from '@/stores/auth'
+import useVuelidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
 
-// const creaditio
+const credentials = reactive({
+  username: '',
+  password: ''
+})
 
-const username = ref('')
-const password = ref('')
+const rules = ref({
+  credentials: {
+    username: { required },
+    password: { required }
+  }
+})
+
+const $v = useVuelidate(rules, credentials)
+
 const error = ref('')
 
 const authStore = useAuthStore()
-
-console.log(authStore)
 
 const { post } = useFetch()
 
 const handleLogin = async () => {
   try {
-    const data = await post('auth/login/', { username: username.value, password: password.value })
+    console.log($v.value.credentials)
+    $v.value.$touch()
+
+    if ($v.$pending || $v.$error) {
+      return
+    }
+
+    const data = await post('auth/login/', {
+      username: credentials.username,
+      password: credentials.password
+    })
 
     authStore.setToken(data)
     error.value = data?.detail
