@@ -13,14 +13,10 @@
             >
             <CInput
               v-model="credentials.username"
-              :class="[$v.credentials.username.$error && 'border-red-500']"
               type="text"
               id="username"
               name="username"
             />
-            <div v-if="$v.credentials.username.$error" class="text-red-500">
-              Username is required
-            </div>
           </div>
           <div class="mb-4">
             <label for="password" class="block mb-2 text-sm uppercase font-medium text-gray-600"
@@ -29,14 +25,10 @@
 
             <CInput
               v-model="credentials.password"
-              :class="[$v.credentials.password.$error && 'border-red-500']"
               type="password"
               id="password"
               name="password"
             />
-            <div v-if="$v.credentials.password.$error" class="text-red-500">
-              Password is required
-            </div>
           </div>
           <CButton
             type="submit"
@@ -53,29 +45,21 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import {
+  reactive,
+  ref,
+} from 'vue';
 
-import CButton from '@/components/CButton/CButton.vue'
-import CInput from '@/components/CInput/CInput.vue'
-import { useFetch } from '@/composables/useFetch'
-import router from '@/router'
-import { useAuthStore } from '@/stores/auth'
-import useVuelidate from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
+import CButton from '@/components/CButton/CButton.vue';
+import CInput from '@/components/CInput/CInput.vue';
+import { useFetch } from '@/composables/useFetch';
+import router from '@/router';
+import { useAuthStore } from '@/stores/auth';
 
 const credentials = reactive({
   username: '',
   password: ''
 })
-
-const rules = ref({
-  credentials: {
-    username: { required },
-    password: { required }
-  }
-})
-
-const $v = useVuelidate(rules, credentials)
 
 const error = ref('')
 
@@ -84,13 +68,6 @@ const authStore = useAuthStore()
 const { post } = useFetch()
 
 const handleLogin = async () => {
-  console.log($v.value.credentials)
-  $v.value.$touch()
-
-  if ($v.value.$validate === false) {
-    return
-  }
-
   try {
     console.log('sa')
     const data = await post('auth/login/', {
