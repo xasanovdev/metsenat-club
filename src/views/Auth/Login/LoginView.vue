@@ -11,24 +11,14 @@
             <label for="username" class="block mb-2 text-sm uppercase font-medium text-gray-600"
               >Login:</label
             >
-            <CInput
-              v-model="credentials.username"
-              type="text"
-              id="username"
-              name="username"
-            />
+            <CInput v-model="credentials.username" type="text" id="username" name="username" />
           </div>
           <div class="mb-4">
             <label for="password" class="block mb-2 text-sm uppercase font-medium text-gray-600"
               >parol:</label
             >
 
-            <CInput
-              v-model="credentials.password"
-              type="password"
-              id="password"
-              name="password"
-            />
+            <CInput v-model="credentials.password" type="password" id="password" name="password" />
           </div>
           <CButton
             type="submit"
@@ -45,16 +35,13 @@
 </template>
 
 <script setup>
-import {
-  reactive,
-  ref,
-} from 'vue';
+import { reactive, ref } from 'vue'
 
-import CButton from '@/components/CButton/CButton.vue';
-import CInput from '@/components/CInput/CInput.vue';
-import { useFetch } from '@/composables/useFetch';
-import router from '@/router';
-import { useAuthStore } from '@/stores/auth';
+import CButton from '@/components/CButton/CButton.vue'
+import CInput from '@/components/CInput/CInput.vue'
+import { useFetch } from '@/composables/useFetch'
+import router from '@/router'
+import { useAuthStore } from '@/stores/auth'
 
 const credentials = reactive({
   username: '',
@@ -69,7 +56,6 @@ const { post } = useFetch()
 
 const handleLogin = async () => {
   try {
-    console.log('sa')
     const data = await post('auth/login/', {
       username: credentials.username,
       password: credentials.password

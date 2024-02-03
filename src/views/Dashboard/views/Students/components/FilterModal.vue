@@ -51,8 +51,6 @@ const clear = () => {
   filterStudent.value.institute = ''
 }
 
-console.log(store?.studentsList)
-
 const studentDataType = computed(() => {
   if (filterStudent.value.type == '') {
     return 'Barchasi'

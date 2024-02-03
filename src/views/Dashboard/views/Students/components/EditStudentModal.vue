@@ -50,7 +50,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 
 import { useRoute } from 'vue-router'
 
@@ -64,19 +64,13 @@ import { useDataStore } from '@/stores/data'
 
 const store = useDataStore()
 
-const { get, loading, put } = useFetch()
+const { put } = useFetch()
 
 const props = defineProps(['data'])
 
-console.log(props)
-
 const route = useRoute()
 
-console.log(store?.studentsList?.results, route.params.id)
-
 const studentData = store?.studentsList?.results?.find((student) => student?.id == route.params.id)
-
-console.log(studentData)
 
 const user = ref({
   id: '',
@@ -86,8 +80,6 @@ const user = ref({
   type: studentData?.type,
   contract: studentData?.contract
 })
-
-console.log(user)
 
 const updateStudent = async () => {
   const selectedInstitute = computed(() => {
@@ -105,7 +97,7 @@ const updateStudent = async () => {
       type: user.value.type?.name === 'Bakalavr' ? 1 : 2,
       contract: user.value.contract
     })
-    console.log(response)
+
     router.push({ name: 'Students' })
     document.body.classList.remove('overflow-hidden')
   } catch (error) {

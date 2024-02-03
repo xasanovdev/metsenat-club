@@ -15,10 +15,10 @@
       <div
         class="flex items-center text-center rounded-md overflow-hidden justify-center w-full md:max-w-[579px]"
       >
-        <routerLink class="flex-1 inline-block" :to="{ name: 'Dashboard' }">
+        <RouterLink class="flex-1 inline-block" :to="{ name: 'Dashboard' }">
           <CTabButton path="/dashboard" buttonText="Dashboard" />
-        </routerLink>
-        <routerLink
+        </RouterLink>
+        <RouterLink
           class="flex-1 inline-block"
           :to="{
             name: 'Sponsors',
@@ -26,8 +26,8 @@
           }"
         >
           <CTabButton path="/sponsors" buttonText="Homiylar" />
-        </routerLink>
-        <routerLink
+        </RouterLink>
+        <RouterLink
           class="flex-1 inline-block"
           :to="{
             name: 'Students',
@@ -35,7 +35,7 @@
           }"
         >
           <CTabButton path="/students" buttonText="Talabalar" />
-        </routerLink>
+        </RouterLink>
       </div>
       <div class="flex w-full items-center justify-end gap-4 md:gap-5">
         <CInput v-model="search" placeholder="Qidirish" class="md:max-w-[284px] py-[15px] w-full" />
@@ -61,16 +61,16 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-import CButton from '@/components/CButton/CButton.vue';
-import CInput from '@/components/CInput/CInput.vue';
-import CTabButton from '@/components/CTabButton/CTabButton.vue';
-import { useModal } from '@/composables/useModal';
-import { useDataStore } from '@/stores/data';
+import CButton from '@/components/CButton/CButton.vue'
+import CInput from '@/components/CInput/CInput.vue'
+import CTabButton from '@/components/CTabButton/CTabButton.vue'
+import { useModal } from '@/composables/useModal'
+import { useDataStore } from '@/stores/data'
 
-import CTable from './components/CTable.vue';
-import FilterModal from './components/FilterModal.vue';
+import CTable from './components/CTable.vue'
+import FilterModal from './components/FilterModal.vue'
 
 const search = ref('')
 

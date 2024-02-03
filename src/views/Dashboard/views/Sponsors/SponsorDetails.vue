@@ -11,15 +11,14 @@
       :modalValue="editSponsorModal.modalValue"
       :closeModalOverlay="editSponsorModal.closeModalOverlay"
       :closeModal="editSponsorModal.closeModal"
-      >Edit Modal</EditSponsorModal
-    >
+    />
 
     <header class="w-full py-[30px] bg-[#FDFDFD]">
       <div class="container mx-auto px-6">
         <div class="w-full flex items-center gap-4">
-          <routerLink :to="{ name: 'Sponsors' }" class="cursor-pointer">
+          <RouterLink :to="{ name: 'Sponsors' }" class="cursor-pointer">
             <img src="/back.svg" alt="arrow left" />
-          </routerLink>
+          </RouterLink>
           <p class="text-[#28293D] text-2xl font-bold">{{ data?.full_name }}</p>
           <CBadge :status="data?.get_status_display"></CBadge>
         </div>
@@ -72,9 +71,9 @@ import CBadge from '@/components/CBadge/CBadge.vue'
 import CButton from '@/components/CButton/CButton.vue'
 import { useFetch } from '@/composables/useFetch'
 import { useModal } from '@/composables/useModal'
+import { useDataStore } from '@/stores/data'
 
 import EditSponsorModal from './components/EditSponsorModal.vue'
-import { useDataStore } from '@/stores/data'
 
 const { modal } = useModal()
 const store = useDataStore()
@@ -92,7 +91,6 @@ const fetchData = async () => {
     const response = await get(`${`sponsor-detail/${pageId.value}`}`)
     store.updateSponsorData = response
     data.value = response
-    console.log(data.value)
   } catch (error) {
     console.error('Error fetching data:', error)
   }

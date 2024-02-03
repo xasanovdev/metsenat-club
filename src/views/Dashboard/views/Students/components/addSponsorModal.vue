@@ -47,7 +47,6 @@ import CDropdown from '@/components/CDropdown/CDropdown.vue'
 import CInput from '@/components/CInput/CInput.vue'
 import CModal from '@/components/CModal/CModal.vue'
 import { useFetch } from '@/composables/useFetch'
-import router from '@/router'
 import { useDataStore } from '@/stores/data'
 
 const route = useRoute()
@@ -59,8 +58,6 @@ const filterSponsor = ref({
 
 const store = useDataStore()
 const data = ref(null)
-
-console.log(store.sponsorsList)
 
 const getSponsorId = () => {
   const sponsor = store?.sponsorsList?.results?.find((item) => {
@@ -75,7 +72,6 @@ const { post } = useFetch()
 
 const addSponsor = async () => {
   try {
-    console.log(filterSponsor.value)
     const response = await post('sponsor-summa-create/', {
       sponsor: getSponsorId(),
       summa: filterSponsor.value.summa,

@@ -32,7 +32,6 @@ export function useModal() {
     return modals.value[modals.value.length - 1]
   }
 
-  console.log(modals.value)
   return {
     modals,
     modal

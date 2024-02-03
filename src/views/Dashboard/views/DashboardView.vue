@@ -6,10 +6,10 @@
       <div
         class="flex items-center text-center rounded-md overflow-hidden justify-center w-full md:max-w-[579px]"
       >
-        <routerLink class="flex-1 inline-block" :to="{ name: 'Dashboard' }">
+        <RouterLink class="flex-1 inline-block" :to="{ name: 'Dashboard' }">
           <CTabButton path="/dashboard" buttonText="Dashboard" />
-        </routerLink>
-        <routerLink
+        </RouterLink>
+        <RouterLink
           class="flex-1 inline-block"
           :to="{
             name: 'Sponsors',
@@ -17,8 +17,8 @@
           }"
         >
           <CTabButton path="/sponsors" buttonText="Homiylar" />
-        </routerLink>
-        <routerLink
+        </RouterLink>
+        <RouterLink
           class="flex-1 inline-block"
           :to="{
             name: 'Students',
@@ -26,7 +26,7 @@
           }"
         >
           <CTabButton path="/students" buttonText="Talabalar" />
-        </routerLink>
+        </RouterLink>
       </div>
       <div class="flex w-full items-center justify-end gap-4 md:gap-5">
         <CInput v-model="search" placeholder="Qidirish" class="md:max-w-[284px] py-[15px] w-full" />

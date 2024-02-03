@@ -43,9 +43,9 @@
                   <a :href="`tel:${item.contract}`">{{ formatNumber(item.contract) }}</a>
                 </li>
                 <li class="w-[8%] text-center flex items-center justify-center">
-                  <routerLink :to="{ name: 'Student', params: { id: item.id } }">
+                  <RouterLink :to="{ name: 'Student', params: { id: item.id } }">
                     <img src="/eye.svg" alt="eye icon" />
-                  </routerLink>
+                  </RouterLink>
                 </li>
               </ul>
             </li>
@@ -112,7 +112,6 @@ const prevPage = () => {
 
 const changePagination = (count) => {
   if (count !== '...') {
-    console.log(count)
     fetchData(count, store.paginationCountStudents)
   }
 }
@@ -133,10 +132,8 @@ const columns = [
 const { get, loading } = useFetch()
 
 const fetchData = async (page, page_size, force) => {
-  console.log('Page size', page_size)
   if (store.studentsList.length === 0 || store.studentsCurrentPage !== page || force) {
     try {
-      console.log(page_size)
       store.studentsCurrentPage = page
       store.paginationCountStudents = page_size
       store.studentsList = []
@@ -144,12 +141,6 @@ const fetchData = async (page, page_size, force) => {
       const response = await get('student-list/', { page: page, page_size: page_size })
 
       store.studentsList = response
-
-      console.log(
-        store.studentsCurrentPage,
-        store.studentsList.count,
-        store.paginationCountStudents
-      )
 
       router.push({ path: `?page=`, query: { page: page, page_size: page_size } })
 

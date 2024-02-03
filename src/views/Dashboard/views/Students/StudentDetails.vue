@@ -30,9 +30,9 @@
     <header class="w-full py-[30px] bg-[#FDFDFD]">
       <div class="container mx-auto px-6">
         <div class="w-full flex items-center gap-4">
-          <routerLink :to="{ name: 'Students' }" class="cursor-pointer">
+          <RouterLink :to="{ name: 'Students' }" class="cursor-pointer">
             <img src="/back.svg" alt="arrow left" />
-          </routerLink>
+          </RouterLink>
           <p class="text-[#28293D] text-2xl font-bold">{{ data?.full_name }}</p>
           <CBadge :status="data?.get_status_display"></CBadge>
         </div>
@@ -181,13 +181,12 @@ import CBadge from '@/components/CBadge/CBadge.vue'
 import CButton from '@/components/CButton/CButton.vue'
 import { useFetch } from '@/composables/useFetch'
 import { useModal } from '@/composables/useModal'
+import { useDataStore } from '@/stores/data'
+import { formatNumber } from '@/utils/formatNumber'
 
 import AddSponsorModal from './components/addSponsorModal.vue'
 import EditSponsorModal from './components/EditSponsorModal.vue'
 import EditStudentModal from './components/EditStudentModal.vue'
-import { formatNumber } from '@/utils/formatNumber'
-
-import { useDataStore } from '@/stores/data'
 
 const route = useRoute()
 const pageId = ref(route.params.id)
@@ -217,7 +216,6 @@ const fetchData = async () => {
   try {
     const response = await get(`${`student-detail/${pageId.value}`}`)
     const studentSponsors = await get(`${`student-sponsor/${pageId.value}`}`)
-    console.log(studentSponsors)
     sponsors.value = studentSponsors
     data.value = response
   } catch (error) {

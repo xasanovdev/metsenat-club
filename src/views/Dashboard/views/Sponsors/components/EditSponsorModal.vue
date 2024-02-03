@@ -88,8 +88,6 @@ const personType = ref('physical')
 
 const store = useDataStore()
 
-console.log(store.updateSponsorData)
-
 const sponsor = ref({
   full_name: store.updateSponsorData.full_name,
   phone: store.updateSponsorData.phone,

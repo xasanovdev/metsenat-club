@@ -1,5 +1,6 @@
 import { computed } from 'vue'
-import { filterStudent, filterData } from './FilterModal.vue'
+
+import { filterData, filterStudent } from './FilterModal.vue'
 
 export const studentDataType = computed(() => {
   if (filterStudent.value.type == '') {

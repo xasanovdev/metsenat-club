@@ -9,9 +9,9 @@
     <header class="w-full py-[30px] bg-[#FDFDFD]">
       <div class="container mx-auto px-6">
         <div class="w-full flex items-center gap-4">
-          <routerLink :to="{ name: 'Students' }" class="cursor-pointer">
+          <RouterLink :to="{ name: 'Students' }" class="cursor-pointer">
             <img src="/back.svg" alt="arrow left" />
-          </routerLink>
+          </RouterLink>
           <p class="text-[#28293D] text-2xl font-bold">Talaba qo‘shish</p>
         </div>
       </div>
@@ -80,15 +80,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-import CButton from '@/components/CButton/CButton.vue'
-import CDropdown from '@/components/CDropdown/CDropdown.vue'
-import CInput from '@/components/CInput/CInput.vue'
-import { useFetch } from '@/composables/useFetch'
-import router from '@/router'
-import { useDataStore } from '@/stores/data'
-import { optionsType } from '@/utils/lists'
+import CButton from '@/components/CButton/CButton.vue';
+import CDropdown from '@/components/CDropdown/CDropdown.vue';
+import CInput from '@/components/CInput/CInput.vue';
+import { useFetch } from '@/composables/useFetch';
+import router from '@/router';
+import { useDataStore } from '@/stores/data';
+import { optionsType } from '@/utils/lists';
 
 const store = useDataStore()
 
@@ -124,7 +124,6 @@ const addStudent = async () => {
       page: store.studentsCurrentPage,
       page_size: store.paginationCountStudents
     })
-    console.log(studentData)
 
     store.studentsList = studentData
 

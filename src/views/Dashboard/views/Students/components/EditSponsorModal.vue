@@ -52,12 +52,9 @@ const editSponsorData = ref({})
 
 editSponsorData.value = { ...store.editSponsorData }
 
-console.log(editSponsorData.value)
-const { loading, post, put, remove } = useFetch()
+const { put, remove } = useFetch()
 
 const route = useRoute()
-
-console.log(route.params.id)
 
 const saveSponsor = async () => {
   try {

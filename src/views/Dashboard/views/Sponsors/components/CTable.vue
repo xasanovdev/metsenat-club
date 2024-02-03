@@ -16,7 +16,6 @@
     </template>
     <template #body>
       <div class="w-full">
-        
         <li v-if="loading" class="text-center">
           <Skeleton />
         </li>
@@ -41,9 +40,9 @@
                   <CBadge :status="item.get_status_display"></CBadge>
                 </li>
                 <li class="w-[8%] text-center flex items-center justify-center">
-                  <routerLink :to="{ name: 'Sponsor', params: { id: item.id } }">
+                  <RouterLink :to="{ name: 'Sponsor', params: { id: item.id } }">
                     <img src="/eye.svg" alt="eye icon" />
-                  </routerLink>
+                  </RouterLink>
                 </li>
               </ul>
             </li>
@@ -76,22 +75,19 @@
 </template>
 
 <script setup>
-import {
-  computed,
-  onMounted,
-} from 'vue';
+import { computed, onMounted } from 'vue'
 
-import CBadge from '@/components/CBadge/CBadge.vue';
-import CPagination from '@/components/CPagination/CPagination.vue';
-import CTable from '@/components/CTable/CTable.vue';
-import { useFetch } from '@/composables/useFetch';
-import router from '@/router';
-import { useDataStore } from '@/stores/data';
-import { formatDate } from '@/utils/formatDate';
-import { formatNumber } from '@/utils/formatNumber';
-import { generatePaginationData } from '@/utils/paginationArray';
+import CBadge from '@/components/CBadge/CBadge.vue'
+import CPagination from '@/components/CPagination/CPagination.vue'
+import CTable from '@/components/CTable/CTable.vue'
+import { useFetch } from '@/composables/useFetch'
+import router from '@/router'
+import { useDataStore } from '@/stores/data'
+import { formatDate } from '@/utils/formatDate'
+import { formatNumber } from '@/utils/formatNumber'
+import { generatePaginationData } from '@/utils/paginationArray'
 
-import Skeleton from './Skeleton.vue';
+import Skeleton from './Skeleton.vue'
 
 const store = useDataStore()
 
