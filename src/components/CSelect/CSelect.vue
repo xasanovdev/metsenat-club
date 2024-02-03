@@ -77,4 +77,3 @@ const filterData = () => {
   background-color: #ebf8ff; /* Adjust the background color as needed */
 }
 </style>
-</style>

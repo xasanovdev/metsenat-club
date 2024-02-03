@@ -13,77 +13,85 @@
           </li>
         </ul>
       </li>
-
-      <li v-if="loading" class="text-center">
-        <Skeleton />
-      </li>
-
-      <template v-else>
-        <div class="flex w-full flex-col gap-4 mt-3 mb-12 overflow-y-auto">
-          <li
-            v-for="(item, index) in store.sponsorsList?.results"
-            :key="index"
-            class="bg-white py-[22px] px-[14px] rounded-lg"
-          >
-            <ul class="flex items-center justify-between">
-              <li class="w-[2%] text-center">{{ index + 1 }}</li>
-              <li class="w-[34%] text-left">{{ item.full_name }}</li>
-              <li class="w-[10%] text-center">
-                <a :href="`tel:${item.phone}`">{{ formatNumber(item.phone) }}</a>
-              </li>
-              <li class="w-[16%] text-center">{{ formatNumber(item.spent) }}</li>
-              <li class="w-[15%] text-center">{{ formatNumber(item.sum) }}</li>
-              <li class="w-[15%] text-center">{{ formatDate(item.created_at) }}</li>
-              <li class="w-[8%] text-center">
-                <CBadge :status="item.get_status_display"></CBadge>
-              </li>
-              <li class="w-[8%] text-center flex items-center justify-center">
-                <routerLink :to="{ name: 'Sponsor', params: { id: item.id } }">
-                  <img src="/eye.svg" alt="eye icon" />
-                </routerLink>
-              </li>
-            </ul>
-          </li>
-        </div>
-      </template>
     </template>
     <template #body>
-      <div>
-        {{ store.sponsorsList?.count }} tadan
-        {{ (store.sponsorsCurrentPage - 1) * store.paginationCountSponsors }}-{{
-          store.sponsorsCurrentPage * store.paginationCountSponsors
-        }}
-        ko'rsatilmoqda
+      <div class="w-full">
+        
+        <li v-if="loading" class="text-center">
+          <Skeleton />
+        </li>
+
+        <template v-else>
+          <ul class="flex w-full flex-col gap-4 mt-3 mb-12 overflow-y-auto">
+            <li
+              v-for="(item, index) in store.sponsorsList?.results"
+              :key="index"
+              class="bg-white py-[22px] px-[14px] rounded-lg"
+            >
+              <ul class="flex items-center justify-between">
+                <li class="w-[2%] text-center">{{ index + 1 }}</li>
+                <li class="w-[34%] text-left">{{ item.full_name }}</li>
+                <li class="w-[10%] text-center">
+                  <a :href="`tel:${item.phone}`">{{ formatNumber(item.phone) }}</a>
+                </li>
+                <li class="w-[16%] text-center">{{ formatNumber(item.spent) }}</li>
+                <li class="w-[15%] text-center">{{ formatNumber(item.sum) }}</li>
+                <li class="w-[15%] text-center">{{ formatDate(item.created_at) }}</li>
+                <li class="w-[8%] text-center">
+                  <CBadge :status="item.get_status_display"></CBadge>
+                </li>
+                <li class="w-[8%] text-center flex items-center justify-center">
+                  <routerLink :to="{ name: 'Sponsor', params: { id: item.id } }">
+                    <img src="/eye.svg" alt="eye icon" />
+                  </routerLink>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </template>
+
+        <div class="flex items-center justify-between">
+          <div>
+            {{ store.sponsorsList?.count }} tadan
+            {{ (store.sponsorsCurrentPage - 1) * store.paginationCountSponsors }}-{{
+              store.sponsorsCurrentPage * store.paginationCountSponsors
+            }}
+            ko'rsatilmoqda
+          </div>
+          <CPagination
+            @nextPage="nextPage"
+            @prevPage="prevPage"
+            @changePagination="changePagination"
+            @selectPaginationCount="selectPaginationCount"
+            :paginationValues="paginationValues"
+            :totalPage="totalPage"
+            :dataList="store.sponsorsList.count"
+            :currentPage="store.sponsorsCurrentPage"
+            :paginationCount="store.paginationCountSponsors"
+          />
+        </div>
       </div>
-      <CPagination
-        @nextPage="nextPage"
-        @prevPage="prevPage"
-        @changePagination="changePagination"
-        @selectPaginationCount="selectPaginationCount"
-        :paginationValues="paginationValues"
-        :totalPage="totalPage"
-        :dataList="store.sponsorsList.count"
-        :currentPage="store.sponsorsCurrentPage"
-        :paginationCount="store.paginationCountSponsors"
-      />
     </template>
   </CTable>
 </template>
 
 <script setup>
-import { computed, onMounted } from 'vue'
+import {
+  computed,
+  onMounted,
+} from 'vue';
 
-import CBadge from '@/components/CBadge/CBadge.vue'
-import CPagination from '@/components/CPagination/CPagination.vue'
-import CTable from '@/components/CTable/CTable.vue'
-import { useFetch } from '@/composables/useFetch'
-import router from '@/router'
-import { useDataStore } from '@/stores/data'
-import { formatDate } from '@/utils/formatDate'
-import { formatNumber } from '@/utils/formatNumber'
-import { generatePaginationData } from '@/utils/paginationArray'
+import CBadge from '@/components/CBadge/CBadge.vue';
+import CPagination from '@/components/CPagination/CPagination.vue';
+import CTable from '@/components/CTable/CTable.vue';
+import { useFetch } from '@/composables/useFetch';
+import router from '@/router';
+import { useDataStore } from '@/stores/data';
+import { formatDate } from '@/utils/formatDate';
+import { formatNumber } from '@/utils/formatNumber';
+import { generatePaginationData } from '@/utils/paginationArray';
 
-import Skeleton from './Skeleton.vue'
+import Skeleton from './Skeleton.vue';
 
 const store = useDataStore()
 

@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full">
-    <div class="container mx-auto overflow-hidden overflow-x-auto">
+  <div class="w-full min-w-[1200px] overflow-x-auto">
+    <div class="container mx-auto overflow-hidden min-w-[1200px] overflow-x-auto">
       <ul class="w-full whitespace-nowrap list-none p-0">
         <!-- students list row head cells -->
         <slot name="header"> </slot>

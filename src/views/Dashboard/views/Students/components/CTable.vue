@@ -14,60 +14,65 @@
           </li>
         </ul>
       </li>
-
-      <li v-if="loading" class="text-center">
-        <Skeleton />
-      </li>
-
-      <template v-else>
-        <div class="flex w-full flex-col gap-4 mt-3 mb-12 overflow-y-auto">
-          <li
-            v-for="(item, index) in store.studentsList?.results"
-            :key="index"
-            class="bg-white py-[22px] px-[14px] rounded-lg"
-          >
-            <ul class="flex items-center justify-between">
-              <li class="w-[2%] text-center">{{ index + 1 }}</li>
-              <li class="w-[20%] text-left">{{ item.full_name }}</li>
-              <li class="w-[10%] text-center">
-                {{ item.type === 1 ? 'Bakalavr' : 'Magistr' }}
-              </li>
-              <li class="w-[30%] text-center">
-                {{ item.institute?.name }}
-              </li>
-              <li class="w-[15%] text-center">{{ formatNumber(item.given) }}</li>
-              <li class="w-[15%] text-center">
-                <a :href="`tel:${item.contract}`">{{ formatNumber(item.contract) }}</a>
-              </li>
-              <li class="w-[8%] text-center flex items-center justify-center">
-                <routerLink :to="{ name: 'Student', params: { id: item.id } }">
-                  <img src="/eye.svg" alt="eye icon" />
-                </routerLink>
-              </li>
-            </ul>
-          </li>
-        </div>
-      </template>
     </template>
+
     <template #body>
-      <div>
-        {{ store.studentsList?.count }} tadan
-        {{ (store.studentsCurrentPage - 1) * store.paginationCountStudents }}-{{
-          store.studentsCurrentPage * store.paginationCountStudents
-        }}
-        ko'rsatilmoqda
+      <div class="w-full">
+        <li v-if="loading" class="text-center">
+          <Skeleton />
+        </li>
+
+        <template v-else>
+          <ul class="flex w-full flex-col gap-4 mt-3 mb-12 overflow-y-auto">
+            <li
+              v-for="(item, index) in store.studentsList?.results"
+              :key="index"
+              class="bg-white py-[22px] px-[14px] rounded-lg"
+            >
+              <ul class="flex items-center justify-between">
+                <li class="w-[2%] text-center">{{ index + 1 }}</li>
+                <li class="w-[20%] text-left">{{ item.full_name }}</li>
+                <li class="w-[10%] text-center">
+                  {{ item.type === 1 ? 'Bakalavr' : 'Magistr' }}
+                </li>
+                <li class="w-[30%] text-center">
+                  {{ item.institute?.name }}
+                </li>
+                <li class="w-[15%] text-center">{{ formatNumber(item.given) }}</li>
+                <li class="w-[15%] text-center">
+                  <a :href="`tel:${item.contract}`">{{ formatNumber(item.contract) }}</a>
+                </li>
+                <li class="w-[8%] text-center flex items-center justify-center">
+                  <routerLink :to="{ name: 'Student', params: { id: item.id } }">
+                    <img src="/eye.svg" alt="eye icon" />
+                  </routerLink>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </template>
+
+        <div class="flex items-center justify-between">
+          <div>
+            {{ store.studentsList?.count }} tadan
+            {{ (store.studentsCurrentPage - 1) * store.paginationCountStudents }}-{{
+              store.studentsCurrentPage * store.paginationCountStudents
+            }}
+            ko'rsatilmoqda
+          </div>
+          <CPagination
+            @nextPage="nextPage"
+            @prevPage="prevPage"
+            @changePagination="changePagination"
+            @selectPaginationCount="selectPaginationCount"
+            :paginationValues="paginationValues"
+            :totalPage="totalPage"
+            :dataList="store.studentsList.count"
+            :currentPage="store.studentsCurrentPage"
+            :paginationCount="store.paginationCountStudents"
+          />
+        </div>
       </div>
-      <CPagination
-        @nextPage="nextPage"
-        @prevPage="prevPage"
-        @changePagination="changePagination"
-        @selectPaginationCount="selectPaginationCount"
-        :paginationValues="paginationValues"
-        :totalPage="totalPage"
-        :dataList="store.studentsList.count"
-        :currentPage="store.studentsCurrentPage"
-        :paginationCount="store.paginationCountStudents"
-      />
     </template>
   </CTable>
 </template>

@@ -36,13 +36,16 @@
 </template>
 
 <script setup>
-import CModal from '@/components/CModal/CModal.vue'
-import CInput from '@/components/CInput/CInput.vue'
-import { useDataStore } from '@/stores/data'
 import { onMounted, ref, watch } from 'vue'
-import CButton from '@/components/CButton/CButton.vue'
-import { useFetch } from '@/composables/useFetch'
+
 import { useRoute } from 'vue-router'
+
+import CButton from '@/components/CButton/CButton.vue'
+import CInput from '@/components/CInput/CInput.vue'
+import CModal from '@/components/CModal/CModal.vue'
+import { useFetch } from '@/composables/useFetch'
+import { useDataStore } from '@/stores/data'
+
 const store = useDataStore()
 
 const editSponsorData = ref({})
