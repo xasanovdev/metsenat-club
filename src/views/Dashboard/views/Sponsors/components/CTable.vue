@@ -55,78 +55,37 @@
         }}
         ko'rsatilmoqda
       </div>
-      <div class="flex items-center gap-4">
-        <div class="relative">
-          <CDropdown
-            v-model="store.paginationCountSponsors"
-            :readonly="true"
-            position="reverse"
-            property="name"
-            :options="paginationData"
-          ></CDropdown>
-        </div>
-        <div class="flex items-center gap-4">
-          <button
-            class="p-2 rounded-md border-2 duration-200"
-            :class="{
-              'border-[#E0E7FF]': store.sponsorsCurrentPage === 1,
-              'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
-                store.sponsorsCurrentPage !== 1
-            }"
-            @click="prevPage"
-            :disabled="store.sponsorsCurrentPage === 1"
-          >
-            <img class="rotate-180" src="/arrow.svg" alt="arrow icon" />
-          </button>
-          <span>{{ store.sponsorsCurrentPage }}</span>
-          <button
-            :class="{
-              'border-[#E0E7FF]':
-                store.sponsorsCurrentPage ===
-                Math.ceil(store.sponsorsList?.count / store.paginationCountSponsors),
-
-              'border-blue-300 hover:bg-blue-100 bg-blue-50 hover:border-blue-300':
-                store.sponsorsCurrentPage !==
-                Math.ceil(store.sponsorsList?.count / store.paginationCountSponsors)
-            }"
-            class="p-2 rounded-md border-2 duration-200"
-            @click="nextPage"
-            :disabled="
-              store.sponsorsCurrentPage ===
-              Math.ceil(store.sponsorsList?.count / store.paginationCountSponsors)
-            "
-          >
-            <img src="/arrow.svg" alt="arrow icon" />
-          </button>
-        </div>
-      </div>
+      <CPagination
+        @nextPage="nextPage"
+        @prevPage="prevPage"
+        @changePagination="changePagination"
+        @selectPaginationCount="selectPaginationCount"
+        :paginationValues="paginationValues"
+        :totalPage="totalPage"
+        :dataList="store.sponsorsList.count"
+        :currentPage="store.sponsorsCurrentPage"
+        :paginationCount="store.paginationCountSponsors"
+      />
     </template>
   </CTable>
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted } from 'vue'
 
 import CBadge from '@/components/CBadge/CBadge.vue'
+import CPagination from '@/components/CPagination/CPagination.vue'
+import CTable from '@/components/CTable/CTable.vue'
 import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
 import { useDataStore } from '@/stores/data'
 import { formatDate } from '@/utils/formatDate'
 import { formatNumber } from '@/utils/formatNumber'
+import { generatePaginationData } from '@/utils/paginationArray'
 
 import CMaska from './CMaska.vue'
-import CDropdown from '@/components/CDropdown/CDropdown.vue'
-import CTable from '@/components/CTable/CTable.vue'
 
 const store = useDataStore()
-
-const nextPage = () => {
-  fetchData(store.sponsorsCurrentPage + 1, store.paginationCountSponsors)
-}
-
-const prevPage = () => {
-  fetchData(store.sponsorsCurrentPage - 1, store.paginationCountSponsors)
-}
 
 const { get, loading } = useFetch()
 
@@ -140,27 +99,48 @@ const columns = [
   { label: 'Sana', width: '8%' },
   { label: 'Amallar', width: '8%' }
 ]
-const paginationData = [
-  { id: 1, name: '10' },
-  { id: 2, name: '20' },
-  { id: 3, name: '30' },
-  { id: 4, name: '40' }
-]
 
-const totalPage = ref(0)
+const paginationValues = computed(() =>
+  generatePaginationData(
+    store.sponsorsCurrentPage,
+    store.sponsorsList.count,
+    store.paginationCountSponsors
+  )
+)
 
-console.log(store.sponsorsList)
+const totalPage = computed(() => store.sponsorsCurrentPage * store.paginationCountSponsors)
 
-const fetchData = async (page, page_size) => {
-  if (store.sponsorsList.length === 0 || store.sponsorsCurrentPage !== page) {
+const nextPage = () => {
+  fetchData(store.sponsorsCurrentPage + 1, store.paginationCountSponsors)
+}
+
+const prevPage = () => {
+  fetchData(store.sponsorsCurrentPage - 1, store.paginationCountSponsors)
+}
+
+const changePagination = (count) => {
+  if (count !== '...') {
+    fetchData(count, store.paginationCountSponsors)
+  }
+}
+
+const selectPaginationCount = (paginationCountSponsors) =>
+  fetchData(store.sponsorsCurrentPage, paginationCountSponsors, 'force')
+
+const fetchData = async (page, page_size, force) => {
+  if (store.sponsorsList.length === 0 || store.sponsorsCurrentPage !== page || force) {
     try {
       store.sponsorsCurrentPage = page
+      store.paginationCountSponsors = page_size
+
       store.sponsorsList = []
       const response = await get('sponsor-list/', { page: page, page_size: page_size })
 
       store.sponsorsList = response
 
       router.push({ path: `?page=`, query: { page: page, page_size: page_size } })
+
+      // totalPage.value = store.studentsCurrentPage * store.paginationCountStudents
 
       console.log(response)
     } catch (error) {
@@ -172,17 +152,4 @@ const fetchData = async (page, page_size) => {
 onMounted(() => {
   fetchData(store.sponsorsCurrentPage, store.paginationCountSponsors)
 })
-
-watch(
-  () => store.paginationCountSponsors,
-
-  () => {
-    console.log(store.sponsorsCurrentPage, store.paginationCountSponsors)
-    fetchData(store.sponsorsCurrentPage, store.paginationCountSponsors)
-  },
-
-  {
-    immediate: true
-  }
-)
 </script>

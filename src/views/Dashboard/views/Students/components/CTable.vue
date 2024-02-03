@@ -57,73 +57,48 @@
         }}
         ko'rsatilmoqda
       </div>
-      <div class="flex h-full justify-center items-center gap-4">
-        <div class="relative">
-          <CDropdown
-            class="text-sm font-bold"
-            size="sm"
-            v-model="store.paginationCountStudents"
-            :readonly="true"
-            position="reverse"
-            property="value"
-            :options="paginationData"
-            @update:model-value="selectPaginationCount"
-          ></CDropdown>
-        </div>
-        <div class="flex h-full items-center gap-4">
-          <button
-            class="rounded-md w-8 h-8 border-2 duration-200 flex items-center justify-center"
-            :class="[
-              store.studentsCurrentPage !== 1
-                ? 'border-[#E0E7FF] bg-white hover:border-[#3366ff]'
-                : 'bg-[#DFE3E8]'
-            ]"
-            @click="prevPage"
-            :disabled="store.studentsCurrentPage === 1"
-          >
-            <img class="rotate-180" src="/arrow.svg" alt="arrow icon" />
-          </button>
-          <button
-            v-for="(item, index) in paginationValues"
-            :key="index"
-            :class="[item === store.studentsCurrentPage ? 'border-[#3366ff] text-[#3366ff]' : '']"
-            class="rounded-md w-8 h-8 bg-white border-2 duration-200 flex items-center justify-center"
-            @click="changePagination(item)"
-          >
-            <span class="text-[14px] font-bold">{{ item }}</span>
-          </button>
-          <button
-            :class="[
-              store.studentsList.count < totalPage
-                ? 'bg-[#DFE3E8]'
-                : 'border-[#E0E7FF] bg-white hover:border-[#3366ff]'
-            ]"
-            :disabled="store.studentsList.count < totalPage"
-            class="rounded-md w-8 h-8 border-2 duration-200 flex items-center justify-center"
-            @click="nextPage"
-          >
-            <img src="/arrow.svg" alt="arrow icon" />
-          </button>
-        </div>
-      </div>
+      <CPagination
+        @nextPage="nextPage"
+        @prevPage="prevPage"
+        @changePagination="changePagination"
+        @selectPaginationCount="selectPaginationCount"
+        :paginationValues="paginationValues"
+        :totalPage="totalPage"
+        :dataList="store.studentsList.count"
+        :currentPage="store.studentsCurrentPage"
+        :paginationCount="store.paginationCountStudents"
+      />
     </template>
   </CTable>
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import {
+  computed,
+  onMounted,
+} from 'vue';
 
-import { useFetch } from '@/composables/useFetch'
-import router from '@/router'
-import { useDataStore } from '@/stores/data'
-import { formatNumber } from '@/utils/formatNumber'
-import { generatePaginationData } from '@/utils/paginationArray'
+import CPagination from '@/components/CPagination/CPagination.vue';
+import CTable from '@/components/CTable/CTable.vue';
+import { useFetch } from '@/composables/useFetch';
+import router from '@/router';
+import { useDataStore } from '@/stores/data';
+import { formatNumber } from '@/utils/formatNumber';
+import { generatePaginationData } from '@/utils/paginationArray';
 
-import CMaska from './CMaska.vue'
-import CDropdown from '@/components/CDropdown/CDropdown.vue'
-import CTable from '@/components/CTable/CTable.vue'
+import CMaska from './CMaska.vue';
 
 const store = useDataStore()
+
+const paginationValues = computed(() =>
+  generatePaginationData(
+    store.studentsCurrentPage,
+    store.studentsList.count,
+    store.paginationCountStudents
+  )
+)
+
+const totalPage = computed(() => store.studentsCurrentPage * store.paginationCountStudents)
 
 const nextPage = () => {
   fetchData(store.studentsCurrentPage + 1, store.paginationCountStudents)
@@ -135,12 +110,13 @@ const prevPage = () => {
 
 const changePagination = (count) => {
   if (count !== '...') {
+    console.log(count)
     fetchData(count, store.paginationCountStudents)
   }
 }
-const selectPaginationCount = () => {
-  fetchData(store.studentsCurrentPage, store.paginationCountStudents, 'token')
-}
+
+const selectPaginationCount = (paginationCountStudents) =>
+  fetchData(store.studentsCurrentPage, paginationCountStudents, 'force')
 
 const columns = [
   { label: '#', width: '2%' },
@@ -152,25 +128,15 @@ const columns = [
   { label: 'Amallar', width: '8%' }
 ]
 
-const paginationData = [{ value: '10' }, { value: '20' }, { value: '30' }, { value: '40' }]
-
-const paginationValues = computed(() =>
-  generatePaginationData(
-    store.studentsCurrentPage,
-    store.studentsList.count,
-    store.paginationCountStudents
-  )
-)
-
 const { get, loading } = useFetch()
 
-const totalPage = ref(store.studentsCurrentPage * store.paginationCountStudents)
-
-const fetchData = async (page, page_size, token) => {
-  if (store.studentsList.length === 0 || store.studentsCurrentPage !== page || token) {
+const fetchData = async (page, page_size, force) => {
+  console.log('Page size', page_size)
+  if (store.studentsList.length === 0 || store.studentsCurrentPage !== page || force) {
     try {
       console.log(page_size)
       store.studentsCurrentPage = page
+      store.paginationCountStudents = page_size
       store.studentsList = []
 
       const response = await get('student-list/', { page: page, page_size: page_size })
@@ -185,7 +151,7 @@ const fetchData = async (page, page_size, token) => {
 
       router.push({ path: `?page=`, query: { page: page, page_size: page_size } })
 
-      totalPage.value = store.studentsCurrentPage * store.paginationCountStudents
+      // totalPage.value = store.studentsCurrentPage * store.paginationCountStudents
 
       console.log(response)
     } catch (error) {
