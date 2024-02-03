@@ -7,9 +7,9 @@
         </RouterLink>
         <div class="flex items-center gap-4 md:gap-8 lg:gap-10">
           <div
-            class="bg-[#F1F1F3] gap-6 p-1 max-w-[133px] rounded-md flex items-center justify-center"
+            class="bg-[#F1F1F3] gap-4 p-1 max-w-[133px] rounded-md flex items-center justify-center"
           >
-            <div class="text-slate-900 hidden sm:inline-block">Shohrux</div>
+            <div class="text-slate-900 hidden font-bold sm:inline-block">Ibrohim</div>
             <div class="bg-[#00AE69] w-8 h-8 flex items-center justify-center rounded-md">
               <img class="mt-2" src="/user.svg" alt="asfsa" />
             </div>
@@ -26,8 +26,8 @@
 </template>
 
 <script setup>
-import router from '@/router'
-import { useAuthStore } from '@/stores/auth'
+import router from '@/router';
+import { useAuthStore } from '@/stores/auth';
 
 const { clearToken } = useAuthStore()
 

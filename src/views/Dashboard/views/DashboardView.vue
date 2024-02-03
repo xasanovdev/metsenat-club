@@ -28,9 +28,6 @@
           <CTabButton path="/students" buttonText="Talabalar" />
         </RouterLink>
       </div>
-      <div class="flex w-full items-center justify-end gap-4 md:gap-5">
-        <CInput v-model="search" placeholder="Qidirish" class="md:max-w-[284px] py-[15px] w-full" />
-      </div>
     </div>
   </div>
 
@@ -73,6 +70,10 @@
           </div>
         </div>
       </div>
+
+      <div class="w-full overflow-x-auto mt-6">
+        <img class="w-full" src="/statistics.svg" alt="" />
+      </div>
     </div>
   </div>
 
@@ -88,13 +89,11 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 
-import CInput from '@/components/CInput/CInput.vue'
 import CTabButton from '@/components/CTabButton/CTabButton.vue'
 import { useFetch } from '@/composables/useFetch'
 import { useDataStore } from '@/stores/data'
 import { formatNumber } from '@/utils/formatNumber'
 
-const search = ref('')
 const data = ref([])
 
 // Check if toast has been shown before
