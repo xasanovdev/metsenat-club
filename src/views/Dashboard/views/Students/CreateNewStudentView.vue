@@ -30,7 +30,6 @@
               </p>
               {{ user.full_name }}
               <CInput v-model="user.full_name" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
-              <span v-if="!v$.user.full_name.required">Full Name is required</span>
             </label>
           </div>
           <div>
@@ -42,8 +41,6 @@
                 type="string"
                 placeholder="Abdullayev Abdulla Abdulla o’g’li"
               />
-              <span v-if="!v$.user.phone.required">Phone is required</span>
-              <span v-if="!v$.user.phone.numeric">Invalid phone format</span>
             </label>
           </div>
           <div class="col-span-2">
@@ -51,7 +48,6 @@
               <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</p>
               {{ user.institute }}
               <CDropdown v-model="user.institute" property="name" :options="store?.instituteList" />
-              <span v-if="!v$.user.institute.required">Institute is required</span>
             </label>
           </div>
           <div>
@@ -60,7 +56,6 @@
               {{ user.type }}
 
               <CDropdown v-model="user.type" property="name" :options="options" />
-              <span v-if="!v$.user.type.required">Type is required</span>
             </label>
           </div>
           <div>
@@ -72,7 +67,6 @@
                 type="number"
                 placeholder="Abdullayev Abdulla Abdulla o’g’li"
               />
-              <span v-if="!v$.user.contract.required">Contract is required</span>
             </label>
           </div>
         </div>
@@ -87,9 +81,6 @@
 
 <script setup>
 import { ref } from 'vue'
-
-import { useVuelidate } from '@vuelidate/core'
-import { required, numeric } from '@vuelidate/validators'
 
 import CButton from '@/components/CButton/CButton.vue'
 import CDropdown from '@/components/CDropdown/CDropdown.vue'
@@ -109,27 +100,11 @@ const user = ref({
   type: '',
   contract: ''
 })
-const rules = {
-  user: {
-    full_name: { required },
-    phone: { required, numeric },
-    institute: { required },
-    type: { required },
-    contract: { required }
-  }
-}
-
-const v$ = useVuelidate(rules, user)
 
 console.log(store.instituteList)
 
 const addStudent = async () => {
   try {
-    if (v$.$pending) {
-      // Do not submit if there are pending validations
-      return
-    }
-
     const response = await post(`student-create/`, {
       institute: store?.instituteList.find((item) => item.name === user?.value?.institute).id,
       full_name: user.value.full_name,
