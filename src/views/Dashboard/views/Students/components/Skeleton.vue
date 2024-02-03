@@ -1,5 +1,5 @@
 <template>
-  <td class="" rowspan="10" colspan="8">
+  <div>
     <div
       v-for="number in numbers"
       :key="number"
@@ -16,11 +16,11 @@
         <div class="w-[9%] py-4 bg-[#bebebe] rounded-md"></div>
       </div>
     </div>
-  </td>
+  </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 export default {
   setup() {

@@ -16,7 +16,7 @@
       </li>
 
       <li v-if="loading" class="text-center">
-        <CMaska />
+        <Skeleton />
       </li>
 
       <template v-else>
@@ -86,7 +86,7 @@ import { useDataStore } from '@/stores/data';
 import { formatNumber } from '@/utils/formatNumber';
 import { generatePaginationData } from '@/utils/paginationArray';
 
-import CMaska from './CMaska.vue';
+import Skeleton from './Skeleton.vue';
 
 const store = useDataStore()
 
@@ -163,4 +163,5 @@ const fetchData = async (page, page_size, force) => {
 onMounted(() => {
   fetchData(store.studentsCurrentPage, store.paginationCountStudents)
 })
+</script>
 </script>

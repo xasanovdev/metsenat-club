@@ -15,7 +15,7 @@
       </li>
 
       <li v-if="loading" class="text-center">
-        <CMaska />
+        <Skeleton />
       </li>
 
       <template v-else>
@@ -83,7 +83,7 @@ import { formatDate } from '@/utils/formatDate'
 import { formatNumber } from '@/utils/formatNumber'
 import { generatePaginationData } from '@/utils/paginationArray'
 
-import CMaska from './CMaska.vue'
+import Skeleton from './Skeleton.vue'
 
 const store = useDataStore()
 
