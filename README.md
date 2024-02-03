@@ -1,6 +1,8 @@
-# metsenat-club
+# #Metsenat-Club
 
-This template should help get you started developing with Vue 3 in Vite.
+<img src="./public/metsenatImage.png" alt="Description of the image">
+
+### Metsenat Club prioritizes transparency and accountability in all interactions. We facilitate direct communication between sponsors and students, enabling them to establish meaningful connections and build supportive relationships. Sponsors can track the progress of their sponsored students and witness the transformative impact of their contributions firsthand.
 
 ## Recommended IDE Setup
 
@@ -20,22 +22,4 @@ npm install
 
 ```sh
 npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
