@@ -5,7 +5,8 @@
       <div class="flex flex-col items-start gap-4">
         <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">Talabalik turi</p>
         {{ filterStudent.type }}
-        <CDropdown v-model="filterStudent.type" property="name" :options="options"></CDropdown>
+
+        <CDropdown v-model="filterStudent.type" property="name" :options="optionsType"></CDropdown>
       </div>
       <div class="flex flex-col items-start gap-4 mt-7">
         <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">OTm</p>
@@ -36,14 +37,9 @@ import CButton from '@/components/CButton/CButton.vue'
 import CDropdown from '@/components/CDropdown/CDropdown.vue'
 import CModal from '@/components/CModal/CModal.vue'
 import { useDataStore } from '@/stores/data'
+import { optionsType } from '@/utils/lists'
 
 const store = useDataStore()
-
-const options = [
-  { id: 'Barchasi', name: 'Barchasi' },
-  { id: 'Bakalavr', name: 'Bakalavr' },
-  { id: 'Magistr', name: 'Magistr' }
-]
 
 const filterStudent = ref({
   type: '',
@@ -54,7 +50,7 @@ const clear = () => {
   filterStudent.value.type = ''
   filterStudent.value.institute = ''
 }
- 
+
 console.log(store?.studentsList)
 
 const studentDataType = computed(() => {

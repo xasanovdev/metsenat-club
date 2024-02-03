@@ -55,7 +55,7 @@
               <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Talabalik turi</p>
               {{ user.type }}
 
-              <CDropdown v-model="user.type" property="name" :options="options" />
+              <CDropdown v-model="user.type" property="name" :options="optionsType" />
             </label>
           </div>
           <div>
@@ -88,6 +88,7 @@ import CInput from '@/components/CInput/CInput.vue'
 import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
 import { useDataStore } from '@/stores/data'
+import { optionsType } from '@/utils/lists'
 
 const store = useDataStore()
 
@@ -100,8 +101,6 @@ const user = ref({
   type: '',
   contract: ''
 })
-
-console.log(store.instituteList)
 
 const addStudent = async () => {
   try {
@@ -134,10 +133,4 @@ const addStudent = async () => {
     console.error('Error fetching data:', error)
   }
 }
-
-const options = [
-  { id: 'Barchasi', name: 'Barchasi' },
-  { id: 'Bakalavr', name: 'Bakalavr' },
-  { id: 'Magistr', name: 'Magistr' }
-]
 </script>

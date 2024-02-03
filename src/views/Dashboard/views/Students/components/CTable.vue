@@ -73,20 +73,17 @@
 </template>
 
 <script setup>
-import {
-  computed,
-  onMounted,
-} from 'vue';
+import { computed, onMounted } from 'vue'
 
-import CPagination from '@/components/CPagination/CPagination.vue';
-import CTable from '@/components/CTable/CTable.vue';
-import { useFetch } from '@/composables/useFetch';
-import router from '@/router';
-import { useDataStore } from '@/stores/data';
-import { formatNumber } from '@/utils/formatNumber';
-import { generatePaginationData } from '@/utils/paginationArray';
+import CPagination from '@/components/CPagination/CPagination.vue'
+import CTable from '@/components/CTable/CTable.vue'
+import { useFetch } from '@/composables/useFetch'
+import router from '@/router'
+import { useDataStore } from '@/stores/data'
+import { formatNumber } from '@/utils/formatNumber'
+import { generatePaginationData } from '@/utils/paginationArray'
 
-import Skeleton from './Skeleton.vue';
+import Skeleton from './Skeleton.vue'
 
 const store = useDataStore()
 
@@ -163,5 +160,4 @@ const fetchData = async (page, page_size, force) => {
 onMounted(() => {
   fetchData(store.studentsCurrentPage, store.paginationCountStudents)
 })
-</script>
 </script>

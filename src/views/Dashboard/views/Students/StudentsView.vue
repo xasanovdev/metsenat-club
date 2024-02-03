@@ -61,16 +61,16 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-import CButton from '@/components/CButton/CButton.vue'
-import CInput from '@/components/CInput/CInput.vue'
-import CTabButton from '@/components/CTabButton/CTabButton.vue'
-import { useModal } from '@/composables/useModal'
-import { useDataStore } from '@/stores/data'
+import CButton from '@/components/CButton/CButton.vue';
+import CInput from '@/components/CInput/CInput.vue';
+import CTabButton from '@/components/CTabButton/CTabButton.vue';
+import { useModal } from '@/composables/useModal';
+import { useDataStore } from '@/stores/data';
 
-import CTable from './components/CTable.vue'
-import FilterModal from './components/FilterModal.vue'
+import CTable from './components/CTable.vue';
+import FilterModal from './components/FilterModal.vue';
 
 const search = ref('')
 

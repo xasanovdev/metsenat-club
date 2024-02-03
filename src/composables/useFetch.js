@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 export const useFetch = () => {
   const baseUrl = 'https://metsenatclub.xn--h28h.uz/api/v1'
@@ -50,8 +50,8 @@ export const useFetch = () => {
     return axios(url, {
       method: 'DELETE',
       body: JSON.stringify(body)
-    });
-  };
+    })
+  }
 
   return {
     get,

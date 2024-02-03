@@ -5,7 +5,12 @@
       <div class="flex flex-col items-start gap-4">
         <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">Ariza holati</p>
         {{ filterSponsor.status }}
-        <CDropdown v-model="filterSponsor.status" property="name" :options="options"></CDropdown>
+
+        <CDropdown
+          v-model="filterSponsor.status"
+          property="name"
+          :options="optionsStatus"
+        ></CDropdown>
       </div>
       <div class="flex flex-col items-start gap-4 mt-7">
         <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">Ariza holati</p>
@@ -33,16 +38,9 @@ import CDropdown from '@/components/CDropdown/CDropdown.vue'
 import CModal from '@/components/CModal/CModal.vue'
 import CSelect from '@/components/CSelect/CSelect.vue'
 import { useDataStore } from '@/stores/data'
+import { optionsStatus } from '@/utils/lists'
 
 const store = useDataStore()
-
-const options = [
-  { id: 'Barchasi', name: 'Barchasi' },
-  { id: 'Yangi', name: 'Yangi' },
-  { id: 'Moderatsiyada', name: 'Moderatsiyada' },
-  { id: 'Tasdiqlangan', name: 'Tasdiqlangan' },
-  { id: 'Bekor qilingan', name: 'Bekor qilingan' }
-]
 
 const filterSponsor = ref({
   status: '',

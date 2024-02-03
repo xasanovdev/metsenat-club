@@ -43,7 +43,11 @@
             <label>
               {{ sponsor?.get_status_display }}
               <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Holati</p>
-              <CDropdown v-model="sponsor.get_status_display" property="name" :options="options" />
+              <CDropdown
+                v-model="sponsor.get_status_display"
+                property="name"
+                :options="optionsStatus"
+              />
             </label>
           </div>
 
@@ -69,6 +73,8 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+
 import CButton from '@/components/CButton/CButton.vue'
 import CDropdown from '@/components/CDropdown/CDropdown.vue'
 import CInput from '@/components/CInput/CInput.vue'
@@ -76,7 +82,7 @@ import CModal from '@/components/CModal/CModal.vue'
 import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
 import { useDataStore } from '@/stores/data'
-import { ref } from 'vue'
+import { optionsStatus } from '@/utils/lists'
 
 const personType = ref('physical')
 
@@ -91,14 +97,6 @@ const sponsor = ref({
   given: store.updateSponsorData.given,
   firm: store.updateSponsorData.firm
 })
-
-const options = [
-  { id: 'Barchasi', name: 'Barchasi' },
-  { id: 'Yangi', name: 'Yangi' },
-  { id: 'Moderatsiyada', name: 'Moderatsiyada' },
-  { id: 'Tasdiqlangan', name: 'Tasdiqlangan' },
-  { id: 'Bekor qilingan', name: 'Bekor qilingan' }
-]
 
 const { put } = useFetch()
 const updateSponsor = async () => {

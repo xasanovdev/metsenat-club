@@ -52,6 +52,8 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 
+import { useRoute } from 'vue-router'
+
 import CButton from '@/components/CButton/CButton.vue'
 import CDropdown from '@/components/CDropdown/CDropdown.vue'
 import CInput from '@/components/CInput/CInput.vue'
@@ -59,7 +61,6 @@ import CModal from '@/components/CModal/CModal.vue'
 import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
 import { useDataStore } from '@/stores/data'
-import { useRoute } from 'vue-router'
 
 const store = useDataStore()
 
