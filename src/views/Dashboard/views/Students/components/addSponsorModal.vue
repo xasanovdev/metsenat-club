@@ -12,7 +12,7 @@
             property="full_name"
             :options="sponsorsData?.results"
           />
-          <span class="text-red-500">{{ data?.sponsor[0] }}</span>
+          <span v-if="data?.sponsor" class="text-red-500">{{ data?.sponsor[0] }}</span>
         </label>
       </div>
 
@@ -27,7 +27,7 @@
             type="string"
             placeholder="Abdullayev Abdulla Abdulla o’g’li"
           />
-          <span class="text-red-500">{{ data?.summa[0] }}</span>
+          <span v-if="data?.summa" class="text-red-500">{{ data?.summa[0] }}</span>
         </label>
       </div>
 
@@ -105,13 +105,17 @@ const addSponsor = async () => {
     })
     console.log(response)
 
-    if (!Number(response.summa)) {
+    if (Array.isArray(response.summa)) {
+      data.value = response
+      console.log(response)
+    } else if (!Number(response.summa)) {
       error.value = response.summa
+      data.value = ''
     } else {
       error.value = ''
       filterSponsor.value.summa = ''
-      data.value = response
-      console.log(childFunction)
+      data.value = ''
+      console.log(response)
 
       childFunction.value()
     }

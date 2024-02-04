@@ -1,5 +1,5 @@
 <template>
-  <CModal>
+  <CModal @childFunction="setChildFunction">
     <template #title>Homiylarni tahrirlash</template>
     <template #body>
       <form class="max-w-[793px] w-full bg-white rounded-xl">
@@ -21,6 +21,8 @@
           </div>
         </div>
       </form>
+
+      <p v-if="error" class="mt-2 bg-red-50 p-2 text-red-500 rounded-md">{{ error }}</p>
     </template>
 
     <template #footer>
@@ -36,19 +38,31 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import {
+  onMounted,
+  ref,
+  watch,
+} from 'vue';
 
-import { useRoute } from 'vue-router'
+import { useRoute } from 'vue-router';
 
-import CButton from '@/components/CButton/CButton.vue'
-import CInput from '@/components/CInput/CInput.vue'
-import CModal from '@/components/CModal/CModal.vue'
-import { useFetch } from '@/composables/useFetch'
-import { useDataStore } from '@/stores/data'
+import CButton from '@/components/CButton/CButton.vue';
+import CInput from '@/components/CInput/CInput.vue';
+import CModal from '@/components/CModal/CModal.vue';
+import { useFetch } from '@/composables/useFetch';
+import { useDataStore } from '@/stores/data';
 
 const store = useDataStore()
 
+const error = ref('')
+
 const editSponsorData = ref({})
+
+const childFunction = ref(null)
+
+const setChildFunction = (func) => {
+  childFunction.value = func
+}
 
 editSponsorData.value = { ...store.editSponsorData }
 
@@ -63,6 +77,12 @@ const saveSponsor = async () => {
       student: route.params.id,
       summa: editSponsorData.value.summa
     })
+    if (!Number(response.summa)) {
+      error.value = response.summa
+    } else {
+      error.value = ''
+      childFunction.value()
+    }
     console.log(response)
   } catch (error) {
     console.log(error)
