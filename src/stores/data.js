@@ -1,8 +1,4 @@
-// store.js
-import { useFetch } from '@/composables/useFetch'
-import { defineStore } from 'pinia'
-
-const { get } = useFetch()
+import { defineStore } from 'pinia';
 
 export const useDataStore = defineStore('data', {
   state: () => ({

@@ -26,23 +26,25 @@
           <div>
             <label>
               {{ sponsor?.full_name }}
-              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">
+              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">
                 F.I.Sh. (Familiya Ism Sharif)
-              </p>
+              </span>
               <CInput v-model="sponsor.full_name" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
             </label>
           </div>
           <div>
             <label>
               {{ sponsor?.phone }}
-              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Telefon raqam</p>
+              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium"
+                >Telefon raqam</span
+              >
               <CInput v-model="sponsor.phone" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
             </label>
           </div>
           <div class="col-span-1">
             <label>
               {{ sponsor?.get_status_display }}
-              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Holati</p>
+              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Holati</span>
               <CDropdown
                 v-model="sponsor.get_status_display"
                 property="name"
@@ -54,9 +56,9 @@
           <div v-if="personType === 'legal'">
             <label>
               {{ sponsor?.firm }}
-              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">
+              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">
                 F.I.Sh. (Familiya Ism Sharif)
-              </p>
+              </span>
               <CInput v-model="sponsor.firm" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
             </label>
           </div>
@@ -73,16 +75,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-import CButton from '@/components/CButton/CButton.vue'
-import CDropdown from '@/components/CDropdown/CDropdown.vue'
-import CInput from '@/components/CInput/CInput.vue'
-import CModal from '@/components/CModal/CModal.vue'
-import { useFetch } from '@/composables/useFetch'
-import router from '@/router'
-import { useDataStore } from '@/stores/data'
-import { optionsStatus } from '@/utils/lists'
+import CButton from '@/components/CButton/CButton.vue';
+import CDropdown from '@/components/CDropdown/CDropdown.vue';
+import CInput from '@/components/CInput/CInput.vue';
+import CModal from '@/components/CModal/CModal.vue';
+import { useFetch } from '@/composables/useFetch';
+import router from '@/router';
+import { useDataStore } from '@/stores/data';
+import { optionsStatus } from '@/utils/lists';
 
 const personType = ref('physical')
 

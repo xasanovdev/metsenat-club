@@ -35,13 +35,16 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import {
+  reactive,
+  ref,
+} from 'vue';
 
-import CButton from '@/components/CButton/CButton.vue'
-import CInput from '@/components/CInput/CInput.vue'
-import { useFetch } from '@/composables/useFetch'
-import router from '@/router'
-import { useAuthStore } from '@/stores/auth'
+import CButton from '@/components/CButton/CButton.vue';
+import CInput from '@/components/CInput/CInput.vue';
+import { useFetch } from '@/composables/useFetch';
+import router from '@/router';
+import { useAuthStore } from '@/stores/auth';
 
 const credentials = reactive({
   username: '',

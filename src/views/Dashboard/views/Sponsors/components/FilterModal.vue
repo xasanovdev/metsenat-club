@@ -3,7 +3,7 @@
     <template #title>Tahrirlash</template>
     <template #body>
       <div class="flex flex-col items-start gap-4">
-        <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">Ariza holati</p>
+        <span class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">Ariza holati</span>
         {{ filterSponsor.status }}
 
         <CDropdown
@@ -13,7 +13,7 @@
         ></CDropdown>
       </div>
       <div class="flex flex-col items-start gap-4 mt-7">
-        <p class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">Ariza holati</p>
+        <span class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">Ariza holati</span>
         {{ filterSponsor.money }}
         <CSelect v-model="filterSponsor.money"></CSelect>
       </div>
@@ -31,14 +31,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-import CButton from '@/components/CButton/CButton.vue'
-import CDropdown from '@/components/CDropdown/CDropdown.vue'
-import CModal from '@/components/CModal/CModal.vue'
-import CSelect from '@/components/CSelect/CSelect.vue'
-import { useDataStore } from '@/stores/data'
-import { optionsStatus } from '@/utils/lists'
+import CButton from '@/components/CButton/CButton.vue';
+import CDropdown from '@/components/CDropdown/CDropdown.vue';
+import CModal from '@/components/CModal/CModal.vue';
+import CSelect from '@/components/CSelect/CSelect.vue';
+import { useDataStore } from '@/stores/data';
+import { optionsStatus } from '@/utils/lists';
 
 const store = useDataStore()
 

@@ -73,6 +73,7 @@ import {
 const props = defineProps(['options', 'property', 'modelValue', 'readonly', 'position', 'size'])
 const emit = defineEmits(['update:modelValue'])
 
+console.log(props)
 
 const isDropdownOpen = ref(false)
 const selectedOption = ref(props?.options[0] || {})
@@ -87,7 +88,6 @@ const filteredOptions = computed(() => {
   }
   return props.options.filter((option) => option[props.property].includes(searchText.value))
 })
-
 
 const toggleDropdown = () => {
   isDropdownOpen.value = !isDropdownOpen.value

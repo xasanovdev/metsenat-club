@@ -7,30 +7,34 @@
           <div>
             <label>
               {{ user?.full_name }}
-              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">
+              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">
                 F.I.Sh. (Familiya Ism Sharif)
-              </p>
+              </span>
               <CInput v-model="user.full_name" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
             </label>
           </div>
           <div>
             <label>
               {{ user?.phone }}
-              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Telefon raqam</p>
+              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium"
+                >Telefon raqam</span
+              >
               <CInput v-model="user.phone" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
             </label>
           </div>
           <div class="col-span-1">
             <label>
               {{ user?.institute }}
-              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</p>
+              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</span>
               <CDropdown v-model="user.institute.name" property="name" :options="instituteList" />
             </label>
           </div>
           <div>
             <label>
               {{ user?.contract }}
-              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Kontrakt summa</p>
+              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium"
+                >Kontrakt summa</span
+              >
               <CInput v-model="user.contract" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
             </label>
           </div>
@@ -102,7 +106,7 @@ const updateStudent = async () => {
   })
 
   try {
-    const response = await put(`student-update/${studentData.id}/`, {
+    await put(`student-update/${studentData.id}/`, {
       id: studentData.id,
       institute: selectedInstitute.value?.id,
       full_name: user.value.full_name,

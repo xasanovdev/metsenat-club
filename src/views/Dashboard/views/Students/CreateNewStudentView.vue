@@ -12,7 +12,7 @@
           <RouterLink :to="{ name: 'Students' }" class="cursor-pointer">
             <img src="/back.svg" alt="arrow left" />
           </RouterLink>
-          <p class="text-[#28293D] text-2xl font-bold">Talaba qo‘shish</p>
+          <span class="text-[#28293D] text-2xl font-bold">Talaba q o‘shish</span>
         </div>
       </div>
     </header>
@@ -25,16 +25,18 @@
         <div class="grid grid-cols-2 gap-x-7 gap-y-[50px]">
           <div>
             <label>
-              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">
+              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">
                 F.I.Sh. (Familiya Ism Sharif)
-              </p>
+              </span>
               {{ user.full_name }}
               <CInput v-model="user.full_name" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
             </label>
           </div>
           <div>
             <label>
-              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Telefon raqam</p>
+              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium"
+                >Telefon raqam</span
+              >
               {{ user.phone }}
               <CInput
                 v-model="user.phone"
@@ -45,14 +47,16 @@
           </div>
           <div class="col-span-2">
             <label>
-              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</p>
+              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</span>
               {{ user.institute }}
               <CDropdown v-model="user.institute" property="name" :options="instituteList" />
             </label>
           </div>
           <div>
             <label>
-              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Talabalik turi</p>
+              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium"
+                >Talabalik turi</span
+              >
               {{ user.type }}
 
               <CDropdown v-model="user.type" property="name" :options="optionsType" />
@@ -60,7 +64,9 @@
           </div>
           <div>
             <label>
-              <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Kontrakt summa</p>
+              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium"
+                >Kontrakt summa</span
+              >
               {{ user.contract }}
               <CInput
                 v-model="user.contract"
@@ -90,10 +96,7 @@ import CDropdown from '@/components/CDropdown/CDropdown.vue';
 import CInput from '@/components/CInput/CInput.vue';
 import { useFetch } from '@/composables/useFetch';
 import router from '@/router';
-import { useDataStore } from '@/stores/data';
 import { optionsType } from '@/utils/lists';
-
-const store = useDataStore()
 
 const { loading, post, get } = useFetch()
 
