@@ -5,15 +5,12 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue';
 
-import { useRoute } from 'vue-router'
+import { useRoute } from 'vue-router';
 
-import AuthLayout from '@/Layout/AuthLayout/AuthLayout.vue'
-import DashboardLayout from '@/Layout/DashboardLayout/DashboardLayout.vue'
-
-import { useFetch } from './composables/useFetch'
-import { useDataStore } from './stores/data'
+import AuthLayout from '@/Layout/AuthLayout/AuthLayout.vue';
+import DashboardLayout from '@/Layout/DashboardLayout/DashboardLayout.vue';
 
 const route = useRoute()
 
@@ -24,23 +21,6 @@ const layouts = {
 
 const layout = computed(() => {
   return layouts[route.meta.layout] ?? DashboardLayout
-})
-
-const store = useDataStore()
-
-const { get } = useFetch()
-
-const fetchInstituteList = async () => {
-  try {
-    const response = await get(`institute-list/`)
-    store.instituteList = response
-  } catch (error) {
-    console.error('Error fetching data:', error)
-  }
-}
-
-onMounted(() => {
-  fetchInstituteList()
 })
 </script>
 

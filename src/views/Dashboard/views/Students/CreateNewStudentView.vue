@@ -47,7 +47,7 @@
             <label>
               <p class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</p>
               {{ user.institute }}
-              <CDropdown v-model="user.institute" property="name" :options="store?.instituteList" />
+              <CDropdown v-model="user.institute" property="name" :options="instituteList" />
             </label>
           </div>
           <div>
@@ -80,7 +80,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import {
+  onMounted,
+  ref,
+} from 'vue';
 
 import CButton from '@/components/CButton/CButton.vue';
 import CDropdown from '@/components/CDropdown/CDropdown.vue';
@@ -101,11 +104,25 @@ const user = ref({
   type: '',
   contract: ''
 })
+const instituteList = ref([])
+
+const fetchInstituteList = async () => {
+  try {
+    const response = await get(`institute-list/`)
+    instituteList.value = response
+  } catch (error) {
+    console.error('Error fetching data:', error)
+  }
+}
+
+onMounted(() => {
+  fetchInstituteList()
+})
 
 const addStudent = async () => {
   try {
     const response = await post(`student-create/`, {
-      institute: store?.instituteList.find((item) => item.name === user?.value?.institute).id,
+      institute: instituteList.value.find((item) => item.name === user?.value?.institute).id,
       full_name: user.value.full_name,
       phone: user.value.phone,
       type: user.value.type?.name === 'Bakalavr' ? 1 : 2,
@@ -119,13 +136,6 @@ const addStudent = async () => {
       type: '',
       contract: ''
     }
-    store.studentsList = []
-    const studentData = await get('student-list/', {
-      page: store.studentsCurrentPage,
-      page_size: store.paginationCountStudents
-    })
-
-    store.studentsList = studentData
 
     router.push({ name: 'Student', params: { id: response.id } })
   } catch (error) {
