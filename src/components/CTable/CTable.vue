@@ -1,6 +1,6 @@
 <template>
   <div class="w-full min-w-[1200px] overflow-x-auto pb-4">
-    <div class="w-full whitespace-nowrap pb-2">
+    <div class="w-full whitespace-nowrap pb-2 pt-7">
       <!-- students list row head cells -->
 
       <slot name="header"> </slot>
@@ -15,7 +15,7 @@
         <ul class="flex w-full items-center justify-between">
           <li
             class="text-center"
-            :class="`w-[${header.width}%]`"
+            :class="`w-[${header.width}]`"
             v-for="(header, headerId) in titles"
             :key="headerId"
           >

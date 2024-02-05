@@ -43,9 +43,11 @@
       </div>
     </div>
   </div>
+
   <div class="bg-[#F5F5F7] pb-20">
     <div class="container mx-auto px-6 overflow-x-auto">
       <SponsorsTable />
+
     </div>
   </div>
 </template>
