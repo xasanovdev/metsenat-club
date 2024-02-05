@@ -14,6 +14,7 @@
               labelTitle="Login"
               id="username"
               type="text"
+              :validation="$v.username.$error"
               v-model="credentials.username"
             />
 
@@ -26,6 +27,7 @@
               labelTitle="Parol"
               id="password"
               type="password"
+              :validation="$v.password.$error"
               v-model="credentials.password"
             />
 

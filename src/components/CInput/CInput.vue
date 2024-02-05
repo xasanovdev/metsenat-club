@@ -8,7 +8,7 @@
     :id="id"
     :placeholder="placeholder"
     :class="{
-      'border-red-500': isValid === false
+      'border-red-500': isValid === true
     }"
   />
 </template>

@@ -10,7 +10,7 @@
       :modelValue="modelValue"
       :id="id"
       :type="type"
-      :is-valid="isValid"
+      :isValid="validation"
       @update:modelValue="updateModelValue"
     />
   </div>
@@ -20,11 +20,11 @@
 import { defineProps, defineEmits } from 'vue'
 import CInput from '@/components/CInput/CInput.vue'
 
-const { modelValue, labelTitle, id, type, isValid } = defineProps([
+const { modelValue, labelTitle, id, type, validation } = defineProps([
   'modelValue',
   'labelTitle',
   'id',
-  'isValid',
+  'validation',
   'type'
 ])
 
