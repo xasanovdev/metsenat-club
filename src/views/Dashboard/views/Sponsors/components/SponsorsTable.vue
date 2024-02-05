@@ -1,5 +1,5 @@
 <template>
-  <CTable :titles="columns" :data="store.sponsorsList?.results">
+  <CTable :titles="columns" :data="sponsors.sponsorsList?.results">
     <!-- sponsors list row head cells -->
 
     <template #header>
@@ -47,12 +47,13 @@
 
   <div class="flex items-center justify-between pb-4">
     <div>
-      {{ store.sponsorsList?.count }} tadan
-      {{ (store.sponsorsCurrentPage - 1) * store.paginationCountSponsors }}-{{
-        store.sponsorsCurrentPage * store.paginationCountSponsors
+      {{ sponsors.sponsorsList?.count }} tadan
+      {{ (sponsors.sponsorsCurrentPage - 1) * sponsors.paginationCountSponsors }}-{{
+        sponsors.sponsorsCurrentPage * sponsors.paginationCountSponsors
       }}
       ko'rsatilmoqda
     </div>
+
     <CPagination
       @nextPage="nextPage"
       @prevPage="prevPage"
@@ -60,9 +61,9 @@
       @selectPaginationCount="selectPaginationCount"
       :paginationValues="paginationValues"
       :totalPage="totalPage"
-      :dataList="store.sponsorsList.count"
-      :currentPage="store.sponsorsCurrentPage"
-      :paginationCount="store.paginationCountSponsors"
+      :dataList="sponsors.sponsorsList.count"
+      :currentPage="sponsors.sponsorsCurrentPage"
+      :paginationCount="sponsors.paginationCountSponsors"
     />
   </div>
 </template>
@@ -73,16 +74,14 @@ import { computed, onMounted } from 'vue'
 import CBadge from '@/components/Base/CBadge.vue'
 import CPagination from '@/components/Common/CPagination.vue'
 import CTable from '@/components/Common/CTable.vue'
-import { useFetch } from '@/composables/useFetch'
-import router from '@/router'
-import { useDataStore } from '@/stores/data'
+
 import { formatDate } from '@/utils/formatDate'
-import { formatNumber } from '@/utils/formatNumber'
 import { generatePaginationData } from '@/utils/paginationArray'
+import { useSponsors } from '@/stores/sponsors'
 
-const store = useDataStore()
+const sponsors = useSponsors()
 
-const { get, loading } = useFetch()
+console.log(sponsors)
 
 const columns = [
   { label: '#', width: '2%', keys: 'index' },
@@ -97,56 +96,34 @@ const columns = [
 
 const paginationValues = computed(() =>
   generatePaginationData(
-    store.sponsorsCurrentPage,
-    store.sponsorsList.count,
-    store.paginationCountSponsors
+    sponsors.sponsorsCurrentPage,
+    sponsors.sponsorsList.count,
+    sponsors.paginationCountSponsors
   )
 )
 
-const totalPage = computed(() => store.sponsorsCurrentPage * store.paginationCountSponsors)
+const totalPage = computed(() => sponsors.sponsorsCurrentPage * sponsors.paginationCountSponsors)
 
 const nextPage = () => {
-  fetchData(store.sponsorsCurrentPage + 1, store.paginationCountSponsors)
+  sponsors.getSponsorsList(sponsors.sponsorsCurrentPage + 1, sponsors.paginationCountSponsors)
 }
 
 const prevPage = () => {
-  fetchData(store.sponsorsCurrentPage - 1, store.paginationCountSponsors)
+  sponsors.getSponsorsList(sponsors.sponsorsCurrentPage - 1, sponsors.paginationCountSponsors)
 }
 
 const changePagination = (count) => {
   if (count !== '...') {
-    fetchData(count, store.paginationCountSponsors)
+    sponsors.getSponsorsList(count, sponsors.paginationCountSponsors)
   }
 }
 
 const selectPaginationCount = (paginationCountSponsors) => {
-  store.sponsorsCurrentPage = 1
-  fetchData(store.sponsorsCurrentPage, paginationCountSponsors, 'force')
-}
-
-const fetchData = async (page, page_size, force) => {
-  if (store.sponsorsList.length === 0 || store.sponsorsCurrentPage !== page || force) {
-    try {
-      store.sponsorsCurrentPage = page
-      store.paginationCountSponsors = page_size
-
-      store.sponsorsList = []
-      const response = await get('sponsor-list/', { page: page, page_size: page_size })
-
-      store.sponsorsList = response
-
-      router.push({ path: `?page=`, query: { page: page, page_size: page_size } })
-
-      // totalPage.value = store.studentsCurrentPage * store.paginationCountStudents
-
-      console.log(response)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  sponsors.sponsorsCurrentPage = 1
+  sponsors.getSponsorsList(sponsors.sponsorsCurrentPage, paginationCountSponsors, 'force')
 }
 
 onMounted(() => {
-  fetchData(store.sponsorsCurrentPage, store.paginationCountSponsors)
+  sponsors.getSponsorsList(sponsors.sponsorsCurrentPage, sponsors.paginationCountSponsors)
 })
 </script>

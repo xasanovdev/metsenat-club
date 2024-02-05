@@ -3,5 +3,14 @@
 </template>
 
 <script setup>
-defineProps(['validation', 'validationText'])
+defineProps({
+  validation: {
+    type: Boolean,
+    default: false
+  },
+  validationText: {
+    type: String,
+    default: ''
+  }
+})
 </script>
