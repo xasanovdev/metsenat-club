@@ -4,6 +4,7 @@
     <template #body>
       <form class="max-w-[793px] w-full bg-white rounded-xl">
         <div class="flex items-center rounded-lg border-2 border-[3E0E7FF]">
+          <!-- Todo: refactor this component. user v-for fr physical and legal. -->
           <CButton
             @click.prevent="personType = 'physical'"
             :class="[
@@ -75,16 +76,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-import CButton from '@/components/CButton/CButton.vue';
-import CDropdown from '@/components/CDropdown/CDropdown.vue';
-import CInput from '@/components/CInput/CInput.vue';
-import CModal from '@/components/CModal/CModal.vue';
-import { useFetch } from '@/composables/useFetch';
-import router from '@/router';
-import { useDataStore } from '@/stores/data';
-import { optionsStatus } from '@/utils/lists';
+import CButton from '@/components/CButton/CButton.vue'
+import CDropdown from '@/components/CDropdown/CDropdown.vue'
+import CInput from '@/components/CInput/CInput.vue'
+import CModal from '@/components/CModal/CModal.vue'
+import { useFetch } from '@/composables/useFetch'
+import router from '@/router'
+import { useDataStore } from '@/stores/data'
+import { optionsStatus } from '@/utils/lists'
 
 const personType = ref('physical')
 

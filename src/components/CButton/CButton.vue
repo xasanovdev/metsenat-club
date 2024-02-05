@@ -1,23 +1,18 @@
 <template>
   <button
-    :class="[
-      'font-semibold tracking-wide py-[14px] rounded-md duration-200 flex items-center justify-center gap-[10px]',
-      styles[variant],
-      sizes[size],
-      { 'cursor-not-allowed opacity-50': loading }
-    ]"
+    :class="[buttonVariants[variant], buttonSize[size]]"
+    class="font-semibold py-3.5 rounded-md flex items-center justify-center gap-[10px] w-full disabled:bg-opacity-60 disabled:cursor-not-allowed disabled:shadow-none"
     :disabled="loading"
   >
-    <template v-if="!loading">
+    <template v-if="loading"> Loading... </template>
+    <template v-else>
       <slot></slot>
-      {{ text }}
     </template>
-    <template v-else> Loading... </template>
   </button>
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   variant: {
     type: String,
     default: ''
@@ -36,17 +31,15 @@ const props = defineProps({
   }
 })
 
-const styles = {
+const buttonVariants = {
   primary: 'hover:bg-light1 bg-[#EDF1FD] text-[#3365FC] hover:bg-opacity-60 px-8',
   secondary: 'text-white bg-[#3365FC] hover:bg-opacity-60 px-8',
   danger: 'bg-[#FFECEB] text-[#FF4945] hover:bg-[#FF9797] hover:bg-opacity-60 px-8'
 }
 
-const sizes = {
+const buttonSize = {
   sm: 'text-md p-2',
   md: 'text-md p-4',
   lg: 'text-lg p-6'
 }
 </script>
-
-<style></style>

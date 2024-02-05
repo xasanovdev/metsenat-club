@@ -1,4 +1,5 @@
 <template>
+  <!-- Todo: Add va edit uchun bitta modal kerak! -->
   <CModal @childFunction="setChildFunction">
     <template #title>Homiylarni tahrirlash</template>
     <template #body>
@@ -38,19 +39,15 @@
 </template>
 
 <script setup>
-import {
-  onMounted,
-  ref,
-  watch,
-} from 'vue';
+import { onMounted, ref, watch } from 'vue'
 
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'
 
-import CButton from '@/components/CButton/CButton.vue';
-import CInput from '@/components/CInput/CInput.vue';
-import CModal from '@/components/CModal/CModal.vue';
-import { useFetch } from '@/composables/useFetch';
-import { useDataStore } from '@/stores/data';
+import CButton from '@/components/CButton/CButton.vue'
+import CInput from '@/components/CInput/CInput.vue'
+import CModal from '@/components/CModal/CModal.vue'
+import { useFetch } from '@/composables/useFetch'
+import { useDataStore } from '@/stores/data'
 
 const store = useDataStore()
 

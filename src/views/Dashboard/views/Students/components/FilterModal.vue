@@ -1,4 +1,5 @@
 <template>
+  <!-- Todo: refactor two filter modals in sponsors and students pages -->
   <CModal>
     <template #title>Tahrirlash</template>
     <template #body>
@@ -34,18 +35,14 @@
 </template>
 
 <script setup>
-import {
-  computed,
-  onMounted,
-  ref,
-} from 'vue';
+import { computed, onMounted, ref } from 'vue'
 
-import CButton from '@/components/CButton/CButton.vue';
-import CDropdown from '@/components/CDropdown/CDropdown.vue';
-import CModal from '@/components/CModal/CModal.vue';
-import { useFetch } from '@/composables/useFetch';
-import { useDataStore } from '@/stores/data';
-import { optionsType } from '@/utils/lists';
+import CButton from '@/components/CButton/CButton.vue'
+import CDropdown from '@/components/CDropdown/CDropdown.vue'
+import CModal from '@/components/CModal/CModal.vue'
+import { useFetch } from '@/composables/useFetch'
+import { useDataStore } from '@/stores/data'
+import { optionsType } from '@/utils/lists'
 
 const store = useDataStore()
 

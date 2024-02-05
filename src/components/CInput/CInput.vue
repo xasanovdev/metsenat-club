@@ -14,10 +14,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
-import { formatNumber } from '@/utils/formatNumber'
-
 let { modelValue, type, placeholder, id } = defineProps([
   'modelValue',
   'type',
