@@ -4,9 +4,7 @@
     :modalValue="filterModal.modalValue"
     :closeModalOverlay="filterModal.closeModalOverlay"
     :closeModal="filterModal.closeModal"
-  >
-    asfsafsasfsa
-  </FilterModal>
+  />
 
   <div class="py-6 w-full flex items-center justify-center bg-[#FCFCFC]">
     <div
@@ -56,6 +54,7 @@
           </CButton>
         </RouterLink>
       </div>
+      <StudenstTable />
     </div>
   </div>
 </template>
@@ -68,6 +67,7 @@ import CTabButton from '@/components/CTabButton/CTabButton.vue'
 import { useModal } from '@/composables/useModal'
 import { useDataStore } from '@/stores/data'
 
+import StudenstTable from './components/StudenstTable.vue'
 import FilterModal from './components/FilterModal.vue'
 
 const search = ref('')

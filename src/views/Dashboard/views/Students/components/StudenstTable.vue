@@ -2,21 +2,45 @@
   <CTable :titles="columns" :data="store.studentsList?.results">
     <!-- students list row head cells -->
     <template #header>
-      <li>
-        <ul class="text-[#B1B1B8] text-center flex gap-1 px-[14px]">
-          <li
-            v-for="(column, index) in columns"
-            :key="index"
-            :class="`w-[${column.width}]`"
-            class="text-center"
-          >
-            {{ column.label }}
-          </li>
-        </ul>
-      </li>
+      <ul class="text-[#B1B1B8] text-center flex gap-1 px-[14px]">
+        <li
+          v-for="(column, index) in columns"
+          :key="index"
+          :class="`w-[${column.width}]`"
+          class="text-center"
+        >
+          {{ column.label }}
+        </li>
+      </ul>
     </template>
 
-    <template #keys="{ data }"> {{ data.full_name }} </template>
+    <!-- Content for the default scoped slot (dynamic content for each item) -->
+
+    <template v-slot:index="{ item }">
+      {{ item.id }}
+    </template>
+    <template v-slot:full_name="{ item }">
+      {{ item.full_name }}
+    </template>
+    <template v-slot:type="{ item }">
+      {{ item.type === 1 ? 'Bakalavr' : 'Magistr' }}
+    </template>
+
+    <template v-slot:given="{ item }">
+      {{ item.given }}
+    </template>
+
+    <template v-slot:contract="{ item }">
+      {{ item.contract }}
+    </template>
+
+    <template v-slot:actions="{ item }">
+      <RouterLink class="text-center" :to="{ name: 'Student', params: { id: item.id } }">
+        <img class="mx-auto" src="/eye.svg" alt="eye icon" />
+      </RouterLink>
+    </template>
+
+    <template v-slot:institute="{ item }">{{ item.institute.name }}</template>
   </CTable>
 </template>
 
@@ -26,12 +50,11 @@ import { computed, onMounted } from 'vue'
 import CPagination from '@/components/CPagination/CPagination.vue'
 import CTable from '@/components/CTable/CTable.vue'
 import { useFetch } from '@/composables/useFetch'
+
 import router from '@/router'
 import { useDataStore } from '@/stores/data'
 import { formatNumber } from '@/utils/formatNumber'
 import { generatePaginationData } from '@/utils/paginationArray'
-
-import Skeleton from './Skeleton.vue'
 
 const store = useDataStore()
 

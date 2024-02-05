@@ -1,30 +1,34 @@
 <template>
-  <div class="w-full min-w-[1200px] overflow-x-auto">
-    <div class="container mx-auto overflow-hidden min-w-[1200px] overflow-x-auto">
-      <ul class="w-full whitespace-nowrap list-none p-0">
-        <!-- students list row head cells -->
-        <slot name="header"> </slot>
-      </ul>
+  <div class="w-full min-w-[1200px] overflow-x-auto pb-4">
+    <div class="w-full whitespace-nowrap pb-2">
+      <!-- students list row head cells -->
+      <slot name="header"> </slot>
     </div>
 
-    <div class="flex items-center justify-between">
+    <ul class="flex items-center flex-col gap-4 w-full justify-between">
       <li
         v-for="(item, index) in data"
         :key="index"
-        class="bg-white py-[22px] px-[14px] rounded-lg"
+        class="bg-white w-full py-[22px] px-[14px] rounded-lg"
       >
         <ul class="flex items-center justify-between">
-          <li class="w-[2%] text-center" v-for="(header, headerId) in titles" :key="headerId">
-            <slot :data="item" :name="header.keys"> {{ item[header.keys] }}</slot>
+          <li
+            class="text-center"
+            :class="`w-[${header.width}]`"
+            v-for="(header, headerId) in titles"
+            :key="headerId"
+          >
+            <!-- Use scoped slot for dynamic content -->
+            <slot :name="header.keys" :item="item">{{ item[header.keys] }}</slot>
           </li>
         </ul>
       </li>
-    </div>
+    </ul>
   </div>
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   titles: {
     type: Array,
     default: () => []

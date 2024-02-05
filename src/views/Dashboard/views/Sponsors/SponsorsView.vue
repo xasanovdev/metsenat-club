@@ -44,10 +44,10 @@
     </div>
   </div>
   <div class="bg-[#F5F5F7] pb-20">
-    <div class="container mx-auto px-6 overflow-x-auto"></div>
+    <div class="container mx-auto px-6 overflow-x-auto">
+      <SponsorsTable />
+    </div>
   </div>
-
-  <router-view></router-view>
 </template>
 <script setup>
 import { ref } from 'vue'
@@ -58,6 +58,7 @@ import CTabButton from '@/components/CTabButton/CTabButton.vue'
 import { useModal } from '@/composables/useModal'
 import { useDataStore } from '@/stores/data'
 
+import SponsorsTable from './components/SponsorsTable.vue'
 import FilterModal from './components/FilterModal.vue'
 
 const search = ref('')

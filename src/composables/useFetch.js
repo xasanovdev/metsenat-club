@@ -2,7 +2,7 @@ import { ref } from 'vue'
 
 export const useFetch = () => {
   const baseUrl = import.meta.env.VITE_APP_BASE_URL
-  
+
   const loading = ref(false)
 
   const axios = (url, options) => {
