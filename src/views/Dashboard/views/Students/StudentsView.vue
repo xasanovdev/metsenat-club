@@ -56,7 +56,6 @@
           </CButton>
         </RouterLink>
       </div>
-      <CTable />
     </div>
   </div>
 </template>
@@ -69,7 +68,6 @@ import CTabButton from '@/components/CTabButton/CTabButton.vue'
 import { useModal } from '@/composables/useModal'
 import { useDataStore } from '@/stores/data'
 
-import CTable from './components/CTable.vue'
 import FilterModal from './components/FilterModal.vue'
 
 const search = ref('')

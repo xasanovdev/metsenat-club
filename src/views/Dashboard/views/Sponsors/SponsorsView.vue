@@ -44,9 +44,7 @@
     </div>
   </div>
   <div class="bg-[#F5F5F7] pb-20">
-    <div class="container mx-auto px-6 overflow-x-auto">
-      <CTable />
-    </div>
+    <div class="container mx-auto px-6 overflow-x-auto"></div>
   </div>
 
   <router-view></router-view>
@@ -60,7 +58,6 @@ import CTabButton from '@/components/CTabButton/CTabButton.vue'
 import { useModal } from '@/composables/useModal'
 import { useDataStore } from '@/stores/data'
 
-import CTable from './components/CTable.vue'
 import FilterModal from './components/FilterModal.vue'
 
 const search = ref('')
