@@ -65,6 +65,11 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+  console.log(to.meta)
+
+  window.document.title =
+    to.meta && to.meta.layout ? 'Metsenat | Auth Page' : 'Metsenat | Dashboard Page'
+
   const auth = useAuthStore()
 
   // Check if the user is authenticated using Pinia store

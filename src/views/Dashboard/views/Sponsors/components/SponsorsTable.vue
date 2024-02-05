@@ -1,6 +1,7 @@
 <template>
   <CTable>
     <!-- sponsors list row head cells -->
+
     <template #header>
       <li class="mt-7">
         <ul class="text-[#B1B1B8] text-left flex px-[14px]">
@@ -16,9 +17,7 @@
     </template>
     <template #body>
       <div class="w-full">
-        <li v-if="loading" class="text-center">
-          <Skeleton />
-        </li>
+        <li v-if="loading" class="text-center">loading...</li>
 
         <template v-else>
           <ul class="flex w-full flex-col gap-4 mt-3 mb-12 overflow-y-auto">
@@ -86,8 +85,6 @@ import { useDataStore } from '@/stores/data'
 import { formatDate } from '@/utils/formatDate'
 import { formatNumber } from '@/utils/formatNumber'
 import { generatePaginationData } from '@/utils/paginationArray'
-
-import Skeleton from './Skeleton.vue'
 
 const store = useDataStore()
 

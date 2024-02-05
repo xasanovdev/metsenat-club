@@ -12,10 +12,10 @@
         :key="index"
         class="bg-white w-full py-[22px] px-[14px] rounded-lg"
       >
-        <ul class="flex items-center justify-between">
+        <ul class="flex w-full items-center justify-between">
           <li
             class="text-center"
-            :class="`w-[${header.width}]`"
+            :class="`w-[${header.width}%]`"
             v-for="(header, headerId) in titles"
             :key="headerId"
           >

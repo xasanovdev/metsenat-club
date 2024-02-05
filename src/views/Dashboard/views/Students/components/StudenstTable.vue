@@ -1,12 +1,13 @@
 <template>
   <CTable :titles="columns" :data="store.studentsList?.results">
     <!-- students list row head cells -->
+
     <template #header>
-      <ul class="text-[#B1B1B8] text-center flex gap-1 px-[14px]">
+      <ul class="text-[#B1B1B8] text-center w-full flex px-[14px]">
         <li
           v-for="(column, index) in columns"
           :key="index"
-          :class="`w-[${column.width}]`"
+          :class="`w-[${column.width}%]`"
           class="text-center"
         >
           {{ column.label }}
@@ -107,13 +108,13 @@ const selectPaginationCount = (paginationCountStudents) =>
   fetchData(store.studentsCurrentPage, paginationCountStudents, 'force')
 
 const columns = [
-  { label: '#', width: '2%', keys: 'index' },
-  { label: 'f.i.sh.', width: '20%', keys: 'full_name' },
-  { label: 'Talabalik turi', width: '10%', keys: 'type' },
-  { label: 'OTM', width: '30%', keys: 'institute' },
-  { label: 'Ajratilingan summa', width: '15%', keys: 'given' },
-  { label: 'Kontrakt miqdori', width: '15%', keys: 'contract' },
-  { label: 'Amallar', width: '8%', keys: 'actions' }
+  { label: '#', width: 2, keys: 'index' },
+  { label: 'f.i.sh.', width: 20, keys: 'full_name' },
+  { label: 'Talabalik turi', width: 10, keys: 'type' },
+  { label: 'OTM', width: 30, keys: 'institute' },
+  { label: 'Ajratilingan summa', width: 15, keys: 'given' },
+  { label: 'Kontrakt miqdori', width: 15, keys: 'contract' },
+  { label: 'Amallar', width: 8, keys: 'actions' }
 ]
 
 const { get, loading } = useFetch()
