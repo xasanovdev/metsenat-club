@@ -6,13 +6,6 @@
   </template>
 
   <template v-else>
-    <EditSponsorModal
-      v-show="editSponsorModal.modalValue"
-      :modalValue="editSponsorModal.modalValue"
-      :closeModalOverlay="editSponsorModal.closeModalOverlay"
-      :closeModal="editSponsorModal.closeModal"
-    />
-
     <header class="w-full py-[30px] bg-[#FDFDFD]">
       <div class="container mx-auto px-6">
         <div class="w-full flex items-center gap-4">
@@ -56,6 +49,13 @@
       </article>
       <img class="mx-auto -mb-10" src="/bgImage.svg" alt="details background image on the bottom" />
     </div>
+
+    <EditSponsorModal
+      v-show="editSponsorModal.modalValue"
+      :modalValue="editSponsorModal.modalValue"
+      :closeModalOverlay="editSponsorModal.closeModalOverlay"
+      :closeModal="editSponsorModal.closeModal"
+    />
   </template>
 </template>
 

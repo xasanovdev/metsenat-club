@@ -1,11 +1,4 @@
 <template>
-  <FilterModal
-    v-show="filterModal.modalValue"
-    :modalValue="filterModal.modalValue"
-    :closeModalOverlay="filterModal.closeModalOverlay"
-    :closeModal="filterModal.closeModal"
-  />
-
   <div class="py-6 w-full flex items-center justify-center bg-[#FCFCFC]">
     <div
       class="container w-full mx-auto flex flex-col gap-4 md:flex-row px-6 justify-between items-center"
@@ -52,6 +45,13 @@
       <SponsorsTable />
     </div>
   </div>
+
+  <FilterModal
+    v-show="filterModal.modalValue"
+    :modalValue="filterModal.modalValue"
+    :closeModalOverlay="filterModal.closeModalOverlay"
+    :closeModal="filterModal.closeModal"
+  />
 </template>
 <script setup>
 import { ref } from 'vue'
