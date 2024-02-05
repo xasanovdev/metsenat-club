@@ -2,6 +2,7 @@
   <div class="w-full min-w-[1200px] overflow-x-auto pb-4">
     <div class="w-full whitespace-nowrap pb-2">
       <!-- students list row head cells -->
+
       <slot name="header"> </slot>
     </div>
 

@@ -47,10 +47,13 @@
 
   <div class="bg-[#F5F5F7] pb-20">
     <div class="container mx-auto px-6 overflow-x-auto">
-      <div class="w-full flex py-7 justify-end">
-        <RouterLink to="/new-student">
-          <CButton variant="secondary" text="Talaba qo‘shish">
-            <img src="/plusWhite.svg" alt="white plus icon" />
+      <div class="w-full flex py-7">
+        <RouterLink class="w-full" to="/new-student">
+          <CButton variant="secondary">
+            <span class="flex items-center justify-center gap-[10px]">
+              Talaba qo‘shish
+              <img src="/plusWhite.svg" alt="white plus icon" />
+            </span>
           </CButton>
         </RouterLink>
       </div>

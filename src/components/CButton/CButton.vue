@@ -1,7 +1,7 @@
 <template>
   <button
     :class="[buttonVariants[variant], buttonSize[size]]"
-    class="font-semibold py-3.5 rounded-md flex items-center justify-center gap-[10px] w-full disabled:bg-opacity-60 disabled:cursor-not-allowed disabled:shadow-none"
+    class="font-semibold py-3.5 rounded-md w-full disabled:bg-opacity-60 disabled:cursor-not-allowed disabled:shadow-none"
     :disabled="loading"
   >
     <template v-if="loading"> Loading... </template>

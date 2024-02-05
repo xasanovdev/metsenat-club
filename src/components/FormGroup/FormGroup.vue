@@ -10,6 +10,7 @@
       :modelValue="modelValue"
       :id="id"
       :type="type"
+      :placeholder="placeholder"
       :isValid="validation"
       @update:modelValue="updateModelValue"
     />
@@ -21,13 +22,14 @@
 import { defineProps, defineEmits } from 'vue'
 import CInput from '@/components/CInput/CInput.vue'
 
-const { modelValue, labelTitle, id, type, validation, validationText } = defineProps([
+const { modelValue, labelTitle, id, type, validation, validationText, placeholder } = defineProps([
   'modelValue',
   'labelTitle',
   'id',
   'validation',
   'type',
-  'validationText'
+  'validationText',
+  'placeholder'
 ])
 
 const emit = defineEmits(['update:modelValue'])

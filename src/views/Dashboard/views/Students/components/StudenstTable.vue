@@ -42,6 +42,27 @@
 
     <template v-slot:institute="{ item }">{{ item.institute.name }}</template>
   </CTable>
+
+  <div class="flex items-center justify-between pb-4">
+    <div>
+      {{ store.studentsList?.count }} tadan
+      {{ (store.studentsCurrentPage - 1) * store.paginationCountStudents }}-{{
+        store.studentsCurrentPage * store.paginationCountStudents
+      }}
+      ko'rsatilmoqda
+    </div>
+    <CPagination
+      @nextPage="nextPage"
+      @prevPage="prevPage"
+      @changePagination="changePagination"
+      @selectPaginationCount="selectPaginationCount"
+      :paginationValues="paginationValues"
+      :totalPage="totalPage"
+      :dataList="store.studentsList.count"
+      :currentPage="store.studentsCurrentPage"
+      :paginationCount="store.paginationCountStudents"
+    />
+  </div>
 </template>
 
 <script setup>
