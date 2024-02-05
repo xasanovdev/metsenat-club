@@ -5,12 +5,12 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'
 
-import AuthLayout from '@/Layout/AuthLayout/AuthLayout.vue';
-import DashboardLayout from '@/Layout/DashboardLayout/DashboardLayout.vue';
+import AuthLayout from '@/Layout/AuthLayout/AuthLayout.vue'
+import DashboardLayout from '@/Layout/DashboardLayout/DashboardLayout.vue'
 
 const route = useRoute()
 

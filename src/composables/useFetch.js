@@ -1,7 +1,8 @@
 import { ref } from 'vue'
 
 export const useFetch = () => {
-  const baseUrl = 'https://metsenatclub.xn--h28h.uz/api/v1'
+  const baseUrl = import.meta.env.VITE_APP_BASE_URL
+  
   const loading = ref(false)
 
   const axios = (url, options) => {

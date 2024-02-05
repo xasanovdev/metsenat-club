@@ -51,11 +51,6 @@ import CButton from '@/components/CButton/CButton.vue'
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 
-const credentials = reactive({
-  username: '',
-  password: ''
-})
-
 const { post } = useFetch()
 
 const error = ref('')
@@ -63,6 +58,11 @@ const error = ref('')
 const loginLoading = ref(false)
 
 const authStore = useAuthStore()
+
+const credentials = reactive({
+  username: '',
+  password: ''
+})
 
 const rules = {
   username: { required },
