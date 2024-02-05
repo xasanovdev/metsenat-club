@@ -3,7 +3,7 @@
     <!-- students list row head cells -->
 
     <template #header>
-      <ul class="text-[#B1B1B8] text-center w-full flex px-[14px]">
+      <ul class="text-[#B1B1B8] text-left flex px-[14px]">
         <li
           v-for="(column, index) in columns"
           :key="index"
@@ -104,8 +104,10 @@ const changePagination = (count) => {
   }
 }
 
-const selectPaginationCount = (paginationCountStudents) =>
+const selectPaginationCount = (paginationCountStudents) => {
+  store.studentsCurrentPage = 1
   fetchData(store.studentsCurrentPage, paginationCountStudents, 'force')
+}
 
 const columns = [
   { label: '#', width: '2%', keys: 'index' },
@@ -114,7 +116,7 @@ const columns = [
   { label: 'OTM', width: '30%', keys: 'institute' },
   { label: 'Ajratilingan summa', width: '15%', keys: 'given' },
   { label: 'Kontrakt miqdori', width: '15%', keys: 'contract' },
-  { label: 'Amallar', width: ' 8%', keys: 'actions' }
+  { label: 'Amallar', width: '8%', keys: 'actions' }
 ]
 
 const { get, loading } = useFetch()

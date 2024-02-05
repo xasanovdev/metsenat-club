@@ -37,8 +37,11 @@
       </div>
       <div class="flex w-full items-center justify-end gap-4 md:gap-5">
         <CInput v-model="search" placeholder="Qidirish" class="md:max-w-[284px] py-[15px] w-full" />
-        <CButton @click="filterModal.openModal" variant="primary" class="px-8" text="Filter">
-          <img src="/filter.svg" alt="filter icon" />
+        <CButton @click="filterModal.openModal" variant="primary" class="px-8">
+          <span class="flex items-center justify-center gap-[10px]">
+            Filter
+            <img src="/filter.svg" alt="filter icon" />
+          </span>
         </CButton>
       </div>
     </div>
@@ -46,16 +49,15 @@
 
   <div class="bg-[#F5F5F7] pb-20">
     <div class="container mx-auto px-6 overflow-x-auto">
-      <div class="w-full flex pt-7">
-        <RouterLink class="w-full" to="/new-student">
-          <CButton variant="secondary">
-            <span class="flex items-center justify-center gap-[10px]">
-              Talaba qo‘shish
-              <img src="/plusWhite.svg" alt="white plus icon" />
-            </span>
-          </CButton>
-        </RouterLink>
-      </div>
+      <RouterLink class="w-full" to="/new-student">
+        <CButton variant="secondary">
+          <span class="flex items-center justify-center gap-[10px]">
+            Talaba qo‘shish
+            <img src="/plusWhite.svg" alt="white plus icon" />
+          </span>
+        </CButton>
+      </RouterLink>
+
       <StudenstTable />
     </div>
   </div>

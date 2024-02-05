@@ -11,16 +11,17 @@
               personType === 'physical' ? 'bg-[#3366FF] text-white' : 'text-[#3366FF] bg-white'
             ]"
             class="flex-1"
-            text="Jismoniy shaxs"
-          ></CButton>
+            >Jismoniy shaxs</CButton
+          >
           <CButton
             :class="[
               personType === 'legal' ? 'bg-[#3366FF] text-white' : 'text-[#3366FF] bg-white'
             ]"
             @click.prevent="personType = 'legal'"
             class="flex-1"
-            text="Yuridik shaxs"
-          ></CButton>
+          >
+            Yuridik shaxs
+          </CButton>
         </div>
 
         <div class="grid grid-cols-1 gap-y-7 mt-8">
@@ -68,8 +69,11 @@
     </template>
 
     <template #footer>
-      <CButton @click="updateSponsor" text="Saqlash" class="px-8" variant="secondary">
-        <img src="/save.svg" alt="" />
+      <CButton @click="updateSponsor" class="px-8" variant="secondary">
+        <span class="flex items-center justify-center gap-[10px]"
+          >Saqlash
+          <img src="/save.svg" alt="" />
+        </span>
       </CButton>
     </template>
   </CModal>

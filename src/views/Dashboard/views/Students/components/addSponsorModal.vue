@@ -35,26 +35,26 @@
     </template>
 
     <template #footer>
-      <CButton @click="addSponsor" text="Qo‘shish" class="px-8" variant="secondary">
-        <img src="/plusWhite.svg" alt="" />
+      <CButton @click="addSponsor" class="px-8" variant="secondary">
+        <span class="flex items-center justify-center gap-[10px]">
+          Qo‘shish
+          <img src="/plusWhite.svg" alt="filter icon" />
+        </span>
       </CButton>
     </template>
   </CModal>
 </template>
 
 <script setup>
-import {
-  onMounted,
-  ref,
-} from 'vue';
+import { onMounted, ref } from 'vue'
 
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'
 
-import CButton from '@/components/CButton/CButton.vue';
-import CDropdown from '@/components/CDropdown/CDropdown.vue';
-import CInput from '@/components/CInput/CInput.vue';
-import CModal from '@/components/CModal/CModal.vue';
-import { useFetch } from '@/composables/useFetch';
+import CButton from '@/components/CButton/CButton.vue'
+import CDropdown from '@/components/CDropdown/CDropdown.vue'
+import CInput from '@/components/CInput/CInput.vue'
+import CModal from '@/components/CModal/CModal.vue'
+import { useFetch } from '@/composables/useFetch'
 
 const route = useRoute()
 

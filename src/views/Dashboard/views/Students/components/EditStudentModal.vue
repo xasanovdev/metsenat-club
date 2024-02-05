@@ -57,27 +57,26 @@
     </template>
     <template #footer>
       <CButton @click="updateStudent" variant="secondary" text="Natijalarni ko‘rish">
-        <img src="/save.svg" alt="save icon" />
+        <span class="flex items-center justify-center gap-[10px]">
+          Natijalarni ko‘ris
+          <img src="/save.svg" alt="save icon" />
+        </span>
       </CButton>
     </template>
   </CModal>
 </template>
 
 <script setup>
-import {
-  computed,
-  onMounted,
-  ref,
-} from 'vue';
+import { computed, onMounted, ref } from 'vue'
 
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'
 
-import CButton from '@/components/CButton/CButton.vue';
-import CDropdown from '@/components/CDropdown/CDropdown.vue';
-import CInput from '@/components/CInput/CInput.vue';
-import CModal from '@/components/CModal/CModal.vue';
-import { useFetch } from '@/composables/useFetch';
-import router from '@/router';
+import CButton from '@/components/CButton/CButton.vue'
+import CDropdown from '@/components/CDropdown/CDropdown.vue'
+import CInput from '@/components/CInput/CInput.vue'
+import CModal from '@/components/CModal/CModal.vue'
+import { useFetch } from '@/composables/useFetch'
+import router from '@/router'
 
 const studentData = ref('')
 

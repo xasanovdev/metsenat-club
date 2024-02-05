@@ -31,13 +31,10 @@
           class="flex items-start sm:items-center flex-col gap-8 sm:flex-row sm:gap-0 justify-between"
         >
           <p class="text-[#28293D] text-2xl font-bold">Homiy haqida</p>
-          <CButton
-            @click="editSponsorModal.openModal"
-            text="Tahrirlash"
-            class="px-8"
-            variant="primary"
-          >
-            <img src="/pen.svg" alt="pen icon for editing" />
+          <CButton @click="editSponsorModal.openModal" class="px-8" variant="primary">
+            <span class="flex items-center justify-center gap-[10px]">
+              Talaba qo‘shish <img src="/pen.svg" alt="pen icon for editing" />
+            </span>
           </CButton>
         </div>
         <div class="flex items-center gap-5 mt-8">

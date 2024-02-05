@@ -45,13 +45,10 @@
             class="flex items-start sm:items-center flex-col gap-8 sm:flex-row sm:gap-0 justify-between"
           >
             <p class="text-[#28293D] text-2xl font-bold">Talaba haqida</p>
-            <CButton
-              @click="editStudentModal.openModal"
-              text="Tahrirlash"
-              class="px-8"
-              variant="primary"
-            >
-              <img src="/pen.svg" alt="pen icon for editing" />
+            <CButton @click="editStudentModal.openModal" class="px-8" variant="primary">
+              <span class="flex items-center justify-center gap-[10px]">
+                Tahrirlash <img src="/pen.svg" alt="pen icon for editing" />
+              </span>
             </CButton>
           </div>
           <!-- Divider -->
@@ -113,13 +110,11 @@
             class="flex items-start sm:items-center flex-col gap-8 sm:flex-row sm:gap-0 justify-between"
           >
             <p class="text-[#28293D] text-2xl font-bold">Talabaga homiylar</p>
-            <CButton
-              @click="addSponsorModal.openModal"
-              text="Homiy qo‘shish"
-              class="px-8"
-              variant="primary"
-            >
-              <img src="/plus.svg" alt="default plus icon" />
+            <CButton @click="addSponsorModal.openModal" class="px-8" variant="primary">
+              <span class="flex items-center justify-center gap-[10px]">
+                Homiy qo‘shish
+                <img src="/plus.svg" alt="default plus icon" />
+              </span>
             </CButton>
           </div>
           <!-- Divider -->

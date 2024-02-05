@@ -77,8 +77,10 @@
           </div>
         </div>
         <hr class="my-7" />
-        <CButton class="w-full" type="submit" variant="secondary" text="Qo‘shish">
-          <img src="/plusWhite.svg" alt="plus icon" />
+        <CButton class="w-full" type="submit" variant="secondary">
+          <span class="flex items-center justify-center gap-[10px]">
+            Qo‘shish <img src="/plusWhite.svg" alt="plus icon" />
+          </span>
         </CButton>
       </form>
     </div>
@@ -86,17 +88,14 @@
 </template>
 
 <script setup>
-import {
-  onMounted,
-  ref,
-} from 'vue';
+import { onMounted, ref } from 'vue'
 
-import CButton from '@/components/CButton/CButton.vue';
-import CDropdown from '@/components/CDropdown/CDropdown.vue';
-import CInput from '@/components/CInput/CInput.vue';
-import { useFetch } from '@/composables/useFetch';
-import router from '@/router';
-import { optionsType } from '@/utils/lists';
+import CButton from '@/components/CButton/CButton.vue'
+import CDropdown from '@/components/CDropdown/CDropdown.vue'
+import CInput from '@/components/CInput/CInput.vue'
+import { useFetch } from '@/composables/useFetch'
+import router from '@/router'
+import { optionsType } from '@/utils/lists'
 
 const { loading, post, get } = useFetch()
 

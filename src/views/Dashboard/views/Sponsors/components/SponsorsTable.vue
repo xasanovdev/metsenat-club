@@ -45,7 +45,7 @@
     </template>
   </CTable>
 
-  <div class="flex items-center justify-between">
+  <div class="flex items-center justify-between pb-4">
     <div>
       {{ store.sponsorsList?.count }} tadan
       {{ (store.sponsorsCurrentPage - 1) * store.paginationCountSponsors }}-{{

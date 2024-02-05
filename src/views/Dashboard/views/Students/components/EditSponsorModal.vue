@@ -27,12 +27,18 @@
     </template>
 
     <template #footer>
-      <CButton @click="deleteSponsor" text="Homiyni o‘chirish" class="px-8" variant="danger">
-        <img src="/redTrash.svg" alt="" />
+      <CButton @click="deleteSponsor" class="px-8" variant="danger">
+        <span class="flex items-center justify-center gap-[10px]">
+          Homiyni o‘chirish
+          <img src="/redTrash.svg" alt="red trash icon" />
+        </span>
       </CButton>
 
-      <CButton @click="saveSponsor" text="Saqlash" class="px-8" variant="secondary">
-        <img src="/save.svg" alt="" />
+      <CButton @click="saveSponsor" class="px-8" variant="secondary">
+        <span class="flex items-center justify-center gap-[10px]">
+          Saqlash
+          <img src="/save.svg" alt="save icon" />
+        </span>
       </CButton>
     </template>
   </CModal>

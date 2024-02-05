@@ -24,11 +24,17 @@
     </template>
 
     <template #footer>
-      <CButton @click="clear" variant="primary" text="Tozalash">
-        <img src="/clear.svg" alt="clear icon" />
+      <CButton @click="clear" variant="primary">
+        <span class="flex items-center justify-center gap-[10px]">
+          Tozalash
+          <img src="/clear.svg" alt="clear icon" />
+        </span>
       </CButton>
-      <CButton @click="filterData" variant="secondary" text="Natijalarni ko‘rish">
-        <img src="/eyeWhite.svg" alt="eye icon" />
+      <CButton @click="filterData" variant="secondary">
+        <span class="flex items-center justify-center gap-[10px]">
+          Natijalarni ko‘rish
+          <img src="/eyeWhite.svg" alt="eyeWhite icon" />
+        </span>
       </CButton>
     </template>
   </CModal>
