@@ -1,7 +1,7 @@
 <!-- FormGroup.vue -->
 <template>
-  <div>
-    <label :for="id" class="block mb-2 text-sm uppercase font-medium text-gray-600">
+  <div class="w-full flex flex-col gap-2">
+    <label :for="id" class="block text-sm uppercase font-semibold text-gray-600">
       {{ labelTitle }}:
     </label>
 
@@ -13,6 +13,7 @@
       :isValid="validation"
       @update:modelValue="updateModelValue"
     />
+    <span v-if="validation" class="text-red-500">{{ validationText }} is required.</span>
   </div>
 </template>
 
@@ -20,12 +21,13 @@
 import { defineProps, defineEmits } from 'vue'
 import CInput from '@/components/CInput/CInput.vue'
 
-const { modelValue, labelTitle, id, type, validation } = defineProps([
+const { modelValue, labelTitle, id, type, validation, validationText } = defineProps([
   'modelValue',
   'labelTitle',
   'id',
   'validation',
-  'type'
+  'type',
+  'validationText'
 ])
 
 const emit = defineEmits(['update:modelValue'])

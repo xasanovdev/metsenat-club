@@ -9,30 +9,28 @@
         <h2 class="text-2xl font-semibold mb-4">Kirish</h2>
         <form @submit.prevent="handleLogin">
           <!-- Username group of input and label -->
-          <div class="mb-4">
-            <FormGroup
-              labelTitle="Login"
-              id="username"
-              type="text"
-              :validation="$v.username.$error"
-              v-model="credentials.username"
-            />
 
-            <span v-if="$v.username.$error" class="text-red-500">Username is required.</span>
-          </div>
+          <FormGroup
+            class="mb-4"
+            labelTitle="Login"
+            id="username"
+            type="text"
+            :validation="$v.username.$error"
+            validationText="Username"
+            v-model="credentials.username"
+          />
 
           <!-- Password group of input and label -->
-          <div class="mb-4">
-            <FormGroup
-              labelTitle="Parol"
-              id="password"
-              type="password"
-              :validation="$v.password.$error"
-              v-model="credentials.password"
-            />
+          <FormGroup
+            class="mb-4"
+            labelTitle="Parol"
+            id="password"
+            type="password"
+            validationText="Password"
+            :validation="$v.password.$error"
+            v-model="credentials.password"
+          />
 
-            <span v-if="$v.password.$error" class="text-red-500">Password is required.</span>
-          </div>
           <CButton type="submit" :loading="loginLoading" variant="secondary"> Kirish </CButton>
           <p v-if="error" class="mt-2 bg-red-50 p-2 text-red-500 rounded-md">{{ error }}</p>
         </form>
