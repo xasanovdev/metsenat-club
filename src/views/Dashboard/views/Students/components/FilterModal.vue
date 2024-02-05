@@ -43,9 +43,9 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 
-import CButton from '@/components/CButton/CButton.vue'
-import CDropdown from '@/components/CDropdown/CDropdown.vue'
-import CModal from '@/components/CModal/CModal.vue'
+import CButton from '@/components/Base/CButton.vue'
+import CDropdown from '@/components/Base/CDropdown.vue'
+import CModal from '@/components/Common/CModal.vue'
 import { useFetch } from '@/composables/useFetch'
 import { useDataStore } from '@/stores/data'
 import { optionsType } from '@/utils/lists'

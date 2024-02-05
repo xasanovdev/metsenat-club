@@ -172,8 +172,8 @@ import { onMounted, ref } from 'vue'
 
 import { useRoute } from 'vue-router'
 
-import CBadge from '@/components/CBadge/CBadge.vue'
-import CButton from '@/components/CButton/CButton.vue'
+import CBadge from '@/components/Base/CBadge.vue'
+import CButton from '@/components/Base/CButton.vue'
 import { useFetch } from '@/composables/useFetch'
 import { useModal } from '@/composables/useModal'
 import { useDataStore } from '@/stores/data'

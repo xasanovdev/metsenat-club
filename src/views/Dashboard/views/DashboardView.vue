@@ -50,13 +50,13 @@
 <script setup>
 import { onMounted } from 'vue'
 
-import CTabButton from '@/components/CTabButton/CTabButton.vue'
+import CTabButton from '@/components/Base/CTabButton.vue'
 import { useDataStore } from '@/stores/data'
 import { useDashboard } from '@/stores/dashboard'
 
-import CHeader from '@/components/CHeader/CHeader.vue'
+import CHeader from '@/components/Base/CHeader.vue'
 
-import MoneyCard from '@/components/MoneyCard/MoneyCard.vue'
+import MoneyCard from '@/components/Common/MoneyCard.vue'
 
 const store = useDataStore()
 

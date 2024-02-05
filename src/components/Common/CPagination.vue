@@ -50,7 +50,7 @@
 <script setup>
 import { ref } from 'vue'
 
-import CDropdown from '@/components/CDropdown/CDropdown.vue'
+import CDropdown from '@/components/Base/CDropdown.vue'
 
 const props = defineProps([
   'totalPage',

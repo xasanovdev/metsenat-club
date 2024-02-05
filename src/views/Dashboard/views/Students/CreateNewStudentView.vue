@@ -90,9 +90,9 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 
-import CButton from '@/components/CButton/CButton.vue'
-import CDropdown from '@/components/CDropdown/CDropdown.vue'
-import CInput from '@/components/CInput/CInput.vue'
+import CButton from '@/components/Base/CButton.vue'
+import CDropdown from '@/components/Base/CDropdown.vue'
+import CInput from '@/components/Base/CInput.vue'
 import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
 import { optionsType } from '@/utils/lists'

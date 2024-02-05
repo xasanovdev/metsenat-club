@@ -49,9 +49,9 @@ import { onMounted, ref, watch } from 'vue'
 
 import { useRoute } from 'vue-router'
 
-import CButton from '@/components/CButton/CButton.vue'
-import CInput from '@/components/CInput/CInput.vue'
-import CModal from '@/components/CModal/CModal.vue'
+import CButton from '@/components/Base/CButton.vue'
+import CInput from '@/components/Base/CInput.vue'
+import CModal from '@/components/Common/CModal.vue'
 import { useFetch } from '@/composables/useFetch'
 import { useDataStore } from '@/stores/data'
 

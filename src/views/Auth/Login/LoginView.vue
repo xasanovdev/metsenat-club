@@ -35,7 +35,11 @@
 
           <CButton type="submit" :loading="loading" variant="secondary"> Kirish </CButton>
           <!-- Todo: refactor. create component for this action and use inside formgroup or input -->
-          <p v-if="error" class="mt-2 bg-red-50 p-2 text-red-500 rounded-md">{{ error }}</p>
+          <Validation
+            class="mt-2 bg-red-50 p-2 rounded-md"
+            :validation="error"
+            :validationText="error"
+          />
         </form>
       </div>
     </div>
@@ -49,10 +53,11 @@ import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
 import { useAuthStore } from '@/stores/auth'
 
-import FormGroup from '@/components/FormGroup/FormGroup.vue'
-import CButton from '@/components/CButton/CButton.vue'
+import FormGroup from '@/components/Base/FormGroup.vue'
+import CButton from '@/components/Base/CButton.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, minLength } from '@vuelidate/validators'
+import Validation from '@/components/Common/Validation.vue'
 
 const { post } = useFetch()
 

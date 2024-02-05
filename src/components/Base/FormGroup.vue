@@ -15,13 +15,15 @@
       :isValid="validation"
       @update:modelValue="updateModelValue"
     />
-    <span v-if="validation" class="text-red-500">{{ validationText }} is required.</span>
+
+    <Validation :validation="validation" :validationText="validationText" />
   </div>
 </template>
 
 <script setup>
 import { defineProps, defineEmits } from 'vue'
-import CInput from '@/components/CInput/CInput.vue'
+import CInput from '@/components/Base/CInput.vue'
+import Validation from '../Common/Validation.vue'
 
 const { modelValue, labelTitle, id, type, validation, validationText, placeholder } = defineProps([
   'modelValue',

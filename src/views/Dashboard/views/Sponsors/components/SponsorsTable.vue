@@ -70,9 +70,9 @@
 <script setup>
 import { computed, onMounted } from 'vue'
 
-import CBadge from '@/components/CBadge/CBadge.vue'
-import CPagination from '@/components/CPagination/CPagination.vue'
-import CTable from '@/components/CTable/CTable.vue'
+import CBadge from '@/components/Base/CBadge.vue'
+import CPagination from '@/components/Common/CPagination.vue'
+import CTable from '@/components/Common/CTable.vue'
 import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
 import { useDataStore } from '@/stores/data'

@@ -41,10 +41,10 @@
 <script setup>
 import { ref } from 'vue'
 
-import CButton from '@/components/CButton/CButton.vue'
-import CDropdown from '@/components/CDropdown/CDropdown.vue'
-import CModal from '@/components/CModal/CModal.vue'
-import CSelect from '@/components/CSelect/CSelect.vue'
+import CButton from '@/components/Base/CButton.vue'
+import CDropdown from '@/components/Base/CDropdown.vue'
+import CModal from '@/components/Common/CModal.vue'
+import CSelect from '@/components/Base/CSelect.vue'
 import { useDataStore } from '@/stores/data'
 import { optionsStatus } from '@/utils/lists'
 

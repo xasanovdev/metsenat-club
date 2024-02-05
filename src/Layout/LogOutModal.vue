@@ -13,8 +13,8 @@
 </template>
 
 <script setup>
-import CButton from '@/components/CButton/CButton.vue'
-import CModal from '@/components/CModal/CModal.vue'
+import CButton from '@/components/Base/CButton.vue'
+import CModal from '@/components/Common/CModal.vue'
 
 import { useAuthStore } from '@/stores/auth'
 
