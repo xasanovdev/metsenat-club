@@ -48,9 +48,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-import CDropdown from '@/components/CDropdown/CDropdown.vue';
+import CDropdown from '@/components/CDropdown/CDropdown.vue'
+import { useDataStore } from '@/stores/data'
 
 const props = defineProps([
   'totalPage',
@@ -60,6 +61,8 @@ const props = defineProps([
   'paginationCount'
 ])
 const paginationCount = ref(props.paginationCount)
+
+const store = useDataStore()
 
 const emit = defineEmits(['nextPage', 'prevPage', 'changePagination', 'selectPaginationCount'])
 
@@ -80,6 +83,8 @@ const changePagination = (count) => {
 }
 
 const selectPaginationCount = (paginationCount) => {
+  store.studentsCurrentPage = 1
+
   emit('selectPaginationCount', paginationCount)
 }
 </script>
