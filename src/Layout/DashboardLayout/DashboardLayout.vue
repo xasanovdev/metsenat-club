@@ -1,4 +1,11 @@
 <template>
+  <CautionLogOutModal
+    v-show="cautionLogOutModal.modalValue"
+    :modalValue="cautionLogOutModal.modalValue"
+    :closeModalOverlay="cautionLogOutModal.closeModalOverlay"
+    :closeModal="cautionLogOutModal.closeModal"
+  />
+
   <header class="w-full bg-[#FCFCFC]">
     <div class="w-full bg-white py-3">
       <nav class="container mx-auto flex px-6 justify-between items-center">
@@ -14,7 +21,7 @@
               <img class="mt-2" src="/user.svg" alt="asfsa" />
             </div>
           </div>
-          <div class="cursor-pointer" @click="logout">
+          <div class="cursor-pointer" @click="cautionLogOutModal.openModal">
             <img class="" src="/logOut.svg" alt="page logo image" />
           </div>
         </div>
@@ -26,14 +33,11 @@
 </template>
 
 <script setup>
-import router from '@/router';
-import { useAuthStore } from '@/stores/auth';
+import { useModal } from '@/composables/useModal'
 
-const { clearToken } = useAuthStore()
+import CautionLogOutModal from './CautionLogOutModal.vue'
 
-const logout = () => {
-  clearToken()
+const { modal } = useModal()
 
-  router.push({ name: 'Auth' })
-}
+const cautionLogOutModal = modal()
 </script>

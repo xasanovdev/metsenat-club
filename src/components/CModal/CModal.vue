@@ -36,10 +36,12 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-
-defineProps(['modalValue', 'closeModal', 'closeModalOverlay'])
-defineEmits(['childFunction'])
+const props = defineProps(['modalValue', 'closeModal', 'closeModalOverlay'])
+const emit = defineEmits(['childFunction'])
+const childFunction = () => {
+  props.closeModal()
+}
+emit('childFunction', childFunction)
 </script>
 
 <style>
