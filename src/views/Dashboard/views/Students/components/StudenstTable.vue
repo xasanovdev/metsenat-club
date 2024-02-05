@@ -1,5 +1,5 @@
 <template>
-  <CTable :titles="columns" :data="store.studentsList?.results">
+  <CTable :titles="columns" :data="students.studentsList?.results">
     <!-- students list row head cells -->
 
     <template #header>
@@ -46,9 +46,9 @@
 
   <div class="flex items-center justify-between pb-4">
     <div>
-      {{ store.studentsList?.count }} tadan
-      {{ (store.studentsCurrentPage - 1) * store.paginationCountStudents }}-{{
-        store.studentsCurrentPage * store.paginationCountStudents
+      {{ students.studentsList?.count }} tadan
+      {{ (students.studentsCurrentPage - 1) * students.paginationCountStudents }}-{{
+        students.studentsCurrentPage * students.paginationCountStudents
       }}
       ko'rsatilmoqda
     </div>
@@ -59,9 +59,9 @@
       @selectPaginationCount="selectPaginationCount"
       :paginationValues="paginationValues"
       :totalPage="totalPage"
-      :dataList="store.studentsList.count"
-      :currentPage="store.studentsCurrentPage"
-      :paginationCount="store.paginationCountStudents"
+      :dataList="students.studentsList.count"
+      :currentPage="students.studentsCurrentPage"
+      :paginationCount="students.paginationCountStudents"
     />
   </div>
 </template>
@@ -74,39 +74,38 @@ import CTable from '@/components/Common/CTable.vue'
 import { useFetch } from '@/composables/useFetch'
 
 import router from '@/router'
-import { useDataStore } from '@/stores/data'
-import { formatNumber } from '@/utils/formatNumber'
 import { generatePaginationData } from '@/utils/paginationArray'
+import { useStudents } from '@/stores/students'
 
-const store = useDataStore()
+const students = useStudents()
 
 const paginationValues = computed(() =>
   generatePaginationData(
-    store.studentsCurrentPage,
-    store.studentsList.count,
-    store.paginationCountStudents
+    students.studentsCurrentPage,
+    students.studentsList.count,
+    students.paginationCountStudents
   )
 )
 
-const totalPage = computed(() => store.studentsCurrentPage * store.paginationCountStudents)
+const totalPage = computed(() => students.studentsCurrentPage * students.paginationCountStudents)
 
 const nextPage = () => {
-  fetchData(store.studentsCurrentPage + 1, store.paginationCountStudents)
+  fetchData(students.studentsCurrentPage + 1, students.paginationCountStudents)
 }
 
 const prevPage = () => {
-  fetchData(store.studentsCurrentPage - 1, store.paginationCountStudents)
+  fetchData(students.studentsCurrentPage - 1, students.paginationCountStudents)
 }
 
 const changePagination = (count) => {
   if (count !== '...') {
-    fetchData(count, store.paginationCountStudents)
+    fetchData(count, students.paginationCountStudents)
   }
 }
 
 const selectPaginationCount = (paginationCountStudents) => {
-  store.studentsCurrentPage = 1
-  fetchData(store.studentsCurrentPage, paginationCountStudents, 'force')
+  students.studentsCurrentPage = 1
+  fetchData(students.studentsCurrentPage, paginationCountStudents, 'force')
 }
 
 const columns = [
@@ -122,19 +121,19 @@ const columns = [
 const { get, loading } = useFetch()
 
 const fetchData = async (page, page_size, force) => {
-  if (store.studentsList.length === 0 || store.studentsCurrentPage !== page || force) {
+  if (students.studentsList.length === 0 || students.studentsCurrentPage !== page || force) {
     try {
-      store.studentsCurrentPage = page
-      store.paginationCountStudents = page_size
-      store.studentsList = []
+      students.studentsCurrentPage = page
+      students.paginationCountStudents = page_size
+      students.studentsList = []
 
       const response = await get('student-list/', { page: page, page_size: page_size })
 
-      store.studentsList = response
+      students.studentsList = response
 
       router.push({ path: `?page=`, query: { page: page, page_size: page_size } })
 
-      // totalPage.value = store.studentsCurrentPage * store.paginationCountStudents
+      // totalPage.value = students.studentsCurrentPage * students.paginationCountStudents
 
       console.log(response)
     } catch (error) {
@@ -144,6 +143,6 @@ const fetchData = async (page, page_size, force) => {
 }
 
 onMounted(() => {
-  fetchData(store.studentsCurrentPage, store.paginationCountStudents)
+  fetchData(students.studentsCurrentPage, students.paginationCountStudents)
 })
 </script>
