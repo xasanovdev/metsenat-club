@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 
 export const useDataStore = defineStore('data', {
   state: () => ({
@@ -9,6 +9,7 @@ export const useDataStore = defineStore('data', {
     studentsList: [],
     studentsCurrentPage: 1,
     paginationCountStudents: 10,
+    studentDetails: {},
 
     instituteList: [],
 

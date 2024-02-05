@@ -204,15 +204,17 @@ const getEditSponsorModalData = (sponsor) => {
   store.editSponsorData = { ...sponsor }
 }
 
-const data = ref(null)
-const sponsors = ref(null)
+const data = ref({})
+const sponsors = ref([])
 
 const fetchData = async () => {
   try {
     const response = await get(`${`student-detail/${pageId.value}`}`)
     const studentSponsors = await get(`${`student-sponsor/${pageId.value}`}`)
     sponsors.value = studentSponsors
-    data.value = response
+    store.studentDetails = response
+
+    // data.value = store.
   } catch (error) {
     console.error('Error fetching data:', error)
   }

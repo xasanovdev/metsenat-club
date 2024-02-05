@@ -9,18 +9,18 @@ import { computed } from 'vue'
 
 import { useRoute } from 'vue-router'
 
-import AuthLayout from '@/Layout/AuthLayout/AuthLayout.vue'
-import DashboardLayout from '@/Layout/DashboardLayout/DashboardLayout.vue'
+import EmptyLayout from '@/Layout/EmptyLayout.vue'
+import DefaultLayout from '@/Layout/DefaultLayout.vue'
 
 const route = useRoute()
 
 const layouts = {
-  Dashboard: DashboardLayout,
-  Auth: AuthLayout
+  Dashboard: DefaultLayout,
+  Auth: EmptyLayout
 }
 
 const layout = computed(() => {
-  return layouts[route.meta.layout] ?? DashboardLayout
+  return layouts[route.meta.layout] ?? DefaultLayout
 })
 </script>
 

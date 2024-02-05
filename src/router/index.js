@@ -1,4 +1,3 @@
-// router.js
 import { createRouter, createWebHistory } from 'vue-router'
 
 import { useAuthStore } from '@/stores/auth'
@@ -7,17 +6,6 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
 
   routes: [
-    {
-      path: '/',
-      redirect: () => {
-        if (localStorage.getItem('access_token') !== undefined) {
-          return '/dashboard'
-        } else {
-          return '/auth'
-        }
-      }
-    },
-
     {
       path: '/auth',
       name: 'Auth',
@@ -65,26 +53,24 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  console.log(to.meta)
-
-  window.document.title =
-    to.meta && to.meta.layout ? 'Metsenat | Auth Page' : 'Metsenat | Dashboard Page'
-
   const auth = useAuthStore()
 
   // Check if the user is authenticated using Pinia store
   const isAuthenticated = auth.isAuthenticated()
 
-  const token = localStorage.getItem('access_token') || ''
-
   if (!isAuthenticated && to.name !== 'Auth') {
     next({ name: 'Auth' })
     localStorage.clear()
-  } else if (isAuthenticated && to.name === 'Auth' && token) {
-    next({ name: 'Dashboard' })
-  } else {
-    next()
+
+    return
   }
+
+  if (isAuthenticated && to.name === 'Auth') {
+    next({ name: 'Dashboard' })
+    return
+  }
+
+  next()
 })
 
 export default router

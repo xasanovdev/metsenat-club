@@ -33,7 +33,8 @@
             v-model="credentials.password"
           />
 
-          <CButton type="submit" :loading="loginLoading" variant="secondary"> Kirish </CButton>
+          <CButton type="submit" :loading="loading" variant="secondary"> Kirish </CButton>
+          <!-- Todo: refactor. create component for this action and use inside formgroup or input -->
           <p v-if="error" class="mt-2 bg-red-50 p-2 text-red-500 rounded-md">{{ error }}</p>
         </form>
       </div>
@@ -51,13 +52,14 @@ import { useAuthStore } from '@/stores/auth'
 import FormGroup from '@/components/FormGroup/FormGroup.vue'
 import CButton from '@/components/CButton/CButton.vue'
 import useVuelidate from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
+import { required, minLength } from '@vuelidate/validators'
 
 const { post } = useFetch()
 
-const error = ref('')
+// Todo: Type boolean maybe?
+const error = ref(false)
 
-const loginLoading = ref(false)
+const loading = ref(false)
 
 const authStore = useAuthStore()
 
@@ -66,9 +68,10 @@ const credentials = reactive({
   password: ''
 })
 
+// Todo: add minLenght rule and user cannot write only numbers in the input
 const rules = {
-  username: { required },
-  password: { required }
+  username: { required, minLength: 50 },
+  password: { required, minLength: 16 }
 }
 
 const $v = useVuelidate(rules, credentials)
@@ -85,7 +88,7 @@ const handleLogin = async () => {
   }
 
   try {
-    loginLoading.value = true
+    loading.value = true
     const data = await post('auth/login/', {
       username: credentials.username,
       password: credentials.password
@@ -94,12 +97,13 @@ const handleLogin = async () => {
     authStore.setToken(data)
     error.value = data?.detail
 
+    // Todo: fix
     console.log(error.value)
     router.push({ name: 'Dashboard' })
   } catch (error) {
     console.error('Login error', error.message)
   } finally {
-    loginLoading.value = false
+    loading.value = false
   }
 }
 </script>

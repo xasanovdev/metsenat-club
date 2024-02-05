@@ -152,8 +152,8 @@ const updateStudent = async () => {
       errors.value = null
     }
     console.log(response)
-    // router.push({ name: 'Students' })
-    // document.body.classList.remove('overflow-hidden')
+
+    fetchData()
   } catch (error) {
     console.error('Error fetching user:', error)
   }

@@ -2,10 +2,11 @@
 <template>
   <div class="w-full flex flex-col gap-2">
     <label :for="id" class="block text-sm uppercase font-semibold text-gray-600">
+      <!-- Todo: just use label -->
       {{ labelTitle }}:
     </label>
 
-    <!-- Use v-model to bind the value and listen for input events -->
+    <!-- Todo: use v-bind. -->
     <CInput
       :modelValue="modelValue"
       :id="id"
@@ -35,7 +36,6 @@ const { modelValue, labelTitle, id, type, validation, validationText, placeholde
 const emit = defineEmits(['update:modelValue'])
 
 const updateModelValue = (value) => {
-  // Emit the updated value using the 'update:modelValue' event
   emit('update:modelValue', value)
 }
 </script>
