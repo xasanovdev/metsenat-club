@@ -61,7 +61,6 @@ import Validation from '@/components/Common/Validation.vue'
 
 const { post } = useFetch()
 
-// Todo: Type boolean maybe?
 const error = ref(false)
 
 const loading = ref(false)
@@ -73,7 +72,6 @@ const credentials = reactive({
   password: ''
 })
 
-// Todo: add minLenght rule and user cannot write only numbers in the input
 const rules = {
   username: { required, minLength: minLength(6), maxLength: maxLength(50) },
   password: { required, minLength: minLength(6), maxLength: maxLength(24) }
@@ -84,7 +82,6 @@ const $v = useVuelidate(rules, credentials)
 console.log($v.value)
 
 const handleLogin = async () => {
-  // working vuelidate for validate
   const result = await $v.value.$validate()
   console.log(result)
 
@@ -99,12 +96,16 @@ const handleLogin = async () => {
       password: credentials.password
     })
 
-    authStore.setToken(data)
-    error.value = data?.detail
+    if (data.access && data.refresh) {
+      console.log(data)
+      authStore.setToken(data)
+      router.push({ name: 'Dashboard' })
+    }
 
-    // Todo: fix
-    console.log(error.value)
-    router.push({ name: 'Dashboard' })
+    if (data.detail) {
+      console.log(data)
+      error.value = data?.detail
+    }
   } catch (error) {
     console.error('Login error', error.message)
   } finally {
