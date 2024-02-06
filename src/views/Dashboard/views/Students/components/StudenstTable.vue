@@ -74,7 +74,7 @@ import CTable from '@/components/Common/CTable.vue'
 import { useFetch } from '@/composables/useFetch'
 
 import router from '@/router'
-import { generatePaginationData } from '@/utils/paginationArray'
+import { generatePaginationData } from '@/utils/index'
 import { useStudents } from '@/stores/students'
 
 const students = useStudents()

@@ -95,7 +95,7 @@ import CDropdown from '@/components/Base/CDropdown.vue'
 import CInput from '@/components/Base/CInput.vue'
 import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
-import { optionsType } from '@/utils/lists'
+import { optionsType } from '@/utils/index'
 
 const { loading, post, get } = useFetch()
 

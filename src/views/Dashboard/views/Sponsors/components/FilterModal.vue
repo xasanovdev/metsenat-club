@@ -46,7 +46,7 @@ import CDropdown from '@/components/Base/CDropdown.vue'
 import CModal from '@/components/Common/CModal.vue'
 import CSelect from '@/components/Base/CSelect.vue'
 import { useDataStore } from '@/stores/data'
-import { optionsStatus } from '@/utils/lists'
+import { optionsStatus } from '@/utils/index'
 
 const store = useDataStore()
 

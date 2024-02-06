@@ -1,7 +1,5 @@
 <template>
   <CTable :titles="columns" :data="sponsors.sponsorsList?.results">
-    <!-- sponsors list row head cells -->
-
     <template #header>
       <ul class="text-gray-400 text-left flex px-[14px]">
         <li
@@ -75,13 +73,12 @@ import CBadge from '@/components/Base/CBadge.vue'
 import CPagination from '@/components/Common/CPagination.vue'
 import CTable from '@/components/Common/CTable.vue'
 
-import { formatDate } from '@/utils/formatDate'
-import { generatePaginationData } from '@/utils/paginationArray'
+import { formatDate } from '@/utils/index'
+import { generatePaginationData } from '@/utils/index'
+
 import { useSponsors } from '@/stores/sponsors'
 
 const sponsors = useSponsors()
-
-console.log(sponsors)
 
 const columns = [
   { label: '#', width: '2%', keys: 'index' },

@@ -48,7 +48,7 @@ import CDropdown from '@/components/Base/CDropdown.vue'
 import CModal from '@/components/Common/CModal.vue'
 import { useFetch } from '@/composables/useFetch'
 import { useDataStore } from '@/stores/data'
-import { optionsType } from '@/utils/lists'
+import { optionsType } from '@/utils/index'
 
 const store = useDataStore()
 

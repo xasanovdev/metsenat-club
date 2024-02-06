@@ -56,7 +56,7 @@
 <script setup>
 import { ref } from 'vue'
 
-import { formatNumber } from '@/utils/formatNumber'
+import { formatNumber } from '@/utils/index'
 
 const filterOptions = [1000000, 5000000, 7000000, 10000000, 30000000, 50000000] // Adjust based on your monetary values
 

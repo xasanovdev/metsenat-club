@@ -87,7 +87,7 @@ import CModal from '@/components/Common/CModal.vue'
 import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
 import { useDataStore } from '@/stores/data'
-import { optionsStatus } from '@/utils/lists'
+import { optionsStatus } from '@/utils/index'
 
 const personType = ref('physical')
 
