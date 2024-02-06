@@ -56,7 +56,7 @@ import { useAuthStore } from '@/stores/auth'
 import FormGroup from '@/components/Base/FormGroup.vue'
 import CButton from '@/components/Base/CButton.vue'
 import useVuelidate from '@vuelidate/core'
-import { required, minLength } from '@vuelidate/validators'
+import { required, minLength, maxLength } from '@vuelidate/validators'
 import Validation from '@/components/Common/Validation.vue'
 
 const { post } = useFetch()
@@ -75,8 +75,8 @@ const credentials = reactive({
 
 // Todo: add minLenght rule and user cannot write only numbers in the input
 const rules = {
-  username: { required, minLength: 50 },
-  password: { required, minLength: 16 }
+  username: { required, minLength: minLength(6), maxLength: maxLength(50) },
+  password: { required, minLength: minLength(6), maxLength: maxLength(24) }
 }
 
 const $v = useVuelidate(rules, credentials)
