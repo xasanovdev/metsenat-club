@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 
-// auth.js
 import { defineStore } from 'pinia'
+import router from '@/router'
 
 export const useAuthStore = defineStore('auth', () => {
   const access = ref(localStorage.getItem('access_token') || null)
@@ -26,5 +26,11 @@ export const useAuthStore = defineStore('auth', () => {
     return Boolean(access.value && refresh.value)
   }
 
-  return { access, refresh, setToken, clearToken, isAuthenticated }
+  const logOut = () => {
+    clearToken()
+
+    router.push({ name: 'Auth' })
+  }
+
+  return { access, refresh, setToken, clearToken, isAuthenticated, logOut }
 })
