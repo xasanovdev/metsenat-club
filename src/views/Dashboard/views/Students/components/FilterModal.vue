@@ -1,6 +1,6 @@
 <template>
   <!-- Todo: refactor two filter modals in sponsors and students pages -->
-  <CModal>
+  <CModal @childFunction="setChildFunction">
     <template #title>Tahrirlash</template>
     <template #body>
       <div class="flex flex-col items-start gap-4">
@@ -30,7 +30,8 @@
           <img src="/clear.svg" alt="clear icon" />
         </span>
       </CButton>
-      <CButton @click="filterData" variant="secondary">
+
+      <CButton @click="filterStudents" variant="secondary">
         <span class="flex items-center justify-center gap-[10px]">
           Natijalarni ko‘rish
           <img src="/eyeWhite.svg" alt="eyeWhite icon" />
@@ -41,7 +42,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
@@ -49,6 +50,7 @@ import CModal from '@/components/Common/CModal.vue'
 import { useFetch } from '@/composables/useFetch'
 import { useDataStore } from '@/stores'
 import { optionsType } from '@/utils'
+import { useStudents } from '@/stores/students'
 
 const store = useDataStore()
 
@@ -57,21 +59,11 @@ const filterStudent = ref({
   institute: ''
 })
 
-const { get } = useFetch()
-
 const instituteList = ref([])
 
-const fetchInstituteList = async () => {
-  try {
-    const response = await get(`institute-list/`)
-    instituteList.value = response
-  } catch (error) {
-    console.error('Error fetching data:', error)
-  }
-}
-
-onMounted(() => {
-  fetchInstituteList()
+onMounted(async () => {
+  await store.fetchInstituteList()
+  instituteList.value = store.instituteList
 })
 
 const clear = () => {
@@ -79,38 +71,14 @@ const clear = () => {
   filterStudent.value.institute = ''
 }
 
-const studentDataType = computed(() => {
-  if (filterStudent.value.type == '') {
-    return 'Barchasi'
-  } else {
-    return filterStudent.value.type
-  }
+const childFunction = ref('')
 
-  // eslint-disable-next-line no-unreachable
-  return filterStudent.value.type == 'Bakalavr' ? '1' : '2'
-})
+const setChildFunction = (func) => {
+  console.log('salom')
+  childFunction.value = func
+}
 
-const filterData = () => {
-  if (studentDataType.value == 'Barchasi') {
-    store.studentsList.results = store?.studentsList?.results.filter((item) => {
-      if (item.institute.name == filterStudent.value.institute) {
-        return item
-      } else {
-        return
-      }
-    })
-
-    return
-  }
-
-  store.studentsList.results = store?.studentsList?.results.filter((item) => {
-    if (
-      item.type == studentDataType.value ||
-      item.institute.name == filterStudent.value.institute
-    ) {
-      return item
-    }
-  })
+const filterStudents = () => {
+  childFunction.value()
 }
 </script>
-@/stores

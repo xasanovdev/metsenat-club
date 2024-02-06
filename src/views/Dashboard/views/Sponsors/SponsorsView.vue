@@ -1,5 +1,5 @@
 <template>
-  <CHeader />
+  <CHeader @openModal="filterModal.openModal" />
 
   <div class="bg-gray-50 pb-20">
     <div class="container mx-auto px-6 overflow-x-auto">
@@ -17,9 +17,6 @@
 <script setup>
 import { ref } from 'vue'
 
-import CButton from '@/components/Base/CButton.vue'
-import CInput from '@/components/Base/CInput.vue'
-import CTabButton from '@/components/Base/CTabButton.vue'
 import { useModal } from '@/composables/useModal'
 import { useDataStore } from '@/stores'
 

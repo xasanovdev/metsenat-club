@@ -30,9 +30,9 @@
       </div>
 
       <!-- Todo: USE CHART -->
-      <div class="w-full overflow-x-auto mt-6">
+      <!-- <div class="w-full overflow-x-auto mt-6">
         <img class="w-full" src="/statistics.svg" alt="" />
-      </div>
+      </div> -->
     </div>
   </div>
 
@@ -50,15 +50,11 @@
 <script setup>
 import { onMounted } from 'vue'
 
-import CTabButton from '@/components/Base/CTabButton.vue'
-import { useDataStore } from '@/stores'
 import { useDashboard } from '@/stores/dashboard'
 
 import CHeader from '@/components/Layout/CHeader.vue'
 
 import MoneyCard from '@/components/Common/MoneyCard.vue'
-
-const store = useDataStore()
 
 const statistics = useDashboard()
 

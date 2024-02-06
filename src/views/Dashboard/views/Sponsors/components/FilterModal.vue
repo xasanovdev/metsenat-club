@@ -1,5 +1,5 @@
 <template>
-  <CModal>
+  <CModal @childFunction="setChildFunction">
     <template #title>Tahrirlash</template>
     <template #body>
       <div class="flex flex-col items-start gap-4">
@@ -24,12 +24,12 @@
     </template>
 
     <template #footer>
-      <CButton variant="primary">
+      <CButton @click="clear" variant="primary">
         <span class="flex items-center justify-center gap-[10px]">
           Tozalash <img src="/clear.svg" alt="white plus icon" />
         </span>
       </CButton>
-      <CButton @click="filterData" variant="secondary">
+      <CButton @click="filterSponsors" variant="secondary">
         <span class="flex items-center justify-center gap-[10px]">
           Natijalarni ko‘rish <img src="/eyeWhite.svg" alt="eye icon" />
         </span>
@@ -54,22 +54,17 @@ const filterSponsor = ref({
   status: '',
   money: ''
 })
+const childFunction = ref(null)
 
-const filterData = () => {
-  if (filterSponsor.value.status == 'Barchasi' || filterSponsor.value.money == 'all') {
-    return
-  }
+const setChildFunction = (func) => {
+  childFunction.value = func
+}
+const filterSponsors = () => {
+  childFunction.value()
+}
 
-  store.sponsorsList.results = store?.sponsorsList?.results.filter((item) => {
-    if (
-      item.sum <= filterSponsor.value.money ||
-      item.get_status_display === filterSponsor.value.status
-    ) {
-      return item
-    }
-  })
-
-  // closeModal()
+const clear = () => {
+  filterSponsor.value.status = ''
+  filterSponsor.value.money = ''
 }
 </script>
-@/stores

@@ -34,6 +34,19 @@
           <CTabButton path="/students" buttonText="Talabalar" />
         </RouterLink>
       </div>
+
+      <div
+        v-if="currentPath !== 'Dashboard'"
+        class="flex w-full items-center justify-end gap-4 md:gap-5"
+      >
+        <CInput v-model="search" placeholder="Qidirish" class="md:max-w-[284px] py-[15px] w-full" />
+        <CButton @click="emit('openModal')" variant="primary" class="px-8">
+          <span class="flex items-center justify-center gap-[10px]">
+            Filter
+            <img src="/filter.svg" alt="filter icon" />
+          </span>
+        </CButton>
+      </div>
     </div>
   </div>
 </template>
@@ -42,6 +55,18 @@
 import { useSponsors } from '@/stores/sponsors.js'
 import { useStudents } from '@/stores/students.js'
 import CTabButton from '@/components/Base/CTabButton.vue'
+import CButton from '@/components/Base/CButton.vue'
+import CInput from '@/components/Base/CInput.vue'
+import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+
+const emit = defineEmits(['openModal'])
+
+const router = useRouter()
+
+const currentPath = ref(router.currentRoute.value.name)
+
+console.log(emit)
 
 const sponsors = useSponsors()
 const students = useStudents()

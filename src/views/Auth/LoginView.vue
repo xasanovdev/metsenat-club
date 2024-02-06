@@ -12,7 +12,7 @@
 
           <FormGroup
             class="mb-4"
-            labelTitle="Login"
+            label="Login"
             id="username"
             type="text"
             placeholder="Ismingizni kiriting..."
@@ -24,7 +24,7 @@
           <!-- Password group of input and label -->
           <FormGroup
             class="mb-4"
-            labelTitle="Parol"
+            label="Parol"
             id="password"
             type="password"
             placeholder="Parolingizni kiriting..."
@@ -83,6 +83,6 @@ const handleLogin = async () => {
     return $v
   }
 
-  await auth.login(credentials, loading)
+  await auth.login(credentials, loading, error)
 }
 </script>

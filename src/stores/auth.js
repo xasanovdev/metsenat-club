@@ -4,6 +4,9 @@ import { defineStore } from 'pinia'
 import router from '@/router'
 import { useFetch } from '@/composables/useFetch'
 
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
 const { post } = useFetch()
 
 export const useAuthStore = defineStore('auth', () => {
@@ -33,9 +36,13 @@ export const useAuthStore = defineStore('auth', () => {
     clearToken()
 
     router.push({ name: 'Auth' })
+
+    toast.error('You are succesfully logged out.', {
+      autoClose: 1000
+    })
   }
 
-  const login = async (credentials, loading) => {
+  const login = async (credentials, loading, error) => {
     try {
       loading.value = true
       const data = await post('auth/login/', {
@@ -45,8 +52,14 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (data.access && data.refresh) {
         console.log(data)
+
         setToken(data)
+
         router.push({ name: 'Dashboard' })
+
+        toast.success('You are succesfully logged in.', {
+          autoClose: 1000
+        })
       }
 
       if (data.detail) {

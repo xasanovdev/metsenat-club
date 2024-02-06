@@ -1,5 +1,5 @@
 <template>
-  <CHeader />
+  <CHeader @openModal="filterModal.openModal" />
 
   <div class="bg-gray-50 pb-20">
     <div class="container mx-auto px-6 overflow-x-auto">

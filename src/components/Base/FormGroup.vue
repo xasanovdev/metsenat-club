@@ -3,7 +3,7 @@
   <div class="w-full flex flex-col gap-2">
     <label :for="id" class="block text-sm uppercase font-semibold text-gray-600">
       <!-- Todo: just use label -->
-      {{ labelTitle }}:
+      {{ label }}:
     </label>
 
     <!-- Todo: use v-bind. -->
@@ -25,9 +25,9 @@ import { defineProps, defineEmits } from 'vue'
 import CInput from '@/components/Base/CInput.vue'
 import Validation from '../Base/Validation.vue'
 
-const { modelValue, labelTitle, id, type, validation, validationText, placeholder } = defineProps([
+const { modelValue, label, id, type, validation, validationText, placeholder } = defineProps([
   'modelValue',
-  'labelTitle',
+  'label',
   'id',
   'validation',
   'type',

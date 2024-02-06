@@ -61,7 +61,7 @@ import { formatNumber } from '@/utils'
 const filterOptions = [1000000, 5000000, 7000000, 10000000, 30000000, 50000000] // Adjust based on your monetary values
 
 const props = defineProps(['modelValue'])
-const emit = defineEmits('update:modelValue')
+const emit = defineEmits(['update:modelValue'])
 
 const selectedFilter = ref('all')
 
