@@ -1,5 +1,5 @@
 <template>
-  <CTable :titles="columns" :data="students.studentsList?.results">
+  <CTable :titles="columns" :data="students?.studentsList?.results">
     <!-- students list row head cells -->
 
     <template #header>
@@ -71,9 +71,7 @@ import { computed, onMounted } from 'vue'
 
 import CPagination from '@/components/Common/CPagination.vue'
 import CTable from '@/components/Common/CTable.vue'
-import { useFetch } from '@/composables/useFetch'
 
-import router from '@/router'
 import { generatePaginationData } from '@/utils'
 import { useStudents } from '@/stores/students'
 
@@ -90,22 +88,22 @@ const paginationValues = computed(() =>
 const totalPage = computed(() => students.studentsCurrentPage * students.paginationCountStudents)
 
 const nextPage = () => {
-  fetchData(students.studentsCurrentPage + 1, students.paginationCountStudents)
+  students.getStudentsList(students.studentsCurrentPage + 1, students.paginationCountStudents)
 }
 
 const prevPage = () => {
-  fetchData(students.studentsCurrentPage - 1, students.paginationCountStudents)
+  students.getStudentsList(students.studentsCurrentPage - 1, students.paginationCountStudents)
 }
 
 const changePagination = (count) => {
   if (count !== '...') {
-    fetchData(count, students.paginationCountStudents)
+    students.getStudentsList(count, students.paginationCountStudents)
   }
 }
 
 const selectPaginationCount = (paginationCountStudents) => {
   students.studentsCurrentPage = 1
-  fetchData(students.studentsCurrentPage, paginationCountStudents, 'force')
+  students.getStudentsList(students.studentsCurrentPage, paginationCountStudents, 'force')
 }
 
 const columns = [
@@ -118,31 +116,7 @@ const columns = [
   { label: 'Amallar', width: '8%', keys: 'actions' }
 ]
 
-const { get, loading } = useFetch()
-
-const fetchData = async (page, page_size, force) => {
-  if (students.studentsList.length === 0 || students.studentsCurrentPage !== page || force) {
-    try {
-      students.studentsCurrentPage = page
-      students.paginationCountStudents = page_size
-      students.studentsList = []
-
-      const response = await get('student-list/', { page: page, page_size: page_size })
-
-      students.studentsList = response
-
-      router.push({ path: `?page=`, query: { page: page, page_size: page_size } })
-
-      // totalPage.value = students.studentsCurrentPage * students.paginationCountStudents
-
-      console.log(response)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-}
-
 onMounted(() => {
-  fetchData(students.studentsCurrentPage, students.paginationCountStudents)
+  students.getStudentsList(students.studentsCurrentPage, students.paginationCountStudents)
 })
 </script>

@@ -6,21 +6,21 @@ import { ref } from 'vue'
 const { get, post } = useFetch()
 
 export const useStudents = defineStore('students', () => {
-  const studentsList = ref([])
-  const studentsCurrentPage = ref(1)
-  const paginationCountStudents = ref(10)
-  const studentDetails = ref({})
+  let studentsList = ref([])
+  let studentsCurrentPage = ref(1)
+  let paginationCountStudents = ref(10)
+  let studentDetails = ref({})
 
   const getStudentsList = async (page, page_size, force) => {
-    if (students.studentsList.length === 0 || students.studentsCurrentPage !== page || force) {
+    if (studentsList.value.length === 0 || studentsCurrentPage.value !== page || force) {
       try {
-        students.studentsCurrentPage = page
-        students.paginationCountStudents = page_size
-        students.studentsList = []
+        studentsCurrentPage.value = page
+        paginationCountStudents.value = page_size
+        studentsList.value = []
 
         const response = await get('student-list/', { page: page, page_size: page_size })
 
-        students.studentsList = response
+        studentsList.value = response
 
         router.push({ path: `?page=`, query: { page: page, page_size: page_size } })
 
