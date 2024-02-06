@@ -53,7 +53,7 @@ import CButton from '@/components/Base/CButton.vue'
 import CInput from '@/components/Base/CInput.vue'
 import CModal from '@/components/Common/CModal.vue'
 import { useFetch } from '@/composables/useFetch'
-import { useDataStore } from '@/stores/data'
+import { useDataStore } from '@/stores'
 
 const store = useDataStore()
 
@@ -116,3 +116,4 @@ onMounted(() => {
   )
 })
 </script>
+@/stores

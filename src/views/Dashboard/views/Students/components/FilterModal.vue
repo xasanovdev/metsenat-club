@@ -47,8 +47,8 @@ import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
 import CModal from '@/components/Common/CModal.vue'
 import { useFetch } from '@/composables/useFetch'
-import { useDataStore } from '@/stores/data'
-import { optionsType } from '@/utils/index'
+import { useDataStore } from '@/stores'
+import { optionsType } from '@/utils'
 
 const store = useDataStore()
 
@@ -113,3 +113,4 @@ const filterData = () => {
   })
 }
 </script>
+@/stores

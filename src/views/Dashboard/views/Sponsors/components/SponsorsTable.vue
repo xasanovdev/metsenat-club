@@ -73,8 +73,8 @@ import CBadge from '@/components/Base/CBadge.vue'
 import CPagination from '@/components/Common/CPagination.vue'
 import CTable from '@/components/Common/CTable.vue'
 
-import { formatDate } from '@/utils/index'
-import { generatePaginationData } from '@/utils/index'
+import { formatDate } from '@/utils'
+import { generatePaginationData } from '@/utils'
 
 import { useSponsors } from '@/stores/sponsors'
 

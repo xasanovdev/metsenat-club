@@ -60,7 +60,7 @@ import CButton from '@/components/Base/CButton.vue'
 import CInput from '@/components/Base/CInput.vue'
 import CTabButton from '@/components/Base/CTabButton.vue'
 import { useModal } from '@/composables/useModal'
-import { useDataStore } from '@/stores/data'
+import { useDataStore } from '@/stores'
 
 import SponsorsTable from './components/SponsorsTable.vue'
 import FilterModal from './components/FilterModal.vue'
@@ -73,3 +73,4 @@ const { modal } = useModal()
 
 const filterModal = modal()
 </script>
+@/stores

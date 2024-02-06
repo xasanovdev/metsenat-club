@@ -45,8 +45,8 @@ import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
 import CModal from '@/components/Common/CModal.vue'
 import CSelect from '@/components/Base/CSelect.vue'
-import { useDataStore } from '@/stores/data'
-import { optionsStatus } from '@/utils/index'
+import { useDataStore } from '@/stores'
+import { optionsStatus } from '@/utils'
 
 const store = useDataStore()
 
@@ -72,3 +72,4 @@ const filterData = () => {
   // closeModal()
 }
 </script>
+@/stores

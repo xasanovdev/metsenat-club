@@ -68,7 +68,7 @@ import CBadge from '@/components/Base/CBadge.vue'
 import CButton from '@/components/Base/CButton.vue'
 import { useFetch } from '@/composables/useFetch'
 import { useModal } from '@/composables/useModal'
-import { useDataStore } from '@/stores/data'
+import { useDataStore } from '@/stores'
 
 import EditSponsorModal from './components/EditSponsorModal.vue'
 
@@ -97,3 +97,4 @@ onMounted(() => {
   fetchData()
 })
 </script>
+@/stores

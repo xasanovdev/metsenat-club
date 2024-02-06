@@ -1,5 +1,9 @@
+import { useFetch } from '@/composables/useFetch'
+import router from '@/router'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+
+const { get, post } = useFetch()
 
 export const useStudents = defineStore('students', () => {
   const studentsList = ref([])
@@ -27,8 +31,34 @@ export const useStudents = defineStore('students', () => {
     }
   }
 
+  const postNewStudent = async (user, instituteList) => {
+    console.log(user, instituteList)
+    try {
+      const response = await post(`student-create/`, {
+        institute: instituteList.value.find((item) => item.name === user?.value?.institute)?.id,
+        full_name: user.value.full_name,
+        phone: user.value.phone,
+        type: user.value.type?.name === 'Bakalavr' ? 1 : 2,
+        contract: user.value.contract
+      })
+
+      user.value = {
+        full_name: '',
+        phone: '',
+        institute: '',
+        type: '',
+        contract: ''
+      }
+
+      router.push({ name: 'Student', params: { id: response.id } })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return {
     studentDetails,
+    postNewStudent,
     studentsCurrentPage,
     studentsList,
     paginationCountStudents,

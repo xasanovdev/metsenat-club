@@ -86,8 +86,8 @@ import CInput from '@/components/Base/CInput.vue'
 import CModal from '@/components/Common/CModal.vue'
 import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
-import { useDataStore } from '@/stores/data'
-import { optionsStatus } from '@/utils/index'
+import { useDataStore } from '@/stores'
+import { optionsStatus } from '@/utils'
 
 const personType = ref('physical')
 
@@ -114,3 +114,4 @@ const updateSponsor = async () => {
   }
 }
 </script>
+@/stores
