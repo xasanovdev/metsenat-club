@@ -27,7 +27,7 @@
 import { ref } from 'vue'
 
 import CButton from '@/components/Base/CButton.vue'
-import CHeader from '@/components/Base/CHeader.vue'
+import CHeader from '@/components/Layout/CHeader.vue'
 import { useModal } from '@/composables/useModal'
 
 import StudenstTable from './components/StudenstTable.vue'

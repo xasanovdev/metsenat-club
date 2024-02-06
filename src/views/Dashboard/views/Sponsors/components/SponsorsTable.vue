@@ -70,8 +70,8 @@
 import { computed, onMounted } from 'vue'
 
 import CBadge from '@/components/Base/CBadge.vue'
-import CPagination from '@/components/Common/CPagination.vue'
-import CTable from '@/components/Common/CTable.vue'
+import CPagination from '@/components/Layout/CPagination.vue'
+import CTable from '@/components/Layout/CTable.vue'
 
 import { formatDate } from '@/utils'
 import { generatePaginationData } from '@/utils'

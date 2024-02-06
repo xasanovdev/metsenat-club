@@ -69,8 +69,8 @@
 <script setup>
 import { computed, onMounted } from 'vue'
 
-import CPagination from '@/components/Common/CPagination.vue'
-import CTable from '@/components/Common/CTable.vue'
+import CPagination from '@/components/Layout/CPagination.vue'
+import CTable from '@/components/Layout/CTable.vue'
 
 import { generatePaginationData } from '@/utils'
 import { useStudents } from '@/stores/students'

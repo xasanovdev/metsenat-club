@@ -25,7 +25,7 @@ import { useDataStore } from '@/stores'
 
 import SponsorsTable from './components/SponsorsTable.vue'
 import FilterModal from './components/FilterModal.vue'
-import CHeader from '@/components/Base/CHeader.vue'
+import CHeader from '@/components/Layout/CHeader.vue'
 
 const search = ref('')
 

@@ -54,7 +54,7 @@ import CTabButton from '@/components/Base/CTabButton.vue'
 import { useDataStore } from '@/stores'
 import { useDashboard } from '@/stores/dashboard'
 
-import CHeader from '@/components/Base/CHeader.vue'
+import CHeader from '@/components/Layout/CHeader.vue'
 
 import MoneyCard from '@/components/Common/MoneyCard.vue'
 

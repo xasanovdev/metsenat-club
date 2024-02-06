@@ -23,7 +23,7 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue'
 import CInput from '@/components/Base/CInput.vue'
-import Validation from '../Common/Validation.vue'
+import Validation from '../Base/Validation.vue'
 
 const { modelValue, labelTitle, id, type, validation, validationText, placeholder } = defineProps([
   'modelValue',

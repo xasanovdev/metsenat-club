@@ -41,7 +41,7 @@
 <script setup>
 import { useSponsors } from '@/stores/sponsors.js'
 import { useStudents } from '@/stores/students.js'
-import CTabButton from './CTabButton.vue'
+import CTabButton from '@/components/Base/CTabButton.vue'
 
 const sponsors = useSponsors()
 const students = useStudents()

@@ -9,13 +9,13 @@ const router = createRouter({
     {
       path: '/auth',
       name: 'Auth',
-      component: () => import('@/views/Auth/Login/LoginView.vue'),
+      component: () => import('@/views/Auth/LoginView.vue'),
       meta: { layout: 'Auth' }
     },
     {
       path: '/dashboard',
       name: 'Dashboard',
-      component: () => import('@/views/Dashboard/views/DashboardView.vue'),
+      component: () => import('@/views/Dashboard/DashboardView.vue'),
       meta: { requiresAuth: true }
     },
 

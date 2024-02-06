@@ -55,7 +55,7 @@ import FormGroup from '@/components/Base/FormGroup.vue'
 import CButton from '@/components/Base/CButton.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, minLength, maxLength } from '@vuelidate/validators'
-import Validation from '@/components/Common/Validation.vue'
+import Validation from '@/components/Base/Validation.vue'
 
 const error = ref(false)
 
