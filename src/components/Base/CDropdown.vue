@@ -9,7 +9,7 @@
         @focus="closeDropdown()"
         :value="searchText"
         @input="updateSearchText"
-        class="w-full border focus:border-[#2E5BFF] justify-between bg-[#F9FAFF] text-left text-[#2E384D] rounded-lg focus:outline-none flex items-center"
+        class="w-full border focus:border-blue-700 justify-between bg-gray-50 text-left text-gray-800 rounded-lg focus:outline-none flex items-center"
         placeholder="Search..."
         :class="[readonly ? 'cursor-pointer' : '', size === 'sm' ? 'p-[5px]' : 'px-4 py-3']"
         :readonly="readonly"
@@ -61,14 +61,7 @@
 </template>
 
 <script setup>
-import {
-  computed,
-  defineEmits,
-  defineProps,
-  onMounted,
-  onUnmounted,
-  ref,
-} from 'vue';
+import { computed, defineEmits, defineProps, onMounted, onUnmounted, ref } from 'vue'
 
 const props = defineProps(['options', 'property', 'modelValue', 'readonly', 'position', 'size'])
 const emit = defineEmits(['update:modelValue'])

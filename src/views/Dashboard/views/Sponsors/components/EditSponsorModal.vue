@@ -8,15 +8,13 @@
           <CButton
             @click.prevent="personType = 'physical'"
             :class="[
-              personType === 'physical' ? 'bg-[#3366FF] text-white' : 'text-[#3366FF] bg-white'
+              personType === 'physical' ? 'bg-blue-700 text-white' : 'text-blue-700 bg-white'
             ]"
             class="flex-1"
             >Jismoniy shaxs</CButton
           >
           <CButton
-            :class="[
-              personType === 'legal' ? 'bg-[#3366FF] text-white' : 'text-[#3366FF] bg-white'
-            ]"
+            :class="[personType === 'legal' ? 'bg-blue-700 text-white' : 'text-blue-700 bg-white']"
             @click.prevent="personType = 'legal'"
             class="flex-1"
           >
@@ -28,7 +26,7 @@
           <div>
             <label>
               {{ sponsor?.full_name }}
-              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">
+              <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium">
                 F.I.Sh. (Familiya Ism Sharif)
               </span>
               <CInput v-model="sponsor.full_name" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
@@ -37,7 +35,7 @@
           <div>
             <label>
               {{ sponsor?.phone }}
-              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium"
+              <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium"
                 >Telefon raqam</span
               >
               <CInput v-model="sponsor.phone" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
@@ -46,7 +44,7 @@
           <div class="col-span-1">
             <label>
               {{ sponsor?.get_status_display }}
-              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Holati</span>
+              <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium">Holati</span>
               <CDropdown
                 v-model="sponsor.get_status_display"
                 property="name"
@@ -58,7 +56,7 @@
           <div v-if="personType === 'legal'">
             <label>
               {{ sponsor?.firm }}
-              <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">
+              <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium">
                 F.I.Sh. (Familiya Ism Sharif)
               </span>
               <CInput v-model="sponsor.firm" placeholder="Abdullayev Abdulla Abdulla o’g’li" />

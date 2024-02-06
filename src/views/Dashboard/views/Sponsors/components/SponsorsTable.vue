@@ -3,7 +3,7 @@
     <!-- sponsors list row head cells -->
 
     <template #header>
-      <ul class="text-[#B1B1B8] text-left flex px-[14px]">
+      <ul class="text-gray-400 text-left flex px-[14px]">
         <li
           v-for="(column, index) in columns"
           :key="index"

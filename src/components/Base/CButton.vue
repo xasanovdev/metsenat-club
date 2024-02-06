@@ -32,9 +32,9 @@ defineProps({
 })
 
 const buttonVariants = {
-  primary: 'hover:bg-light1 bg-[#EDF1FD] text-[#3365FC] hover:bg-opacity-60 px-8',
-  secondary: 'text-white bg-[#3365FC] hover:bg-opacity-60 px-8',
-  danger: 'bg-[#FFECEB] text-[#FF4945] hover:bg-[#FF9797] hover:bg-opacity-60 px-8'
+  primary: 'bg-blue-100 text-blue-700 hover:bg-opacity-60 px-8',
+  secondary: 'text-white bg-blue-700 hover:bg-opacity-60 px-8',
+  danger: 'bg-rose-100 text-red-600 hover:bg-rose-400 hover:bg-opacity-60 px-8'
 }
 
 const buttonSize = {

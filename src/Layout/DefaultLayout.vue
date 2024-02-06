@@ -7,16 +7,16 @@
   />
 
   <!-- Todo: use Tailwind config for colors -->
-  <header class="w-full bg-[#FCFCFC]">
+  <header class="w-full bg-gray-50">
     <div class="w-full bg-white py-3">
       <nav class="container mx-auto flex px-6 justify-between items-center">
         <RouterLink :to="{ name: 'Dashboard' }">
           <img src="/logo.svg" alt="page logo image" />
         </RouterLink>
         <div class="flex items-center gap-4 md:gap-8 lg:gap-10">
-          <div class="bg-[#F1F1F3] gap-4 p-1 rounded-md flex items-center justify-center">
+          <div class="bg-neutral-100 gap-4 p-1 rounded-md flex items-center justify-center">
             <div class="text-slate-900 hidden font-bold sm:inline-block">Ibrohim</div>
-            <div class="bg-[#00AE69] w-8 h-8 flex items-center justify-center rounded-md">
+            <div class="bg-green-400 w-8 h-8 flex items-center justify-center rounded-md">
               <img class="mt-2" src="/user.svg" alt="User image" />
             </div>
           </div>

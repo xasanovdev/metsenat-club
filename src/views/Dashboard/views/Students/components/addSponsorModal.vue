@@ -4,7 +4,7 @@
     <template #body>
       <div>
         <label>
-          <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</span>
+          <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium">OTM</span>
           {{ filterSponsor.sponsor }}
 
           <CDropdown
@@ -18,7 +18,7 @@
 
       <div class="mt-7">
         <label>
-          <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium"
+          <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium"
             >Ajratilingan summa</span
           >
           {{ filterSponsor.summa }}

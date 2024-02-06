@@ -2,7 +2,7 @@
   <div class="relative grid grid-cols-4 gap-3 w-full">
     <div
       class="relative w-full"
-      :class="{ 'bg-[#E0E7FF] border-[#2E5BFF]': selectedFilter === 'all' }"
+      :class="{ 'bg-indigo-200 border-blue-700': selectedFilter === 'all' }"
     >
       <img
         v-if="selectedFilter === 'all'"
@@ -21,7 +21,7 @@
       <label
         for="option-all"
         class="w-full text-sm font-medium h-[52px] rounded-md flex items-center justify-center border-2 cursor-pointer"
-        :class="{ 'bg-[#E0E7FF] border-[#2E5BFF]': selectedFilter === 'all' }"
+        :class="{ 'bg-indigo-200 border-blue-700': selectedFilter === 'all' }"
       >
         All
       </label>
@@ -44,19 +44,19 @@
       <label
         :for="'option-' + option"
         class="w-full text-sm font-medium h-[52px] rounded-md flex items-center justify-center border-2 cursor-pointer"
-        :class="{ 'bg-[#E0E7FF] border-[#2E5BFF]': selectedFilter === option }"
+        :class="{ 'bg-indigo-200 border-blue-700': selectedFilter === option }"
       >
         {{ formatNumber(option) }}
-        <span class="text-[#2E5BFF] ml-[2px]">UZS</span>
+        <span class="text-blue-700 ml-[2px]">UZS</span>
       </label>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-import { formatNumber } from '@/utils/formatNumber';
+import { formatNumber } from '@/utils/formatNumber'
 
 const filterOptions = [1000000, 5000000, 7000000, 10000000, 30000000, 50000000] // Adjust based on your monetary values
 
@@ -65,11 +65,9 @@ const emit = defineEmits('update:modelValue')
 
 const selectedFilter = ref('all')
 
-
 const filterData = () => {
   emit('update:modelValue', selectedFilter.value)
 }
-
 </script>
 
 <style scoped>

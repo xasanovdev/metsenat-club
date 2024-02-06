@@ -17,7 +17,7 @@
       <button
         class="rounded-md w-8 h-8 border-2 duration-200 flex items-center justify-center"
         :class="[
-          currentPage !== 1 ? 'border-[#E0E7FF] bg-white hover:border-[#3366ff]' : 'bg-[#DFE3E8]'
+          currentPage !== 1 ? 'border-indigo-200 bg-white hover:border-blue-700' : 'bg-gray-50'
         ]"
         @click="prevPage"
         :disabled="currentPage === 1"
@@ -27,7 +27,7 @@
       <button
         v-for="(item, index) in paginationValues"
         :key="index"
-        :class="[item === currentPage ? 'border-[#3366ff] text-[#3366ff]' : '']"
+        :class="[item === currentPage ? 'border-blue-700 text-blue-700' : '']"
         class="rounded-md w-8 h-8 bg-white border-2 duration-200 flex items-center justify-center"
         @click="changePagination(item)"
       >
@@ -35,7 +35,7 @@
       </button>
       <button
         :class="[
-          dataList < totalPage ? 'bg-[#DFE3E8]' : 'border-[#E0E7FF] bg-white hover:border-[#3366ff]'
+          dataList < totalPage ? 'bg-gray-50' : 'border-indigo-200 bg-white hover:border-blue-700'
         ]"
         :disabled="dataList < totalPage"
         class="rounded-md w-8 h-8 border-2 duration-200 flex items-center justify-center"

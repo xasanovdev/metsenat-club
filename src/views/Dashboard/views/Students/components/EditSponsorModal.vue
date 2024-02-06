@@ -11,7 +11,7 @@
         <div class="grid grid-cols-1 gap-x-7 gap-y-[50px]">
           <div>
             <label>
-              <p class="text-[12px] mt-7 text-[#1D1D1F] mb-2 uppercase font-semibold">
+              <p class="text-[12px] mt-7 text-neutral-800 mb-2 uppercase font-semibold">
                 Ajratilingan summa
               </p>
               <CInput

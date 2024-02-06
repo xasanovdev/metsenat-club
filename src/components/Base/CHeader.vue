@@ -1,5 +1,5 @@
 <template>
-  <div class="py-6 w-full flex items-center bg-[#FCFCFC] justify-center">
+  <div class="py-6 w-full flex items-center bg-gray-50 justify-center">
     <div
       class="container w-full mx-auto flex flex-col gap-4 md:flex-row px-6 justify-between items-center"
     >

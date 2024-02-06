@@ -1,7 +1,7 @@
 <!-- Input.vue -->
 <template>
   <input
-    class="py-3 px-4 w-full border border-[#E0E7FF] duration-200 focus:border-[#3365FC] justify-between bg-[#F9FAFF] text-left text-[#2E384D] rounded-md focus:outline-none flex items-center"
+    class="py-3 px-4 w-full border border-indigo-200 duration-200 focus:border-blue-700 justify-between bg-gray-50 text-left text-gray-800 rounded-md focus:outline-none flex items-center"
     :value="modelValue"
     @input="updateModelValue"
     :type="type"

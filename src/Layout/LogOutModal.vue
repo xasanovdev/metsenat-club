@@ -5,8 +5,7 @@
       <p class="text-lg">Metsenat.uz platformasidan chiqib ketishga rozimisiz ?</p>
     </template>
     <template #footer>
-      <CButton @click="const { clearToken, logOut } = useAuthStore()
-" variant="danger"> Chiqib ketish </CButton>
+      <CButton @click="logOut" variant="danger"> Chiqib ketish </CButton>
 
       <CButton @click="childFunction" variant="primary"> Ortga qaytish </CButton>
     </template>
@@ -21,9 +20,7 @@ import { useAuthStore } from '@/stores/auth'
 
 import { ref } from 'vue'
 
-import router from '@/router'
-
-const { clearToken, logOut } = useAuthStore()
+const { logOut } = useAuthStore()
 
 const childFunction = ref(null)
 

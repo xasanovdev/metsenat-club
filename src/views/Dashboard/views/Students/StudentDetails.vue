@@ -1,6 +1,6 @@
 <template>
   <template v-if="loading">
-    <article class="w-full py-[30px] bg-[#FDFDFD]">
+    <article class="w-full py-[30px] bg-slate-50">
       <div class="container mx-auto px-6">loading...</div>
     </article>
   </template>
@@ -27,24 +27,24 @@
       :closeModal="addSponsorModal.closeModal"
     ></AddSponsorModal>
 
-    <header class="w-full py-[30px] bg-[#FDFDFD]">
+    <header class="w-full py-[30px] bg-slate-50">
       <div class="container mx-auto px-6">
         <div class="w-full flex items-center gap-4">
           <RouterLink :to="{ name: 'Students' }" class="cursor-pointer">
             <img src="/back.svg" alt="arrow left" />
           </RouterLink>
-          <p class="text-[#28293D] text-2xl font-bold">{{ data?.full_name }}</p>
+          <p class="text-slate-900 text-2xl font-bold">{{ data?.full_name }}</p>
           <CBadge :status="data?.get_status_display"></CBadge>
         </div>
       </div>
     </header>
-    <div class="w-full h-full p-[32px] bg-[#F5F5F7] flex flex-col justify-between">
+    <div class="w-full h-full p-[32px] bg-gray-50 flex flex-col justify-between">
       <div>
         <article class="max-w-[793px] w-full bg-white p-8 mx-auto rounded-xl">
           <div
             class="flex items-start sm:items-center flex-col gap-8 sm:flex-row sm:gap-0 justify-between"
           >
-            <p class="text-[#28293D] text-2xl font-bold">Talaba haqida</p>
+            <p class="text-slate-900 text-2xl font-bold">Talaba haqida</p>
             <CButton @click="editStudentModal.openModal" class="px-8" variant="primary">
               <span class="flex items-center justify-center gap-[10px]">
                 Tahrirlash <img src="/pen.svg" alt="pen icon for editing" />
@@ -53,31 +53,31 @@
           </div>
           <!-- Divider -->
           <div class="w-full flex items-center justify-start mt-6">
-            <div class="absoulte w-full h-[1px] bg-[#E4E8F0]"></div>
+            <div class="absoulte w-full h-[1px] bg-blue-50"></div>
             <p
-              class="absolute bg-[#E5EBFF] py-[2px] px-[11px] rounded-md text-[#3366FF] font-medium text-[12px]"
+              class="absolute bg-] py-[2px] px-[11px] rounded-md text-blue-700 font-medium text-[12px]"
             >
               Asosiy ma’lumotlar
             </p>
           </div>
 
           <div class="flex items-center gap-5 mt-8">
-            <div class="bg-[#EAECF0] w-16 h-16 flex items-center justify-center rounded-md">
+            <div class="bg-slate-50 w-16 h-16 flex items-center justify-center rounded-md">
               <img class="p-4" src="/person.svg" alt="default person image" />
             </div>
-            <p class="text-[#212121] max-w-[163px] font-bold">{{ data?.full_name }}</p>
+            <p class="text-zinc-800 max-w-[163px] font-bold">{{ data?.full_name }}</p>
           </div>
           <div class="flex w-full flex-col gap-8 sm:flex-row sm:gap-0 mt-6 justify-between">
             <div class="flex flex-col items-start gap-3">
-              <p class="uppercase text-[#B5B5C3] text-sm">telefon raqam</p>
-              <p class="text-[#212121] font-medium">{{ data?.phone }}</p>
+              <p class="uppercase text-indigo-100 text-sm">telefon raqam</p>
+              <p class="text-zinc-800 font-medium">{{ data?.phone }}</p>
             </div>
           </div>
           <!-- Divider -->
           <div class="w-full flex items-center justify-start mt-6">
-            <div class="absoulte w-full h-[1px] bg-[#E4E8F0]"></div>
+            <div class="absoulte w-full h-[1px] bg-blue-50"></div>
             <p
-              class="absolute bg-[#E5EBFF] py-[2px] px-[11px] rounded-md text-[#3366FF] font-medium text-[12px]"
+              class="absolute bg-blue-100 py-[2px] px-[11px] rounded-md text-blue-700 font-medium text-[12px]"
             >
               O‘qish joyi haqida ma’lumot
             </p>
@@ -85,22 +85,22 @@
 
           <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-6 mt-8">
             <div class="flex flex-col items-start gap-2">
-              <p class="uppercase text-[#B5B5C3] text-sm">OTM</p>
-              <p class="text-[#212121] font-medium">{{ data?.institute.name }}</p>
+              <p class="uppercase text-indigo-100 text-sm">OTM</p>
+              <p class="text-zinc-800 font-medium">{{ data?.institute.name }}</p>
             </div>
             <div class="flex flex-col items-start gap-2">
-              <p class="uppercase text-[#B5B5C3] text-sm">Talabalik turi</p>
-              <p class="text-[#212121] font-medium">
+              <p class="uppercase text-indigo-100 text-sm">Talabalik turi</p>
+              <p class="text-zinc-800 font-medium">
                 {{ data?.type === 1 ? 'Bakalavr' : 'Magistr' }}
               </p>
             </div>
             <div class="flex flex-col items-start gap-2">
-              <p class="uppercase text-[#B5B5C3] text-sm">Ajratilingan summa</p>
-              <p class="text-[#212121] font-medium">{{ data?.given }}</p>
+              <p class="uppercase text-indigo-100 text-sm">Ajratilingan summa</p>
+              <p class="text-zinc-800 font-medium">{{ data?.given }}</p>
             </div>
             <div class="flex flex-col items-start gap-2">
-              <p class="uppercase text-[#B5B5C3] text-sm">Kontrakt miqdori</p>
-              <p class="text-[#212121] font-medium">{{ data?.contract }}</p>
+              <p class="uppercase text-indigo-100 text-sm">Kontrakt miqdori</p>
+              <p class="text-zinc-800 font-medium">{{ data?.contract }}</p>
             </div>
           </div>
         </article>
@@ -109,7 +109,7 @@
           <div
             class="flex items-start sm:items-center flex-col gap-8 sm:flex-row sm:gap-0 justify-between"
           >
-            <p class="text-[#28293D] text-2xl font-bold">Talabaga homiylar</p>
+            <p class="text-slate-900 text-2xl font-bold">Talabaga homiylar</p>
             <CButton @click="addSponsorModal.openModal" class="px-8" variant="primary">
               <span class="flex items-center justify-center gap-[10px]">
                 Homiy qo‘shish
@@ -119,9 +119,9 @@
           </div>
           <!-- Divider -->
           <div class="w-full flex items-center justify-start mt-6">
-            <div class="absoulte w-full h-[1px] bg-[#E4E8F0]"></div>
+            <div class="absoulte w-full h-[1px] bg-blue-50"></div>
             <p
-              class="absolute bg-[#E5EBFF] py-[2px] px-[11px] rounded-md text-[#3366FF] font-medium text-[12px]"
+              class="absolute bg-blue-100 py-[2px] px-[11px] rounded-md text-blue-700 font-medium text-[12px]"
             >
               Asosiy ma’lumotlar
             </p>
@@ -141,14 +141,12 @@
 
               <!-- Table Rows -->
               <li class="mb-2" v-for="(sponsor, index) in sponsors?.sponsors" :key="sponsor.id">
-                <div
-                  class="flex bg-[#FBFBFC] border border-[#B2B7C1] rounded-lg px-[14px] py-[22px]"
-                >
+                <div class="flex bg-gray-50 border border-slate-300 rounded-lg px-[14px] py-[22px]">
                   <span class="w-1/12 font-bold">{{ index + 1 }}</span>
                   <span class="w-6/12 text-left pl-4">{{ sponsor?.sponsor?.full_name }}</span>
                   <span class="w-4/12 text-center"
                     >{{ formatNumber(sponsor?.summa) }}
-                    <span class="text-[#B2B7C1]">UZS</span></span
+                    <span class="text-slate-300">UZS</span></span
                   >
                   <span class="w-1/12 flex items-center justify-center">
                     <button @click="getEditSponsorModalData(sponsor)">

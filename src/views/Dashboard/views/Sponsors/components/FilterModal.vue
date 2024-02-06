@@ -3,7 +3,7 @@
     <template #title>Tahrirlash</template>
     <template #body>
       <div class="flex flex-col items-start gap-4">
-        <span class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide"
+        <span class="text-[12px] text-neutral-800 font-medium uppercase tracking-wide"
           >Ariza holati</span
         >
         {{ filterSponsor.status }}
@@ -15,7 +15,7 @@
         ></CDropdown>
       </div>
       <div class="flex flex-col items-start gap-4 mt-7">
-        <span class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide"
+        <span class="text-[12px] text-neutral-800 font-medium uppercase tracking-wide"
           >Ariza holati</span
         >
         {{ filterSponsor.money }}

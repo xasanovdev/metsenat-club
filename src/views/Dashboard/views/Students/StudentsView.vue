@@ -6,7 +6,7 @@
     :closeModal="filterModal.closeModal"
   />
 
-  <div class="py-6 w-full flex items-center justify-center bg-[#FCFCFC]">
+  <div class="py-6 w-full flex items-center justify-center bg-gray-50">
     <div
       class="container w-full mx-auto flex flex-col gap-4 md:flex-row px-6 justify-between items-center"
     >
@@ -47,7 +47,7 @@
     </div>
   </div>
 
-  <div class="bg-[#F5F5F7] pb-20">
+  <div class="bg-gray-50 pb-20">
     <div class="container mx-auto px-6 overflow-x-auto">
       <RouterLink class="w-full" to="/new-student">
         <CButton variant="secondary">

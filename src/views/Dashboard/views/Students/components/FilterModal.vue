@@ -4,7 +4,7 @@
     <template #title>Tahrirlash</template>
     <template #body>
       <div class="flex flex-col items-start gap-4">
-        <span class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide"
+        <span class="text-[12px] text-neutral-800 font-medium uppercase tracking-wide"
           >Talabalik turi</span
         >
         {{ filterStudent.type }}
@@ -12,7 +12,7 @@
         <CDropdown v-model="filterStudent.type" property="name" :options="optionsType"></CDropdown>
       </div>
       <div class="flex flex-col items-start gap-4 mt-7">
-        <span class="text-[12px] text-[#1D1D1F] font-medium uppercase tracking-wide">OTm</span>
+        <span class="text-[12px] text-neutral-800 font-medium uppercase tracking-wide">OTm</span>
         {{ filterStudent.institute }}
 
         <CDropdown
