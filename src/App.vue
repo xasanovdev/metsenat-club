@@ -9,8 +9,8 @@ import { computed } from 'vue'
 
 import { useRoute } from 'vue-router'
 
-import EmptyLayout from '@/Layout/EmptyLayout.vue'
-import DefaultLayout from '@/Layout/DefaultLayout.vue'
+import EmptyLayout from '@/layout/EmptyLayout.vue'
+import DefaultLayout from '@/layout/DefaultLayout.vue'
 
 const route = useRoute()
 
