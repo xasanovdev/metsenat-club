@@ -32,9 +32,8 @@
 </template>
 
 <script setup>
+import LogOutModal from '@/components/LogOutModal.vue'
 import { useModal } from '@/composables/useModal'
-
-import LogOutModal from './LogOutModal.vue'
 
 const { modal } = useModal()
 
