@@ -49,8 +49,6 @@
 <script setup>
 import { reactive, ref } from 'vue'
 
-import { useFetch } from '@/composables/useFetch'
-import router from '@/router'
 import { useAuthStore } from '@/stores/auth'
 
 import FormGroup from '@/components/Base/FormGroup.vue'
@@ -59,13 +57,11 @@ import useVuelidate from '@vuelidate/core'
 import { required, minLength, maxLength } from '@vuelidate/validators'
 import Validation from '@/components/Common/Validation.vue'
 
-const { post } = useFetch()
-
 const error = ref(false)
 
 const loading = ref(false)
 
-const authStore = useAuthStore()
+const auth = useAuthStore()
 
 const credentials = reactive({
   username: '',
@@ -79,8 +75,6 @@ const rules = {
 
 const $v = useVuelidate(rules, credentials)
 
-console.log($v.value)
-
 const handleLogin = async () => {
   const result = await $v.value.$validate()
   console.log(result)
@@ -89,27 +83,6 @@ const handleLogin = async () => {
     return $v
   }
 
-  try {
-    loading.value = true
-    const data = await post('auth/login/', {
-      username: credentials.username,
-      password: credentials.password
-    })
-
-    if (data.access && data.refresh) {
-      console.log(data)
-      authStore.setToken(data)
-      router.push({ name: 'Dashboard' })
-    }
-
-    if (data.detail) {
-      console.log(data)
-      error.value = data?.detail
-    }
-  } catch (error) {
-    console.error('Login error', error.message)
-  } finally {
-    loading.value = false
-  }
+  await auth.login(credentials, loading)
 }
 </script>
