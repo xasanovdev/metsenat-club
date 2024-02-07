@@ -14,18 +14,21 @@ export const useSponsors = defineStore('sponsors', () => {
     details: {}
   })
 
+  let loading = ref(false)
+
   const getSponsorsList = async (page, page_size, force) => {
     if (sponsors.list.length === 0 || force) {
       try {
+        loading.value = true
+
         await get('sponsor-list/', { page: page, page_size: page_size }).then((res) => {
           sponsors.list = []
           sponsors.sponsorsCount = res.count
           sponsors.list = res.results
           sponsors.currentPage = page
           sponsors.count = page_size
-
-          router.push({ path: `?page=`, query: { page: page, page_size: page_size } })
         })
+        loading.value = false
       } catch (error) {
         console.log(error)
       }
@@ -43,6 +46,7 @@ export const useSponsors = defineStore('sponsors', () => {
 
   return {
     sponsors,
+    loading,
     getSponsorDetails,
     getSponsorsList
   }
