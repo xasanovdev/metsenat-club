@@ -33,7 +33,7 @@
 
       <div class="flex w-full items-center justify-end gap-4 md:gap-5">
         <CInput v-model="search" placeholder="Qidirish" class="md:max-w-[284px] py-[15px] w-full" />
-        <CButton variant="primary" class="px-8">
+        <CButton @click="filterModal.openModal" variant="primary" class="px-8 max-w-32">
           <span class="flex items-center justify-center gap-[10px]">
             Filter
             <img src="/filter.svg" alt="filter icon" />
@@ -49,19 +49,28 @@
     :closeModalOverlay="logOutModal.closeModalOverlay"
     :closeModal="logOutModal.closeModal"
   />
+  <FilterModal
+    v-show="filterModal.modalValue"
+    :modalValue="filterModal.modalValue"
+    :closeModalOverlay="filterModal.closeModalOverlay"
+    :closeModal="filterModal.closeModal"
+  />
 </template>
 
 <script setup>
 import Tab from '@/components/Base/Tab.vue'
 import CButton from '@/components/Base/CButton.vue'
 import CInput from '@/components/Base/CInput.vue'
+import FilterModal from '@/components/Base/FilterModal.vue'
 
 import LogOutModal from '@/components/LogOutModal.vue'
 import { useModal } from '@/composables/useModal'
 
-const { modal } = useModal()
+const { modal, modals } = useModal()
 
+console.log('Modals::::::::::::::', modals.value)
 const logOutModal = modal()
+const filterModal = modal()
 
 defineProps(['variant'])
 

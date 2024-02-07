@@ -80,8 +80,6 @@ const props = defineProps([
 ])
 const emit = defineEmits(['update:modelValue'])
 
-console.log(props)
-
 const isDropdownOpen = ref(false)
 const selectedOption = ref(props?.options[0] || {})
 const searchText = ref(props.modelValue || '')

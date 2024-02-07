@@ -17,7 +17,6 @@ export const useDashboard = defineStore('dashboard', () => {
 
     await get('dashboard/')
       .then((response) => {
-        console.log(response)
         statisticsList.value = response
       })
       .catch((error) => {

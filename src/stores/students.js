@@ -22,8 +22,6 @@ export const useStudents = defineStore('students', () => {
   })
 
   const getStudentsList = async (page, page_size, force) => {
-    console.log(page, page_size, force)
-
     if (students.list.length === 0 || students.currentPage !== page || force) {
       try {
         const response = await get('student-list/', { page: page, page_size: page_size })
@@ -43,7 +41,6 @@ export const useStudents = defineStore('students', () => {
   }
 
   const postNewStudent = async (user, instituteList) => {
-    console.log(user.value, instituteList.value)
     try {
       const response = await post(`student-create/`, {
         institute: instituteList.value.find((item) => item.name === user?.value?.institute)?.id,
@@ -70,7 +67,7 @@ export const useStudents = defineStore('students', () => {
   const getStudentDetails = async (pageId) => {
     try {
       const details = await get(`student-detail/${pageId}`)
-      console.log(details)
+
       students.details = details
     } catch (error) {
       console.error('Error fetching data:', error)
@@ -80,7 +77,6 @@ export const useStudents = defineStore('students', () => {
     try {
       const sponsors = await get(`student-sponsor/${pageId}/`)
 
-      console.log(sponsors)
       students.sponsors = sponsors.sponsors
     } catch (error) {
       console.error(error)

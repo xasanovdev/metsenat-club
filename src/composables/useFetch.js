@@ -30,7 +30,7 @@ export const useFetch = () => {
   const get = (url, params = {}) => {
     const queryParams = new URLSearchParams(params).toString()
     const fullUrl = queryParams ? `${url}?${queryParams}` : url
-    console.log(fullUrl)
+
     return axios(fullUrl)
   }
 
