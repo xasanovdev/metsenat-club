@@ -24,16 +24,14 @@ export const useStudents = defineStore('students', () => {
   const getStudentsList = async (page, page_size, force) => {
     if (students.list.length === 0 || force) {
       try {
-        const response = await get('student-list/', { page: page, page_size: page_size })
-        students.currentPage = page
-        students.count = page_size
-        students.list = []
-        students.studentCount = response.count
-        students.list = response.results
+        await get('student-list/', { page: page, page_size: page_size }).then((response) => {
+          students.currentPage = page
+          students.count = page_size
+          students.list = []
+          students.studentCount = response.count
+          students.list = response.results
+        })
 
-        router.push({ path: `?page=`, query: { page: page, page_size: page_size } })
-
-        console.log(response)
       } catch (error) {
         console.log(error)
       }

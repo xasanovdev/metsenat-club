@@ -1,79 +1,95 @@
 <template>
-  <CTable :titles="columns" :data="students?.list">
-    <!-- students list row head cells -->
+  <template v-if="loading"><div>Loading...</div></template>
+  <template v-else>
+    <CTable :titles="columns" :data="students?.list">
+      <!-- students list row head cells -->
 
-    <template #header>
-      <ul class="text-gray-400 gap-2 text-left flex px-8">
-        <li
-          v-for="(column, index) in columns"
-          :key="index"
-          :class="`text-center ${index === 0 || index === columns.length - 1 ? 'w-12' : 'flex-1'}`"
-        >
-          {{ column.label }}
-        </li>
-      </ul>
-    </template>
+      <template #header>
+        <ul class="text-gray-400 gap-2 text-left flex px-8">
+          <li
+            v-for="(column, index) in columns"
+            :key="index"
+            :class="`text-center ${index === 0 || index === columns.length - 1 ? 'w-12' : 'flex-1'}`"
+          >
+            {{ column.label }}
+          </li>
+        </ul>
+      </template>
 
-    <!-- Content for the default scoped slot (dynamic content for each item) -->
+      <!-- Content for the default scoped slot (dynamic content for each item) -->
 
-    <template v-slot:index="{ item }">
-      {{ item.id }}
-    </template>
-    <template v-slot:full_name="{ item }">
-      {{ item.full_name }}
-    </template>
-    <template v-slot:type="{ item }">
-      {{ item.type === 1 ? 'Bakalavr' : 'Magistr' }}
-    </template>
+      <template v-slot:index="{ item }">
+        {{ item.id }}
+      </template>
+      <template v-slot:full_name="{ item }">
+        {{ item.full_name }}
+      </template>
+      <template v-slot:type="{ item }">
+        {{ item.type === 1 ? 'Bakalavr' : 'Magistr' }}
+      </template>
 
-    <template v-slot:given="{ item }">
-      {{ item.given }}
-    </template>
+      <template v-slot:given="{ item }">
+        {{ item.given }}
+      </template>
 
-    <template v-slot:contract="{ item }">
-      {{ item.contract }}
-    </template>
+      <template v-slot:contract="{ item }">
+        {{ item.contract }}
+      </template>
 
-    <template v-slot:actions="{ item }">
-      <RouterLink class="text-center" :to="{ name: 'Student', params: { id: item.id } }">
-        <img class="mx-auto" src="/eye.svg" alt="eye icon" />
-      </RouterLink>
-    </template>
+      <template v-slot:actions="{ item }">
+        <RouterLink class="text-center" :to="{ name: 'Student', params: { id: item.id } }">
+          <img class="mx-auto" src="/eye.svg" alt="eye icon" />
+        </RouterLink>
+      </template>
 
-    <template v-slot:institute="{ item }">{{ item.institute.name }}</template>
-  </CTable>
+      <template v-slot:institute="{ item }">{{ item.institute.name }}</template>
+    </CTable>
 
-  <div class="flex items-center justify-between pb-4">
-    <div>
-      {{ students.studentCount }} tadan {{ (students.currentPage - 1) * students.count }}-{{
-        students.currentPage * students.count
-      }}
-      ko'rsatilmoqda
+    <div class="flex items-center justify-between pb-4">
+      <div>
+        {{ students.studentCount }} tadan {{ (students.currentPage - 1) * students.count }}-{{
+          students.currentPage * students.count
+        }}
+        ko'rsatilmoqda
+      </div>
+      <CPagination
+        @nextPage="nextPage"
+        @prevPage="prevPage"
+        @changePagination="changePagination"
+        @selectPaginationCount="selectPaginationCount"
+        :paginationValues="paginationValues"
+        :totalPage="totalPage"
+        :dataList="students.studentCount"
+        :currentPage="students.currentPage"
+        :paginationCount="students.count"
+      />
     </div>
-    <CPagination
-      @nextPage="nextPage"
-      @prevPage="prevPage"
-      @changePagination="changePagination"
-      @selectPaginationCount="selectPaginationCount"
-      :paginationValues="paginationValues"
-      :totalPage="totalPage"
-      :dataList="students.studentCount"
-      :currentPage="students.currentPage"
-      :paginationCount="students.count"
-    />
-  </div>
+  </template>
 </template>
 
 <script setup>
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 import CPagination from '@/components/Layout/CPagination.vue'
 import CTable from '@/components/Base/CTable.vue'
 
 import { generatePaginationData } from '@/utils'
 import { useStudents } from '@/stores/students'
+import router from '@/router'
 
 const { students, getStudentsList } = useStudents()
+
+let loading = ref(false)
+
+const getStudentsListData = async (currentPage, count, force) => {
+  loading.value = true
+
+  await getStudentsList(currentPage, count, force)
+
+  router.push({ path: `?page=`, query: { page: currentPage, page_size: count } })
+
+  loading.value = false
+}
 
 const paginationValues = computed(() =>
   generatePaginationData(students.currentPage, students.studentCount, students.count)
@@ -82,22 +98,22 @@ const paginationValues = computed(() =>
 const totalPage = computed(() => students.currentPage * students.count)
 
 const nextPage = () => {
-  getStudentsList(students.currentPage + 1, students.count, 'force')
+  getStudentsListData(students.currentPage + 1, students.count, 'force')
 }
 
 const prevPage = () => {
-  getStudentsList(students.currentPage - 1, students.count, 'force')
+  getStudentsListData(students.currentPage - 1, students.count, 'force')
 }
 
 const changePagination = (count) => {
   if (count !== '...') {
-    getStudentsList(count, students.count, 'force')
+    getStudentsListData(count, students.count, 'force')
   }
 }
 
 const selectPaginationCount = (count) => {
   students.currentPage = 1
-  getStudentsList(students.currentPage, count, 'force')
+  getStudentsListData(students.currentPage, count, 'force')
 }
 
 const columns = [
@@ -111,6 +127,6 @@ const columns = [
 ]
 
 onMounted(async () => {
-  await getStudentsList(students.currentPage, students.count)
+  await getStudentsListData(students.currentPage, students.count)
 })
 </script>

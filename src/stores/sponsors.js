@@ -37,8 +37,7 @@ export const useSponsors = defineStore('sponsors', () => {
 
   const getSponsorDetails = async (id) => {
     try {
-      const response = await get(`sponsor-detail/${id}`)
-      sponsors.details = response
+      await get(`sponsor-detail/${id}`).then((response) => (sponsors.details = response))
     } catch (error) {
       console.error('Error fetching data:', error)
     }
