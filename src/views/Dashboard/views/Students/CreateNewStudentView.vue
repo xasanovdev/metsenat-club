@@ -100,6 +100,7 @@ import useVuelidate from '@vuelidate/core'
 import Validation from '@/components/Base/Validation.vue'
 
 import { required, minLength, maxLength } from '@vuelidate/validators'
+import router from '@/router'
 
 const store = useDataStore()
 const students = useStudents()
@@ -136,6 +137,20 @@ const createNewStudent = async () => {
     return $v
   }
 
-  await students.postNewStudent(user, instituteList)
+  await students.postNewStudent({
+    institute: instituteList.value.find((item) => item.name === user?.value?.institute)?.id,
+    full_name: user.value.full_name,
+    phone: user.value.phone,
+    type: user.value.type?.name === 'Bakalavr' ? 1 : 2,
+    contract: user.value.contract
+  })
+
+  user.value = {
+    full_name: '',
+    phone: '',
+    institute: '',
+    type: '',
+    contract: ''
+  }
 }
 </script>

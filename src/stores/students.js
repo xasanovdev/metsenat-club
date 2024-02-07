@@ -31,32 +31,17 @@ export const useStudents = defineStore('students', () => {
           students.studentCount = response.count
           students.list = response.results
         })
-
       } catch (error) {
         console.log(error)
       }
     }
   }
 
-  const postNewStudent = async (user, instituteList) => {
+  const postNewStudent = async (user) => {
     try {
-      const response = await post(`student-create/`, {
-        institute: instituteList.value.find((item) => item.name === user?.value?.institute)?.id,
-        full_name: user.value.full_name,
-        phone: user.value.phone,
-        type: user.value.type?.name === 'Bakalavr' ? 1 : 2,
-        contract: user.value.contract
-      })
-
-      user.value = {
-        full_name: '',
-        phone: '',
-        institute: '',
-        type: '',
-        contract: ''
-      }
-
-      router.push({ name: 'Student', params: { id: response.id } })
+      await post(`student-create/`, user).then((response) =>
+        router.push({ name: 'Student', params: { id: response.id } })
+      )
     } catch (error) {
       console.log(error)
     }
@@ -81,29 +66,9 @@ export const useStudents = defineStore('students', () => {
     }
   }
 
-  const updateStudentDetails = async (studentData, selectedInstitute, close, errors) => {
+  const updateStudentDetails = async (studentData) => {
     try {
-      const response = await put(`student-update/${studentData.value.id}/`, {
-        id: studentData.value.id,
-        institute: selectedInstitute.value?.id,
-        full_name: studentData.value.full_name,
-        phone: studentData.value.phone,
-        type: studentData.value.type?.name === 'Bakalavr' ? 1 : 2,
-        contract: studentData.value.contract
-      })
-
-      if (
-        Array.isArray(response.full_name) ||
-        Array.isArray(response.contract) ||
-        Array.isArray(response.phone) ||
-        Array.isArray(response.institute)
-      ) {
-        errors.value = response
-      } else {
-        close.value()
-
-        errors.value = null
-      }
+      await put(`student-update/${studentData.value.id}/`, studentData)
     } catch (error) {
       console.error('Error fetching user:', error)
     }

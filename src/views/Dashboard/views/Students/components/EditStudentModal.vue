@@ -79,8 +79,6 @@ const emit = defineEmits(['getStudentDetails'])
 
 const studentData = ref([])
 
-const errors = ref(null)
-
 const close = ref(null)
 
 const setClose = (func) => {
@@ -98,13 +96,9 @@ onMounted(async () => {
 
   instituteList.value = store.instituteList
 
-  console.log(instituteList.value)
-
   console.log(students.students)
 
   studentData.value = { ...students?.students?.details }
-
-  console.log(studentData.value)
 })
 
 const rules = {
@@ -116,12 +110,6 @@ const rules = {
 
 const $v = useVuelidate(rules, studentData)
 
-const selectedInstitute = computed(() => {
-  return instituteList.value.find(
-    (item) => item.name.trim() === studentData.value.institute?.name.trim()
-  )
-})
-
 const updateStudent = async () => {
   const result = await $v.value.$validate()
   console.log('validation result', $v.value)
@@ -129,7 +117,18 @@ const updateStudent = async () => {
   if (!result) {
     return $v
   }
-  await students.updateStudentDetails(studentData, selectedInstitute, close, errors)
+  await students.updateStudentDetails({
+    id: studentData.value.id,
+    institute: instituteList.value.find(
+      (item) => item.name.trim() === studentData.value.institute?.name.trim()
+    ),
+    full_name: studentData.value.full_name,
+    phone: studentData.value.phone,
+    type: studentData.value.type?.name === 'Bakalavr' ? 1 : 2,
+    contract: studentData.value.contract
+  })
+
+  close.value()
   emit('getStudentDetails')
 }
 </script>
