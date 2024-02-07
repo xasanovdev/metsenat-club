@@ -9,12 +9,14 @@ import router from './router'
 
 import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
+import { Mask } from 'maska'
 
 const app = createApp(App)
 const pinia = createPinia()
 
-//use it
 app.use(Toast)
+
+app.use.apply(Mask)
 
 app.use(pinia)
 app.use(router)

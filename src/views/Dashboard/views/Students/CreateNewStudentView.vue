@@ -32,7 +32,7 @@
           type="text"
           placeholder="Telelefon raqamingizni kiriting..."
           :validation="$v.phone.$error"
-          validationText="Contract sum"
+          validationText="Phone"
           v-model="user.phone"
         />
 
@@ -60,7 +60,7 @@
           type="text"
           placeholder="Kontrak summangizni kiriting..."
           :validation="$v.contract.$error"
-          validationText="Phone"
+          validationText="Contract"
           v-model="user.contract"
         />
       </div>

@@ -13,6 +13,7 @@
       :type="type"
       :placeholder="placeholder"
       :isValid="validation"
+      :title="validationText"
       @update:modelValue="updateModelValue"
     />
 

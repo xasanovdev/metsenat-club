@@ -4,7 +4,8 @@
     class="py-3 px-4 w-full border border-indigo-200 duration-200 focus:border-blue-700 justify-between bg-gray-50 text-left text-gray-800 rounded-md focus:outline-none flex items-center"
     :value="modelValue"
     @input="updateModelValue"
-    :type="type"
+    v-maska
+    :data-maska="title === 'Phone' ? '+998 (##) ###-##-##' : ''"
     :id="id"
     :placeholder="placeholder"
     :class="{
@@ -14,12 +15,15 @@
 </template>
 
 <script setup>
+import { vMaska } from 'maska'
+
 let { modelValue, type, placeholder, id } = defineProps([
   'modelValue',
   'type',
   'id',
   'placeholder',
-  'isValid'
+  'isValid',
+  'title'
 ])
 
 const emit = defineEmits(['update:modelValue'])
