@@ -10,12 +10,11 @@
       <li
         v-for="(item, index) in data"
         :key="index"
-        class="bg-white w-full py-[22px] px-[14px] rounded-lg"
+        class="bg-white w-full py-[22px] px-8 rounded-lg"
       >
-        <ul class="flex w-full items-center justify-between">
+        <ul class="flex w-full items-center gap-2 justify-between">
           <li
-            class="text-center"
-            :class="`w-[${header.width}]`"
+            :class="`text-center ${headerId === 0 || headerId === titles.length - 1 ? 'w-12' : 'flex-1'}`"
             v-for="(header, headerId) in titles"
             :key="headerId"
           >

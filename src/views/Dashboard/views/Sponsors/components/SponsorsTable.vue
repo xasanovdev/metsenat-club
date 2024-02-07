@@ -1,11 +1,11 @@
 <template>
   <CTable :titles="columns" :data="sponsors?.list">
     <template #header>
-      <ul class="text-gray-400 text-left flex px-[14px]">
+      <ul class="text-gray-400 gap-2 text-left flex px-8">
         <li
           v-for="(column, index) in columns"
           :key="index"
-          :class="[index === 1 ? 'text-left' : 'text-center', `w-[${column.width}]`]"
+          :class="`text-center ${index === 0 || index === columns.length - 1 ? 'w-12' : 'flex-1'}`"
         >
           {{ column.label }}
         </li>
@@ -19,7 +19,7 @@
       {{ item.full_name }}
     </template>
     <template v-slot:phone="{ item }">
-      {{ item.phone }}
+      <a :href="`tel:${item.phone}`">{{ item.phone }}</a>
     </template>
 
     <template v-slot:sum="{ item }">

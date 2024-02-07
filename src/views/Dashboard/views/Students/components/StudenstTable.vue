@@ -3,12 +3,11 @@
     <!-- students list row head cells -->
 
     <template #header>
-      <ul class="text-gray-400 text-left flex px-[14px]">
+      <ul class="text-gray-400 gap-2 text-left flex px-8">
         <li
           v-for="(column, index) in columns"
           :key="index"
-          :class="`w-[${column.width}]`"
-          class="text-center"
+          :class="`text-center ${index === 0 || index === columns.length - 1 ? 'w-12' : 'flex-1'}`"
         >
           {{ column.label }}
         </li>
