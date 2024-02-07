@@ -37,7 +37,7 @@
     <template v-slot:created_at="{ item }">{{ formatDate(item.created_at) }}</template>
 
     <template v-slot:actions="{ item }">
-      <RouterLink class="text-center" :to="{ name: 'Student', params: { id: item.id } }">
+      <RouterLink class="text-center" :to="{ name: 'Sponsor', params: { id: item.id } }">
         <img class="mx-auto" src="/eye.svg" alt="eye icon" />
       </RouterLink>
     </template>

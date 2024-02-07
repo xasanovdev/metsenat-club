@@ -26,7 +26,7 @@
           <p class="text-slate-900 text-2xl font-bold">Homiy haqida</p>
           <CButton @click="editSponsorModal.openModal" class="px-8" variant="primary">
             <span class="flex items-center justify-center gap-[10px]">
-              Talaba qo‘shish <img src="/pen.svg" alt="pen icon for editing" />
+              Tahrirlash <img src="/pen.svg" alt="pen icon for editing" />
             </span>
           </CButton>
         </div>
@@ -51,6 +51,7 @@
     </div>
 
     <EditSponsorModal
+      @fetchData="fetchData"
       v-show="editSponsorModal.modalValue"
       :modalValue="editSponsorModal.modalValue"
       :closeModalOverlay="editSponsorModal.closeModalOverlay"
@@ -60,7 +61,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, reactive, watch } from 'vue'
 
 import { useRoute } from 'vue-router'
 
@@ -68,33 +69,34 @@ import CBadge from '@/components/Base/CBadge.vue'
 import CButton from '@/components/Base/CButton.vue'
 import { useFetch } from '@/composables/useFetch'
 import { useModal } from '@/composables/useModal'
-import { useDataStore } from '@/stores'
 
 import EditSponsorModal from './components/EditSponsorModal.vue'
+import { useSponsors } from '@/stores/sponsors'
 
 const { modal } = useModal()
-const store = useDataStore()
+const sponsors = useSponsors()
 
 const editSponsorModal = modal()
 
 const route = useRoute()
-const pageId = ref(route.params.id)
+
+console.log(route.params)
 
 const { get, loading } = useFetch()
-const data = ref(null)
+let data = reactive(null)
 
 const fetchData = async () => {
   try {
-    const response = await get(`${`sponsor-detail/${pageId.value}`}`)
-    store.updateSponsorData = response
-    data.value = response
+    const response = await get(`sponsor-detail/${route.params.id}`)
+    sponsors.sponsors.details = response
+    data = sponsors.sponsors.details
   } catch (error) {
     console.error('Error fetching data:', error)
   }
 }
 
-onMounted(() => {
-  fetchData()
+onMounted(async () => {
+  await fetchData()
 })
 </script>
 @/stores

@@ -1,5 +1,5 @@
 <template>
-  <CModal>
+  <CModal @close="setClose">
     <template #title>Tahrirlash</template>
     <template #body>
       <form class="max-w-[793px] w-full bg-white rounded-xl">
@@ -23,24 +23,26 @@
         </div>
 
         <div class="grid grid-cols-1 gap-y-7 mt-8">
-          <div>
-            <label>
-              {{ sponsor?.full_name }}
-              <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium">
-                F.I.Sh. (Familiya Ism Sharif)
-              </span>
-              <CInput v-model="sponsor.full_name" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
-            </label>
-          </div>
-          <div>
-            <label>
-              {{ sponsor?.phone }}
-              <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium"
-                >Telefon raqam</span
-              >
-              <CInput v-model="sponsor.phone" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
-            </label>
-          </div>
+          <FormGroup
+            label="F.I.Sh. (Familiya Ism Sharif)"
+            id="full_name"
+            type="text"
+            placeholder="Ism familyangizni kiriting..."
+            :validation="$v.full_name.$error"
+            validationText="Full name"
+            v-model="sponsor.full_name"
+          />
+
+          <FormGroup
+            label="Telefon raqam"
+            id="phone"
+            type="text"
+            placeholder="Telelefon raqamingizni kiriting..."
+            :validation="$v.phone.$error"
+            validationText="Phone"
+            v-model="sponsor.phone"
+          />
+
           <div class="col-span-1">
             <label>
               {{ sponsor?.get_status_display }}
@@ -53,15 +55,16 @@
             </label>
           </div>
 
-          <div v-if="personType === 'legal'">
-            <label>
-              {{ sponsor?.firm }}
-              <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium">
-                F.I.Sh. (Familiya Ism Sharif)
-              </span>
-              <CInput v-model="sponsor.firm" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
-            </label>
-          </div>
+          <FormGroup
+            v-if="personType === 'legal'"
+            label="T"
+            id="phone"
+            type="text"
+            placeholder="Firmangizni kiriting..."
+            :validation="$v.firm.$error"
+            validationText="Firm"
+            v-model="sponsor.firm"
+          />
         </div>
       </form>
     </template>
@@ -78,40 +81,67 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 
 import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
-import CInput from '@/components/Base/CInput.vue'
 import CModal from '@/components/Base/CModal.vue'
 import { useFetch } from '@/composables/useFetch'
-import router from '@/router'
-import { useDataStore } from '@/stores'
+
 import { optionsStatus } from '@/utils'
+import FormGroup from '@/components/Base/FormGroup.vue'
+import useVuelidate from '@vuelidate/core'
+import { required, minLength, maxLength } from '@vuelidate/validators'
+import { useSponsors } from '@/stores/sponsors'
 
 const personType = ref('physical')
 
-const store = useDataStore()
+const props = defineProps('data')
+
+const emit = defineEmits(['fetchData'])
+
+const close = ref(null)
+
+const setClose = (func) => {
+  close.value = func
+}
+
+console.log(props.data)
+
+const sponsors = useSponsors()
 
 const sponsor = ref({
-  full_name: store.updateSponsorData.full_name,
-  phone: store.updateSponsorData.phone,
-  get_status_display: store.updateSponsorData.get_status_display,
-  given: store.updateSponsorData.given,
-  firm: store.updateSponsorData.firm
+  full_name: sponsors?.sponsors.details?.full_name,
+  phone: sponsors?.sponsors.details?.phone,
+  get_status_display: sponsors?.sponsors.details?.get_status_display,
+  firm: sponsors?.sponsors.details?.firm
 })
+
+const rules = {
+  full_name: { required },
+  phone: { required },
+  firm: { required }
+}
+
+const $v = useVuelidate(rules, sponsor)
 
 const { put } = useFetch()
 const updateSponsor = async () => {
-  try {
-    const response = await put(`sponsor-update/${store.updateSponsorData.id}/`, sponsor.value)
+  const result = await $v.value.$validate()
 
-    router.push({ name: 'Sponsors', query: { page: store.sponsorsCurrentPage } })
-    document.body.classList.remove('overflow-hidden')
+  if (!result) {
+    return $v
+  }
+
+  try {
+    const response = await put(`sponsor-update/${sponsors.sponsors?.details?.id}/`, sponsor.value)
+
+    emit('fetchData')
+    close.value()
+
     console.log(response)
   } catch (error) {
     console.log(error)
   }
 }
 </script>
-@/stores

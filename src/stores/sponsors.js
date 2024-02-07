@@ -10,7 +10,8 @@ export const useSponsors = defineStore('sponsors', () => {
     list: [],
     currentPage: 1,
     count: 10,
-    sponsorsCount: 0
+    sponsorsCount: 0,
+    details: {}
   })
 
   const getSponsorsList = async (page, page_size, force) => {
