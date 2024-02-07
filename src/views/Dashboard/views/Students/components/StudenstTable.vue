@@ -111,6 +111,6 @@ const columns = [
 ]
 
 onMounted(async () => {
-  await getStudentsList(students.currentPage)
+  await getStudentsList(students.currentPage, students.count)
 })
 </script>

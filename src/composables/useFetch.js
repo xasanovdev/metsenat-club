@@ -3,10 +3,7 @@ import { ref } from 'vue'
 export const useFetch = () => {
   const baseUrl = import.meta.env.VITE_APP_BASE_URL
 
-  const loading = ref(false)
-
   const axios = (url, options) => {
-    loading.value = true
     return new Promise((resolve, reject) => {
       fetch(`${baseUrl}/${url}`, {
         headers: {
@@ -20,9 +17,6 @@ export const useFetch = () => {
         .then((data) => resolve(data))
         .catch((err) => {
           reject(err)
-        })
-        .finally(() => {
-          loading.value = false
         })
     })
   }
@@ -59,7 +53,6 @@ export const useFetch = () => {
     get,
     post,
     put,
-    remove,
-    loading
+    remove
   }
 }

@@ -24,7 +24,7 @@
           class="flex items-start sm:items-center flex-col gap-8 sm:flex-row sm:gap-0 justify-between"
         >
           <p class="text-slate-900 text-2xl font-bold">Homiy haqida</p>
-          <CButton @click="editSponsorModal.openModal" class="max-w-[166px]" variant="primary">
+          <CButton @click="editSponsorModal.openModal" class="sm:max-w-[166px]" variant="primary">
             <span class="flex items-center justify-center gap-[10px]">
               Tahrirlash <img src="/pen.svg" alt="pen icon for editing" />
             </span>
@@ -34,7 +34,7 @@
           <div class="bg-slate-50 w-16 h-16 flex items-center justify-center rounded-md">
             <img class="p-4" src="/person.svg" alt="default person image" />
           </div>
-          <p class="text-zinc-800 max-w-[163px] font-bold">{{ data?.full_name }}</p>
+          <p class="text-zinc-800 md:max-w-[163px] font-bold">{{ data?.full_name }}</p>
         </div>
         <div class="flex w-full flex-col gap-8 sm:flex-row sm:gap-0 mt-6 justify-between">
           <div class="flex flex-col items-start gap-3">

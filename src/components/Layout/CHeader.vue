@@ -31,8 +31,20 @@
         <Tab v-for="(item, index) in tabList" :key="index" :title="item.title" :path="item.path" />
       </div>
 
-      <div class="flex w-full items-center justify-end gap-4 md:gap-5">
-        <CInput v-model="search" placeholder="Qidirish" class="md:max-w-[284px] py-[15px] w-full" />
+      <div class="relative flex w-full items-center justify-end gap-4 md:gap-5">
+        <CInput
+          @input="getSearchResults(search)"
+          v-model="search"
+          placeholder="Qidirish"
+          class="md:max-w-[284px] py-[15px] w-full"
+        />
+        <div
+          v-if="search.length !== 0"
+          class="absolute md:max-w-[284px] rounded-md p-4 shadow-xl w-full bg-white left-12 top-16"
+        >
+          {{ searchResults.length === 0 ? 'Bunday malumot mavjud emas :(' : searchResults }}
+        </div>
+
         <CButton @click="filterModal.openModal" variant="primary" class="px-8 max-w-32">
           <span class="flex items-center justify-center gap-[10px]">
             Filter
@@ -58,6 +70,8 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+
 import Tab from '@/components/Base/Tab.vue'
 import CButton from '@/components/Base/CButton.vue'
 import CInput from '@/components/Base/CInput.vue'
@@ -65,14 +79,14 @@ import FilterModal from '@/components/Base/FilterModal.vue'
 
 import LogOutModal from '@/components/LogOutModal.vue'
 import { useModal } from '@/composables/useModal'
-
-const { modal, modals } = useModal()
-
-console.log('Modals::::::::::::::', modals.value)
-const logOutModal = modal()
-const filterModal = modal()
+import { useDataStore } from '@/stores'
 
 defineProps(['variant'])
+
+const { modal } = useModal()
+
+const logOutModal = modal()
+const filterModal = modal()
 
 const tabList = [
   {
@@ -88,4 +102,21 @@ const tabList = [
     title: 'Talabalar'
   }
 ]
+
+const store = useDataStore()
+
+const search = ref('')
+
+const searchResults = ref('')
+
+const loading = ref(false)
+const getSearchResults = async (text) => {
+  loading.value = true
+
+  store.getSearchResults(text)
+
+  searchResults.value = store?.searchResults
+
+  loading.value = false
+}
 </script>

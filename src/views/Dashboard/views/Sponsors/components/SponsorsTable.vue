@@ -45,7 +45,7 @@
 
   <div class="flex items-center justify-between pb-4">
     <div>
-      {{ sponsors?.count }} tadan {{ (sponsors.currentPage - 1) * sponsors.count }}-{{
+      {{ sponsors?.sponsorsCount }} tadan {{ (sponsors.currentPage - 1) * sponsors.count }}-{{
         sponsors.currentPage * sponsors.count
       }}
       ko'rsatilmoqda

@@ -2,10 +2,8 @@ import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
 import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
-import { useRoute } from 'vue-router'
 
 const { get } = useFetch()
-const route = useRoute()
 
 export const useSponsors = defineStore('sponsors', () => {
   const sponsors = reactive({

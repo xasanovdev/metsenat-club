@@ -4,7 +4,7 @@
     <div
       v-if="modalValue"
       @click="closeModalOverlay"
-      class="flex items-center z-50 justify-center top-0 left-0 fixed w-screen h-screen bg-black bg-opacity-60"
+      class="flex items-center z-50 justify-center top-0 left-0 px-6 fixed w-screen h-screen bg-black bg-opacity-60"
     >
       <div
         @click.stop
