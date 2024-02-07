@@ -8,6 +8,8 @@ export const useDataStore = defineStore('data', () => {
   const instituteList = ref([])
 
   const fetchInstituteList = async () => {
+    if (instituteList.value.length > 0) return
+
     try {
       await get('institute-list/').then((response) => {
         instituteList.value = response

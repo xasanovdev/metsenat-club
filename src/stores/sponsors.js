@@ -2,8 +2,10 @@ import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
 import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
 const { get } = useFetch()
+const route = useRoute()
 
 export const useSponsors = defineStore('sponsors', () => {
   const sponsors = reactive({
@@ -27,14 +29,23 @@ export const useSponsors = defineStore('sponsors', () => {
           router.push({ path: `?page=`, query: { page: page, page_size: page_size } })
         })
       } catch (error) {
-        // Todo: useToast
         console.log(error)
       }
     }
   }
 
+  const getSponsorDetails = async (id) => {
+    try {
+      const response = await get(`sponsor-detail/${id}`)
+      sponsors.details = response
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
+  }
+
   return {
     sponsors,
+    getSponsorDetails,
     getSponsorsList
   }
 })

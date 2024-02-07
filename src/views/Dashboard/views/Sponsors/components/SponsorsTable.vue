@@ -45,7 +45,7 @@
 
   <div class="flex items-center justify-between pb-4">
     <div>
-      {{ sponsors.sponsorsList?.count }} tadan {{ (sponsors.currentPage - 1) * sponsors.count }}-{{
+      {{ sponsors?.count }} tadan {{ (sponsors.currentPage - 1) * sponsors.count }}-{{
         sponsors.currentPage * sponsors.count
       }}
       ko'rsatilmoqda
@@ -80,14 +80,14 @@ import { useSponsors } from '@/stores/sponsors'
 const { sponsors, getSponsorsList } = useSponsors()
 
 const columns = [
-  { label: '#', width: '2%', keys: 'index' },
-  { label: 'f.i.sh.', width: '34%', keys: 'full_name' },
-  { label: 'Tel.Raqami', width: '10%', keys: 'phone' },
-  { label: 'Homiylik summasi', width: '16%', keys: 'sum' },
-  { label: 'Sarflangan summa', width: '15%', keys: 'spent' },
-  { label: 'Holati', width: '15%', keys: 'get_status_display' },
-  { label: 'Sana', width: '8%', keys: 'created_at' },
-  { label: 'Amallar', width: '8%', keys: 'actions' }
+  { label: '#', keys: 'index' },
+  { label: 'f.i.sh.', keys: 'full_name' },
+  { label: 'Tel.Raqami', keys: 'phone' },
+  { label: 'Homiylik summasi', keys: 'sum' },
+  { label: 'Sarflangan summa', keys: 'spent' },
+  { label: 'Holati', keys: 'get_status_display' },
+  { label: 'Sana', keys: 'created_at' },
+  { label: 'Amallar', keys: 'actions' }
 ]
 
 const paginationValues = computed(() =>
@@ -116,7 +116,6 @@ const selectPaginationCount = (count) => {
 }
 
 onMounted(() => {
-  console.log(sponsors)
   getSponsorsList(sponsors.currentPage, sponsors.count)
 })
 </script>

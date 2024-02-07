@@ -91,7 +91,7 @@ const prevPage = () => {
 
 const changePagination = (count) => {
   if (count !== '...') {
-    getStudentsList(count, students.count)
+    getStudentsList(count, students.count, 'force')
   }
 }
 
@@ -101,16 +101,16 @@ const selectPaginationCount = (count) => {
 }
 
 const columns = [
-  { label: '#', width: '2%', keys: 'index' },
-  { label: 'f.i.sh.', width: '20%', keys: 'full_name' },
-  { label: 'Talabalik turi', width: '10%', keys: 'type' },
-  { label: 'OTM', width: '30%', keys: 'institute' },
-  { label: 'Ajratilingan summa', width: '15%', keys: 'given' },
-  { label: 'Kontrakt miqdori', width: '15%', keys: 'contract' },
-  { label: 'Amallar', width: '8%', keys: 'actions' }
+  { label: '#', keys: 'index' },
+  { label: 'f.i.sh.', keys: 'full_name' },
+  { label: 'Talabalik turi', keys: 'type' },
+  { label: 'OTM', keys: 'institute' },
+  { label: 'Ajratilingan summa', keys: 'given' },
+  { label: 'Kontrakt miqdori', keys: 'contract' },
+  { label: 'Amallar', keys: 'actions' }
 ]
 
 onMounted(async () => {
-  await getStudentsList(students.currentPage, students.count, 'force')
+  await getStudentsList(students.currentPage)
 })
 </script>

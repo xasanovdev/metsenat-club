@@ -6,16 +6,14 @@
         <div class="flex items-center rounded-lg border-2 border-[3E0E7FF]">
           <!-- Todo: refactor this component. user v-for fr physical and legal. -->
           <CButton
-            @click.prevent="personType = 'physical'"
-            :class="[
-              personType === 'physical' ? 'bg-blue-700 text-white' : 'text-blue-700 bg-white'
-            ]"
+            @click.prevent="isLegal = false"
+            :class="[!isLegal ? 'bg-blue-700 text-white' : 'text-blue-700 bg-white']"
             class="flex-1"
             >Jismoniy shaxs</CButton
           >
           <CButton
-            :class="[personType === 'legal' ? 'bg-blue-700 text-white' : 'text-blue-700 bg-white']"
-            @click.prevent="personType = 'legal'"
+            :class="[isLegal ? 'bg-blue-700 text-white' : 'text-blue-700 bg-white']"
+            @click.prevent="isLegal = true"
             class="flex-1"
           >
             Yuridik shaxs
@@ -56,7 +54,7 @@
           </div>
 
           <FormGroup
-            v-if="personType === 'legal'"
+            v-if="isLegal"
             label="T"
             id="phone"
             type="text"
@@ -94,11 +92,9 @@ import useVuelidate from '@vuelidate/core'
 import { required, minLength, maxLength } from '@vuelidate/validators'
 import { useSponsors } from '@/stores/sponsors'
 
-const personType = ref('physical')
-
 const props = defineProps('data')
 
-const emit = defineEmits(['fetchData'])
+const emit = defineEmits(['getSponsorDetails'])
 
 const close = ref(null)
 
@@ -106,9 +102,9 @@ const setClose = (func) => {
   close.value = func
 }
 
-console.log(props.data)
-
 const sponsors = useSponsors()
+
+const isLegal = ref(sponsors.sponsors?.details?.is_legal)
 
 const sponsor = ref({
   full_name: sponsors?.sponsors.details?.full_name,
@@ -136,7 +132,7 @@ const updateSponsor = async () => {
   try {
     const response = await put(`sponsor-update/${sponsors.sponsors?.details?.id}/`, sponsor.value)
 
-    emit('fetchData')
+    emit('getSponsorDetails')
     close.value()
 
     console.log(response)

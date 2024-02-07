@@ -24,7 +24,7 @@
           class="flex items-start sm:items-center flex-col gap-8 sm:flex-row sm:gap-0 justify-between"
         >
           <p class="text-slate-900 text-2xl font-bold">Homiy haqida</p>
-          <CButton @click="editSponsorModal.openModal" class="px-8" variant="primary">
+          <CButton @click="editSponsorModal.openModal" class="max-w-[166px]" variant="primary">
             <span class="flex items-center justify-center gap-[10px]">
               Tahrirlash <img src="/pen.svg" alt="pen icon for editing" />
             </span>
@@ -38,11 +38,11 @@
         </div>
         <div class="flex w-full flex-col gap-8 sm:flex-row sm:gap-0 mt-6 justify-between">
           <div class="flex flex-col items-start gap-3">
-            <p class="uppercase text-indigo-100 text-sm">telefon raqam</p>
+            <p class="uppercase text-slate-400 text-sm">telefon raqam</p>
             <p class="text-zinc-800 font-medium">{{ data?.phone }}</p>
           </div>
           <div class="flex flex-col items-start gap-3">
-            <p class="uppercase text-indigo-100 text-sm">Homiylik summasi</p>
+            <p class="uppercase text-slate-400 text-sm">Homiylik summasi</p>
             <p class="text-zinc-800 font-medium">{{ data?.sum }} UZS</p>
           </div>
         </div>
@@ -51,7 +51,7 @@
     </div>
 
     <EditSponsorModal
-      @fetchData="fetchData"
+      @getSponsorDetails="getSponsorDetails(route.params.id)"
       v-show="editSponsorModal.modalValue"
       :modalValue="editSponsorModal.modalValue"
       :closeModalOverlay="editSponsorModal.closeModalOverlay"
@@ -61,7 +61,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, watch } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 
 import { useRoute } from 'vue-router'
 
@@ -80,23 +80,23 @@ const editSponsorModal = modal()
 
 const route = useRoute()
 
-console.log(route.params)
+let data = ref(null)
 
-const { get, loading } = useFetch()
-let data = reactive(null)
+let loading = ref(false)
 
-const fetchData = async () => {
-  try {
-    const response = await get(`sponsor-detail/${route.params.id}`)
-    sponsors.sponsors.details = response
-    data = sponsors.sponsors.details
-  } catch (error) {
-    console.error('Error fetching data:', error)
-  }
+const getSponsorDetails = async () => {
+  loading.value = true
+  await sponsors.getSponsorDetails(route.params.id)
+  loading.value = false
+  data.value = sponsors.sponsors?.details
 }
 
 onMounted(async () => {
-  await fetchData()
+  loading.value = true
+  await getSponsorDetails()
+  loading.value = false
+
+  data.value = sponsors.sponsors?.details
+  console.log(data.value)
 })
 </script>
-@/stores

@@ -48,7 +48,7 @@
           </div>
           <div class="flex w-full flex-col gap-8 sm:flex-row sm:gap-0 mt-6 justify-between">
             <div class="flex flex-col items-start gap-3">
-              <p class="uppercase text-indigo-100 text-sm">telefon raqam</p>
+              <p class="uppercase text-slate-400 text-sm">telefon raqam</p>
               <p class="text-zinc-800 font-medium">{{ studentDetails?.phone }}</p>
             </div>
           </div>
@@ -64,21 +64,21 @@
 
           <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-6 mt-8">
             <div class="flex flex-col items-start gap-2">
-              <p class="uppercase text-indigo-100 text-sm">OTM</p>
+              <p class="uppercase text-slate-400 text-sm">OTM</p>
               <p class="text-zinc-800 font-medium">{{ studentDetails?.institute?.name }}</p>
             </div>
             <div class="flex flex-col items-start gap-2">
-              <p class="uppercase text-indigo-100 text-sm">Talabalik turi</p>
+              <p class="uppercase text-slate-400 text-sm">Talabalik turi</p>
               <p class="text-zinc-800 font-medium">
                 {{ studentDetails?.type === 1 ? 'Bakalavr' : 'Magistr' }}
               </p>
             </div>
             <div class="flex flex-col items-start gap-2">
-              <p class="uppercase text-indigo-100 text-sm">Ajratilingan summa</p>
+              <p class="uppercase text-slate-400 text-sm">Ajratilingan summa</p>
               <p class="text-zinc-800 font-medium">{{ studentDetails?.given }}</p>
             </div>
             <div class="flex flex-col items-start gap-2">
-              <p class="uppercase text-indigo-100 text-sm">Kontrakt miqdori</p>
+              <p class="uppercase text-slate-400 text-sm">Kontrakt miqdori</p>
               <p class="text-zinc-800 font-medium">{{ studentDetails?.contract }}</p>
             </div>
           </div>

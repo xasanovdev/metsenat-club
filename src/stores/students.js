@@ -22,7 +22,7 @@ export const useStudents = defineStore('students', () => {
   })
 
   const getStudentsList = async (page, page_size, force) => {
-    if (students.list.length === 0 || students.currentPage !== page || force) {
+    if (students.list.length === 0 || force) {
       try {
         const response = await get('student-list/', { page: page, page_size: page_size })
         students.currentPage = page
