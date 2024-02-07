@@ -1,15 +1,18 @@
 <template>
   <div class="w-full pb-20">
     <div class="container mx-auto mt-12 px-6">
-      <div class="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-        <MoneyCard
-          v-for="(item, index) in cardStatistics"
-          :key="index"
-          :title="item.title"
-          :amount="item.amount"
-          :img="item.img"
-        />
+      <div class="flex flex-col gap-7">
+        <div class="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+          <MoneyCard
+            v-for="(item, index) in cardStatistics"
+            :key="index"
+            :title="item.title"
+            :amount="item.amount"
+            :img="item.img"
+          />
+        </div>
       </div>
+      <Chart />
     </div>
   </div>
 </template>
@@ -20,6 +23,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useDashboard } from '@/stores/dashboard'
 
 import MoneyCard from '@/components/Common/MoneyCard.vue'
+import Chart from '@/components/Chart.vue'
 
 const statistics = useDashboard()
 
