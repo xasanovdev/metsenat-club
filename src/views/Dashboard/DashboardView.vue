@@ -9,6 +9,7 @@
             :title="item.title"
             :amount="item.amount"
             :img="item.img"
+            :class="`${index === cardStatistics.length - 1 ? 'md:col-span-2 lg:col-span-1' : 'md:col-span-1'}`"
           />
         </div>
       </div>
