@@ -1,17 +1,23 @@
 import { ref } from 'vue'
 
 import { defineStore } from 'pinia'
-import router from '@/router'
+
 import { useFetch } from '@/composables/useFetch'
 
-import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
+import { useToast } from 'vue-toastification'
 
 const { post } = useFetch()
 
 export const useAuthStore = defineStore('auth', () => {
   const access = ref(localStorage.getItem('access_token') || null)
   const refresh = ref(localStorage.getItem('refresh_token') || null)
+
+  const toast = useToast()
+
+  const error = ref(false)
+
+  const loading = ref(false)
 
   const setToken = (token) => {
     access.value = token.access
@@ -35,43 +41,42 @@ export const useAuthStore = defineStore('auth', () => {
   const logOut = () => {
     clearToken()
 
-    router.push({ name: 'Auth' })
-
-    toast.error('You are succesfully logged out.', {
+    toast.success('You are succesfully logged out.', {
       autoClose: 1000
     })
   }
 
-  const login = async (credentials, loading, error) => {
-    try {
-      loading.value = true
-      const data = await post('auth/login/', {
-        username: credentials.username,
-        password: credentials.password
+  const login = async (credentials) => {
+    loading.value = true
+
+    await post('auth/login/', {
+      username: credentials.username,
+      password: credentials.password
+    })
+      .then((data) => {
+        if (data.access && data.refresh) {
+          setToken(data)
+
+          toast.success('You are succesfully logged in.', {
+            autoClose: 1000
+          })
+        }
+
+        if (data.detail) {
+          error.value = data?.detail
+
+          toast.error(`${error.value}`, {
+            autoClose: 1000
+          })
+        }
       })
-
-      if (data.access && data.refresh) {
-        console.log(data)
-
-        setToken(data)
-
-        router.push({ name: 'Dashboard' })
-
-        toast.success('You are succesfully logged in.', {
+      .catch((error) => {
+        toast.error(`${error}`, {
           autoClose: 1000
         })
-      }
-
-      if (data.detail) {
-        console.log(data)
-        error.value = data?.detail
-      }
-    } catch (error) {
-      console.error('Login error', error.message)
-    } finally {
-      loading.value = false
-    }
+      })
+      .finally(() => (loading.value = false))
   }
 
-  return { access, refresh, setToken, clearToken, isAuthenticated, logOut, login }
+  return { access, refresh, setToken, clearToken, error, loading, isAuthenticated, logOut, login }
 })

@@ -9,8 +9,9 @@ export const useDataStore = defineStore('data', () => {
 
   const fetchInstituteList = async () => {
     try {
-      const response = await get(`institute-list/`)
-      instituteList.value = response
+      await get('institute-list/').then((response) => {
+        instituteList.value = response
+      })
     } catch (error) {
       console.error('Error fetching data:', error)
     }

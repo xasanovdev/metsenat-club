@@ -9,7 +9,7 @@
         @focus="closeDropdown()"
         :value="searchText"
         @input="updateSearchText"
-        class="w-full border focus:border-blue-700 justify-between bg-gray-50 text-left text-gray-800 rounded-lg focus:outline-none flex items-center"
+        class="w-full border border-indigo-200 duration-200 focus:border-blue-700 justify-between bg-gray-50 text-left text-gray-800 rounded-md focus:outline-none flex items-center"
         placeholder="Search..."
         :class="[readonly ? 'cursor-pointer' : '', size === 'sm' ? 'p-[5px]' : 'px-4 py-3']"
         :readonly="readonly"
@@ -44,7 +44,9 @@
             'bg-slate-100': selectedOption.value === option[property]
           }"
         >
-          <label class="flex w-full px-4 py-3 items-center cursor-pointer">
+          <label
+            class="flex w-full px-4 py-3 items-center cursor-pointer text-sm uppercase font-semibold text-gray-600"
+          >
             <input
               type="radio"
               :checked="selectedOption.value === option[property]"

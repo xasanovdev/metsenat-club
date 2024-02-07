@@ -1,39 +1,39 @@
 import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 
 const { get } = useFetch()
 
 export const useSponsors = defineStore('sponsors', () => {
-  let sponsorsList = ref([])
-  let sponsorsCurrentPage = ref(1)
-  let paginationCountSponsors = ref(10)
+  const sponsors = reactive({
+    list: [],
+    currentPage: 1,
+    count: 10,
+    sponsorsCount: 0
+  })
 
   const getSponsorsList = async (page, page_size, force) => {
-    if (sponsorsList.value.length === 0 || sponsorsCurrentPage.value !== page || force) {
+    if (sponsors.list.length === 0 || force) {
       try {
-        sponsorsCurrentPage.value = page
-        paginationCountSponsors.value = page_size
+        await get('sponsor-list/', { page: page, page_size: page_size }).then((res) => {
+          sponsors.list = []
+          sponsors.sponsorsCount = res.count
+          sponsors.list = res.results
+          sponsors.currentPage = page
+          sponsors.count = page_size
 
-        sponsorsList.value = []
-        const response = await get('sponsor-list/', { page: page, page_size: page_size })
-
-        sponsorsList.value = response
-
-        router.push({ path: `?page=`, query: { page: page, page_size: page_size } })
-
-        console.log(response)
+          router.push({ path: `?page=`, query: { page: page, page_size: page_size } })
+        })
       } catch (error) {
+        // Todo: useToast
         console.log(error)
       }
     }
   }
 
   return {
-    sponsorsList,
-    getSponsorsList,
-    sponsorsCurrentPage,
-    paginationCountSponsors
+    sponsors,
+    getSponsorsList
   }
 })

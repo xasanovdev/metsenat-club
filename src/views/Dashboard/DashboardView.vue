@@ -1,67 +1,51 @@
 <template>
-  <CHeader />
-
   <div class="w-full pb-20">
     <div class="container mx-auto mt-12 px-6">
       <div class="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-        <!-- Todo: create component! -->
-        <!-- total summ of contracts -->
-
         <MoneyCard
-          title="Jami to‘langan summa"
-          :money="statistics.statisticsList?.total_paid"
-          link="/moneyBlue.svg"
-        />
-
-        <!-- Total summ of requested  -->
-
-        <MoneyCard
-          title="Jami so‘ralgan summa"
-          :money="statistics.statisticsList?.total_need"
-          link="/moneyYellow.svg"
-        />
-
-        <!-- Total summ of payed  -->
-        <MoneyCard
-          title="Jami to‘langan summa"
-          :money="statistics.statisticsList?.total_must_pay"
-          link="/moneyOrange.svg"
+          v-for="(item, index) in cardStatistics"
+          :key="index"
+          :title="item.title"
+          :amount="item.amount"
+          :img="item.img"
         />
       </div>
-
-      <!-- Todo: USE CHART -->
-      <!-- <div class="w-full overflow-x-auto mt-6">
-        <img class="w-full" src="/statistics.svg" alt="" />
-      </div> -->
     </div>
   </div>
-
-  <!-- Todo: use vue-toastification -->
-
-  <!-- <p
-    v-if="access_token"
-    :class="[toast === true ? '' : 'hidden']"
-    class="absolute font-bold text-lg text-green-500 bg-amber-50 py-4 px-6 shadow-xl border-b-2 border-green-500 right-6 bottom-6"
-  >
-    You are succesfully logged in.
-  </p> -->
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 import { useDashboard } from '@/stores/dashboard'
-
-import CHeader from '@/components/Layout/CHeader.vue'
 
 import MoneyCard from '@/components/Common/MoneyCard.vue'
 
 const statistics = useDashboard()
 
-onMounted(() => {
-  if (statistics?.statisticsList?.length === 0) {
-    statistics.getStatistics()
+const statisticsData = ref([])
+
+const cardStatistics = computed(() => [
+  {
+    title: 'Jami to‘langan summa',
+    amount: statisticsData.value?.total_paid,
+    img: '/moneyBlue.svg'
+  },
+  {
+    title: 'Jami so‘ralgan summa',
+    amount: statisticsData.value?.total_need,
+    img: '/moneyYellow.svg'
+  },
+  {
+    title: 'Jami to‘langan summa',
+    amount: statisticsData.value?.total_must_pay,
+    img: '/moneyOrange.svg'
   }
+])
+
+onMounted(async () => {
+  await statistics.getStatistics()
+  console.log(statistics.statisticsList)
+  statisticsData.value = statistics?.statisticsList
 })
 </script>
-@/stores

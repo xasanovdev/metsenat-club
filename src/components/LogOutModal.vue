@@ -1,20 +1,21 @@
 <template>
-  <CModal @childFunction="setChildFunction">
+  <CModal @close="setClose">
     <template #title>Ogohlantirish</template>
     <template #body>
       <p class="text-lg">Metsenat.uz platformasidan chiqib ketishga rozimisiz ?</p>
     </template>
     <template #footer>
-      <CButton @click="logOut" variant="danger"> Chiqib ketish </CButton>
+      <CButton @click="handleLogOut" variant="danger"> Chiqib ketish </CButton>
 
-      <CButton @click="childFunction" variant="primary"> Ortga qaytish </CButton>
+      <CButton @click="close" variant="primary"> Ortga qaytish </CButton>
     </template>
   </CModal>
 </template>
 
 <script setup>
 import CButton from '@/components/Base/CButton.vue'
-import CModal from '@/components/Common/CModal.vue'
+import CModal from '@/components/Base/CModal.vue'
+import router from '@/router'
 
 import { useAuthStore } from '@/stores/auth'
 
@@ -22,9 +23,15 @@ import { ref } from 'vue'
 
 const { logOut } = useAuthStore()
 
-const childFunction = ref(null)
+const handleLogOut = () => {
+  logOut()
 
-const setChildFunction = (func) => {
-  childFunction.value = func
+  router.push({ name: 'Auth' })
+}
+
+const close = ref(null)
+
+const setClose = (func) => {
+  close.value = func
 }
 </script>

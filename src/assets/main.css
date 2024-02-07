@@ -2,14 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
+/* @font-face {
   font-family: 'Rubik';
   src:
     url('./assets/fonts/Rubik-Regular.ttf') format('truetype'),
     url('./assets/fonts/Rubik-Medium.ttf') format('truetype'),
     url('./assets/fonts/Rubik-Bold.ttf') format('truetype'),
     url('./assets/fonts/Rubik-SemiBold.ttf') format('truetype');
-}
+} */
 
 .content-loading {
   background-color: #dfdfdf; /* Set the background color as a light gray */

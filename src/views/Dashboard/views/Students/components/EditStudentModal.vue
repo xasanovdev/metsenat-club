@@ -1,32 +1,29 @@
 <template>
-  <CModal @childFunction="setChildFunction">
+  <CModal @close="setClose">
     <template #title>Tahrirlash</template>
     <template #body>
       <form class="max-w-[793px] w-full bg-white rounded-xl">
         <div class="grid grid-cols-1 gap-x-7 gap-y-[50px]">
-          <div>
-            <label>
-              {{ studentData?.full_name }}
-              <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium">
-                F.I.Sh. (Familiya Ism Sharif)
-              </span>
-              <CInput
-                v-model="studentData.full_name"
-                placeholder="Abdullayev Abdulla Abdulla o’g’li"
-              />
-              <span v-if="errors?.full_name" class="text-red-500">{{ errors?.full_name[0] }}</span>
-            </label>
-          </div>
-          <div>
-            <label>
-              {{ studentData?.phone }}
-              <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium"
-                >Telefon raqam</span
-              >
-              <CInput v-model="studentData.phone" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
-              <span v-if="errors?.phone" class="text-red-500">{{ errors?.phone[0] }}</span>
-            </label>
-          </div>
+          <FormGroup
+            label="F.I.Sh. (Familiya Ism Sharif)"
+            id="full_name"
+            type="text"
+            placeholder="Ism familyangizni kiritng..."
+            validationText="Fullname"
+            :validation="$v.full_name.$error"
+            v-model="studentData.full_name"
+          />
+
+          <FormGroup
+            label="Telefon raqam"
+            id="phone"
+            type="number"
+            placeholder="Telefon raqamingizni kiritng..."
+            validationText="Phone"
+            :validation="$v.phone.$error"
+            v-model="studentData.phone"
+          />
+
           <div class="col-span-1">
             <label>
               {{ studentData?.institute }}
@@ -36,22 +33,18 @@
                 property="name"
                 :options="instituteList"
               />
-              <span v-if="errors?.institute" class="text-red-500">{{ errors?.institute[0] }}</span>
             </label>
           </div>
-          <div>
-            <label>
-              {{ studentData?.contract }}
-              <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium"
-                >Kontrakt summa</span
-              >
-              <CInput
-                v-model="studentData.contract"
-                placeholder="Abdullayev Abdulla Abdulla o’g’li"
-              />
-              <span v-if="errors?.contract" class="text-red-500">{{ errors?.contract[0] }}</span>
-            </label>
-          </div>
+
+          <FormGroup
+            label="Kontrakt summa"
+            id="contract"
+            type="number"
+            placeholder="Kontrakt summangizni kiritng..."
+            validationText="Contract"
+            :validation="$v.contract.$error"
+            v-model="studentData.contract"
+          />
         </div>
       </form>
     </template>
@@ -69,93 +62,73 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 
-import { useRoute } from 'vue-router'
-
 import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
-import CInput from '@/components/Base/CInput.vue'
-import CModal from '@/components/Common/CModal.vue'
-import { useFetch } from '@/composables/useFetch'
+
+import CModal from '@/components/Base/CModal.vue'
+
+import { useStudents } from '@/stores/students'
+import { useDataStore } from '@/stores'
+import useVuelidate from '@vuelidate/core'
+
+import { required, maxValue } from '@vuelidate/validators'
+import FormGroup from '@/components/Base/FormGroup.vue'
 import router from '@/router'
 
-const studentData = ref('')
+const emit = defineEmits(['getStudentDetails'])
 
-const { put, get } = useFetch()
-
-const route = useRoute()
+const studentData = ref([])
 
 const errors = ref(null)
 
-const childFunction = ref(null)
+const close = ref(null)
 
-const setChildFunction = (func) => {
-  childFunction.value = func
+const setClose = (func) => {
+  close.value = func
 }
+
+const students = useStudents()
+
+const store = useDataStore()
 
 const instituteList = ref([])
 
-const fetchInstituteList = async () => {
-  try {
-    const response = await get(`institute-list/`)
-    instituteList.value = response
-  } catch (error) {
-    console.error('Error fetching data:', error)
-  }
+onMounted(async () => {
+  await store.fetchInstituteList()
+
+  instituteList.value = store.instituteList
+
+  console.log(instituteList.value)
+
+  console.log(students.students)
+
+  studentData.value = { ...students?.students?.details }
+
+  console.log(studentData.value)
+})
+
+const rules = {
+  full_name: { required },
+  phone: { required },
+  contract: { required, maxValue: maxValue(2147483647) }
 }
 
-const fetchData = async () => {
-  try {
-    console.log('asfsa')
-    const response = await get(`student-detail/${route.params.id}`)
+const $v = useVuelidate(rules, studentData)
 
-    studentData.value = response
-
-    console.log(studentData.value)
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-onMounted(() => {
-  fetchInstituteList()
-  fetchData()
+const selectedInstitute = computed(() => {
+  return instituteList.value.find(
+    (item) => item.name.trim() === studentData.value.institute?.name.trim()
+  )
 })
 
 const updateStudent = async () => {
-  const selectedInstitute = computed(() => {
-    return instituteList.value.find(
-      (item) => item.name.trim() === studentData.value.institute?.name.trim()
-    )
-  })
+  const result = await $v.value.$validate()
+  console.log('validation result', $v.value)
 
-  try {
-    const response = await put(`student-update/${studentData.value.id}/`, {
-      id: studentData.value.id,
-      institute: selectedInstitute.value?.id,
-      full_name: studentData.value.full_name,
-      phone: studentData.value.phone,
-      type: studentData.value.type?.name === 'Bakalavr' ? 1 : 2,
-      contract: studentData.value.contract
-    })
-
-    if (
-      Array.isArray(response.full_name) ||
-      Array.isArray(response.contract) ||
-      Array.isArray(response.phone) ||
-      Array.isArray(response.institute)
-    ) {
-      errors.value = response
-    } else {
-      console.log(childFunction.value)
-      childFunction.value()
-
-      errors.value = null
-    }
-    console.log(response)
-
-    fetchData()
-  } catch (error) {
-    console.error('Error fetching user:', error)
+  if (!result) {
+    return $v
   }
+  await students.updateStudentDetails(studentData, selectedInstitute, close, errors)
+  emit('getStudentDetails')
 }
 </script>

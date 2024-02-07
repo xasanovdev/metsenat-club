@@ -5,7 +5,7 @@
         <RouterLink :to="{ name: 'Students' }" class="cursor-pointer">
           <img src="/back.svg" alt="arrow left" />
         </RouterLink>
-        <span class="text-slate-900 text-2xl font-bold">Talaba q o‘shish</span>
+        <span class="text-slate-900 text-2xl font-bold">Talaba qo‘shish</span>
       </div>
     </div>
   </header>
@@ -16,36 +16,37 @@
       class="max-w-[793px] w-full bg-white p-7 mx-auto rounded-xl"
     >
       <div class="grid grid-cols-2 gap-x-7 gap-y-[50px]">
-        <div>
-          <label>
-            <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">
-              F.I.Sh. (Familiya Ism Sharif)
-            </span>
-            {{ user.full_name }}
-            <CInput v-model="user.full_name" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
-          </label>
-        </div>
-        <div>
-          <label>
-            <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">Telefon raqam</span>
-            {{ user.phone }}
-            <CInput
-              v-model="user.phone"
-              type="string"
-              placeholder="Abdullayev Abdulla Abdulla o’g’li"
-            />
-          </label>
-        </div>
+        <FormGroup
+          label="F.I.Sh. (Familiya Ism Sharif)"
+          id="full_name"
+          type="text"
+          placeholder="Ismingizni kiriting..."
+          :validation="$v.full_name.$error"
+          validationText="Fullname"
+          v-model="user.full_name"
+        />
+
+        <FormGroup
+          label="Telefon raqam"
+          id="phone"
+          type="text"
+          placeholder="Telelefon raqamingizni kiriting..."
+          :validation="$v.phone.$error"
+          validationText="Contract sum"
+          v-model="user.phone"
+        />
+
         <div class="col-span-2">
           <label>
-            <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium">OTM</span>
+            <span class="cursor-pointer text-sm uppercase font-semibold text-gray-600">OTM</span>
             {{ user.institute }}
             <CDropdown v-model="user.institute" property="name" :options="instituteList" />
           </label>
         </div>
+
         <div>
           <label>
-            <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium"
+            <span class="cursor-pointer text-sm uppercase font-semibold text-gray-600"
               >Talabalik turi</span
             >
             {{ user.type }}
@@ -53,19 +54,15 @@
             <CDropdown v-model="user.type" property="name" :options="optionsType" />
           </label>
         </div>
-        <div>
-          <label>
-            <span class="text-[12px] text-[#1D1D1F] mb-2 uppercase font-medium"
-              >Kontrakt summa</span
-            >
-            {{ user.contract }}
-            <CInput
-              v-model="user.contract"
-              type="number"
-              placeholder="Abdullayev Abdulla Abdulla o’g’li"
-            />
-          </label>
-        </div>
+        <FormGroup
+          label="Kontrakt summa"
+          id="contract"
+          type="text"
+          placeholder="Kontrak summangizni kiriting..."
+          :validation="$v.contract.$error"
+          validationText="Phone"
+          v-model="user.contract"
+        />
       </div>
       <hr class="my-7" />
       <CButton class="w-full" type="submit" variant="secondary">
@@ -82,12 +79,15 @@ import { onMounted, ref } from 'vue'
 
 import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
-import CInput from '@/components/Base/CInput.vue'
 
+import FormGroup from '@/components/Base/FormGroup.vue'
 import { useDataStore } from '@/stores'
 import { useStudents } from '@/stores/students'
 
 import { optionsType } from '@/utils'
+import useVuelidate from '@vuelidate/core'
+
+import { required, minLength, maxLength } from '@vuelidate/validators'
 
 const store = useDataStore()
 const students = useStudents()
@@ -102,12 +102,26 @@ const user = ref({
   contract: ''
 })
 
+const rules = {
+  full_name: { required },
+  phone: { required },
+  contract: { required, maxLength: maxLength(2147483647) }
+}
+
+const $v = useVuelidate(rules, user)
+
 onMounted(async () => {
   await store.fetchInstituteList()
   instituteList.value = store.instituteList
 })
 
 const createNewStudent = async () => {
+  const result = await $v.value.$validate()
+
+  if (!result) {
+    return $v
+  }
+
   await students.postNewStudent(user, instituteList)
 }
 </script>

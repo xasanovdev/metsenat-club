@@ -37,11 +37,11 @@
 
 <script setup>
 const props = defineProps(['modalValue', 'closeModal', 'closeModalOverlay'])
-const emit = defineEmits(['childFunction'])
-const childFunction = () => {
+const emit = defineEmits(['close'])
+const close = () => {
   props.closeModal()
 }
-emit('childFunction', childFunction)
+emit('close', close)
 </script>
 
 <style>

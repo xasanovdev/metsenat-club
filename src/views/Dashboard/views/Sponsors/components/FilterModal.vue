@@ -1,5 +1,5 @@
 <template>
-  <CModal @childFunction="setChildFunction">
+  <CModal @close="setClose">
     <template #title>Tahrirlash</template>
     <template #body>
       <div class="flex flex-col items-start gap-4">
@@ -43,7 +43,7 @@ import { ref } from 'vue'
 
 import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
-import CModal from '@/components/Common/CModal.vue'
+import CModal from '@/components/Base/CModal.vue'
 import CSelect from '@/components/Base/CSelect.vue'
 import { useDataStore } from '@/stores'
 import { optionsStatus } from '@/utils'
@@ -54,13 +54,13 @@ const filterSponsor = ref({
   status: '',
   money: ''
 })
-const childFunction = ref(null)
+const close = ref(null)
 
-const setChildFunction = (func) => {
-  childFunction.value = func
+const setClose = (func) => {
+  close.value = func
 }
 const filterSponsors = () => {
-  childFunction.value()
+  close.value()
 }
 
 const clear = () => {

@@ -1,5 +1,5 @@
 <template>
-  <CTable :titles="columns" :data="students?.studentsList?.results">
+  <CTable :titles="columns" :data="students?.list">
     <!-- students list row head cells -->
 
     <template #header>
@@ -46,9 +46,8 @@
 
   <div class="flex items-center justify-between pb-4">
     <div>
-      {{ students.studentsList?.count }} tadan
-      {{ (students.studentsCurrentPage - 1) * students.paginationCountStudents }}-{{
-        students.studentsCurrentPage * students.paginationCountStudents
+      {{ students.studentCount }} tadan {{ (students.currentPage - 1) * students.count }}-{{
+        students.currentPage * students.count
       }}
       ko'rsatilmoqda
     </div>
@@ -59,9 +58,9 @@
       @selectPaginationCount="selectPaginationCount"
       :paginationValues="paginationValues"
       :totalPage="totalPage"
-      :dataList="students.studentsList.count"
-      :currentPage="students.studentsCurrentPage"
-      :paginationCount="students.paginationCountStudents"
+      :dataList="students.studentCount"
+      :currentPage="students.currentPage"
+      :paginationCount="students.count"
     />
   </div>
 </template>
@@ -70,40 +69,36 @@
 import { computed, onMounted } from 'vue'
 
 import CPagination from '@/components/Layout/CPagination.vue'
-import CTable from '@/components/Layout/CTable.vue'
+import CTable from '@/components/Base/CTable.vue'
 
 import { generatePaginationData } from '@/utils'
 import { useStudents } from '@/stores/students'
 
-const students = useStudents()
+const { students, getStudentsList } = useStudents()
 
 const paginationValues = computed(() =>
-  generatePaginationData(
-    students.studentsCurrentPage,
-    students.studentsList.count,
-    students.paginationCountStudents
-  )
+  generatePaginationData(students.currentPage, students.studentCount, students.count)
 )
 
-const totalPage = computed(() => students.studentsCurrentPage * students.paginationCountStudents)
+const totalPage = computed(() => students.currentPage * students.count)
 
 const nextPage = () => {
-  students.getStudentsList(students.studentsCurrentPage + 1, students.paginationCountStudents)
+  getStudentsList(students.currentPage + 1, students.count, 'force')
 }
 
 const prevPage = () => {
-  students.getStudentsList(students.studentsCurrentPage - 1, students.paginationCountStudents)
+  getStudentsList(students.currentPage - 1, students.count, 'force')
 }
 
 const changePagination = (count) => {
   if (count !== '...') {
-    students.getStudentsList(count, students.paginationCountStudents)
+    getStudentsList(count, students.count)
   }
 }
 
-const selectPaginationCount = (paginationCountStudents) => {
-  students.studentsCurrentPage = 1
-  students.getStudentsList(students.studentsCurrentPage, paginationCountStudents, 'force')
+const selectPaginationCount = (count) => {
+  students.currentPage = 1
+  getStudentsList(students.currentPage, count, 'force')
 }
 
 const columns = [
@@ -116,7 +111,7 @@ const columns = [
   { label: 'Amallar', width: '8%', keys: 'actions' }
 ]
 
-onMounted(() => {
-  students.getStudentsList(students.studentsCurrentPage, students.paginationCountStudents)
+onMounted(async () => {
+  await getStudentsList(students.currentPage, students.count, 'force')
 })
 </script>

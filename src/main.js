@@ -6,16 +6,15 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
-import Vue3Toastify from 'vue3-toastify'
+
+import Toast from 'vue-toastification'
+import 'vue-toastification/dist/index.css'
 
 const app = createApp(App)
 const pinia = createPinia()
 
-const options = {
-  autoClose: 3000
-}
-
-app.use(Vue3Toastify, options)
+//use it
+app.use(Toast)
 
 app.use(pinia)
 app.use(router)

@@ -1,26 +1,37 @@
-import { useFetch } from '@/composables/useFetch'
-import router from '@/router'
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 
-const { get, post } = useFetch()
+import { useFetch } from '@/composables/useFetch'
+
+import router from '@/router'
+
+import { defineStore } from 'pinia'
+
+import { useToast } from 'vue-toastification'
+
+const { get, post, put } = useFetch()
 
 export const useStudents = defineStore('students', () => {
-  let studentsList = ref([])
-  let studentsCurrentPage = ref(1)
-  let paginationCountStudents = ref(10)
-  let studentDetails = ref({})
+  const toast = useToast()
+  const students = reactive({
+    list: [],
+    currentPage: 1,
+    count: 10,
+    studentCount: 0,
+    details: {},
+    sponsors: []
+  })
 
   const getStudentsList = async (page, page_size, force) => {
-    if (studentsList.value.length === 0 || studentsCurrentPage.value !== page || force) {
+    console.log(page, page_size, force)
+
+    if (students.list.length === 0 || students.currentPage !== page || force) {
       try {
-        studentsCurrentPage.value = page
-        paginationCountStudents.value = page_size
-        studentsList.value = []
-
         const response = await get('student-list/', { page: page, page_size: page_size })
-
-        studentsList.value = response
+        students.currentPage = page
+        students.count = page_size
+        students.list = []
+        students.studentCount = response.count
+        students.list = response.results
 
         router.push({ path: `?page=`, query: { page: page, page_size: page_size } })
 
@@ -32,7 +43,7 @@ export const useStudents = defineStore('students', () => {
   }
 
   const postNewStudent = async (user, instituteList) => {
-    console.log(user, instituteList)
+    console.log(user.value, instituteList.value)
     try {
       const response = await post(`student-create/`, {
         institute: instituteList.value.find((item) => item.name === user?.value?.institute)?.id,
@@ -56,12 +67,60 @@ export const useStudents = defineStore('students', () => {
     }
   }
 
+  const getStudentDetails = async (pageId) => {
+    try {
+      const details = await get(`student-detail/${pageId}`)
+      console.log(details)
+      students.details = details
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
+  }
+  const getStudentSponsors = async (pageId) => {
+    try {
+      const sponsors = await get(`student-sponsor/${pageId}/`)
+
+      console.log(sponsors)
+      students.sponsors = sponsors.sponsors
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const updateStudentDetails = async (studentData, selectedInstitute, close, errors) => {
+    try {
+      const response = await put(`student-update/${studentData.value.id}/`, {
+        id: studentData.value.id,
+        institute: selectedInstitute.value?.id,
+        full_name: studentData.value.full_name,
+        phone: studentData.value.phone,
+        type: studentData.value.type?.name === 'Bakalavr' ? 1 : 2,
+        contract: studentData.value.contract
+      })
+
+      if (
+        Array.isArray(response.full_name) ||
+        Array.isArray(response.contract) ||
+        Array.isArray(response.phone) ||
+        Array.isArray(response.institute)
+      ) {
+        errors.value = response
+      } else {
+        close.value()
+
+        errors.value = null
+      }
+    } catch (error) {
+      console.error('Error fetching user:', error)
+    }
+  }
+
   return {
-    studentDetails,
+    students,
+    getStudentDetails,
+    updateStudentDetails,
+    getStudentSponsors,
     postNewStudent,
-    studentsCurrentPage,
-    studentsList,
-    paginationCountStudents,
     getStudentsList
   }
 })

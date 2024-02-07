@@ -1,5 +1,5 @@
 <template>
-  <CTable :titles="columns" :data="sponsors.sponsorsList?.results">
+  <CTable :titles="columns" :data="sponsors?.list">
     <template #header>
       <ul class="text-gray-400 text-left flex px-[14px]">
         <li
@@ -45,9 +45,8 @@
 
   <div class="flex items-center justify-between pb-4">
     <div>
-      {{ sponsors.sponsorsList?.count }} tadan
-      {{ (sponsors.sponsorsCurrentPage - 1) * sponsors.paginationCountSponsors }}-{{
-        sponsors.sponsorsCurrentPage * sponsors.paginationCountSponsors
+      {{ sponsors.sponsorsList?.count }} tadan {{ (sponsors.currentPage - 1) * sponsors.count }}-{{
+        sponsors.currentPage * sponsors.count
       }}
       ko'rsatilmoqda
     </div>
@@ -59,9 +58,9 @@
       @selectPaginationCount="selectPaginationCount"
       :paginationValues="paginationValues"
       :totalPage="totalPage"
-      :dataList="sponsors.sponsorsList.count"
-      :currentPage="sponsors.sponsorsCurrentPage"
-      :paginationCount="sponsors.paginationCountSponsors"
+      :dataList="sponsors.sponsorsCount"
+      :currentPage="sponsors.currentPage"
+      :paginationCount="sponsors.count"
     />
   </div>
 </template>
@@ -71,14 +70,14 @@ import { computed, onMounted } from 'vue'
 
 import CBadge from '@/components/Base/CBadge.vue'
 import CPagination from '@/components/Layout/CPagination.vue'
-import CTable from '@/components/Layout/CTable.vue'
+import CTable from '@/components/Base/CTable.vue'
 
 import { formatDate } from '@/utils'
 import { generatePaginationData } from '@/utils'
 
 import { useSponsors } from '@/stores/sponsors'
 
-const sponsors = useSponsors()
+const { sponsors, getSponsorsList } = useSponsors()
 
 const columns = [
   { label: '#', width: '2%', keys: 'index' },
@@ -92,35 +91,32 @@ const columns = [
 ]
 
 const paginationValues = computed(() =>
-  generatePaginationData(
-    sponsors.sponsorsCurrentPage,
-    sponsors.sponsorsList.count,
-    sponsors.paginationCountSponsors
-  )
+  generatePaginationData(sponsors.currentPage, sponsors.sponsorsCount, sponsors.count)
 )
 
-const totalPage = computed(() => sponsors.sponsorsCurrentPage * sponsors.paginationCountSponsors)
+const totalPage = computed(() => sponsors.currentPage * sponsors.count)
 
 const nextPage = () => {
-  sponsors.getSponsorsList(sponsors.sponsorsCurrentPage + 1, sponsors.paginationCountSponsors)
+  getSponsorsList(sponsors.currentPage + 1, sponsors.count, 'force')
 }
 
 const prevPage = () => {
-  sponsors.getSponsorsList(sponsors.sponsorsCurrentPage - 1, sponsors.paginationCountSponsors)
+  getSponsorsList(sponsors.currentPage - 1, sponsors.count, 'force')
 }
 
-const changePagination = (count) => {
-  if (count !== '...') {
-    sponsors.getSponsorsList(count, sponsors.paginationCountSponsors)
+const changePagination = (currentPage) => {
+  if (currentPage !== '...') {
+    getSponsorsList(currentPage, sponsors.count, 'force')
   }
 }
 
-const selectPaginationCount = (paginationCountSponsors) => {
-  sponsors.sponsorsCurrentPage = 1
-  sponsors.getSponsorsList(sponsors.sponsorsCurrentPage, paginationCountSponsors, 'force')
+const selectPaginationCount = (count) => {
+  sponsors.currentPage = 1
+  getSponsorsList(sponsors.currentPage, count, 'force')
 }
 
 onMounted(() => {
-  sponsors.getSponsorsList(sponsors.sponsorsCurrentPage, sponsors.paginationCountSponsors)
+  console.log(sponsors)
+  getSponsorsList(sponsors.currentPage, sponsors.count)
 })
 </script>

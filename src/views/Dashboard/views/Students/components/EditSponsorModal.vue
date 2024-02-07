@@ -1,12 +1,12 @@
 <template>
   <!-- Todo: Add va edit uchun bitta modal kerak! -->
-  <CModal @childFunction="setChildFunction">
+  <CModal @close="setClose">
     <template #title>Homiylarni tahrirlash</template>
     <template #body>
       <form class="max-w-[793px] w-full bg-white rounded-xl">
         <div class="flex justify-between items-center text-lg font-bold">
           <div>F.I.SH</div>
-          <div class="text-slate-400">{{ editSponsorData.sponsor.full_name }}</div>
+          <div class="text-slate-400">{{ editSponsorData?.sponsor?.full_name }}</div>
         </div>
         <div class="grid grid-cols-1 gap-x-7 gap-y-[50px]">
           <div>
@@ -14,10 +14,7 @@
               <p class="text-[12px] mt-7 text-neutral-800 mb-2 uppercase font-semibold">
                 Ajratilingan summa
               </p>
-              <CInput
-                v-model="editSponsorData.summa"
-                placeholder="Abdullayev Abdulla Abdulla o’g’li"
-              />
+              <CInput v-model="summa" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
             </label>
           </div>
         </div>
@@ -51,7 +48,7 @@ import { useRoute } from 'vue-router'
 
 import CButton from '@/components/Base/CButton.vue'
 import CInput from '@/components/Base/CInput.vue'
-import CModal from '@/components/Common/CModal.vue'
+import CModal from '@/components/Base/CModal.vue'
 import { useFetch } from '@/composables/useFetch'
 import { useDataStore } from '@/stores'
 
@@ -59,15 +56,21 @@ const store = useDataStore()
 
 const error = ref('')
 
+const props = defineProps(['studentSponsorData'])
+
+const emit = defineEmits(['getStudentDetails'])
+
 const editSponsorData = ref({})
 
-const childFunction = ref(null)
+const close = ref(null)
 
-const setChildFunction = (func) => {
-  childFunction.value = func
+const setClose = (func) => {
+  close.value = func
 }
 
-editSponsorData.value = { ...store.editSponsorData }
+editSponsorData.value = props?.studentSponsorData
+
+const summa = ref(props.studentSponsorData?.summa)
 
 const { put, remove } = useFetch()
 
@@ -75,16 +78,18 @@ const route = useRoute()
 
 const saveSponsor = async () => {
   try {
-    const response = await put(`sponsor-summa-update/${editSponsorData.value.id}/`, {
-      sponsor: editSponsorData.value.sponsor.id,
+    console.log(editSponsorData.value, summa.value, route.params.id)
+    const response = await put(`sponsor-summa-update/${props.studentSponsorData?.id}/`, {
+      sponsor: props.studentSponsorData?.sponsor?.id,
       student: route.params.id,
-      summa: editSponsorData.value.summa
+      summa: summa.value
     })
     if (!Number(response.summa)) {
       error.value = response.summa
     } else {
       error.value = ''
-      childFunction.value()
+      close.value()
+      emit('getStudentDetails')
     }
     console.log(response)
   } catch (error) {
@@ -94,9 +99,13 @@ const saveSponsor = async () => {
 
 const deleteSponsor = async () => {
   try {
-    const response = await remove(`sponsor-summa-delete/${editSponsorData.value.id}/`, {
-      sponsor: editSponsorData.value.sponsor.id
+    const response = await remove(`sponsor-summa-delete/${props.studentSponsorData?.id}/`, {
+      summa: props.studentSponsorData?.summa
     })
+
+    console.log(response)
+    close.value()
+    emit('getStudentDetails')
     console.log(response)
   } catch (error) {
     console.log(error)

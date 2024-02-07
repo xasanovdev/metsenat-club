@@ -20,7 +20,7 @@
       />
       <label
         for="option-all"
-        class="w-full text-sm font-medium h-[52px] rounded-md flex items-center justify-center border-2 cursor-pointer"
+        class="w-full text-sm h-[52px] rounded-md flex items-center justify-center border-2 uppercase font-semibold text-gray-600"
         :class="{ 'bg-indigo-200 border-blue-700': selectedFilter === 'all' }"
       >
         All
@@ -43,7 +43,7 @@
       />
       <label
         :for="'option-' + option"
-        class="w-full text-sm font-medium h-[52px] rounded-md flex items-center justify-center border-2 cursor-pointer"
+        class="w-full text-sm h-[52px] rounded-md flex items-center justify-center border-2  cursor-pointer uppercase font-semibold text-gray-600"
         :class="{ 'bg-indigo-200 border-blue-700': selectedFilter === option }"
       >
         {{ formatNumber(option) }}

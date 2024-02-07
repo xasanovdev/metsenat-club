@@ -33,12 +33,12 @@
             v-model="credentials.password"
           />
 
-          <CButton type="submit" :loading="loading" variant="secondary"> Kirish </CButton>
+          <CButton type="submit" :loading="auth.loading" variant="secondary"> Kirish </CButton>
           <!-- Todo: refactor. create component for this action and use inside formgroup or input -->
           <Validation
             class="mt-2 bg-red-50 p-2 rounded-md"
-            :validation="error"
-            :validationText="error"
+            :validation="auth.error"
+            :validationText="auth.error"
           />
         </form>
       </div>
@@ -56,10 +56,7 @@ import CButton from '@/components/Base/CButton.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, minLength, maxLength } from '@vuelidate/validators'
 import Validation from '@/components/Base/Validation.vue'
-
-const error = ref(false)
-
-const loading = ref(false)
+import router from '@/router'
 
 const auth = useAuthStore()
 
@@ -77,12 +74,13 @@ const $v = useVuelidate(rules, credentials)
 
 const handleLogin = async () => {
   const result = await $v.value.$validate()
-  console.log(result)
 
   if (!result) {
     return $v
   }
 
-  await auth.login(credentials, loading, error)
+  await auth.login(credentials)
+
+  router.push({ name: 'Dashboard' })
 }
 </script>

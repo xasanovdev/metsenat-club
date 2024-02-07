@@ -1,35 +1,28 @@
 <template>
-  <CModal @childFunction="setChildFunction">
+  <CModal @close="setClose">
     <template #title>Homiy qo‘shish</template>
     <template #body>
       <div>
         <label>
-          <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium">OTM</span>
+          <span class="cursor-pointer text-sm uppercase font-semibold text-gray-600">OTM</span>
           {{ filterSponsor.sponsor }}
 
-          <CDropdown
-            v-model="filterSponsor.sponsor"
-            property="full_name"
-            :options="sponsorsData?.results"
-          />
+          <CDropdown v-model="filterSponsor.sponsor" property="full_name" :options="sponsorsData" />
           <span v-if="data?.sponsor" class="text-red-500">{{ data?.sponsor[0] }}</span>
         </label>
       </div>
 
-      <div class="mt-7">
-        <label>
-          <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium"
-            >Ajratilingan summa</span
-          >
-          {{ filterSponsor.summa }}
-          <CInput
-            v-model="filterSponsor.summa"
-            type="string"
-            placeholder="Abdullayev Abdulla Abdulla o’g’li"
-          />
-          <span v-if="data?.summa" class="text-red-500">{{ data?.summa[0] }}</span>
-        </label>
-      </div>
+      {{ filterSponsor.summa }}
+      <FormGroup
+        class="mt-7"
+        label="Ajratilingan summa"
+        id="given"
+        type="number"
+        placeholder="Ajratilingan summangizni kiritng..."
+        validationText="Given amount of money"
+        :validation="$v.summa.$error"
+        v-model="filterSponsor.summa"
+      />
 
       <p v-if="error" class="mt-2 bg-red-50 p-2 text-red-500 rounded-md">{{ error }}</p>
     </template>
@@ -46,17 +39,23 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 import { useRoute } from 'vue-router'
 
 import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
 import CInput from '@/components/Base/CInput.vue'
-import CModal from '@/components/Common/CModal.vue'
+import CModal from '@/components/Base/CModal.vue'
 import { useFetch } from '@/composables/useFetch'
+import { maxValue, required } from '@vuelidate/validators'
+import useVuelidate from '@vuelidate/core'
+import FormGroup from '@/components/Base/FormGroup.vue'
+import { useSponsors } from '@/stores/sponsors'
 
 const route = useRoute()
+
+const emit = defineEmits(['getStudentDetails'])
 
 const filterSponsor = ref({
   sponsor: '',
@@ -67,10 +66,12 @@ const data = ref(null)
 
 const error = ref('')
 
+const sponsors = useSponsors()
+
 const sponsorsData = ref([])
 
 const getSponsorId = () => {
-  const sponsor = sponsorsData.value.results?.find((item) => {
+  const sponsor = sponsorsData.value?.find((item) => {
     if (item.full_name == filterSponsor.value.sponsor) {
       return item
     }
@@ -80,30 +81,32 @@ const getSponsorId = () => {
 
 const { get, post } = useFetch()
 
-const childFunction = ref(null)
-
-const setChildFunction = (func) => {
-  childFunction.value = func
+const rules = {
+  summa: { required, maxValue: maxValue(2147483647) }
 }
 
-const fetchData = async () => {
-  try {
-    const response = await get('sponsor-list/')
-    console.log(response)
-    sponsorsData.value = response
-  } catch (error) {
-    console.log(error)
-  }
+const $v = useVuelidate(rules, filterSponsor)
+
+const close = ref(null)
+
+const setClose = (func) => {
+  close.value = func
 }
+
+const postSponsorOptions = computed(() => [
+  { sponsor: getSponsorId(), summa: filterSponsor.value.summa, student: route.params.id }
+])
 
 const addSponsor = async () => {
+  const result = await $v.value.$validate()
+  console.log('validation result', $v.value)
+
+  if (!result) {
+    return $v
+  }
+
   try {
-    const response = await post('sponsor-summa-create/', {
-      sponsor: getSponsorId(),
-      summa: filterSponsor.value.summa,
-      student: route.params.id
-    })
-    console.log(response)
+    const response = await post('sponsor-summa-create/', postSponsorOptions.value[0])
 
     if (Array.isArray(response.summa)) {
       data.value = response
@@ -115,16 +118,20 @@ const addSponsor = async () => {
       error.value = ''
       filterSponsor.value.summa = ''
       data.value = ''
-      console.log(response)
 
-      childFunction.value()
+      close.value()
+
+      emit('getStudentDetails')
     }
   } catch (error) {
     console.log(error)
   }
 }
 
-onMounted(() => {
-  fetchData()
+onMounted(async () => {
+  await sponsors.getSponsorsList(sponsors.sponsors.currentPage, sponsors.sponsors.count, 'force')
+  sponsorsData.value = sponsors?.sponsors?.list
+
+  console.log(data.value)
 })
 </script>

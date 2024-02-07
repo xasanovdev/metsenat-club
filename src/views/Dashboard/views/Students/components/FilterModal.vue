@@ -1,6 +1,6 @@
 <template>
   <!-- Todo: refactor two filter modals in sponsors and students pages -->
-  <CModal @childFunction="setChildFunction">
+  <CModal @close="setClose">
     <template #title>Tahrirlash</template>
     <template #body>
       <div class="flex flex-col items-start gap-4">
@@ -46,7 +46,7 @@ import { onMounted, ref } from 'vue'
 
 import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
-import CModal from '@/components/Common/CModal.vue'
+import CModal from '@/components/Base/CModal.vue'
 import { useFetch } from '@/composables/useFetch'
 import { useDataStore } from '@/stores'
 import { optionsType } from '@/utils'
@@ -71,14 +71,14 @@ const clear = () => {
   filterStudent.value.institute = ''
 }
 
-const childFunction = ref('')
+const close = ref('')
 
-const setChildFunction = (func) => {
+const setClose = (func) => {
   console.log('salom')
-  childFunction.value = func
+  close.value = func
 }
 
 const filterStudents = () => {
-  childFunction.value()
+  close.value()
 }
 </script>

@@ -1,6 +1,4 @@
 <template>
-  <CHeader @openModal="filterModal.openModal" />
-
   <div class="bg-gray-50 pb-20">
     <div class="container mx-auto px-6 overflow-x-auto">
       <RouterLink class="w-full" to="/new-student">
@@ -24,16 +22,12 @@
   />
 </template>
 <script setup>
-import { ref } from 'vue'
-
 import CButton from '@/components/Base/CButton.vue'
-import CHeader from '@/components/Layout/CHeader.vue'
+
 import { useModal } from '@/composables/useModal'
 
 import StudenstTable from './components/StudenstTable.vue'
 import FilterModal from './components/FilterModal.vue'
-
-const search = ref('')
 
 const { modal } = useModal()
 
