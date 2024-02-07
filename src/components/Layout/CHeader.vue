@@ -25,10 +25,17 @@
       class="container w-full mx-auto flex flex-col gap-4 md:flex-row px-6 justify-between items-center"
     >
       <div
-        class="flex items-center text-center rounded-md overflow-hidden justify-center w-full md:max-w-[579px]"
+        class="flex items-center text-center overflow-hidden justify-center w-full md:max-w-[579px]"
       >
         <!-- Todo: use v-for -->
-        <Tab v-for="(item, index) in tabList" :key="index" :title="item.title" :path="item.path" />
+
+        <Tab
+          v-for="(item, index) in tabList"
+          :key="index"
+          :rounded="index === 0 ? 'left' : index === tabList.length - 1 ? 'right' : ''"
+          :title="item.title"
+          :path="item.path"
+        />
       </div>
 
       <div class="relative flex w-full items-center justify-end gap-4 md:gap-5">

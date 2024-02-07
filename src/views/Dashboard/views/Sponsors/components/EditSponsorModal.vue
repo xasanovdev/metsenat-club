@@ -5,19 +5,21 @@
       <form class="max-w-[793px] w-full bg-white rounded-xl">
         <div class="flex items-center rounded-lg border-2 border-[3E0E7FF]">
           <!-- Todo: refactor this component. user v-for fr physical and legal. -->
-          <CButton
+          <TabButton
             @click.prevent="isLegal = false"
-            :class="[!isLegal ? 'bg-blue-700 text-white' : 'text-blue-700 bg-white']"
+            rounded="left"
             class="flex-1"
-            >Jismoniy shaxs</CButton
+            :isLegal="!isLegal"
+            >Jismoniy shaxs</TabButton
           >
-          <CButton
-            :class="[isLegal ? 'bg-blue-700 text-white' : 'text-blue-700 bg-white']"
+          <TabButton
             @click.prevent="isLegal = true"
+            rounded="right"
+            :isLegal="isLegal"
             class="flex-1"
           >
             Yuridik shaxs
-          </CButton>
+          </TabButton>
         </div>
 
         <div class="grid grid-cols-1 gap-y-7 mt-8">
@@ -91,6 +93,7 @@ import FormGroup from '@/components/Base/FormGroup.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, minLength, maxLength } from '@vuelidate/validators'
 import { useSponsors } from '@/stores/sponsors'
+import TabButton from '@/components/Base/TabButton.vue'
 
 const props = defineProps('data')
 

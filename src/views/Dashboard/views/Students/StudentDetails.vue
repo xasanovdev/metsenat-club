@@ -24,7 +24,7 @@
             class="flex items-start sm:items-center flex-col gap-8 sm:flex-row sm:gap-0 justify-between"
           >
             <p class="text-slate-900 text-2xl font-bold">Talaba haqida</p>
-            <CButton @click="editStudentModal.openModal" class="px-8" variant="primary">
+            <CButton class="sm:max-w-[166px]" @click="editStudentModal.openModal" variant="primary">
               <span class="flex items-center justify-center gap-[10px]">
                 Tahrirlash <img src="/pen.svg" alt="pen icon for editing" />
               </span>
@@ -89,7 +89,11 @@
             class="flex items-start sm:items-center flex-col gap-8 sm:flex-row sm:gap-0 justify-between"
           >
             <p class="text-slate-900 text-2xl font-bold">Talabaga homiylar</p>
-            <CButton @click="addSponsorModal.openModal" class="px-8" variant="primary">
+            <CButton
+              @click="addSponsorModal.openModal"
+              class="sm:max-w-52 whitespace-nowrap"
+              variant="primary"
+            >
               <span class="flex items-center justify-center gap-[10px]">
                 Homiy qo‘shish
                 <img src="/plus.svg" alt="default plus icon" />
@@ -106,8 +110,8 @@
             </p>
           </div>
 
-          <div class="mt-8">
-            <ul class="w-full list-none p-0">
+          <div class="mt-8 overflow-hidden overflow-x-scroll">
+            <ul class="w-full list-none p-0 min-w-[726px]">
               <!-- Table Header -->
               <li>
                 <div class="flex bg-white p-4">
@@ -119,6 +123,9 @@
               </li>
 
               <!-- Table Rows -->
+              <div v-if="sponsorsList.length === 0" class="px-[14px] py-[22px]">
+                <span class="w-full">Hamkorlar mavjud emas.</span>
+              </div>
 
               <li class="mb-2" v-for="(sponsor, index) in sponsorsList" :key="sponsor.id">
                 <div class="flex bg-gray-50 border border-slate-300 rounded-lg px-[14px] py-[22px]">
