@@ -11,7 +11,11 @@
         @input="updateSearchText"
         class="w-full border border-indigo-200 duration-200 focus:border-blue-700 justify-between bg-gray-50 text-left text-gray-800 rounded-md focus:outline-none flex items-center"
         placeholder="Search..."
-        :class="[readonly ? 'cursor-pointer' : '', size === 'sm' ? 'p-[5px]' : 'px-4 py-3']"
+        :class="[
+          readonly ? 'cursor-pointer' : '',
+          size === 'sm' ? 'p-[5px]' : 'px-4 py-3',
+          validation ? 'border-red-500' : ''
+        ]"
         :readonly="readonly"
       />
       <img
@@ -65,7 +69,15 @@
 <script setup>
 import { computed, defineEmits, defineProps, onMounted, onUnmounted, ref } from 'vue'
 
-const props = defineProps(['options', 'property', 'modelValue', 'readonly', 'position', 'size'])
+const props = defineProps([
+  'options',
+  'property',
+  'validation',
+  'modelValue',
+  'readonly',
+  'position',
+  'size'
+])
 const emit = defineEmits(['update:modelValue'])
 
 console.log(props)

@@ -15,7 +15,7 @@
       @submit.prevent="createNewStudent"
       class="max-w-[793px] w-full bg-white p-7 mx-auto rounded-xl"
     >
-      <div class="grid grid-cols-2 gap-x-7 gap-y-[50px]">
+      <div class="grid grid-cols-2 gap-x-7 gap-y-5">
         <FormGroup
           label="F.I.Sh. (Familiya Ism Sharif)"
           id="full_name"
@@ -36,23 +36,33 @@
           v-model="user.phone"
         />
 
-        <div class="col-span-2">
-          <label>
+        <div class="col-span-2 flex flex-col justify-between gap-2 w-full">
+          <label class="flex flex-col gap-2">
             <span class="cursor-pointer text-sm uppercase font-semibold text-gray-600">OTM</span>
-            {{ user.institute }}
-            <CDropdown v-model="user.institute" property="name" :options="instituteList" />
+            <CDropdown
+              :validation="$v.institute.$error"
+              v-model="user.institute"
+              property="name"
+              :options="instituteList"
+            />
           </label>
+          <Validation :validation="$v.institute.$error" validationText="Institute" />
         </div>
 
-        <div>
-          <label>
+        <div class="flex flex-col justify-between gap-2 w-full">
+          <label class="flex flex-col gap-2">
             <span class="cursor-pointer text-sm uppercase font-semibold text-gray-600"
               >Talabalik turi</span
             >
-            {{ user.type }}
-
-            <CDropdown v-model="user.type" property="name" :options="optionsType" />
+            <CDropdown
+              :validation="$v.type.$error"
+              class="w-full"
+              v-model="user.type"
+              property="name"
+              :options="optionsType"
+            />
           </label>
+          <Validation :validation="$v.type.$error" validationText="Type of institute" />
         </div>
         <FormGroup
           label="Kontrakt summa"
@@ -87,6 +97,8 @@ import { useStudents } from '@/stores/students'
 import { optionsType } from '@/utils'
 import useVuelidate from '@vuelidate/core'
 
+import Validation from '@/components/Base/Validation.vue'
+
 import { required, minLength, maxLength } from '@vuelidate/validators'
 
 const store = useDataStore()
@@ -105,7 +117,9 @@ const user = ref({
 const rules = {
   full_name: { required },
   phone: { required },
-  contract: { required, maxLength: maxLength(2147483647) }
+  contract: { required, maxLength: maxLength(2147483647) },
+  institute: { required },
+  type: { required }
 }
 
 const $v = useVuelidate(rules, user)

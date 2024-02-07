@@ -24,13 +24,14 @@
             v-model="studentData.phone"
           />
 
-          <div class="col-span-1">
-            <label>
+          <div class="col-span-1 flex flex-col justify-between gap-2 w-full">
+            <label class="flex flex-col gap-2">
               {{ studentData?.institute }}
               <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium">OTM</span>
               <CDropdown
                 v-model="studentData.institute.name"
                 property="name"
+                :validation="$v.institute.$error"
                 :options="instituteList"
               />
             </label>
@@ -73,7 +74,6 @@ import useVuelidate from '@vuelidate/core'
 
 import { required, maxValue } from '@vuelidate/validators'
 import FormGroup from '@/components/Base/FormGroup.vue'
-import router from '@/router'
 
 const emit = defineEmits(['getStudentDetails'])
 
@@ -110,7 +110,8 @@ onMounted(async () => {
 const rules = {
   full_name: { required },
   phone: { required },
-  contract: { required, maxValue: maxValue(2147483647) }
+  contract: { required, maxValue: maxValue(2147483647) },
+  institute: { required }
 }
 
 const $v = useVuelidate(rules, studentData)

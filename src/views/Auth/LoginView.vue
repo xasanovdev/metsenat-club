@@ -34,6 +34,21 @@
           />
 
           <CButton type="submit" :loading="auth.loading" variant="secondary"> Kirish </CButton>
+
+          <vue-recaptcha
+            class="w-full mt-4"
+            sitekey="6LeGSGopAAAAAGXV4EvZh4_uUgvX02JesKWPFHjM"
+            size="normal"
+            theme="light"
+            hl="uz"
+            @verify="recaptchaVerified"
+            @expire="recaptchaExpired"
+            @fail="recaptchaFailed"
+            @error="recaptchaError"
+            ref="vueRecaptcha"
+          >
+          </vue-recaptcha>
+
           <!-- Todo: refactor. create component for this action and use inside formgroup or input -->
           <Validation
             class="mt-2 bg-red-50 p-2 rounded-md"
@@ -48,6 +63,10 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
+
+import VueRecaptcha from 'vue3-recaptcha2'
+
+// change recaptcha language
 
 import { useAuthStore } from '@/stores/auth'
 
@@ -82,5 +101,22 @@ const handleLogin = async () => {
   await auth.login(credentials)
 
   router.push({ name: 'Dashboard' })
+}
+
+// Event handlers for reCAPTCHA
+const recaptchaVerified = (response) => {
+  console.log('reCAPTCHA verification successful:', response)
+}
+
+const recaptchaExpired = () => {
+  console.log('reCAPTCHA verification expired')
+}
+
+const recaptchaFailed = () => {
+  console.log('reCAPTCHA verification failed')
+}
+
+const recaptchaError = () => {
+  console.error('reCAPTCHA error occurred')
 }
 </script>

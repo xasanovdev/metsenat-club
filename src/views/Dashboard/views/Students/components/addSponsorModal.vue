@@ -2,14 +2,20 @@
   <CModal @close="setClose">
     <template #title>Homiy qo‘shish</template>
     <template #body>
-      <div>
-        <label>
+      <div class="col-span-2 flex flex-col justify-between gap-2 w-full">
+        <label class="flex flex-col gap-2">
           <span class="cursor-pointer text-sm uppercase font-semibold text-gray-600">OTM</span>
           {{ filterSponsor.sponsor }}
 
-          <CDropdown v-model="filterSponsor.sponsor" property="full_name" :options="sponsorsData" />
+          <CDropdown
+            :validation="$v.sponsor.$error"
+            v-model="filterSponsor.sponsor"
+            property="full_name"
+            :options="sponsorsData"
+          />
           <span v-if="data?.sponsor" class="text-red-500">{{ data?.sponsor[0] }}</span>
         </label>
+        <Validation :validation="$v.sponsor.$error" validationText="Institute" />
       </div>
 
       {{ filterSponsor.summa }}
@@ -45,13 +51,16 @@ import { useRoute } from 'vue-router'
 
 import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
-import CInput from '@/components/Base/CInput.vue'
+import FormGroup from '@/components/Base/FormGroup.vue'
 import CModal from '@/components/Base/CModal.vue'
+
 import { useFetch } from '@/composables/useFetch'
+
 import { maxValue, required } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
-import FormGroup from '@/components/Base/FormGroup.vue'
+
 import { useSponsors } from '@/stores/sponsors'
+import Validation from '@/components/Base/Validation.vue'
 
 const route = useRoute()
 
@@ -82,7 +91,8 @@ const getSponsorId = () => {
 const { get, post } = useFetch()
 
 const rules = {
-  summa: { required, maxValue: maxValue(2147483647) }
+  summa: { required, maxValue: maxValue(2147483647) },
+  sponsor: { required }
 }
 
 const $v = useVuelidate(rules, filterSponsor)
@@ -117,6 +127,7 @@ const addSponsor = async () => {
     } else {
       error.value = ''
       filterSponsor.value.summa = ''
+      filterSponsor.value.sponsor = ''
       data.value = ''
 
       close.value()
