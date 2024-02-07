@@ -32,7 +32,9 @@ export const useStudents = defineStore('students', () => {
           students.list = response.results
         })
       } catch (error) {
-        console.log(error)
+        toast.error(`${error}`, {
+          autoClose: 1000
+        })
       }
     }
   }
@@ -43,7 +45,9 @@ export const useStudents = defineStore('students', () => {
         router.push({ name: 'Student', params: { id: response.id } })
       )
     } catch (error) {
-      console.log(error)
+      toast.error(`${error}`, {
+        autoClose: 1000
+      })
     }
   }
 
@@ -53,7 +57,9 @@ export const useStudents = defineStore('students', () => {
 
       students.details = details
     } catch (error) {
-      console.error('Error fetching data:', error)
+      toast.error(`${error}`, {
+        autoClose: 1000
+      })
     }
   }
   const getStudentSponsors = async (pageId) => {
@@ -62,7 +68,9 @@ export const useStudents = defineStore('students', () => {
 
       students.sponsors = sponsors.sponsors
     } catch (error) {
-      console.error(error)
+      toast.error(`${error}`, {
+        autoClose: 1000
+      })
     }
   }
 
@@ -70,7 +78,9 @@ export const useStudents = defineStore('students', () => {
     try {
       await put(`student-update/${studentData.value.id}/`, studentData)
     } catch (error) {
-      console.error('Error fetching user:', error)
+      toast.error(`${error}`, {
+        autoClose: 1000
+      })
     }
   }
 

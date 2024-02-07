@@ -2,10 +2,13 @@ import { useFetch } from '@/composables/useFetch'
 import router from '@/router'
 import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
+import { useToast } from 'vue-toastification'
 
 const { get } = useFetch()
 
 export const useSponsors = defineStore('sponsors', () => {
+  const toast = useToast()
+
   const sponsors = reactive({
     list: [],
     currentPage: 1,
@@ -30,7 +33,9 @@ export const useSponsors = defineStore('sponsors', () => {
         })
         loading.value = false
       } catch (error) {
-        console.log(error)
+        toast.error(`${error}`, {
+          autoClose: 1000
+        })
       }
     }
   }
@@ -39,7 +44,9 @@ export const useSponsors = defineStore('sponsors', () => {
     try {
       await get(`sponsor-detail/${id}`).then((response) => (sponsors.details = response))
     } catch (error) {
-      console.error('Error fetching data:', error)
+      toast.error(`${error}`, {
+        autoClose: 1000
+      })
     }
   }
 
