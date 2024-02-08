@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch, reactive } from 'vue'
 
 import CButton from '@/components/Base/CButton.vue'
 import CInput from '@/components/Base/CInput.vue'
@@ -66,7 +66,7 @@ const props = defineProps({
 
 const emit = defineEmits(['getStudentDetails'])
 
-const editSponsorData = ref({})
+const editSponsorData = reactive({})
 
 const close = ref(null)
 
@@ -76,6 +76,8 @@ const setClose = (func) => {
 
 editSponsorData.value = props?.studentSponsorData
 
+console.log(editSponsorData.value)
+
 const summa = ref(props.studentSponsorData?.summa)
 
 const { put, remove } = useFetch()
@@ -84,7 +86,6 @@ const route = useRoute()
 
 const saveSponsor = async () => {
   try {
-    console.log(editSponsorData.value, summa.value, route.params.id)
     const response = await put(`sponsor-summa-update/${props.studentSponsorData?.id}/`, {
       sponsor: props.studentSponsorData?.sponsor?.id,
       student: route.params.id,

@@ -181,16 +181,15 @@ import { onMounted, ref } from 'vue'
 
 import CBadge from '@/components/Base/CBadge.vue'
 import CButton from '@/components/Base/CButton.vue'
+import AddSponsorModal from './components/addSponsorModal.vue'
+import EditSponsorModal from './components/EditSponsorModal.vue'
+import EditStudentModal from './components/EditStudentModal.vue'
 
 import { useModal } from '@/composables/useModal'
 
 import { useStudents } from '@/stores/students'
 
 import { formatNumber } from '@/utils'
-
-import AddSponsorModal from './components/addSponsorModal.vue'
-import EditSponsorModal from './components/EditSponsorModal.vue'
-import EditStudentModal from './components/EditStudentModal.vue'
 
 import { useRoute } from 'vue-router'
 
@@ -206,8 +205,6 @@ const studentSponsorData = ref({})
 const getEditSponsorModalData = (sponsor) => {
   studentSponsorData.value = sponsor
   editSponsorModal.openModal()
-
-  console.log(studentSponsorData.value)
 }
 
 const loading = ref(false)

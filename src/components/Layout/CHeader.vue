@@ -47,7 +47,7 @@
         />
         <div
           v-if="search.length !== 0"
-          class="absolute md:max-w-[284px] rounded-md p-4 shadow-xl w-full bg-white left-12 top-16"
+          class="absolute md:max-w-[434px] rounded-md p-4 shadow-xl w-full bg-white top-16"
         >
           {{ searchResults.length === 0 ? 'Bunday malumot mavjud emas :(' : searchResults }}
         </div>
