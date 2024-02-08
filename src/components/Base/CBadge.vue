@@ -5,7 +5,12 @@
 </template>
 
 <script setup>
-const props = defineProps(['status'])
+defineProps({
+  status: {
+    type: String,
+    default: 'Moderatsiyada'
+  }
+})
 
 const statusObject = {
   Yangi: 'text-blue-500 bg-blue-200',

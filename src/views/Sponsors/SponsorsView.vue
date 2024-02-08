@@ -13,13 +13,12 @@
   />
 </template>
 <script setup>
-import { useModal } from '@/composables/useModal'
-
 import SponsorsTable from './components/SponsorsTable.vue'
 import FilterModal from './components/FilterModal.vue'
+
+import { useModal } from '@/composables/useModal'
 
 const { modal } = useModal()
 
 const filterModal = modal()
 </script>
-@/stores

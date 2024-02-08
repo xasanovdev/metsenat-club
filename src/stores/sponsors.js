@@ -1,8 +1,10 @@
-import { useFetch } from '@/composables/useFetch'
-import router from '@/router'
-import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
+
+import { defineStore } from 'pinia'
+
 import { useToast } from 'vue-toastification'
+
+import { useFetch } from '@/composables/useFetch'
 
 const { get } = useFetch()
 

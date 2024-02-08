@@ -12,5 +12,18 @@
 <script setup>
 import TabButton from './TabButton.vue'
 
-const props = defineProps(['path', 'title', 'rounded'])
+const props = defineProps({
+  path: {
+    type: String,
+    default: ''
+  },
+  title: {
+    type: String,
+    default: ''
+  },
+  rounded: {
+    type: String,
+    default: ''
+  }
+})
 </script>

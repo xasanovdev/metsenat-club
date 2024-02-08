@@ -17,7 +17,6 @@
           <FormGroup
             label="Telefon raqam"
             id="phone"
-            type="number"
             placeholder="Telefon raqamingizni kiritng..."
             validationText="Phone"
             :validation="$v.phone.$error"
@@ -26,8 +25,7 @@
 
           <div class="col-span-1 flex flex-col justify-between gap-2 w-full">
             <label class="flex flex-col gap-2">
-              {{ studentData?.institute }}
-              <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium">OTM</span>
+              <span class="text-[12px] text-gray-600 uppercase font-semibold">OTM</span>
               <CDropdown
                 v-model="studentData.institute.name"
                 property="name"
@@ -40,7 +38,6 @@
           <FormGroup
             label="Kontrakt summa"
             id="contract"
-            type="number"
             placeholder="Kontrakt summangizni kiritng..."
             validationText="Contract"
             :validation="$v.contract.$error"
@@ -61,29 +58,22 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
-
 import CModal from '@/components/Base/CModal.vue'
+import FormGroup from '@/components/Base/FormGroup.vue'
 
 import { useStudents } from '@/stores/students'
 import { useDataStore } from '@/stores'
-import useVuelidate from '@vuelidate/core'
 
+import useVuelidate from '@vuelidate/core'
 import { required, maxValue } from '@vuelidate/validators'
-import FormGroup from '@/components/Base/FormGroup.vue'
 
 const emit = defineEmits(['getStudentDetails'])
 
 const studentData = ref([])
-
-const close = ref(null)
-
-const setClose = (func) => {
-  close.value = func
-}
 
 const students = useStudents()
 
@@ -91,12 +81,16 @@ const store = useDataStore()
 
 const instituteList = ref([])
 
+const close = ref(null)
+
+const setClose = (func) => {
+  close.value = func
+}
+
 onMounted(async () => {
   await store.fetchInstituteList()
 
   instituteList.value = store.instituteList
-
-  console.log(students.students)
 
   studentData.value = { ...students?.students?.details }
 })
@@ -112,20 +106,19 @@ const $v = useVuelidate(rules, studentData)
 
 const updateStudent = async () => {
   const result = await $v.value.$validate()
-  console.log('validation result', $v.value)
 
   if (!result) {
     return $v
   }
+
   await students.updateStudentDetails({
-    id: studentData.value.id,
-    institute: instituteList.value.find(
-      (item) => item.name.trim() === studentData.value.institute?.name.trim()
-    ),
     full_name: studentData.value.full_name,
-    phone: studentData.value.phone,
     type: studentData.value.type?.name === 'Bakalavr' ? 1 : 2,
-    contract: studentData.value.contract
+    phone: studentData.value.phone,
+    institute: instituteList.value.find((item) => item.name === studentData.value.institute?.name)
+      .id,
+    id: studentData.value.id,
+    given: studentData.value.contract
   })
 
   close.value()

@@ -80,6 +80,7 @@ import { formatDate } from '@/utils'
 import { generatePaginationData } from '@/utils'
 
 import { useSponsors } from '@/stores/sponsors'
+
 import router from '@/router'
 
 const sponsors = useSponsors()

@@ -1,5 +1,4 @@
 <template>
-  <!-- Todo: refactor two filter modals in sponsors and students pages -->
   <CModal @close="setClose">
     <template #title>Tahrirlash</template>
     <template #body>
@@ -47,10 +46,10 @@ import { onMounted, ref } from 'vue'
 import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
 import CModal from '@/components/Base/CModal.vue'
-import { useFetch } from '@/composables/useFetch'
+
 import { useDataStore } from '@/stores'
+
 import { optionsType } from '@/utils'
-import { useStudents } from '@/stores/students'
 
 const store = useDataStore()
 

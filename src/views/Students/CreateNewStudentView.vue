@@ -89,18 +89,16 @@ import { onMounted, ref } from 'vue'
 
 import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
-
 import FormGroup from '@/components/Base/FormGroup.vue'
+import Validation from '@/components/Base/Validation.vue'
+
 import { useDataStore } from '@/stores'
 import { useStudents } from '@/stores/students'
 
 import { optionsType } from '@/utils'
+
 import useVuelidate from '@vuelidate/core'
-
-import Validation from '@/components/Base/Validation.vue'
-
-import { required, minLength, maxLength } from '@vuelidate/validators'
-import router from '@/router'
+import { required, maxLength, minLength } from '@vuelidate/validators'
 
 const store = useDataStore()
 const students = useStudents()
@@ -117,8 +115,8 @@ const user = ref({
 
 const rules = {
   full_name: { required },
-  phone: { required },
-  contract: { required, maxLength: maxLength(2147483647) },
+  phone: { required, minLength: minLength(1), maxLength: maxLength(255) },
+  contract: { required, minLength: minLength(-2147483647), maxLength: maxLength(2147483647) },
   institute: { required },
   type: { required }
 }

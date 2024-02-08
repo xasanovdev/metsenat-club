@@ -61,17 +61,17 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref } from 'vue'
-
-import { useRoute } from 'vue-router'
+import { onMounted, ref } from 'vue'
 
 import CBadge from '@/components/Base/CBadge.vue'
 import CButton from '@/components/Base/CButton.vue'
-import { useFetch } from '@/composables/useFetch'
+import EditSponsorModal from './components/EditSponsorModal.vue'
+
 import { useModal } from '@/composables/useModal'
 
-import EditSponsorModal from './components/EditSponsorModal.vue'
 import { useSponsors } from '@/stores/sponsors'
+
+import { useRoute } from 'vue-router'
 
 const { modal } = useModal()
 const sponsors = useSponsors()
@@ -97,6 +97,5 @@ onMounted(async () => {
   loading.value = false
 
   data.value = sponsors.sponsors?.details
-  console.log(data.value)
 })
 </script>

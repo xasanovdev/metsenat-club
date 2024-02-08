@@ -69,3 +69,7 @@ export function generatePaginationData(currentPagination, totalCardNumber, curre
   arr = [...leftSide, currentPagination, ...rightSide]
   return arr
 }
+
+// filterOptions
+
+export const filterOptions = [1000000, 5000000, 7000000, 10000000, 30000000, 50000000]

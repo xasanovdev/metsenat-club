@@ -8,8 +8,6 @@
       <div class="max-w-[379px] w-full p-8 bg-white rounded-xl">
         <h2 class="text-2xl font-semibold mb-4">Kirish</h2>
         <form @submit.prevent="handleLogin">
-          <!-- Username group of input and label -->
-
           <FormGroup
             class="mb-4"
             label="Login"
@@ -21,7 +19,6 @@
             v-model="credentials.username"
           />
 
-          <!-- Password group of input and label -->
           <FormGroup
             class="mb-4"
             label="Parol"
@@ -33,11 +30,9 @@
             v-model="credentials.password"
           />
 
-          <CButton type="submit" :loading="auth.loading" variant="secondary"> Kirish </CButton>
-
           <vue-recaptcha
-            class="w-full mt-4"
-            sitekey="6LeGSGopAAAAAGXV4EvZh4_uUgvX02JesKWPFHjM"
+            class="w-full pb-4"
+            sitekey="6LfieGspAAAAAC7M5zSmR9Q3qMdgU0j1EDY5xUIS"
             size="normal"
             theme="light"
             hl="uz"
@@ -49,7 +44,8 @@
           >
           </vue-recaptcha>
 
-          <!-- Todo: refactor. create component for this action and use inside formgroup or input -->
+          <CButton type="submit" :loading="auth.loading" variant="secondary"> Kirish </CButton>
+
           <Validation
             class="mt-2 bg-red-50 p-2 rounded-md"
             :validation="auth.error"
@@ -62,19 +58,19 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive } from 'vue'
+
+import useVuelidate from '@vuelidate/core'
+import { required, minLength, maxLength } from '@vuelidate/validators'
+import Validation from '@/components/Base/Validation.vue'
 
 import VueRecaptcha from 'vue3-recaptcha2'
-
-// change recaptcha language
 
 import { useAuthStore } from '@/stores/auth'
 
 import FormGroup from '@/components/Base/FormGroup.vue'
 import CButton from '@/components/Base/CButton.vue'
-import useVuelidate from '@vuelidate/core'
-import { required, minLength, maxLength } from '@vuelidate/validators'
-import Validation from '@/components/Base/Validation.vue'
+
 import router from '@/router'
 
 const auth = useAuthStore()

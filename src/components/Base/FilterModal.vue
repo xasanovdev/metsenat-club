@@ -6,7 +6,6 @@
         <span class="text-[12px] text-neutral-800 font-medium uppercase tracking-wide"
           >Ariza holati</span
         >
-        {{ filterSponsor.status }}
 
         <CDropdown
           v-model="filterSponsor.status"
@@ -18,8 +17,8 @@
         <span class="text-[12px] text-neutral-800 font-medium uppercase tracking-wide"
           >Ariza holati</span
         >
-        {{ filterSponsor.money }}
-        <CSelect v-model="filterSponsor.money"></CSelect>
+
+        <CSelect v-model="filterSponsor.money" :filterOptions="filterOptions"></CSelect>
       </div>
     </template>
 
@@ -45,10 +44,7 @@ import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
 import CModal from '@/components/Base/CModal.vue'
 import CSelect from '@/components/Base/CSelect.vue'
-import { useDataStore } from '@/stores'
-import { optionsStatus } from '@/utils'
-
-const store = useDataStore()
+import { optionsStatus, filterOptions } from '@/utils'
 
 const filterSponsor = ref({
   status: '',

@@ -1,5 +1,3 @@
-import { ref } from 'vue'
-
 export const useFetch = () => {
   const baseUrl = import.meta.env.VITE_APP_BASE_URL
 
@@ -41,6 +39,12 @@ export const useFetch = () => {
       body: JSON.stringify(body)
     })
   }
+  const patch = (url, body) => {
+    return axios(url, {
+      method: 'PATCH',
+      body: JSON.stringify(body)
+    })
+  }
 
   const remove = (url, body) => {
     return axios(url, {
@@ -51,6 +55,7 @@ export const useFetch = () => {
 
   return {
     get,
+    patch,
     post,
     put,
     remove

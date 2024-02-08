@@ -1,5 +1,4 @@
 <template>
-  <!-- Todo: Add va edit uchun bitta modal kerak! -->
   <CModal @close="setClose">
     <template #title>Homiylarni tahrirlash</template>
     <template #body>
@@ -44,19 +43,26 @@
 <script setup>
 import { onMounted, ref, watch } from 'vue'
 
-import { useRoute } from 'vue-router'
-
 import CButton from '@/components/Base/CButton.vue'
 import CInput from '@/components/Base/CInput.vue'
 import CModal from '@/components/Base/CModal.vue'
+
 import { useFetch } from '@/composables/useFetch'
+
 import { useDataStore } from '@/stores'
+
+import { useRoute } from 'vue-router'
 
 const store = useDataStore()
 
 const error = ref('')
 
-const props = defineProps(['studentSponsorData'])
+const props = defineProps({
+  studentSponsorData: {
+    type: Object,
+    default: {}
+  }
+})
 
 const emit = defineEmits(['getStudentDetails'])
 
@@ -116,13 +122,8 @@ onMounted(() => {
   watch(
     () => store.editSponsorData,
     (newData) => {
-      // Do something when editSponsorData changes
-      console.log('editSponsorData changed:', newData)
-
-      // Update the local ref if needed
       editSponsorData.value = newData
     }
   )
 })
 </script>
-@/stores

@@ -19,7 +19,24 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
-const props = defineProps(['buttonText', 'rounded', 'path', 'isLegal'])
+const props = defineProps({
+  path: {
+    type: String,
+    default: ''
+  },
+  buttonText: {
+    type: String,
+    default: ''
+  },
+  rounded: {
+    type: String,
+    default: ''
+  },
+  isLegal: {
+    type: Boolean,
+    default: false
+  }
+})
 
 const route = useRoute()
 

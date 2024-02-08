@@ -47,20 +47,21 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 
-import { useRoute } from 'vue-router'
-
 import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
 import FormGroup from '@/components/Base/FormGroup.vue'
 import CModal from '@/components/Base/CModal.vue'
 
+import { useSponsors } from '@/stores/sponsors'
+
 import { useFetch } from '@/composables/useFetch'
 
 import { maxValue, required } from '@vuelidate/validators'
+import Validation from '@/components/Base/Validation.vue'
+
 import useVuelidate from '@vuelidate/core'
 
-import { useSponsors } from '@/stores/sponsors'
-import Validation from '@/components/Base/Validation.vue'
+import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
@@ -88,7 +89,7 @@ const getSponsorId = () => {
   return sponsor?.id
 }
 
-const { get, post } = useFetch()
+const { post } = useFetch()
 
 const rules = {
   summa: { required, maxValue: maxValue(2147483647) },
@@ -142,7 +143,5 @@ const addSponsor = async () => {
 onMounted(async () => {
   await sponsors.getSponsorsList(sponsors.sponsors.currentPage, sponsors.sponsors.count, 'force')
   sponsorsData.value = sponsors?.sponsors?.list
-
-  console.log(data.value)
 })
 </script>

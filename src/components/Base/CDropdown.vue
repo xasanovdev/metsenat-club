@@ -10,7 +10,6 @@
         :value="searchText"
         @input="updateSearchText"
         class="w-full border border-indigo-200 duration-200 focus:border-blue-700 justify-between bg-gray-50 text-left text-gray-800 rounded-md focus:outline-none flex items-center"
-        placeholder="Search..."
         :class="[
           readonly ? 'cursor-pointer' : '',
           size === 'sm' ? 'p-[5px]' : 'px-4 py-3',
@@ -69,15 +68,38 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 
-const props = defineProps([
-  'options',
-  'property',
-  'validation',
-  'modelValue',
-  'readonly',
-  'position',
-  'size'
-])
+const props = defineProps({
+  modelValue: {
+    type: String,
+    default: ''
+  },
+
+  options: {
+    type: Array,
+    default: []
+  },
+  property: {
+    type: String,
+    default: ''
+  },
+  validation: {
+    type: Boolean,
+    default: false
+  },
+  readonly: {
+    type: Boolean,
+    default: false
+  },
+  position: {
+    type: String,
+    default: ''
+  },
+  size: {
+    type: String
+  }
+})
+
+console.log(props)
 const emit = defineEmits(['update:modelValue'])
 
 const isDropdownOpen = ref(false)

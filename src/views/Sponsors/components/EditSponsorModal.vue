@@ -4,7 +4,6 @@
     <template #body>
       <form class="max-w-[793px] w-full bg-white rounded-xl">
         <div class="flex items-center rounded-lg border-2 border-[3E0E7FF]">
-          <!-- Todo: refactor this component. user v-for fr physical and legal. -->
           <TabButton
             @click.prevent="isLegal = false"
             rounded="left"
@@ -46,7 +45,7 @@
           <div class="col-span-1">
             <label>
               {{ sponsor?.get_status_display }}
-              <span class="text-[12px] text-neutral-800 mb-2 uppercase font-medium">Holati</span>
+              <span class="text-[12px] text-gray-600 mb-2 uppercase font-semibold">Holati</span>
               <CDropdown
                 v-model="sponsor.get_status_display"
                 property="name"
@@ -81,19 +80,22 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 
 import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
 import CModal from '@/components/Base/CModal.vue'
+import FormGroup from '@/components/Base/FormGroup.vue'
+import TabButton from '@/components/Base/TabButton.vue'
+
 import { useFetch } from '@/composables/useFetch'
 
-import { optionsStatus } from '@/utils'
-import FormGroup from '@/components/Base/FormGroup.vue'
+import { useSponsors } from '@/stores/sponsors'
+
 import useVuelidate from '@vuelidate/core'
 import { required, minLength, maxLength } from '@vuelidate/validators'
-import { useSponsors } from '@/stores/sponsors'
-import TabButton from '@/components/Base/TabButton.vue'
+
+import { optionsStatus } from '@/utils'
 
 const props = defineProps('data')
 
@@ -117,9 +119,9 @@ const sponsor = ref({
 })
 
 const rules = {
-  full_name: { required },
-  phone: { required },
-  firm: { required }
+  full_name: { required, minLength: minLength(5), maxLength: maxLength(255) },
+  phone: { required, minLength: minLength(1), maxLength: maxLength(255) },
+  firm: { required, minLength: minLength(5), maxLength: maxLength(255) }
 }
 
 const $v = useVuelidate(rules, sponsor)

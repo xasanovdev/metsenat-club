@@ -23,11 +23,10 @@
 </template>
 <script setup>
 import CButton from '@/components/Base/CButton.vue'
-
-import { useModal } from '@/composables/useModal'
-
 import StudenstTable from './components/StudenstTable.vue'
 import FilterModal from './components/FilterModal.vue'
+
+import { useModal } from '@/composables/useModal'
 
 const { modal } = useModal()
 

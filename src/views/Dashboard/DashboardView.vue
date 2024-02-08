@@ -36,25 +36,25 @@ const cardStatistics = computed(() => [
     title: 'Jami to‘langan summa',
     amount: statisticsData.value?.total_paid,
     img: '/moneyBlue.svg',
-    bgColor: '#4C6FFF1A'
+    bgColor: 'bg-[#4C6FFF1A]'
   },
   {
     title: 'Jami so‘ralgan summa',
     amount: statisticsData.value?.total_need,
     img: '/moneyYellow.svg',
-    bgColor: '#EDC7001A'
+    bgColor: 'bg-[#EDC7001A]'
   },
   {
     title: 'Jami to‘langan summa',
     amount: statisticsData.value?.total_must_pay,
     img: '/moneyOrange.svg',
-    bgColor: '#ED72001A'
+    bgColor: 'bg-[#ED72001A]'
   }
 ])
 
 onMounted(async () => {
   await statistics.getStatistics()
-  console.log(statistics.statisticsList)
+
   statisticsData.value = statistics?.statisticsList
 })
 </script>

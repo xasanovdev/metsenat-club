@@ -43,7 +43,7 @@
       />
       <label
         :for="'option-' + option"
-        class="w-full text-sm h-[52px] rounded-md flex items-center justify-center border-2  cursor-pointer uppercase font-semibold text-gray-600"
+        class="w-full text-sm h-[52px] rounded-md flex items-center justify-center border-2 cursor-pointer uppercase font-semibold text-gray-600"
         :class="{ 'bg-indigo-200 border-blue-700': selectedFilter === option }"
       >
         {{ formatNumber(option) }}
@@ -58,9 +58,16 @@ import { ref } from 'vue'
 
 import { formatNumber } from '@/utils'
 
-const filterOptions = [1000000, 5000000, 7000000, 10000000, 30000000, 50000000] // Adjust based on your monetary values
-
-const props = defineProps(['modelValue'])
+defineProps({
+  modelValue: {
+    type: String,
+    default: ''
+  },
+  filterOptions: {
+    type: Array,
+    default: []
+  }
+})
 const emit = defineEmits(['update:modelValue'])
 
 const selectedFilter = ref('all')
@@ -70,8 +77,4 @@ const filterData = () => {
 }
 </script>
 
-<style scoped>
-.bg-blue-100 {
-  background-color: #ebf8ff; /* Adjust the background color as needed */
-}
-</style>
+<style scoped></style>

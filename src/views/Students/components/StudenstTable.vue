@@ -2,8 +2,6 @@
   <template v-if="loading"><div>Loading...</div></template>
   <template v-else>
     <CTable :titles="columns" :data="students?.list">
-      <!-- students list row head cells -->
-
       <template #header>
         <ul class="text-gray-400 gap-2 text-left flex px-8">
           <li
@@ -15,8 +13,6 @@
           </li>
         </ul>
       </template>
-
-      <!-- Content for the default scoped slot (dynamic content for each item) -->
 
       <template v-slot:index="{ item }">
         {{ item.id }}
@@ -73,9 +69,11 @@ import { computed, onMounted, ref } from 'vue'
 import CPagination from '@/components/Layout/CPagination.vue'
 import CTable from '@/components/Base/CTable.vue'
 
-import { generatePaginationData } from '@/utils'
 import { useStudents } from '@/stores/students'
+
 import router from '@/router'
+
+import { generatePaginationData } from '@/utils'
 
 const { students, getStudentsList } = useStudents()
 

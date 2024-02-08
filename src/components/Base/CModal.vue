@@ -1,6 +1,5 @@
 <template>
   <transition name="fade">
-    <!-- Ensure that modalValue is set before the component is mounted -->
     <div
       v-if="modalValue"
       @click="closeModalOverlay"
@@ -36,11 +35,20 @@
 </template>
 
 <script setup>
-const props = defineProps(['modalValue', 'closeModal', 'closeModalOverlay'])
+const props = defineProps({
+  modalValue: {
+    type: Boolean,
+    default: false
+  },
+  closeModal: Function,
+  closeModalOverlay: Function
+})
 const emit = defineEmits(['close'])
+
 const close = () => {
   props.closeModal()
 }
+
 emit('close', close)
 </script>
 

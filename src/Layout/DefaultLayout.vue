@@ -1,5 +1,4 @@
 <template>
-  <!-- Todo: use Tailwind config for colors -->
   <CHeader :variant="headerVariant" />
 
   <slot />
