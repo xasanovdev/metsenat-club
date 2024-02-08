@@ -2,7 +2,7 @@
   <div class="bg-gray-50 pb-20">
     <div class="container mx-auto px-6 overflow-x-auto">
       <RouterLink class="w-full" to="/new-student">
-        <CButton variant="secondary">
+        <CButton class="sm:max-w-[220px] float-right whitespace-nowrap" variant="secondary">
           <span class="flex items-center justify-center gap-[10px]">
             Talaba qo‘shish
             <img src="/plusWhite.svg" alt="white plus icon" />
