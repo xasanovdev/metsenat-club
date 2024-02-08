@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 
 import { useFetch } from '@/composables/useFetch'
 
@@ -63,6 +63,7 @@ export const useStudents = defineStore('students', () => {
       })
     }
   }
+
   const getStudentSponsors = async (pageId) => {
     try {
       const response = await get(`student-sponsor/${pageId}/`)
@@ -88,8 +89,25 @@ export const useStudents = defineStore('students', () => {
     }
   }
 
+  const addNewSponsorError = ref([])
+  const addNewSponsor = async (newSponsorData) => {
+    try {
+      await post('sponsor-summa-create/', newSponsorData).then((response) => {
+        if (!Number(response.summa)) {
+          addNewSponsorError.value = response.summa
+        } else {
+          addNewSponsorError.value = ''
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return {
     students,
+    addNewSponsorError,
+    addNewSponsor,
     getStudentDetails,
     updateStudentDetails,
     getStudentSponsors,

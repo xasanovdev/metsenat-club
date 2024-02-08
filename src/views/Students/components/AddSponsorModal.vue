@@ -5,20 +5,16 @@
       <div class="col-span-2 flex flex-col justify-between gap-2 w-full">
         <label class="flex flex-col gap-2">
           <span class="cursor-pointer text-sm uppercase font-semibold text-gray-600">OTM</span>
-          {{ filterSponsor.sponsor }}
-
           <CDropdown
             :validation="$v.sponsor.$error"
             v-model="filterSponsor.sponsor"
             property="full_name"
             :options="sponsorsData"
           />
-          <span v-if="data?.sponsor" class="text-red-500">{{ data?.sponsor[0] }}</span>
         </label>
         <Validation :validation="$v.sponsor.$error" validationText="Institute" />
       </div>
 
-      {{ filterSponsor.summa }}
       <FormGroup
         class="mt-7"
         label="Ajratilingan summa"
@@ -30,7 +26,12 @@
         v-model="filterSponsor.summa"
       />
 
-      <p v-if="error" class="mt-2 bg-red-50 p-2 text-red-500 rounded-md">{{ error }}</p>
+      <p
+        v-if="students.addNewSponsorError.length"
+        class="mt-2 bg-red-50 p-2 text-red-500 rounded-md"
+      >
+        {{ students.addNewSponsorError }}
+      </p>
     </template>
 
     <template #footer>
@@ -45,7 +46,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
@@ -54,14 +55,13 @@ import CModal from '@/components/Base/CModal.vue'
 
 import { useSponsors } from '@/stores/sponsors'
 
-import { useFetch } from '@/composables/useFetch'
-
-import { maxValue, required } from '@vuelidate/validators'
+import { minLength, maxLength, required } from '@vuelidate/validators'
 import Validation from '@/components/Base/Validation.vue'
 
 import useVuelidate from '@vuelidate/core'
 
 import { useRoute } from 'vue-router'
+import { useStudents } from '@/stores/students'
 
 const route = useRoute()
 
@@ -72,11 +72,9 @@ const filterSponsor = ref({
   summa: ''
 })
 
-const data = ref(null)
-
-const error = ref('')
-
 const sponsors = useSponsors()
+
+const students = useStudents()
 
 const sponsorsData = ref([])
 
@@ -89,11 +87,9 @@ const getSponsorId = () => {
   return sponsor?.id
 }
 
-const { post } = useFetch()
-
 const rules = {
-  summa: { required, maxValue: maxValue(2147483647) },
-  sponsor: { required }
+  summa: { required, minLength: minLength(-2147483648), maxLength: maxLength(2147483647) },
+  sponsor: { required, minLength: minLength(1), maxLength: maxLength(255) }
 }
 
 const $v = useVuelidate(rules, filterSponsor)
@@ -104,10 +100,6 @@ const setClose = (func) => {
   close.value = func
 }
 
-const postSponsorOptions = computed(() => [
-  { sponsor: getSponsorId(), summa: filterSponsor.value.summa, student: route.params.id }
-])
-
 const addSponsor = async () => {
   const result = await $v.value.$validate()
   console.log('validation result', $v.value)
@@ -116,27 +108,19 @@ const addSponsor = async () => {
     return $v
   }
 
-  try {
-    const response = await post('sponsor-summa-create/', postSponsorOptions.value[0])
+  await students.addNewSponsor({
+    sponsor: getSponsorId(),
+    summa: filterSponsor.value.summa,
+    student: route.params.id
+  })
 
-    if (Array.isArray(response.summa)) {
-      data.value = response
-      console.log(response)
-    } else if (!Number(response.summa)) {
-      error.value = response.summa
-      data.value = ''
-    } else {
-      error.value = ''
-      filterSponsor.value.summa = ''
-      filterSponsor.value.sponsor = ''
-      data.value = ''
+  if (students.addNewSponsorError.length === 0) {
+    filterSponsor.value.summa = ''
+    filterSponsor.value.sponsor = ''
 
-      close.value()
+    close.value()
 
-      emit('getStudentDetails')
-    }
-  } catch (error) {
-    console.log(error)
+    emit('getStudentDetails')
   }
 }
 
