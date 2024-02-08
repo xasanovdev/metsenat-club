@@ -9,6 +9,7 @@
             :title="item.title"
             :amount="item.amount"
             :img="item.img"
+            :bgColor="item.bgColor"
             :class="`${index === cardStatistics.length - 1 ? 'md:col-span-2 lg:col-span-1' : 'md:col-span-1'}`"
           />
         </div>
@@ -34,17 +35,20 @@ const cardStatistics = computed(() => [
   {
     title: 'Jami to‘langan summa',
     amount: statisticsData.value?.total_paid,
-    img: '/moneyBlue.svg'
+    img: '/moneyBlue.svg',
+    bgColor: '#4C6FFF1A'
   },
   {
     title: 'Jami so‘ralgan summa',
     amount: statisticsData.value?.total_need,
-    img: '/moneyYellow.svg'
+    img: '/moneyYellow.svg',
+    bgColor: '#EDC7001A'
   },
   {
     title: 'Jami to‘langan summa',
     amount: statisticsData.value?.total_must_pay,
-    img: '/moneyOrange.svg'
+    img: '/moneyOrange.svg',
+    bgColor: '#ED72001A'
   }
 ])
 
