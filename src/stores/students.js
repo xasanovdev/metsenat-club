@@ -104,8 +104,28 @@ export const useStudents = defineStore('students', () => {
     }
   }
 
+  const updateSponsorError = ref('')
+  const updateStudentSponsor = async (sponsorData) => {
+    try {
+      updateSponsorError.value = ''
+      await put(`sponsor-summa-update/${sponsorData?.id}/`, sponsorData).then((response) => {
+        if (Array.isArray(response.summa)) {
+          updateSponsorError.value = response.summa[0]
+        } else if (!Number(response.summa)) {
+          updateSponsorError.value = response.summa
+        } else {
+          updateSponsorError.value = ''
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return {
     students,
+    updateSponsorError,
+    updateStudentSponsor,
     addNewSponsorError,
     addNewSponsor,
     getStudentDetails,

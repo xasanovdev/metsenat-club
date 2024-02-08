@@ -13,7 +13,10 @@
               <p class="text-[12px] mt-7 text-neutral-800 mb-2 uppercase font-semibold">
                 Ajratilingan summa
               </p>
-              <CInput v-model="summa" placeholder="Abdullayev Abdulla Abdulla o’g’li" />
+              <CInput
+                v-model="editSponsorData.summa"
+                placeholder="Abdullayev Abdulla Abdulla o’g’li"
+              />
             </label>
           </div>
         </div>
@@ -41,21 +44,20 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch, reactive } from 'vue'
+import { ref, computed } from 'vue'
 
 import CButton from '@/components/Base/CButton.vue'
 import CInput from '@/components/Base/CInput.vue'
 import CModal from '@/components/Base/CModal.vue'
+import Validation from '@/components/Base/Validation.vue'
 
-import { useFetch } from '@/composables/useFetch'
-
-import { useDataStore } from '@/stores'
+import { useStudents } from '@/stores/students'
 
 import { useRoute } from 'vue-router'
 
-const store = useDataStore()
+const students = useStudents()
 
-const error = ref('')
+const error = computed(() => students.updateSponsorError)
 
 const props = defineProps({
   studentSponsorData: {
@@ -66,7 +68,7 @@ const props = defineProps({
 
 const emit = defineEmits(['getStudentDetails'])
 
-const editSponsorData = reactive({})
+const editSponsorData = computed(() => props?.studentSponsorData)
 
 const close = ref(null)
 
@@ -74,57 +76,42 @@ const setClose = (func) => {
   close.value = func
 }
 
-editSponsorData.value = props?.studentSponsorData
-
-console.log(editSponsorData.value)
-
-const summa = ref(props.studentSponsorData?.summa)
-
-const { put, remove } = useFetch()
-
 const route = useRoute()
 
 const saveSponsor = async () => {
-  try {
-    const response = await put(`sponsor-summa-update/${props.studentSponsorData?.id}/`, {
-      sponsor: props.studentSponsorData?.sponsor?.id,
-      student: route.params.id,
-      summa: summa.value
-    })
-    if (!Number(response.summa)) {
-      error.value = response.summa
-    } else {
-      error.value = ''
-      close.value()
-      emit('getStudentDetails')
-    }
-    console.log(response)
-  } catch (error) {
-    console.log(error)
+  await students.updateStudentSponsor({
+    id: editSponsorData.value?.id,
+    sponsor: editSponsorData.value?.sponsor?.id,
+    student: route.params.id,
+    summa: editSponsorData.value.summa
+  })
+  if (students.updateSponsorError.length === 0) {
+    close.value()
+    emit('getStudentDetails')
   }
 }
 
 const deleteSponsor = async () => {
   try {
-    const response = await remove(`sponsor-summa-delete/${props.studentSponsorData?.id}/`, {
-      summa: props.studentSponsorData?.summa
-    })
+    const url =
+      import.meta.env.VITE_APP_BASE_URL + `/sponsor-summa-delete/${editSponsorData.value?.id}/`
 
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('access_token')}`
+      }
+    })
+    if (!response.ok) {
+      throw new Error(`Failed to delete sponsor: ${response.status} ${response.statusText}`)
+    }
     console.log(response)
     close.value()
     emit('getStudentDetails')
-    console.log(response)
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
-
-onMounted(() => {
-  watch(
-    () => store.editSponsorData,
-    (newData) => {
-      editSponsorData.value = newData
-    }
-  )
-})
 </script>

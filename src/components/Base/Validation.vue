@@ -6,7 +6,7 @@
 defineProps({
   validation: {
     type: Boolean || String,
-    default: false
+    default: false || ''
   },
   validationText: {
     type: String,
