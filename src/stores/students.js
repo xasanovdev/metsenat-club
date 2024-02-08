@@ -122,8 +122,30 @@ export const useStudents = defineStore('students', () => {
     }
   }
 
+  const deleteSponsor = async (id) => {
+    try {
+      const url = import.meta.env.VITE_APP_BASE_URL + `/sponsor-summa-delete/${id}/`
+
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`
+        }
+      })
+      if (!response.ok) {
+        throw new Error(`Failed to delete sponsor: ${response.status} ${response.statusText}`)
+      }
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return {
     students,
+    deleteSponsor,
     updateSponsorError,
     updateStudentSponsor,
     addNewSponsorError,

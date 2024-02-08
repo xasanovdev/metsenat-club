@@ -49,7 +49,6 @@ import { ref, computed } from 'vue'
 import CButton from '@/components/Base/CButton.vue'
 import CInput from '@/components/Base/CInput.vue'
 import CModal from '@/components/Base/CModal.vue'
-import Validation from '@/components/Base/Validation.vue'
 
 import { useStudents } from '@/stores/students'
 
@@ -92,26 +91,9 @@ const saveSponsor = async () => {
 }
 
 const deleteSponsor = async () => {
-  try {
-    const url =
-      import.meta.env.VITE_APP_BASE_URL + `/sponsor-summa-delete/${editSponsorData.value?.id}/`
+  await students.deleteSponsor(editSponsorData.value?.id)
 
-    const response = await fetch(url, {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('access_token')}`
-      }
-    })
-    if (!response.ok) {
-      throw new Error(`Failed to delete sponsor: ${response.status} ${response.statusText}`)
-    }
-    console.log(response)
-    close.value()
-    emit('getStudentDetails')
-  } catch (error) {
-    console.error(error)
-  }
+  close.value()
+  emit('getStudentDetails')
 }
 </script>
