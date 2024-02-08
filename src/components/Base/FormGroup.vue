@@ -22,7 +22,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 import CInput from '@/components/Base/CInput.vue'
 import Validation from '../Base/Validation.vue'
 

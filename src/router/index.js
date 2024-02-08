@@ -22,31 +22,31 @@ const router = createRouter({
     {
       path: '/students',
       name: 'Students',
-      component: () => import('@/views/Dashboard/views/Students/StudentsView.vue'),
+      component: () => import('@/views/Students/StudentsView.vue'),
       meta: { requiresAuth: true }
     },
     {
       path: '/students/:id',
       name: 'Student',
-      component: () => import('@/views/Dashboard/views/Students/StudentDetails.vue'),
+      component: () => import('@/views/Students/StudentDetails.vue'),
       meta: { requiresAuth: true }
     },
     {
       path: '/new-student',
       name: 'NewStudent',
-      component: () => import('@/views/Dashboard/views/Students/CreateNewStudentView.vue'),
+      component: () => import('@/views/Students/CreateNewStudentView.vue'),
       meta: { requiresAuth: true }
     },
     {
       path: '/sponsors',
       name: 'Sponsors',
-      component: () => import('@/views/Dashboard/views/Sponsors/SponsorsView.vue'),
+      component: () => import('@/views/Sponsors/SponsorsView.vue'),
       meta: { requiresAuth: true }
     },
     {
       path: '/sponsors/:id',
       name: 'Sponsor',
-      component: () => import('@/views/Dashboard/views/Sponsors/SponsorDetails.vue'),
+      component: () => import('@/views/Sponsors/SponsorDetails.vue'),
       meta: { requiresAuth: true }
     }
   ]

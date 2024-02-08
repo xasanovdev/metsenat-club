@@ -67,7 +67,7 @@
 </template>
 
 <script setup>
-import { computed, defineEmits, defineProps, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 const props = defineProps([
   'options',
