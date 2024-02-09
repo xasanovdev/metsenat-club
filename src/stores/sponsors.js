@@ -23,33 +23,38 @@ export const useSponsors = defineStore('sponsors', () => {
 
   const getSponsorsList = async (page, page_size, force) => {
     if (sponsors.list.length === 0 || force) {
-      try {
-        loading.value = true
+      loading.value = true
 
-        await get('sponsor-list/', { page: page, page_size: page_size }).then((res) => {
+      return await get('sponsor-list/', { page: page, page_size: page_size })
+        .then((res) => {
           sponsors.list = []
           sponsors.dataCount = res.count
           sponsors.list = res.results
           sponsors.currentPage = page
           sponsors.count = page_size
+          loading.value = false
         })
-        loading.value = false
-      } catch (error) {
-        toast.error(`${error}`, {
-          autoClose: 1000
+        .catch((error) => {
+          loading.value = false
+          console.error(error)
+          toast.error(`${error}`, {
+            autoClose: 1000
+          })
         })
-      }
     }
   }
 
   const getSponsorDetails = async (id) => {
-    try {
-      await get(`sponsor-detail/${id}`).then((response) => (sponsors.details = response))
-    } catch (error) {
-      toast.error(`${error}`, {
-        autoClose: 1000
+    return await get(`sponsor-detail/${id}`)
+      .then((response) => {
+        sponsors.details = response
       })
-    }
+      .catch((error) => {
+        console.error(error)
+        toast.error(`${error}`, {
+          autoClose: 1000
+        })
+      })
   }
 
   return {
