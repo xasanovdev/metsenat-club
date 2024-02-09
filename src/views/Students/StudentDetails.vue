@@ -49,7 +49,11 @@
           <div class="flex w-full flex-col gap-8 sm:flex-row sm:gap-0 mt-6 justify-between">
             <div class="flex flex-col items-start gap-3">
               <p class="uppercase text-slate-400 text-sm">telefon raqam</p>
-              <p class="text-zinc-800 font-medium">{{ studentDetails?.phone }}</p>
+              <p class="text-zinc-800 font-medium">
+                <a :href="`tel:${studentDetails?.phone}`">
+                  {{ studentDetails?.phone }}
+                </a>
+              </p>
             </div>
           </div>
           <!-- Divider -->
