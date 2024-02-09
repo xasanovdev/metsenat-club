@@ -15,7 +15,7 @@ export const useSponsors = defineStore('sponsors', () => {
     list: [],
     currentPage: 1,
     count: 10,
-    sponsorsCount: 0,
+    dataCount: 0,
     details: {}
   })
 
@@ -28,7 +28,7 @@ export const useSponsors = defineStore('sponsors', () => {
 
         await get('sponsor-list/', { page: page, page_size: page_size }).then((res) => {
           sponsors.list = []
-          sponsors.sponsorsCount = res.count
+          sponsors.dataCount = res.count
           sponsors.list = res.results
           sponsors.currentPage = page
           sponsors.count = page_size

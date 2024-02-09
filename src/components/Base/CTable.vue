@@ -6,7 +6,7 @@
 
     <ul class="flex items-center flex-col gap-4 w-full justify-between">
       <li
-        v-for="(item, index) in data"
+        v-for="(item, index) in usersData?.list"
         :key="index"
         class="bg-white w-full py-[22px] px-8 rounded-lg"
       >
@@ -21,11 +21,39 @@
         </ul>
       </li>
     </ul>
+
+    <div class="flex items-center justify-between pt-4">
+      <div>
+        {{ usersData.dataCount }} tadan {{ (usersData.currentPage - 1) * usersData.count }}-{{
+          usersData.currentPage * usersData.count
+        }}
+        ko'rsatilmoqda
+      </div>
+
+      <CPagination
+        @nextPage="nextPage"
+        @prevPage="prevPage"
+        @changePagination="changePagination"
+        @selectPaginationCount="selectPaginationCount"
+        :paginationValues="paginationValues"
+        :totalPage="totalPage"
+        :dataList="usersData.dataCount"
+        :currentPage="usersData.currentPage"
+        :paginationCount="usersData.count"
+      />
+    </div>
   </div>
 </template>
 
 <script setup>
-defineProps({
+import { generatePaginationData } from '@/utils'
+
+import { computed } from 'vue'
+import CPagination from '../Layout/CPagination.vue'
+
+const emit = defineEmits(['getUsersData'])
+
+const props = defineProps({
   titles: {
     type: Array,
     default: () => []
@@ -35,4 +63,37 @@ defineProps({
     default: () => []
   }
 })
+
+const usersData = computed(() => props.data)
+console.log(usersData.value)
+
+const paginationValues = computed(() =>
+  generatePaginationData(
+    usersData.value.currentPage,
+    usersData.value.dataCount,
+    usersData.value.count
+  )
+)
+
+const totalPage = computed(() => usersData.value.currentPage * usersData.value.count)
+
+const nextPage = () => {
+  emit('getUsersData', usersData.value.currentPage + 1, usersData.value.count, 'force')
+}
+
+const prevPage = () => {
+  emit('getUsersData', usersData.value.currentPage - 1, usersData.value.count, 'force')
+}
+
+const changePagination = (currentPage) => {
+  if (currentPage !== '...') {
+    emit('getUsersData', currentPage, usersData.value.count, 'force')
+  }
+}
+
+const selectPaginationCount = (count) => {
+  usersData.value.currentPage = 1
+
+  emit('getUsersData', usersData.value.currentPage, count, 'force')
+}
 </script>

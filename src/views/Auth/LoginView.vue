@@ -96,7 +96,7 @@ const handleLogin = async () => {
 
   await auth.login(credentials)
 
-  router.push({ name: 'Dashboard' })
+  router.push({ name: 'Statistics' })
 }
 
 // Event handlers for reCAPTCHA

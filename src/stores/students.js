@@ -17,7 +17,7 @@ export const useStudents = defineStore('students', () => {
     list: [],
     currentPage: 1,
     count: 10,
-    studentCount: 0,
+    dataCount: 0,
     details: {},
     sponsors: []
   })
@@ -29,7 +29,7 @@ export const useStudents = defineStore('students', () => {
           students.currentPage = page
           students.count = page_size
           students.list = []
-          students.studentCount = response.count
+          students.dataCount = response.count
           students.list = response.results
         })
       } catch (error) {
@@ -137,7 +137,6 @@ export const useStudents = defineStore('students', () => {
       if (!response.ok) {
         throw new Error(`Failed to delete sponsor: ${response.status} ${response.statusText}`)
       }
-
     } catch (error) {
       console.error(error)
     }
