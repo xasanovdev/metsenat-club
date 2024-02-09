@@ -13,20 +13,14 @@ export function useModal() {
 
     const closeModal = () => {
       document.body.classList.remove('overflow-hidden')
+      console.log('salom')
       modalValue.value = false
-    }
-
-    const closeModalOverlay = (e) => {
-      if (!e.target.classList.contains('modal-content')) {
-        closeModal()
-      }
     }
 
     modals.value.push({
       modalValue,
       openModal,
-      closeModal,
-      closeModalOverlay
+      closeModal
     })
 
     return modals.value[modals.value.length - 1]

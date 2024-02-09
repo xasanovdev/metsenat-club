@@ -153,25 +153,19 @@
     <EditStudentModal
       @getStudentDetails="getStudentDetails"
       v-show="editStudentModal.modalValue"
-      :modalValue="editStudentModal.modalValue"
-      :closeModalOverlay="editStudentModal.closeModalOverlay"
-      :closeModal="editStudentModal.closeModal"
+      @closeModal="editStudentModal.closeModal"
     />
 
     <EditSponsorModal
       :studentSponsorData="studentSponsorData"
       @getStudentDetails="getStudentDetails"
       v-show="editSponsorModal.modalValue"
-      :modalValue="editSponsorModal.modalValue"
-      :closeModalOverlay="editSponsorModal.closeModalOverlay"
-      :closeModal="editSponsorModal.closeModal"
+      @closeModal="editSponsorModal.closeModal"
     />
     <AddSponsorModal
       @getStudentDetails="getStudentDetails"
       v-show="addSponsorModal.modalValue"
-      :modalValue="addSponsorModal.modalValue"
-      :closeModalOverlay="addSponsorModal.closeModalOverlay"
-      :closeModal="addSponsorModal.closeModal"
+      @closeModal="addSponsorModal.closeModal"
     />
   </template>
 </template>

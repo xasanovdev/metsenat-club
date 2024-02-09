@@ -53,9 +53,7 @@
     <EditSponsorModal
       @getSponsorDetails="getSponsorDetails(route.params.id)"
       v-show="editSponsorModal.modalValue"
-      :modalValue="editSponsorModal.modalValue"
-      :closeModalOverlay="editSponsorModal.closeModalOverlay"
-      :closeModal="editSponsorModal.closeModal"
+      @closeModal="editSponsorModal.closeModal"
     />
   </template>
 </template>

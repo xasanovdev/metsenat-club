@@ -1,66 +1,63 @@
 <template>
-  <template v-if="loading"><div>Loading...</div></template>
-  <template v-else>
-    <CTable :titles="columns" :data="students?.list">
-      <template #header>
-        <ul class="text-gray-400 gap-2 text-left flex px-8">
-          <li
-            v-for="(column, index) in columns"
-            :key="index"
-            :class="`text-center ${index === 0 || index === columns.length - 1 ? 'w-12' : 'flex-1'}`"
-          >
-            {{ column.label }}
-          </li>
-        </ul>
-      </template>
+  <CTable :titles="columns" :data="students?.list">
+    <template #header>
+      <ul class="text-gray-400 gap-2 text-left flex px-8">
+        <li
+          v-for="(column, index) in columns"
+          :key="index"
+          :class="`text-center ${index === 0 || index === columns.length - 1 ? 'w-12' : 'flex-1'}`"
+        >
+          {{ column.label }}
+        </li>
+      </ul>
+    </template>
 
-      <template v-slot:index="{ item }">
-        {{ item.id }}
-      </template>
-      <template v-slot:full_name="{ item }">
-        {{ item.full_name }}
-      </template>
-      <template v-slot:type="{ item }">
-        {{ item.type === 1 ? 'Bakalavr' : 'Magistr' }}
-      </template>
+    <template v-slot:index="{ item }">
+      {{ item.id }}
+    </template>
+    <template v-slot:full_name="{ item }">
+      {{ item.full_name }}
+    </template>
+    <template v-slot:type="{ item }">
+      {{ item.type === 1 ? 'Bakalavr' : 'Magistr' }}
+    </template>
 
-      <template v-slot:given="{ item }">
-        {{ item.given }}
-      </template>
+    <template v-slot:given="{ item }">
+      {{ item.given }}
+    </template>
 
-      <template v-slot:contract="{ item }">
-        {{ item.contract }}
-      </template>
+    <template v-slot:contract="{ item }">
+      {{ item.contract }}
+    </template>
 
-      <template v-slot:actions="{ item }">
-        <RouterLink class="text-center" :to="{ name: 'Student', params: { id: item.id } }">
-          <img class="mx-auto" src="/eye.svg" alt="eye icon" />
-        </RouterLink>
-      </template>
+    <template v-slot:actions="{ item }">
+      <RouterLink class="text-center" :to="{ name: 'Student', params: { id: item.id } }">
+        <img class="mx-auto" src="/eye.svg" alt="eye icon" />
+      </RouterLink>
+    </template>
 
-      <template v-slot:institute="{ item }">{{ item.institute.name }}</template>
-    </CTable>
+    <template v-slot:institute="{ item }">{{ item.institute.name }}</template>
+  </CTable>
 
-    <div class="flex items-center justify-between pb-4">
-      <div>
-        {{ students.studentCount }} tadan {{ (students.currentPage - 1) * students.count }}-{{
-          students.currentPage * students.count
-        }}
-        ko'rsatilmoqda
-      </div>
-      <CPagination
-        @nextPage="nextPage"
-        @prevPage="prevPage"
-        @changePagination="changePagination"
-        @selectPaginationCount="selectPaginationCount"
-        :paginationValues="paginationValues"
-        :totalPage="totalPage"
-        :dataList="students.studentCount"
-        :currentPage="students.currentPage"
-        :paginationCount="students.count"
-      />
+  <div class="flex items-center justify-between pb-4">
+    <div>
+      {{ students.studentCount }} tadan {{ (students.currentPage - 1) * students.count }}-{{
+        students.currentPage * students.count
+      }}
+      ko'rsatilmoqda
     </div>
-  </template>
+    <CPagination
+      @nextPage="nextPage"
+      @prevPage="prevPage"
+      @changePagination="changePagination"
+      @selectPaginationCount="selectPaginationCount"
+      :paginationValues="paginationValues"
+      :totalPage="totalPage"
+      :dataList="students.studentCount"
+      :currentPage="students.currentPage"
+      :paginationCount="students.count"
+    />
+  </div>
 </template>
 
 <script setup>
@@ -84,7 +81,7 @@ const getStudentsListData = async (currentPage, count, force) => {
 
   await getStudentsList(currentPage, count, force)
 
-  router.push({ path: `?page=`, query: { page: currentPage, page_size: count } })
+  router.push({ query: { page: currentPage, page_size: count } })
 
   loading.value = false
 }

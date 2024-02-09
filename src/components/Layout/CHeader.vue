@@ -2,7 +2,7 @@
   <header class="w-full bg-gray-50">
     <div class="w-full bg-white py-3">
       <nav class="container mx-auto flex px-6 justify-between items-center">
-        <RouterLink :to="{ name: 'Dashboard' }">
+        <RouterLink :to="{ name: 'Statistics' }">
           <img src="/logo.svg" alt="page logo image" />
         </RouterLink>
         <div class="flex items-center gap-4 md:gap-8 lg:gap-10">
@@ -20,60 +20,7 @@
     </div>
   </header>
 
-  <div v-if="variant === 'default'" class="py-6 w-full flex items-center bg-gray-50 justify-center">
-    <div
-      class="container w-full mx-auto flex flex-col gap-4 md:flex-row px-6 justify-between items-center"
-    >
-      <div
-        class="flex items-center text-center overflow-hidden justify-center w-full md:max-w-[579px]"
-      >
-        <!-- Todo: use v-for -->
-
-        <Tab
-          v-for="(item, index) in tabList"
-          :key="index"
-          :rounded="index === 0 ? 'left' : index === tabList.length - 1 ? 'right' : ''"
-          :title="item.title"
-          :path="item.path"
-        />
-      </div>
-
-      <div class="relative flex w-full items-center justify-end gap-4 md:gap-5">
-        <CInput
-          @input="getSearchResults(search)"
-          v-model="search"
-          placeholder="Qidirish"
-          class="md:max-w-[284px] py-[15px] w-full"
-        />
-        <div
-          v-if="search.length !== 0"
-          class="absolute md:max-w-[434px] rounded-md p-4 shadow-xl w-full bg-white top-16"
-        >
-          {{ searchResults.length === 0 ? 'Bunday malumot mavjud emas :(' : searchResults }}
-        </div>
-
-        <CButton @click="filterModal.openModal" variant="primary" class="px-8 max-w-32">
-          <span class="flex items-center justify-center gap-[10px]">
-            Filter
-            <img src="/filter.svg" alt="filter icon" />
-          </span>
-        </CButton>
-      </div>
-    </div>
-  </div>
-
-  <LogOutModal
-    v-show="logOutModal.modalValue"
-    :modalValue="logOutModal.modalValue"
-    :closeModalOverlay="logOutModal.closeModalOverlay"
-    :closeModal="logOutModal.closeModal"
-  />
-  <FilterModal
-    v-show="filterModal.modalValue"
-    :modalValue="filterModal.modalValue"
-    :closeModalOverlay="filterModal.closeModalOverlay"
-    :closeModal="filterModal.closeModal"
-  />
+  <LogOutModal v-show="logOutModal.modalValue" @closeModal="logOutModal.closeModal" />
 </template>
 
 <script setup>
@@ -93,7 +40,6 @@ defineProps(['variant'])
 const { modal } = useModal()
 
 const logOutModal = modal()
-const filterModal = modal()
 
 const tabList = [
   {

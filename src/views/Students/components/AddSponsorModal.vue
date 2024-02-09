@@ -1,5 +1,5 @@
 <template>
-  <CModal @close="setClose">
+  <CModal @closeModal="emit('closeModal')">
     <template #title>Homiy qo‘shish</template>
     <template #body>
       <div class="col-span-2 flex flex-col justify-between gap-2 w-full">
@@ -65,7 +65,7 @@ import { useStudents } from '@/stores/students'
 
 const route = useRoute()
 
-const emit = defineEmits(['getStudentDetails'])
+const emit = defineEmits(['getStudentDetails', 'closeModal'])
 
 const filterSponsor = ref({
   sponsor: '',
@@ -94,12 +94,6 @@ const rules = {
 
 const $v = useVuelidate(rules, filterSponsor)
 
-const close = ref(null)
-
-const setClose = (func) => {
-  close.value = func
-}
-
 const addSponsor = async () => {
   const result = await $v.value.$validate()
   console.log('validation result', $v.value)
@@ -118,9 +112,8 @@ const addSponsor = async () => {
     filterSponsor.value.summa = ''
     filterSponsor.value.sponsor = ''
 
-    close.value()
-
     emit('getStudentDetails')
+    emit('closeModal')
   }
 }
 

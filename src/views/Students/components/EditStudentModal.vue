@@ -1,5 +1,5 @@
 <template>
-  <CModal @close="setClose">
+  <CModal @closeModal="emit('closeModal')">
     <template #title>Tahrirlash</template>
     <template #body>
       <form class="max-w-[793px] w-full bg-white rounded-xl">
@@ -71,7 +71,7 @@ import { useDataStore } from '@/stores'
 import useVuelidate from '@vuelidate/core'
 import { required, maxValue } from '@vuelidate/validators'
 
-const emit = defineEmits(['getStudentDetails'])
+const emit = defineEmits(['getStudentDetails', 'closeModal'])
 
 const studentData = ref([])
 
@@ -80,12 +80,6 @@ const students = useStudents()
 const store = useDataStore()
 
 const instituteList = ref([])
-
-const close = ref(null)
-
-const setClose = (func) => {
-  close.value = func
-}
 
 onMounted(async () => {
   await store.fetchInstituteList()
@@ -121,7 +115,7 @@ const updateStudent = async () => {
     given: studentData.value.contract
   })
 
-  close.value()
   emit('getStudentDetails')
+  emit('closeModal')
 }
 </script>

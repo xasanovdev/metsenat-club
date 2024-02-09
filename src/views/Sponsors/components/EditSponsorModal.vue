@@ -1,5 +1,5 @@
 <template>
-  <CModal @close="setClose">
+  <CModal @closeModal="emit('closeModal')">
     <template #title>Tahrirlash</template>
     <template #body>
       <form class="max-w-[793px] w-full bg-white rounded-xl">
@@ -99,13 +99,7 @@ import { optionsStatus } from '@/utils'
 
 const props = defineProps('data')
 
-const emit = defineEmits(['getSponsorDetails'])
-
-const close = ref(null)
-
-const setClose = (func) => {
-  close.value = func
-}
+const emit = defineEmits(['getSponsorDetails', 'closeModal'])
 
 const sponsors = useSponsors()
 
@@ -138,7 +132,7 @@ const updateSponsor = async () => {
     const response = await put(`sponsor-update/${sponsors.sponsors?.details?.id}/`, sponsor.value)
 
     emit('getSponsorDetails')
-    close.value()
+    emit('closeModal')
 
     console.log(response)
   } catch (error) {

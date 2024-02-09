@@ -13,17 +13,35 @@ const router = createRouter({
       meta: { layout: 'Auth' }
     },
     {
-      path: '/dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/Dashboard/DashboardView.vue'),
-      meta: { requiresAuth: true }
+      path: '/',
+      redirect: '/dashboard'
     },
 
     {
-      path: '/students',
-      name: 'Students',
-      component: () => import('@/views/Students/StudentsView.vue'),
-      meta: { requiresAuth: true }
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/DashboardLayout.vue'),
+      meta: { requiresAuth: true },
+      children: [
+        {
+          path: '',
+          name: 'Statistics',
+          component: () => import('@/views/Dashboard/DashboardView.vue'),
+          meta: { requiresAuth: true }
+        },
+        {
+          path: '/students',
+          name: 'Students',
+          component: () => import('@/views/Students/StudentsView.vue'),
+          meta: { requiresAuth: true }
+        },
+        {
+          path: '/sponsors',
+          name: 'Sponsors',
+          component: () => import('@/views/Sponsors/SponsorsView.vue'),
+          meta: { requiresAuth: true }
+        }
+      ]
     },
     {
       path: '/students/:id',
@@ -37,12 +55,7 @@ const router = createRouter({
       component: () => import('@/views/Students/CreateNewStudentView.vue'),
       meta: { requiresAuth: true }
     },
-    {
-      path: '/sponsors',
-      name: 'Sponsors',
-      component: () => import('@/views/Sponsors/SponsorsView.vue'),
-      meta: { requiresAuth: true }
-    },
+
     {
       path: '/sponsors/:id',
       name: 'Sponsor',
@@ -55,7 +68,6 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const auth = useAuthStore()
 
-  // Check if the user is authenticated using Pinia store
   const isAuthenticated = auth.isAuthenticated()
 
   if (!isAuthenticated && to.name !== 'Auth') {

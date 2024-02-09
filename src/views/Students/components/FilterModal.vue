@@ -1,5 +1,5 @@
 <template>
-  <CModal @close="setClose">
+  <CModal @close="emit('closeModal')" @closeModalOverlay="emit('closeModalOverlay')">
     <template #title>Tahrirlash</template>
     <template #body>
       <div class="flex flex-col items-start gap-4">
@@ -53,6 +53,8 @@ import { optionsType } from '@/utils'
 
 const store = useDataStore()
 
+const emit = defineEmits(['closeModal', 'closeModalOverlay'])
+
 const filterStudent = ref({
   type: '',
   institute: ''
@@ -70,14 +72,14 @@ const clear = () => {
   filterStudent.value.institute = ''
 }
 
-const close = ref('')
+// const close = ref('')
 
-const setClose = (func) => {
-  console.log('salom')
-  close.value = func
-}
+// const setClose = (func) => {
+//   console.log('salom')
+//   close.value = func
+// }
 
 const filterStudents = () => {
-  close.value()
+  emit('closeModal')
 }
 </script>

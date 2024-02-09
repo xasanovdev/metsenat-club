@@ -1,8 +1,7 @@
 <template>
   <transition name="fade">
     <div
-      v-if="modalValue"
-      @click="closeModalOverlay"
+      @click="emit('closeModal')"
       class="flex items-center z-50 justify-center top-0 left-0 px-6 fixed w-screen h-screen bg-black bg-opacity-60"
     >
       <div
@@ -14,7 +13,7 @@
             <slot name="title"></slot>
           </div>
 
-          <div class="cursor-pointer" @click="closeModal">
+          <div class="cursor-pointer" @click="emit('closeModal')">
             <img src="/close.svg" alt="close icon" />
           </div>
         </div>
@@ -35,21 +34,7 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  modalValue: {
-    type: Boolean,
-    default: false
-  },
-  closeModal: Function,
-  closeModalOverlay: Function
-})
-const emit = defineEmits(['close'])
-
-const close = () => {
-  props.closeModal()
-}
-
-emit('close', close)
+const emit = defineEmits(['closeModal', 'closeModalOverlay'])
 </script>
 
 <style>

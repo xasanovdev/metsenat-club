@@ -1,6 +1,6 @@
 <template>
-  <CModal @close="setClose">
-    <template #title>Tahrirlash</template>
+  <CModal @closeModal="emit('closeModal')">
+    <template #title>Tahrirlashasfsaf</template>
     <template #body>
       <div class="flex flex-col items-start gap-4">
         <span class="text-[12px] text-neutral-800 font-medium uppercase tracking-wide"
@@ -44,19 +44,19 @@ import CButton from '@/components/Base/CButton.vue'
 import CDropdown from '@/components/Base/CDropdown.vue'
 import CModal from '@/components/Base/CModal.vue'
 import CSelect from '@/components/Base/CSelect.vue'
+
 import { optionsStatus, filterOptions } from '@/utils'
+
+const emit = defineEmits(['closeModal'])
 
 const filterSponsor = ref({
   status: '',
   money: ''
 })
-const close = ref(null)
 
-const setClose = (func) => {
-  close.value = func
-}
 const filterSponsors = () => {
-  close.value()
+  // filter codes
+  emit('closeModal')
 }
 
 const clear = () => {
