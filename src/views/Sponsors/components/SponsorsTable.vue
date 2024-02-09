@@ -1,5 +1,10 @@
 <template>
-  <CTable :titles="columns" :data="sponsors?.sponsors" @getUsersData="getSponsorsListData">
+  <CTable
+    :titles="columns"
+    :data="sponsors?.sponsors"
+    @getUsersData="getSponsorsListData"
+    :loading="loading"
+  >
     <template #header>
       <ul class="text-gray-400 gap-2 text-left flex px-8">
         <li
@@ -45,7 +50,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import CBadge from '@/components/Base/CBadge.vue'
 import CTable from '@/components/Base/CTable.vue'
@@ -57,6 +62,8 @@ import { useSponsors } from '@/stores/sponsors'
 import router from '@/router'
 
 const sponsors = useSponsors()
+
+let loading = ref(false)
 
 const columns = [
   { label: '#', keys: 'index' },
@@ -70,8 +77,13 @@ const columns = [
 ]
 
 const getSponsorsListData = async (currentPage, count, force) => {
+  loading.value = true
+
   await sponsors.getSponsorsList(currentPage, count, force)
+
   router.push({ path: `?page=`, query: { page: currentPage, page_size: count } })
+
+  loading.value = false
 }
 
 onMounted(() => {

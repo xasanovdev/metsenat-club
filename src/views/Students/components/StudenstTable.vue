@@ -1,5 +1,10 @@
 <template>
-  <CTable :titles="columns" :data="students.students" @getUsersData="getStudentsListData">
+  <CTable
+    :titles="columns"
+    :data="students.students"
+    @getUsersData="getStudentsListData"
+    :loading="loading"
+  >
     <template #header>
       <ul class="text-gray-400 gap-2 text-left flex px-8">
         <li
@@ -68,7 +73,7 @@ const getStudentsListData = async (currentPage, count, force) => {
 
   await students.getStudentsList(currentPage, count, force)
 
-  router.push({ query: { page: currentPage, page_size: count } })
+  router.push({ path: `?page=`, query: { page: currentPage, page_size: count } })
 
   loading.value = false
 }
