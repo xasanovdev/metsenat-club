@@ -75,11 +75,11 @@
             </div>
             <div class="flex flex-col items-start gap-2">
               <p class="uppercase text-slate-400 text-sm">Ajratilingan summa</p>
-              <p class="text-zinc-800 font-medium">{{ studentDetails?.given }}</p>
+              <p class="text-zinc-800 font-medium">{{ formatNumber(studentDetails?.given) }}</p>
             </div>
             <div class="flex flex-col items-start gap-2">
               <p class="uppercase text-slate-400 text-sm">Kontrakt miqdori</p>
-              <p class="text-zinc-800 font-medium">{{ studentDetails?.contract }}</p>
+              <p class="text-zinc-800 font-medium">{{ formatNumber(studentDetails?.contract) }}</p>
             </div>
           </div>
         </article>
@@ -128,7 +128,9 @@
               </div>
 
               <li class="mb-2" v-for="(sponsor, index) in sponsorsList" :key="sponsor.id">
-                <div class="flex bg-gray-50 border border-slate-300 rounded-lg px-[14px] py-[22px]">
+                <div
+                  class="flex bg-gray-50 items-center justify-center border border-slate-300 rounded-lg px-[14px] py-[22px]"
+                >
                   <span class="w-1/12 font-bold">{{ index + 1 }}</span>
                   <span class="w-6/12 text-left pl-4">{{ sponsor?.sponsor?.full_name }}</span>
                   <span class="w-4/12 text-center"
@@ -151,6 +153,8 @@
     </div>
 
     <EditStudentModal
+      v-if="studentDetails.contract"
+      :studentDetails="studentDetails"
       @getStudentDetails="getStudentDetails"
       v-show="editStudentModal.modalValue"
       @closeModal="editStudentModal.closeModal"
@@ -175,9 +179,9 @@ import { onMounted, ref } from 'vue'
 
 import CBadge from '@/components/Base/CBadge.vue'
 import CButton from '@/components/Base/CButton.vue'
-import AddSponsorModal from './components/addSponsorModal.vue'
 import EditSponsorModal from './components/EditSponsorModal.vue'
 import EditStudentModal from './components/EditStudentModal.vue'
+import AddSponsorModal from './components/AddSponsorModal.vue'
 
 import { useModal } from '@/composables/useModal'
 
@@ -216,11 +220,12 @@ const addSponsorModal = modal()
 const getStudentDetails = async () => {
   loading.value = true
 
-  await students.getStudentDetails(studentDetailsId.value)
+  studentDetails.value = await students.getStudentDetails(studentDetailsId.value)
   await students.getStudentSponsors(studentDetailsId.value)
 
   sponsorsList.value = students.students.sponsors
-  studentDetails.value = students.students.details
+
+  console.log(studentDetails.value)
 
   loading.value = false
 }

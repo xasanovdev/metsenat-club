@@ -15,7 +15,7 @@
             type="text"
             placeholder="Ismingizni kiriting..."
             :validation="$v.username.$error"
-            validationText="Username"
+            validationText="Ism va Familyangizni"
             v-model="credentials.username"
           />
 
@@ -25,7 +25,7 @@
             id="password"
             type="password"
             placeholder="Parolingizni kiriting..."
-            validationText="Password"
+            validationText="Parolingizni"
             :validation="$v.password.$error"
             v-model="credentials.password"
           />

@@ -9,7 +9,7 @@
             id="full_name"
             type="text"
             placeholder="Ism familyangizni kiritng..."
-            validationText="Fullname"
+            validationText="Ism va Familyangizni"
             :validation="$v.full_name.$error"
             v-model="studentData.full_name"
           />
@@ -18,7 +18,7 @@
             label="Telefon raqam"
             id="phone"
             placeholder="Telefon raqamingizni kiritng..."
-            validationText="Phone"
+            validationText="Telefon raqamingizni"
             :validation="$v.phone.$error"
             v-model="studentData.phone"
           />
@@ -29,6 +29,7 @@
               <CDropdown
                 v-model="studentData.institute.name"
                 property="name"
+                placeholder="Institutingizni kiriting."
                 :validation="$v.institute.$error"
                 :options="instituteList"
               />
@@ -39,7 +40,7 @@
             label="Kontrakt summa"
             id="contract"
             placeholder="Kontrakt summangizni kiritng..."
-            validationText="Contract"
+            validationText="Kontrakt summangizni"
             :validation="$v.contract.$error"
             v-model="studentData.contract"
           />
@@ -49,7 +50,8 @@
     <template #footer>
       <CButton @click="updateStudent" variant="secondary" text="Natijalarni ko‘rish">
         <span class="flex items-center justify-center gap-[10px]">
-          Natijalarni ko‘ris
+          Natijalarni ko‘rish
+
           <img src="/save.svg" alt="save icon" />
         </span>
       </CButton>
@@ -70,10 +72,13 @@ import { useDataStore } from '@/stores'
 
 import useVuelidate from '@vuelidate/core'
 import { required, maxValue } from '@vuelidate/validators'
+import { useToast } from 'vue-toastification'
+
+const { studentDetails } = defineProps(['studentDetails'])
+
+const studentData = ref({ ...studentDetails })
 
 const emit = defineEmits(['getStudentDetails', 'closeModal'])
-
-const studentData = ref([])
 
 const students = useStudents()
 
@@ -81,12 +86,12 @@ const store = useDataStore()
 
 const instituteList = ref([])
 
+const toast = useToast()
+
 onMounted(async () => {
   await store.fetchInstituteList()
 
   instituteList.value = store.instituteList
-
-  studentData.value = { ...students?.students?.details }
 })
 
 const rules = {
@@ -117,5 +122,12 @@ const updateStudent = async () => {
 
   emit('getStudentDetails')
   emit('closeModal')
+
+  toast.success(
+    `${studentData.value.full_name.toUpperCase()} ismli talaba muvvaffaqiyatli yangilandi.`,
+    500
+  )
+
+  studentData.value = {}
 }
 </script>

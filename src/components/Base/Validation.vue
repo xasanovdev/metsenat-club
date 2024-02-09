@@ -1,5 +1,5 @@
 <template>
-  <p v-if="validation" class="text-red-500">{{ validationText }} is required.</p>
+  <p v-if="validation" class="text-red-500">{{ validationText }} to'g'ri kiriting.</p>
 </template>
 
 <script setup>

@@ -15,14 +15,14 @@
       @submit.prevent="createNewStudent"
       class="max-w-[793px] w-full bg-white p-7 mx-auto rounded-xl"
     >
-      <div class="grid grid-cols-2 gap-x-7 gap-y-5">
+      <div class="grid md:grid-cols-2 gap-x-7 gap-y-5">
         <FormGroup
           label="F.I.Sh. (Familiya Ism Sharif)"
           id="full_name"
           type="text"
           placeholder="Ismingizni kiriting..."
           :validation="$v.full_name.$error"
-          validationText="Fullname"
+          validationText="Ism va Familyangizni"
           v-model="user.full_name"
         />
 
@@ -32,21 +32,22 @@
           type="text"
           placeholder="Telelefon raqamingizni kiriting..."
           :validation="$v.phone.$error"
-          validationText="Phone"
+          validationText="Telefon raqamingizni"
           v-model="user.phone"
         />
 
-        <div class="col-span-2 flex flex-col justify-between gap-2 w-full">
+        <div class="md:col-span-2 flex flex-col justify-between gap-2 w-full">
           <label class="flex flex-col gap-2">
             <span class="cursor-pointer text-sm uppercase font-semibold text-gray-600">OTM</span>
             <CDropdown
               :validation="$v.institute.$error"
               v-model="user.institute"
+              placeholder="Institutingizni kiriting."
               property="name"
               :options="instituteList"
             />
           </label>
-          <Validation :validation="$v.institute.$error" validationText="Institute" />
+          <Validation :validation="$v.institute.$error" validationText="Institutingizni" />
         </div>
 
         <div class="flex flex-col justify-between gap-2 w-full">
@@ -57,12 +58,13 @@
             <CDropdown
               :validation="$v.type.$error"
               class="w-full"
+              placeholder="Institut darajangizni kiriting."
               v-model="user.type"
               property="name"
               :options="optionsType"
             />
           </label>
-          <Validation :validation="$v.type.$error" validationText="Type of institute" />
+          <Validation :validation="$v.type.$error" validationText="Institut darajangizni" />
         </div>
         <FormGroup
           label="Kontrakt summa"
@@ -70,7 +72,7 @@
           type="text"
           placeholder="Kontrak summangizni kiriting..."
           :validation="$v.contract.$error"
-          validationText="Contract"
+          validationText="Telefon raqamingizni"
           v-model="user.contract"
         />
       </div>
@@ -99,6 +101,7 @@ import { optionsType } from '@/utils'
 
 import useVuelidate from '@vuelidate/core'
 import { required, maxLength, minLength } from '@vuelidate/validators'
+import { useToast } from 'vue-toastification'
 
 const store = useDataStore()
 const students = useStudents()
@@ -123,6 +126,8 @@ const rules = {
 
 const $v = useVuelidate(rules, user)
 
+const toast = useToast()
+
 onMounted(async () => {
   await store.fetchInstituteList()
   instituteList.value = store.instituteList
@@ -142,6 +147,8 @@ const createNewStudent = async () => {
     type: user.value.type?.name === 'Bakalavr' ? 1 : 2,
     contract: user.value.contract
   })
+
+  toast.success(`${user.value.full_name} ismli talaba tizimga muvaffaqiyatli qo'shildi`, 1000)
 
   user.value = {
     full_name: '',

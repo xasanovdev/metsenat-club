@@ -8,6 +8,7 @@
         @click="toggleDropdown"
         @focus="closeDropdown()"
         :value="searchText"
+        :placeholder="placeholder"
         @input="updateSearchText"
         class="w-full border border-indigo-200 duration-200 focus:border-blue-700 justify-between bg-gray-50 text-left text-gray-800 rounded-md focus:outline-none flex items-center"
         :class="[
@@ -70,6 +71,10 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 const props = defineProps({
   modelValue: {
+    type: String,
+    default: ''
+  },
+  placeholder: {
     type: String,
     default: ''
   },

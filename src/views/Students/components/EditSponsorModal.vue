@@ -1,5 +1,5 @@
 <template>
-  <CModal @close="setClose">
+  <CModal @closeModal="emit('closeModal')">
     <template #title>Homiylarni tahrirlash</template>
     <template #body>
       <form class="max-w-[793px] w-full bg-white rounded-xl">
@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 
 import CButton from '@/components/Base/CButton.vue'
 import CInput from '@/components/Base/CInput.vue'
@@ -53,6 +53,7 @@ import CModal from '@/components/Base/CModal.vue'
 import { useStudents } from '@/stores/students'
 
 import { useRoute } from 'vue-router'
+import { useToast } from 'vue-toastification'
 
 const students = useStudents()
 
@@ -65,17 +66,13 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['getStudentDetails'])
+const emit = defineEmits(['getStudentDetails', 'closeModal'])
 
 const editSponsorData = computed(() => props?.studentSponsorData)
 
-const close = ref(null)
-
-const setClose = (func) => {
-  close.value = func
-}
-
 const route = useRoute()
+
+const toast = useToast()
 
 const saveSponsor = async () => {
   await students.updateStudentSponsor({
@@ -85,15 +82,21 @@ const saveSponsor = async () => {
     summa: editSponsorData.value.summa
   })
   if (students.updateSponsorError.length === 0) {
-    close.value()
     emit('getStudentDetails')
+    emit('closeModal')
+
+    toast.success(
+      `${editSponsorData.value.sponsor.full_name} ismli hamkor muvaffaqiyatli yangilandi.`
+    )
   }
 }
 
 const deleteSponsor = async () => {
   await students.deleteSponsor(editSponsorData.value?.id)
 
-  close.value()
+  toast.error(`${editSponsorData.value.sponsor.full_name} ismli hamkor muvaffaqiyatli o'chirildi.`)
+
   emit('getStudentDetails')
+  emit('closeModal')
 }
 </script>

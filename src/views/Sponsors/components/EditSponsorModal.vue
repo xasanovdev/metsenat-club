@@ -28,7 +28,7 @@
             type="text"
             placeholder="Ism familyangizni kiriting..."
             :validation="$v.full_name.$error"
-            validationText="Full name"
+            validationText="Ism va Familyangizni"
             v-model="sponsor.full_name"
           />
 
@@ -38,7 +38,7 @@
             type="text"
             placeholder="Telelefon raqamingizni kiriting..."
             :validation="$v.phone.$error"
-            validationText="Phone"
+            validationText="Telefon raqamingizni"
             v-model="sponsor.phone"
           />
 
@@ -49,6 +49,7 @@
               <CDropdown
                 v-model="sponsor.get_status_display"
                 property="name"
+                placeholder="Shaxsni holatini kiriting."
                 :options="optionsStatus"
               />
             </label>
@@ -61,7 +62,7 @@
             type="text"
             placeholder="Firmangizni kiriting..."
             :validation="$v.firm.$error"
-            validationText="Firm"
+            validationText="Firmangizni"
             v-model="sponsor.firm"
           />
         </div>
@@ -97,6 +98,8 @@ import { required, minLength, maxLength } from '@vuelidate/validators'
 
 import { optionsStatus } from '@/utils'
 
+import { useToast } from 'vue-toastification'
+
 const props = defineProps('data')
 
 const emit = defineEmits(['getSponsorDetails', 'closeModal'])
@@ -104,6 +107,8 @@ const emit = defineEmits(['getSponsorDetails', 'closeModal'])
 const sponsors = useSponsors()
 
 const isLegal = ref(sponsors.sponsors?.details?.is_legal)
+
+const toast = useToast()
 
 const sponsor = ref({
   full_name: sponsors?.sponsors.details?.full_name,
@@ -134,7 +139,8 @@ const updateSponsor = async () => {
     emit('getSponsorDetails')
     emit('closeModal')
 
-    console.log(response)
+    toast.success(`${sponsor.value.full_name} ismli hamkor muvaffaqiyatli yangilandi`)
+
   } catch (error) {
     console.log(error)
   }

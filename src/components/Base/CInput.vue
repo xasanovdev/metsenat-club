@@ -4,6 +4,7 @@
     :value="modelValue"
     @input="updateModelValue"
     v-maska
+    :type="type"
     :data-maska="title === 'Phone' ? '+998 (##) ###-##-##' : ''"
     :id="id"
     :placeholder="placeholder"
@@ -20,7 +21,7 @@ let { modelValue, type, placeholder, id } = defineProps({
   modelValue: { type: String, default: '' },
   type: {
     type: String,
-    default: ''
+    default: 'text'
   },
   id: {
     type: String,

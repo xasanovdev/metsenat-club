@@ -8,7 +8,7 @@ import { defineStore } from 'pinia'
 
 import { useToast } from 'vue-toastification'
 
-const { get, post, put, patch } = useFetch()
+const { get, post, put } = useFetch()
 
 export const useStudents = defineStore('students', () => {
   const toast = useToast()
@@ -18,7 +18,6 @@ export const useStudents = defineStore('students', () => {
     currentPage: 1,
     count: 10,
     dataCount: 0,
-    details: {},
     sponsors: []
   })
 
@@ -56,7 +55,7 @@ export const useStudents = defineStore('students', () => {
     try {
       const details = await get(`student-detail/${pageId}`)
 
-      students.details = details
+      return details
     } catch (error) {
       toast.error(`${error}`, {
         autoClose: 1000

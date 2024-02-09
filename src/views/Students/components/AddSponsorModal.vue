@@ -8,20 +8,20 @@
           <CDropdown
             :validation="$v.sponsor.$error"
             v-model="filterSponsor.sponsor"
+            placeholder="Homiyni kiriting."
             property="full_name"
             :options="sponsorsData"
           />
         </label>
-        <Validation :validation="$v.sponsor.$error" validationText="Institute" />
+        <Validation :validation="$v.sponsor.$error" validationText="Institut darajangizni" />
       </div>
 
       <FormGroup
         class="mt-7"
         label="Ajratilingan summa"
         id="given"
-        type="number"
         placeholder="Ajratilingan summangizni kiritng..."
-        validationText="Given amount of money"
+        validationText="Berilgan kontrakt summangizni"
         :validation="$v.summa.$error"
         v-model="filterSponsor.summa"
       />
@@ -62,6 +62,7 @@ import useVuelidate from '@vuelidate/core'
 
 import { useRoute } from 'vue-router'
 import { useStudents } from '@/stores/students'
+import { useToast } from 'vue-toastification'
 
 const route = useRoute()
 
@@ -77,6 +78,8 @@ const sponsors = useSponsors()
 const students = useStudents()
 
 const sponsorsData = ref([])
+
+const toast = useToast()
 
 const getSponsorId = () => {
   const sponsor = sponsorsData.value?.find((item) => {
@@ -109,6 +112,8 @@ const addSponsor = async () => {
   })
 
   if (students.addNewSponsorError.length === 0) {
+    toast.success(`${filterSponsor.value.sponsor} ismli hamkor muvaffaqiyatli qo'shildi.`)
+
     filterSponsor.value.summa = ''
     filterSponsor.value.sponsor = ''
 

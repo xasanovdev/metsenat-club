@@ -41,7 +41,7 @@ export const useAuthStore = defineStore('auth', () => {
   const logOut = () => {
     clearToken()
 
-    toast.success('You are succesfully logged out.', {
+    toast.error('Siz tizimdan muvaffaqiyatli chiqdingiz.', {
       autoClose: 1000
     })
   }
@@ -57,7 +57,7 @@ export const useAuthStore = defineStore('auth', () => {
         if (data.access && data.refresh) {
           setToken(data)
 
-          toast.success('You are succesfully logged in.', {
+          toast.success('Siz tizimga muvaffaqiyatli kirdingiz.', {
             autoClose: 1000
           })
         }

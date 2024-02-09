@@ -13,30 +13,15 @@
       <StudenstTable />
     </div>
   </div>
-
-  <!-- <FilterModal
-    v-show="filterModal.modalValue"
-    :modalValue="filterModal.modalValue"
-    @closeModalOverlay="filterModal.closeModalOverlay"
-    @closeModal="filterModal.closeModal"
-  /> -->
 </template>
 <script setup>
-import { reactive } from 'vue'
-
 import CButton from '@/components/Base/CButton.vue'
 import StudenstTable from './components/StudenstTable.vue'
-import FilterModal from './components/FilterModal.vue'
 
-import { useModal } from '@/composables/useModal'
 import { useRoute } from 'vue-router'
 
 // const route = useRoute()
 // const params = reactive({
 //   currentPage: route.params.page ?? 1
 // })
-
-const { modal } = useModal()
-
-const filterModal = modal()
 </script>

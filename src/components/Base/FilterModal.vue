@@ -10,6 +10,7 @@
         <CDropdown
           v-model="filterSponsor.status"
           property="name"
+          placeholder="Shaxsni holatingi kiriting."
           :options="optionsStatus"
         ></CDropdown>
       </div>
