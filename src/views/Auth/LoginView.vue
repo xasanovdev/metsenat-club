@@ -39,7 +39,6 @@
             @verify="recaptchaVerified"
             @expire="recaptchaExpired"
             @fail="recaptchaFailed"
-            @error="recaptchaError"
             ref="vueRecaptcha"
           >
           </vue-recaptcha>
@@ -72,6 +71,7 @@ import FormGroup from '@/components/Base/FormGroup.vue'
 import CButton from '@/components/Base/CButton.vue'
 
 import router from '@/router'
+import { useToast } from 'vue-toastification'
 
 const auth = useAuthStore()
 
@@ -87,16 +87,21 @@ const rules = {
 
 const $v = useVuelidate(rules, credentials)
 
+const toast = useToast()
+
 const handleLogin = async () => {
   const result = await $v.value.$validate()
 
   if (!result) {
     return $v
   }
+  if (localStorage.getItem('_grecaptcha')) {
+    await auth.login(credentials)
 
-  await auth.login(credentials)
-
-  router.push({ name: 'Statistics' })
+    router.push({ name: 'Statistics' })
+  } else {
+    toast.error('Recaptcha muvaffaqiyatsiz boldi', 1000)
+  }
 }
 
 // Event handlers for reCAPTCHA
@@ -110,9 +115,5 @@ const recaptchaExpired = () => {
 
 const recaptchaFailed = () => {
   console.log('reCAPTCHA verification failed')
-}
-
-const recaptchaError = () => {
-  console.error('reCAPTCHA error occurred')
 }
 </script>

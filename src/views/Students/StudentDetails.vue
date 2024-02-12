@@ -94,7 +94,7 @@
           >
             <p class="text-slate-900 text-2xl font-bold">Talabaga homiylar</p>
             <CButton
-              @click="addSponsorModal.openModal"
+              @click="openAddSponsorModal"
               class="sm:max-w-52 whitespace-nowrap"
               variant="primary"
             >
@@ -164,7 +164,7 @@
       @closeModal="editStudentModal.closeModal"
     />
 
-    <EditSponsorModal
+    <!-- <EditSponsorModal
       :studentSponsorData="studentSponsorData"
       @getStudentDetails="getStudentDetails"
       v-show="editSponsorModal.modalValue"
@@ -174,6 +174,14 @@
       @getStudentDetails="getStudentDetails"
       v-show="addSponsorModal.modalValue"
       @closeModal="addSponsorModal.closeModal"
+    /> -->
+    <ActionsSponsorModal
+      v-if="studentSponsorData"
+      :isEdit="isEdit"
+      :studentSponsorData="studentSponsorData"
+      @getStudentDetails="getStudentDetails"
+      v-show="actionsSponsorModal.modalValue"
+      @closeModal="actionsSponsorModal.closeModal"
     />
   </template>
 </template>
@@ -183,9 +191,9 @@ import { onMounted, ref } from 'vue'
 
 import CBadge from '@/components/Base/CBadge.vue'
 import CButton from '@/components/Base/CButton.vue'
-import EditSponsorModal from './components/EditSponsorModal.vue'
 import EditStudentModal from './components/EditStudentModal.vue'
-import AddSponsorModal from './components/AddSponsorModal.vue'
+
+import ActionsSponsorModal from './components/ActionsSponsorModal.vue'
 
 import { useModal } from '@/composables/useModal'
 
@@ -206,7 +214,12 @@ const studentSponsorData = ref({})
 
 const getEditSponsorModalData = (sponsor) => {
   studentSponsorData.value = sponsor
-  editSponsorModal.openModal()
+  actionsSponsorModal.openModal()
+  isEdit.value = true
+}
+const openAddSponsorModal = () => {
+  actionsSponsorModal.openModal()
+  isEdit.value = false
 }
 
 const loading = ref(false)
@@ -215,11 +228,11 @@ const students = useStudents()
 
 const { modal } = useModal()
 
-const editSponsorModal = modal()
-
 const editStudentModal = modal()
 
-const addSponsorModal = modal()
+const actionsSponsorModal = modal()
+
+const isEdit = ref(false)
 
 const getStudentDetails = async () => {
   loading.value = true

@@ -83,14 +83,15 @@ export const useStudents = defineStore('students', () => {
       )
   }
 
-  const addNewSponsorError = ref([])
+  const actionsSponsorError = ref([])
   const addNewSponsor = async (newSponsorData) => {
+    actionsSponsorError.value = ''
     await post('sponsor-summa-create/', newSponsorData)
       .then((response) => {
         if (!Number(response.summa)) {
-          addNewSponsorError.value = response.summa
+          actionsSponsorError.value = response.summa
         } else {
-          addNewSponsorError.value = ''
+          actionsSponsorError.value = ''
         }
       })
       .catch((error) =>
@@ -100,17 +101,16 @@ export const useStudents = defineStore('students', () => {
       )
   }
 
-  const updateSponsorError = ref('')
   const updateStudentSponsor = async (sponsorData) => {
-    updateSponsorError.value = ''
+    actionsSponsorError.value = ''
     await put(`sponsor-summa-update/${sponsorData?.id}/`, sponsorData)
       .then((response) => {
         if (Array.isArray(response.summa)) {
-          updateSponsorError.value = response.summa[0]
+          actionsSponsorError.value = response.summa[0]
         } else if (!Number(response.summa)) {
-          updateSponsorError.value = response.summa
+          actionsSponsorError.value = response.summa
         } else {
-          updateSponsorError.value = ''
+          actionsSponsorError.value = ''
         }
       })
       .catch((error) =>
@@ -144,9 +144,8 @@ export const useStudents = defineStore('students', () => {
   return {
     students,
     deleteSponsor,
-    updateSponsorError,
+    actionsSponsorError,
     updateStudentSponsor,
-    addNewSponsorError,
     addNewSponsor,
     getStudentDetails,
     updateStudentDetails,

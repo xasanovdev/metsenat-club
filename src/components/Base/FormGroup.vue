@@ -7,6 +7,7 @@
     <CInput
       :modelValue="modelValue"
       :id="id"
+      :type="type"
       :placeholder="placeholder"
       :isInValid="validation"
       :title="validationText"
